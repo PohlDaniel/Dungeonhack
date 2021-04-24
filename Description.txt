@@ -47,7 +47,7 @@ OIS 1.3 https://sourceforge.net/projects/wgois/files/Source%20Release/1.3/
 	-> use OIS_ReleaseDLL configuration
 	
 Install the needed Sdk's
-	DirectX SDK summer 2004 https://archive.org/details/dxsdk_sum2004
+	DirectX SDK summer 2004 https://archive.org/details/dxsdk_sum2004 (use 7zip to unpack)
 	CG 1.5 https://www.nvidia.com/en-us/drivers/cg-toolkit-15
 
 Copy togehter the Ogre 1.4.9 Dependencies create a Folder Dependencies add empty Folder include and lib.
