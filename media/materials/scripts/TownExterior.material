@@ -1,0 +1,108 @@
+material TownExterior/SOLID/TEX/Red_brick_512x512.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture Red_brick.png
+            }
+        }
+    }
+}
+
+material TownExterior/SOLID/TEX/Red_brick.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture Red_brick.png
+            }
+        }
+    }
+}
+
+
+material TownExterior/SOLID/TEX/house_exterior_wall1.jpg
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture house_exterior_wall1.jpg
+            }
+        }
+    }
+}
+
+material TownExterior/SOLID/TEX/wood-6.jpg
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture wood-6.jpg
+            }
+        }
+    }
+}
+
+material TownExterior/SOLID/TEX/Thick_planks_256x512.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture Thick_planks.png
+            }
+        }
+    }
+}
+
+material TownExterior/SOLID/TEX/Uneven_planks_512x1024.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture wood_planks.jpg
+            }
+        }
+    }
+}
+
+material HouseWindow1
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture HouseWindow1.jpg
+            }
+        }
+
+        pass
+        {
+            scene_blend alpha_blend
+            lighting off
+            texture_unit
+            {
+                texture HouseWindow1_glow.png
+            }
+        }
+    }
+}

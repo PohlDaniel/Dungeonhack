@@ -1,0 +1,732 @@
+<scene formatVersion="0.2.0">
+  <nodes>
+    <node name="Marker.007">
+      <position x="11.219512" y="-9.338991" z="0.745574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.723174" qw="0.690665"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.007" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Enter"/>
+        <property type="INT" name="Num" data="2"/>
+      </userData>
+    </node>
+    <node name="Support1">
+      <position x="-1.350000" y="-1.850000" z="0.050000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="0.772462"/>
+      <entity name="Support1" meshFile="Support1.mesh"/>
+    </node>
+    <node name="Cube.173">
+      <position x="14.638739" y="-18.876106" z="-0.285553"/>
+      <rotation qx="0.707106" qy="0.000000" qz="0.000000" qw="0.707106"/>
+      <scale x="0.441449" y="0.441449" z="0.441449"/>
+      <entity name="Cube.173" meshFile="shrub1.mesh"/>
+    </node>
+    <node name="Cube.172">
+      <position x="17.888714" y="-19.681477" z="-0.285553"/>
+      <rotation qx="0.707106" qy="0.000000" qz="0.000000" qw="0.707106"/>
+      <scale x="0.474832" y="0.474832" z="0.474832"/>
+      <entity name="Cube.172" meshFile="shrub1.mesh"/>
+    </node>
+    <node name="fence1.026">
+      <position x="12.999999" y="-2.800000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.026" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.027">
+      <position x="14.599999" y="-2.800000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.027" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.024">
+      <position x="12.200000" y="-5.200000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.024" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.025">
+      <position x="12.200000" y="-6.800000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.025" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.022">
+      <position x="-1.300000" y="-23.000000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.022" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.023">
+      <position x="12.200000" y="-3.600000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.023" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.020">
+      <position x="-4.500000" y="-23.000000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.020" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.021">
+      <position x="-2.900000" y="-23.000000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.021" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.028">
+      <position x="17.799999" y="-2.800000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.028" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.029">
+      <position x="-6.100000" y="-23.000000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.029" meshFile="fence1.mesh"/>
+    </node>
+    <node name="Door.002">
+      <position x="-1.500000" y="-10.000000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Door.002" meshFile="D_Door1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Entrance"/>
+        <property type="INT" name="Interior" data="0"/>
+        <property type="INT" name="EnterNum" data="1"/>
+      </userData>
+    </node>
+    <node name="Door.007">
+      <position x="11.732139" y="-9.364265" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Door.007" meshFile="D_Door1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Entrance"/>
+        <property type="INT" name="Interior" data="0"/>
+        <property type="INT" name="EnterNum" data="2"/>
+      </userData>
+    </node>
+    <node name="Tree.001">
+      <position x="16.380875" y="-18.622419" z="0.014447"/>
+      <rotation qx="0.707106" qy="0.000000" qz="0.000000" qw="0.707106"/>
+      <scale x="0.72" y="0.72" z="0.72"/>
+      <entity name="Tree.001" meshFile="TreeLarge1.mesh"/>
+    </node>
+    <node name="Cube.149">
+      <position x="-4.415611" y="2.241904" z="-0.285553"/>
+      <rotation qx="0.707106" qy="0.000000" qz="0.000000" qw="0.707106"/>
+      <scale x="0.540000" y="0.540000" z="0.540000"/>
+      <entity name="Cube.149" meshFile="shrub1.mesh"/>
+    </node>
+    <node name="Marker.006">
+      <position x="-1.474725" y="-9.487373" z="0.745574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.999980" qw="0.006290"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.006" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Enter"/>
+        <property type="INT" name="Num" data="1"/>
+      </userData>
+    </node>
+    <node name="Marker.005">
+      <position x="4.429645" y="-61.000853" z="5.745574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.978379" qw="0.206820"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.005" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Enter"/>
+        <property type="INT" name="Num" data="3"/>
+      </userData>
+    </node>
+    <node name="WindowDouble1.014">
+      <position x="17.732140" y="-13.864265" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="WindowDouble1.014" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="WindowDouble1.015">
+      <position x="19.732140" y="-8.864265" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="WindowDouble1.015" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="WindowDouble1.016">
+      <position x="19.732140" y="-12.864265" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="WindowDouble1.016" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="WindowDouble1.017">
+      <position x="5.000000" y="-2.000000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="WindowDouble1.017" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="WindowDouble1.010">
+      <position x="13.732139" y="-7.864265" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="WindowDouble1.010" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="WindowDouble1.011">
+      <position x="11.732139" y="-10.964266" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="WindowDouble1.011" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="WindowDouble1.012">
+      <position x="11.732139" y="-12.864265" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="WindowDouble1.012" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="WindowDouble1.013">
+      <position x="13.732139" y="-13.864265" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="WindowDouble1.013" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="fence1end.001">
+      <position x="-0.500000" y="-18.200001" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1end.001" meshFile="fence1end.mesh"/>
+    </node>
+    <node name="fence1end.003">
+      <position x="18.600000" y="-2.800000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1end.003" meshFile="fence1end.mesh"/>
+    </node>
+    <node name="Marker.008">
+      <position x="-0.950547" y="-1.484550" z="0.745574"/>
+      <rotation qx="0.000815" qy="1.000000" qz="0.000054" qw="0.000000"/>
+      <scale x="1.341082" y="1.341082" z="1.341082"/>
+      <entity name="Marker.008" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="barrels1"/>
+      </userData>
+    </node>
+    <node name="Marker.019">
+      <position x="2.428975" y="-2.111642" z="1.145574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.000000" qw="1.000000"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.019" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Fire"/>
+        <property type="FLOAT" name="LightOffset" data="28.0"/>
+      </userData>
+    </node>
+    <node name="fence1end">
+      <position x="7.400000" y="6.199999" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1end" meshFile="fence1end.mesh"/>
+    </node>
+    <node name="Cube.022">
+      <position x="2.000000" y="-1.000000" z="3.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.022" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="Door">
+      <position x="7.000000" y="-2.100000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Door" meshFile="D_Door1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Entrance"/>
+        <property type="INT" name="Interior" data="0"/>
+        <property type="INT" name="EnterNum" data="0"/>
+      </userData>
+    </node>
+    <node name="Inn1">
+      <position x="2.000000" y="0.000000" z="2.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="2.000000" y="2.000000" z="2.000000"/>
+      <entity name="Inn1" meshFile="Inn1.mesh"/>
+    </node>
+    <node name="fence1.035">
+      <position x="18.600000" y="-5.199999" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.035" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.034">
+      <position x="18.600000" y="-3.600000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.034" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.031">
+      <position x="-6.900000" y="-22.200003" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.031" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.030">
+      <position x="-6.900000" y="-20.600002" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.030" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.033">
+      <position x="16.199999" y="-2.800000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.033" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.032">
+      <position x="-6.900000" y="-19.000002" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.032" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1">
+      <position x="-3.800000" y="-2.600000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1" meshFile="fence1.mesh"/>
+    </node>
+    <node name="Cube.026">
+      <position x="8.000000" y="-1.000000" z="3.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.026" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="House_Small">
+      <position x="-6.000000" y="-16.000000" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="2.000000" y="2.000000" z="2.000000"/>
+      <entity name="House_Small" meshFile="House_Small.mesh"/>
+    </node>
+    <node name="Cube.156">
+      <position x="-6.705688" y="-11.054490" z="-0.285553"/>
+      <rotation qx="0.707106" qy="0.000000" qz="0.000000" qw="0.707106"/>
+      <scale x="0.540000" y="0.540000" z="0.540000"/>
+      <entity name="Cube.156" meshFile="shrub1.mesh"/>
+    </node>
+    <node name="Cube.155">
+      <position x="11.317513" y="-5.339732" z="-0.285553"/>
+      <rotation qx="0.707106" qy="0.000000" qz="0.000000" qw="0.707106"/>
+      <scale x="0.540000" y="0.540000" z="0.540000"/>
+      <entity name="Cube.155" meshFile="shrub1.mesh"/>
+    </node>
+    <node name="Cube.154">
+      <position x="11.219825" y="-6.805046" z="-0.285553"/>
+      <rotation qx="0.707106" qy="0.000000" qz="0.000000" qw="0.707106"/>
+      <scale x="0.540000" y="0.540000" z="0.540000"/>
+      <entity name="Cube.154" meshFile="shrub1.mesh"/>
+    </node>
+    <node name="Cube.153">
+      <position x="0.786439" y="-14.648121" z="-0.285553"/>
+      <rotation qx="0.707106" qy="0.000000" qz="0.000000" qw="0.707106"/>
+      <scale x="0.557374" y="0.557374" z="0.557374"/>
+      <entity name="Cube.153" meshFile="shrub1.mesh"/>
+    </node>
+    <node name="Cube.152">
+      <position x="0.786439" y="-13.475870" z="-0.285553"/>
+      <rotation qx="0.707106" qy="0.000000" qz="0.000000" qw="0.707106"/>
+      <scale x="0.540000" y="0.540000" z="0.540000"/>
+      <entity name="Cube.152" meshFile="shrub1.mesh"/>
+    </node>
+    <node name="Cube.151">
+      <position x="-4.551291" y="-2.506796" z="-0.285553"/>
+      <rotation qx="0.707106" qy="0.000000" qz="0.000000" qw="0.707106"/>
+      <scale x="0.540000" y="0.540000" z="0.540000"/>
+      <entity name="Cube.151" meshFile="shrub1.mesh"/>
+    </node>
+    <node name="Cube.150">
+      <position x="-4.415618" y="0.885137" z="-0.285553"/>
+      <rotation qx="0.707106" qy="0.000000" qz="0.000000" qw="0.707106"/>
+      <scale x="0.508115" y="0.508115" z="0.508115"/>
+      <entity name="Cube.150" meshFile="shrub1.mesh"/>
+    </node>
+    <node name="Cube.017">
+      <position x="5.000000" y="6.000000" z="3.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.017" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="Cube.014">
+      <position x="8.000000" y="-1.000000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.014" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="Cube.012">
+      <position x="3.000000" y="6.000000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.012" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="Cube.159">
+      <position x="8.269014" y="7.886323" z="-0.285553"/>
+      <rotation qx="0.707106" qy="0.000000" qz="0.000000" qw="0.707106"/>
+      <scale x="0.540000" y="0.540000" z="0.540000"/>
+      <entity name="Cube.159" meshFile="shrub1.mesh"/>
+    </node>
+    <node name="Cube.158">
+      <position x="8.269014" y="8.903808" z="-0.285553"/>
+      <rotation qx="0.707106" qy="0.000000" qz="0.000000" qw="0.707106"/>
+      <scale x="0.540000" y="0.540000" z="0.540000"/>
+      <entity name="Cube.158" meshFile="shrub1.mesh"/>
+    </node>
+    <node name="WindowDouble1">
+      <position x="1.000000" y="-2.000000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="WindowDouble1" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="Cube.050">
+      <position x="-1.499999" y="-9.950000" z="-3.480000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.050" meshFile="DoorFrame.mesh"/>
+    </node>
+    <node name="Cube.018">
+      <position x="16.018568" y="-20.414276" z="-0.285553"/>
+      <rotation qx="0.707106" qy="0.000000" qz="0.000000" qw="0.707106"/>
+      <scale x="0.557374" y="0.557374" z="0.557374"/>
+      <entity name="Cube.018" meshFile="shrub1.mesh"/>
+    </node>
+    <node name="Marker.020">
+      <position x="-0.446546" y="-0.815216" z="0.745574"/>
+      <rotation qx="0.000778" qy="1.000000" qz="0.000054" qw="0.000000"/>
+      <scale x="1.223455" y="1.223454" z="1.223455"/>
+      <entity name="Marker.020" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="barrels1"/>
+      </userData>
+    </node>
+    <node name="Marker.021">
+      <position x="-1.074812" y="-0.319217" z="0.745574"/>
+      <rotation qx="0.000778" qy="1.000000" qz="0.000054" qw="0.000000"/>
+      <scale x="1.219452" y="1.219451" z="1.219452"/>
+      <entity name="Marker.021" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="barrels1"/>
+      </userData>
+    </node>
+    <node name="Cube.010">
+      <position x="-0.050000" y="1.850000" z="0.050000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="0.949988"/>
+      <entity name="Cube.010" meshFile="Support1.mesh"/>
+    </node>
+    <node name="fence1.008">
+      <position x="-1.400000" y="9.400002" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.008" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.009">
+      <position x="0.200000" y="9.400002" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.009" meshFile="fence1.mesh"/>
+    </node>
+    <node name="Marker">
+      <position x="6.991390" y="-2.396312" z="0.745574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Enter"/>
+        <property type="INT" name="Num" data="0"/>
+      </userData>
+    </node>
+    <node name="fence1.001">
+      <position x="-3.800000" y="-1.000000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.001" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.002">
+      <position x="-3.800000" y="0.600000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.002" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.003">
+      <position x="-3.800000" y="2.200000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.003" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.004">
+      <position x="-3.800000" y="3.800000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.004" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.005">
+      <position x="-3.800000" y="5.400000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.005" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.006">
+      <position x="-3.800000" y="7.000000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.006" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.007">
+      <position x="-3.000000" y="9.400002" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.007" meshFile="fence1.mesh"/>
+    </node>
+    <node name="Torch.005">
+      <position x="2.430314" y="-2.001122" z="1.015322"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.015552" y="0.015552" z="0.015552"/>
+      <entity name="Torch.005" meshFile="WallTorch1_small.mesh"/>
+    </node>
+    <node name="sign_002">
+      <position x="6.000000" y="-2.300000" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.702000" y="0.702000" z="0.702000"/>
+      <entity name="sign_002" meshFile="sign_002.mesh"/>
+    </node>
+    <node name="Cube.001">
+      <position x="-2.500000" y="0.000000" z="2.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="2.000000" y="2.000000" z="2.000000"/>
+      <entity name="Cube.001" meshFile="Roof1.mesh"/>
+    </node>
+    <node name="Cube.005">
+      <position x="-0.050000" y="-1.850000" z="0.050000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="0.949988"/>
+      <entity name="Cube.005" meshFile="Support1.mesh"/>
+    </node>
+    <node name="Cube.009">
+      <position x="-1.350000" y="1.850000" z="0.050000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="0.772462"/>
+      <entity name="Cube.009" meshFile="Support1.mesh"/>
+    </node>
+    <node name="Cube.094">
+      <position x="11.682138" y="-9.364265" z="-3.480000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.094" meshFile="DoorFrame.mesh"/>
+    </node>
+    <node name="Cube.095">
+      <position x="17.732140" y="-18.364265" z="-0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="2.000000" y="2.000000" z="2.000000"/>
+      <entity name="Cube.095" meshFile="Roof1.mesh"/>
+    </node>
+    <node name="House_Small.001">
+      <position x="17.732140" y="-13.864265" z="-0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="2.000000" y="2.000000" z="2.000000"/>
+      <entity name="House_Small.001" meshFile="House_Small.mesh"/>
+    </node>
+    <node name="Chimney.001">
+      <position x="-1.200000" y="-18.199999" z="2.426453"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Chimney.001" meshFile="Chimney1.mesh"/>
+    </node>
+    <node name="Chimney.002">
+      <position x="15.732139" y="-7.657271" z="2.238420"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Chimney.002" meshFile="Chimney1.mesh"/>
+    </node>
+    <node name="Cube.049">
+      <position x="-10.500000" y="-16.000000" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="2.000000" y="2.000000" z="2.000000"/>
+      <entity name="Cube.049" meshFile="Roof1.mesh"/>
+    </node>
+    <node name="Cube.047">
+      <position x="7.000001" y="-2.050000" z="-3.480000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.047" meshFile="DoorFrame.mesh"/>
+    </node>
+    <node name="WindowDouble1.009">
+      <position x="17.732140" y="-7.864265" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="WindowDouble1.009" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="WindowDouble1.008">
+      <position x="0.000000" y="-16.000000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="WindowDouble1.008" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="Plane.030">
+      <position x="3.741235" y="-2.095240" z="1.074210"/>
+      <rotation qx="0.001178" qy="0.707106" qz="0.707106" qw="0.001178"/>
+      <scale x="1.519253" y="1.519253" z="1.519252"/>
+      <entity name="Plane.030" meshFile="IvyDecal.mesh"/>
+    </node>
+    <node name="Plane.031">
+      <position x="8.097164" y="5.285954" z="1.456031"/>
+      <rotation qx="0.499167" qy="-0.500831" qz="-0.500831" qw="0.499168"/>
+      <scale x="1.966118" y="1.966118" z="1.966118"/>
+      <entity name="Plane.031" meshFile="IvyDecal.mesh"/>
+    </node>
+    <node name="Plane.033">
+      <position x="-1.189241" y="-18.461149" z="1.018524"/>
+      <rotation qx="0.000000" qy="0.707107" qz="0.707107" qw="0.000000"/>
+      <scale x="1.109710" y="1.109710" z="1.109710"/>
+      <entity name="Plane.033" meshFile="IvyDecal.mesh"/>
+    </node>
+    <node name="WindowDouble1.003">
+      <position x="-6.000000" y="-14.000000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="WindowDouble1.003" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="WindowDouble1.002">
+      <position x="-3.000000" y="-18.000000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="WindowDouble1.002" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="WindowDouble1.001">
+      <position x="-5.000000" y="-18.000000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="WindowDouble1.001" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="WindowDouble1.007">
+      <position x="0.000000" y="-12.000000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="WindowDouble1.007" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="WindowDouble1.006">
+      <position x="-3.100000" y="-10.000000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="WindowDouble1.006" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="WindowDouble1.005">
+      <position x="-5.000000" y="-10.000000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="WindowDouble1.005" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="WindowDouble1.004">
+      <position x="-6.000000" y="-12.000000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="WindowDouble1.004" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="Chimney">
+      <position x="-0.197511" y="3.070041" z="1.914436"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Chimney" meshFile="Chimney1.mesh"/>
+    </node>
+    <node name="Cube.023">
+      <position x="2.000000" y="3.000000" z="3.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.023" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="fence1.019">
+      <position x="-0.500000" y="-22.200001" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.019" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.018">
+      <position x="-0.500000" y="-20.600000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.018" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.017">
+      <position x="-0.500000" y="-19.000000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.017" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.016">
+      <position x="6.600000" y="9.400002" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.016" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.015">
+      <position x="7.400000" y="8.600000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.015" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.014">
+      <position x="-3.800000" y="8.600000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.014" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.013">
+      <position x="7.400000" y="7.000000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.013" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.012">
+      <position x="5.000000" y="9.400002" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.012" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.011">
+      <position x="3.400000" y="9.400002" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.011" meshFile="fence1.mesh"/>
+    </node>
+    <node name="fence1.010">
+      <position x="1.800000" y="9.400002" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.080000" y="0.080000" z="0.080000"/>
+      <entity name="fence1.010" meshFile="fence1.mesh"/>
+    </node>
+    <node name="Cube.027">
+      <position x="8.000000" y="3.000000" z="3.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.027" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="Cube.025">
+      <position x="5.000000" y="-2.000000" z="3.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.025" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="Shelter1">
+      <position x="0.000000" y="0.000000" z="2.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Shelter1" meshFile="Shelter.mesh"/>
+    </node>
+  </nodes>
+  <externals>
+    <item type="material">
+      <file name="Scene.material"/>
+    </item>
+  </externals>
+  <environment>
+    <colourAmbient r="0.313627" g="0.300000" b="0.100000"/>
+    <colourBackground r="0.056563" g="0.220815" b="0.400000"/>
+  </environment>
+</scene>

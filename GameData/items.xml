@@ -1,0 +1,42 @@
+<items>
+    <item id="DULL_LONGSWORD" type="WEAPON">
+        //<ITEMID>DULL_LONGSWORD</ITEMID>   //This items unique ID, used for loading and keeping track of items. Must be unique for every item
+        <name>Dull Longsword</name>
+        <worth>5</worth>
+        <weight>10</weight>
+
+        <icon>NULL</icon>
+        <mesh>Longsword3.mesh</mesh>
+        <collisionMesh>Longsword3.mesh</collisionMesh>
+        <displaySize>1,1,1</displaySize>
+        <displayOffset>0,0,0</displayOffset>
+
+        <weapon>  //Data only for weapon type items
+            <weaponType>BLADE</weaponType>  //Determines the animation and damage type
+            <minDamage>2</minDamage>
+            <maxDamage>10</maxDamage>
+            <maxCondition>100</maxCondition>
+
+            <equippedMesh>Longsword3.mesh</equippedMesh>    //First person mesh and animations
+        </weapon>
+    </item>
+
+    <item id="BASIC_SHIRT" type="CLOTHING">
+        <name>Brown Shirt</name>
+        <worth>2</worth>
+        <weight>4</weight>
+        <icon>NULL</icon>
+        <mesh>HUMAN_MALE_SHIRT_1.mesh</mesh>
+        <collisionMesh>HUMAN_MALE_SHIRT_1.mesh</collisionMesh>
+        <displaySize>1,1,1</displaySize>
+        <displayOffset>0,0,0</displayOffset>
+
+        <clothing>
+            <clothingPosition>1</clothingPosition>
+            <equippedMesh>HUMAN_MALE_SHIRT_1.mesh</equippedMesh>
+            <armorRating>1</armorRating>
+            <maxCondition>100</maxCondition>
+        </clothing>
+    </item>
+
+</items>

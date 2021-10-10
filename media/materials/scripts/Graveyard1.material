@@ -1,0 +1,146 @@
+material Tombstone1
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                filtering trilinear
+                texture sandstone1.jpg
+            }
+        }
+    }
+}
+
+material Tombstone2
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                filtering trilinear
+                texture Tombstone2.png
+            }
+        }
+    }
+}
+
+material Tombstone3
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                filtering trilinear
+                texture Tombstone3.png
+            }
+        }
+    }
+}
+
+material Tombstone4
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                filtering trilinear
+                texture Tombstone4.png
+            }
+        }
+    }
+}
+
+material MonumentBottom1
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                filtering trilinear
+                texture MonumentBase1.png
+            }
+        }
+    }
+}
+
+material MonumentTop1
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                filtering trilinear
+                texture MonumentTop1.png
+            }
+        }
+    }
+}
+
+material GraveHedge1
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                filtering trilinear
+                texture hedge_skin.png
+            }
+        }
+    }
+}
+
+material MonumentTop1/SOLID/TEX/MonumentTop1.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture MonumentTop1.png
+            }
+        }
+    }
+}
+
+material MonumentBottom1/SOLID/TEX/graveyardmarble1.jpg
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture graveyardmarble1.jpg
+            }
+        }
+    }
+}
+
+material MonumentTop1/SOLID/TEX/graveyardmarble1.jpg
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture graveyardmarble1.jpg
+            }
+        }
+    }
+}

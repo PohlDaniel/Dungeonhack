@@ -1,0 +1,13 @@
+material GUI/MainMenuBackground
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture titleScreen.png
+            }
+        }
+    }
+}

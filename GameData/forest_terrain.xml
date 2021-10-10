@@ -1,0 +1,19 @@
+<terrainDefinition>
+  <terrain numToMake="2000" baseGroundMaterial="Terrain/Grass1">
+
+    <foliage mesh="tree2.mesh" density="16" scale="33.0" yOffset="-15.0" imposter="Tree2Imposter" imposterScale="1.0" imposterViewDistance="65000" radius="2" collisionRadius=27 collisionHeight=500>
+        <generateAround numMin="1" numMax="3">
+            <foliage mesh="shrub1.mesh" density="4" scale="35.0" yOffset="-20.0" radiusAround="650" imposter="Shrub1Imposter" imposterScale="0.125" imposterViewDistance="20000" collisionRadius=10 collisionHeight=70/>
+            <foliage mesh="tree2.mesh" density="4" scale="33.0" yOffset="-15.0" imposter="Tree2Imposter" imposterScale="1.0" imposterViewDistance="10000" radiusAround="1000" collisionRadius=27 collisionHeight=500/>
+            <foliage mesh="TreeSmall1.mesh" density="4" scale="15.0" yOffset="-120.0" radiusAround="1000" collisionRadius=23 collisionHeight=500/>
+        </generateAround>
+    </foliage>
+
+    <foliage mesh="shrub1.mesh" density="27" scale="55.0" yOffset="-20.0" imposter="Shrub1Imposter" imposterViewDistance="10000" imposterScale="0.125" collisionRadius=10 collisionHeight=70>
+        <generateAround numMin="2" numMax="4">
+            <foliage mesh="shrub1.mesh" density="3" scale="35.0" yOffset="-20.0" radiusAround="390" imposterViewDistance="10000" imposter="Shrub1Imposter" imposterScale="0.125" collisionRadius=10 collisionHeight=70/>
+        </generateAround>
+    </foliage>
+
+  </terrain>
+</terrainDefinition>

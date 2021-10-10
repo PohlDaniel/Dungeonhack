@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="StaticImage" skin="StaticImage" position_real="0.00390625 0.828125 0.980469 0.15625" layer="Back" name="PanelMain">
+        <Property key="Image_Texture" value="darkyellow_t.png"/>
+        <Widget type="StaticImage" skin="StaticImage" position_real="0.00498008 0.05 0.0936255 0.791667" layer="Back" name="ImagePlayer">
+            <Property key="Image_Texture" value="defaultPlayerIcon.jpg"/>
+        </Widget>
+        <Widget type="StaticImage" skin="StaticImage" position_real="0.106574 0 0.206175 1.04167" layer="Back" name="BarBackPanel">
+            <Property key="Image_Texture" value="hud_back.png"/>
+            <Widget type="StaticImage" skin="StaticImage" position_real="0.0531401 0.08 0.816425 0.112" layer="Back" name="BarHealth">
+                <Property key="Image_Texture" value="hud_health.png"/>
+                <Widget type="StaticImage" skin="StaticImage" position_real="0.467456 0 0.544379 1" layer="Back" name="BarHealthOpp">
+                    <Property key="Image_Texture" value="hud_clear.png"/>
+                </Widget>
+            </Widget>
+            <Widget type="StaticImage" skin="StaticImage" position_real="0.0531401 0.368 0.816425 0.112" layer="Back" name="BarMagica">
+                <Property key="Image_Texture" value="hud_magica.png"/>
+                <Widget type="StaticImage" skin="StaticImage" position_real="0.467456 0 0.544379 1" layer="Back" name="BarMagicaOpp">
+                    <Property key="Image_Texture" value="hud_clear.png"/>
+                </Widget>
+            </Widget>
+            <Widget type="StaticImage" skin="StaticImage" position_real="0.0531401 0.632 0.816425 0.112" layer="Back" name="BarStamina">
+                <Property key="Image_Texture" value="hud_stamina.png"/>
+                <Widget type="StaticImage" skin="StaticImage" position_real="0.467456 0 0.532544 1" layer="Back" name="BarStaminaOpp">
+                    <Property key="Image_Texture" value="hud_clear.png"/>
+                </Widget>
+            </Widget>
+        </Widget>
+        <Widget type="StaticImage" skin="StaticImage" position_real="0.313745 0.0666667 0.0936255 0.791667" layer="Back" name="ImageWeapon">
+            <Property key="Image_Texture" value=""/>
+        </Widget>
+        <Widget type="StaticImage" skin="StaticImage" position_real="0.423307 0.0666667 0.0936255 0.791667" layer="Back" name="ImageSpell">
+            <Property key="Image_Texture" value=""/>
+        </Widget>
+        <Widget type="Edit" skin="WordWrapSimple" position_real="0.533865 0.025 0.275896 0.875" layer="Back" name="TextInfo">
+            <Property key="Edit_ReadOnly" value="true"/>
+            <Property key="Edit_WordWrap" value="true"/>
+            <Property key="Edit_MultiLine" value="true"/>
+        </Widget>
+        <Widget type="ItemBox" skin="ItemBoxV" position_real="0.817729 0.025 0.169323 0.9" layer="Back" name="ItemBoxEffects"/>
+    </Widget>
+    <Widget type="StaticImage" skin="StaticImage" position_real="0.739258 0.0195313 0.239258 0.315104" layer="Back" name="ImageMap"/>
+    <Widget type="StaticText" skin="StaticText" position_real="0 0.0286458 0.299805 0.0976563" layer="Back" name="TextDebug"/>
+    <Widget type="StaticText" skin="StaticText" position_real="0.319336 0 0.398438 0.199219" layer="Back" name="TextStats"/>
+</MyGUI>

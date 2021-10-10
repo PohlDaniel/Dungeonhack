@@ -1,0 +1,18 @@
+
+material SOLID/TEX/ivy.png
+{
+    technique
+    {
+        pass
+        {
+            alpha_rejection greater 180
+
+            cull_hardware none
+            cull_software none
+            texture_unit
+            {
+                texture ivy.png
+            }
+        }
+    }
+}

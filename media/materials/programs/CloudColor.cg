@@ -1,0 +1,29 @@
+void clouds_vp(float4 position : POSITION,
+              float3 normal   : NORMAL,
+              float2 uv       : TEXCOORD0,
+              out float4 oPosition : POSITION,
+              out float2 oUv :TEXCOORD0,
+              out float4 colour    : COLOR,
+
+              uniform float4x4 worldViewProj,
+              uniform float4 eyePosition,
+              uniform float4 ambient,
+              uniform float4 objSpaceLight,
+              uniform float4 lightColour,
+              uniform float4 objSpaceLight2,
+              uniform float4 lightColour2)
+{
+
+    float3 upNormal = float3(0.0,1.0,0.0);
+
+    oUv = uv;
+    oUv.x += 0.73;
+    oUv.y += 0.69;
+
+    oUv.xy *= 0.4;
+
+    colour = ambient + (lightColour);
+    colour.a = 1.0;
+    oPosition = mul(worldViewProj, position);
+}
+

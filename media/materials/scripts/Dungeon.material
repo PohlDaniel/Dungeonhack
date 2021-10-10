@@ -1,0 +1,155 @@
+
+material Dungeon/Rockwall
+{
+    technique
+    {
+        pass
+        {
+
+            texture_unit
+            {
+                texture rockwall.tga
+            }
+        }
+    }
+}
+
+material Dungeon/LIGHT_DOOR
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture [WOOD]_LIGHT_DOOR.jpg
+            }
+        }
+    }
+}
+
+material Dungeon/Longsword1
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture sword.png
+            }
+        }
+    }
+}
+
+material Weapon/OrnateSteelShortsword
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture steel_ShortSword_ornate.png
+            }
+        }
+    }
+}
+
+material Weapon/SteelShortsword
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture steel_ShortSword.png
+            }
+        }
+    }
+}
+
+material Weapons/Shortsword
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture shortsword.jpg
+            }
+        }
+    }
+}
+
+material Objects/Torch1
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture wood.jpg
+            }
+        }
+    }
+}
+
+material Generic/Metal1
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture RustySteel.jpg
+            }
+        }
+    }
+}
+
+material Generic/BlackMetal
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture BlackMetal.jpg
+            }
+        }
+    }
+}
+
+material Generic/AshWood
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture AshBrd01.jpg
+            }
+        }
+    }
+}
+
+material Generic/PineWood
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture DarkPineBrd01.JPG
+            }
+        }
+    }
+}

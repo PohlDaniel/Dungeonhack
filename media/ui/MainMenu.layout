@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Widget" skin="Panel" position_real="0.33 0.16 0.33 0.66" layer="Main">
+        <Widget type="Button" skin="Button" position_real="0.25 0.08 0.48 0.08" name="ButtonTutorial">
+            <Property key="Widget_Caption" value="Tutorial"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position_real="0.25 0.2 0.48 0.08" name="ButtonNew">
+            <Property key="Widget_Caption" value="New game"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position_real="0.25 0.32 0.48 0.08" name="ButtonLoad">
+            <Property key="Widget_Caption" value="Load game"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position_real="0.25 0.44 0.48 0.08" name="ButtonSave">
+            <Property key="Widget_Caption" value="Save game"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position_real="0.25 0.56 0.48 0.08" name="ButtonOptions">
+            <Property key="Widget_Caption" value="Options"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position_real="0.25 0.68 0.48 0.08" name="ButtonCredits">
+            <Property key="Widget_Caption" value="Credits"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position_real="0.25 0.8 0.48 0.08" name="ButtonExit">
+            <Property key="Widget_Caption" value="Exit"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position_real="0.05 0.9 0.16 0.05">
+            <Property key="Widget_Caption" value="v1.0"/>
+        </Widget>
+    </Widget>
+    <Widget type="StaticImage" skin="StaticImage" position_real="0 0 1 1" align="Stretch" layer="Back">
+        <Property key="Image_Texture" value="MainMenuBack.png"/>
+        <Property key="Widget_Show" value="true"/>
+    </Widget>
+</MyGUI>

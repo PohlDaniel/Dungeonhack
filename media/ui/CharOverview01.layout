@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="StaticImage" skin="StaticImage" position_real="0 0 1 1" align="Stretch" layer="Back" name="ImageBackg">
+        <Property key="Image_Texture" value="MainMenuBack.png"/>
+        <Property key="Widget_Show" value="true"/>
+        <Property key="Widget_Enabled" value="false"/>
+    </Widget>
+    <Widget type="Widget" skin="Panel" position_real="0.149414 0.148438 0.65918 0.658854" layer="Main" name="PanelCharacter">
+        <Widget type="Edit" skin="Edit" position_real="0.117037 0.00790514 0.195556 0.0474308" layer="Back" name="EditName"/>
+        <Widget type="StaticText" skin="StaticText" position_real="0.0162963 0.0177866 0.0992593 0.0474308" layer="Back" name="LabelName">
+            <Property key="Widget_Caption" value="Your name:"/>
+            <Property key="Widget_FontHeight" value="16"/>
+        </Widget>
+        <Widget type="List" skin="List" position_real="0.0162963 0.0988142 0.296296 0.199605" layer="Back" name="ListRaces">
+            <Property key="List_AddItem" value="Human"/>
+            <Property key="List_AddItem" value="Orc"/>
+            <Property key="List_AddItem" value="Mine Monkey"/>
+            <Property key="List_AddItem" value="Scone Astronach"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position_real="0.0162963 0.0671937 0.248889 0.0395257" layer="Back" name="LabelRace">
+            <Property key="Widget_Caption" value="Choose your race"/>
+            <Property key="Widget_FontHeight" value="16"/>
+        </Widget>
+        <Widget type="List" skin="List" position_real="0.0162963 0.347826 0.296296 0.199605" layer="Back" name="ListClasses">
+            <Property key="List_AddItem" value="Barbarian"/>
+            <Property key="List_AddItem" value="Battlemage"/>
+            <Property key="List_AddItem" value="Spellsword"/>
+            <Property key="List_AddItem" value="Linguist"/>
+            <Property key="List_AddItem" value="Frenetic Jumper"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position_real="0.0162963 0.318182 0.248889 0.0395257" layer="Back" name="LabelClass">
+            <Property key="Widget_Caption" value="Choose your class"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position_real="0.0162963 0.575099 0.248889 0.0395257" layer="Back" name="LabelSign">
+            <Property key="Widget_Caption" value="Choose your sign"/>
+        </Widget>
+        <Widget type="List" skin="List" position_real="0.0162963 0.608696 0.294815 0.128458" layer="Back" name="ListSigns">
+            <Property key="List_AddItem" value="Apprentice"/>
+            <Property key="List_AddItem" value="Warrior"/>
+            <Property key="List_AddItem" value="Lady"/>
+            <Property key="List_AddItem" value="Beware: scone astronachs"/>
+            <Property key="List_AddItem" value="Scroll you shall"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position_real="0.0162963 0.756917 0.248889 0.0395257" layer="Back" name="LabelAttributes">
+            <Property key="Widget_Caption" value="Choose your attributes"/>
+        </Widget>
+        <Widget type="Edit" skin="Edit" position_real="0.0681482 0.788538 0.0474074 0.0474308" layer="Back" name="EditAttrStr"/>
+        <Widget type="Edit" skin="Edit" position_real="0.0681482 0.847826 0.0474074 0.0474308" layer="Back" name="EditAttrAgi"/>
+        <Widget type="Edit" skin="Edit" position_real="0.0681482 0.909091 0.0474074 0.0474308" layer="Back" name="EditAttrEnd"/>
+        <Widget type="Edit" skin="Edit" position_real="0.195556 0.788538 0.0474074 0.0474308" layer="Back" name="EditAttrInt"/>
+        <Widget type="Edit" skin="Edit" position_real="0.195556 0.847826 0.0474074 0.0474308" layer="Back" name="EditAttrWil"/>
+        <Widget type="Edit" skin="Edit" position_real="0.195556 0.909091 0.0474074 0.0474308" layer="Back" name="EditAttrLck"/>
+        <Widget type="StaticText" skin="StaticText" position_real="0.0192593 0.798419 0.0355556 0.0494071" layer="Back" name="LabelAttrStr">
+            <Property key="Widget_Caption" value="STR"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position_real="0.0192593 0.857708 0.0355556 0.0494071" layer="Back" name="LabelAttrAgi">
+            <Property key="Widget_Caption" value="AGI"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position_real="0.0192593 0.91502 0.0355556 0.0494071" layer="Back" name="LabelAttrEnd">
+            <Property key="Widget_Caption" value="END"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position_real="0.14963 0.798419 0.0355556 0.0494071" layer="Back" name="LabelAttrInt">
+            <Property key="Widget_Caption" value="INT"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position_real="0.14963 0.857708 0.0355556 0.0494071" layer="Back" name="LabelAttrWil">
+            <Property key="Widget_Caption" value="WIL"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position_real="0.14963 0.91502 0.0355556 0.0494071" layer="Back" name="LabelAttrLck">
+            <Property key="Widget_Caption" value="LCK"/>
+        </Widget>
+        <Widget type="Button" skin="ButtonUp" position_real="0.108148 0.788538 0.0281481 0.0256917" layer="Back" name="ButUpStr"/>
+        <Widget type="Button" skin="ButtonDown" position_real="0.108148 0.8083 0.0281481 0.0256917" layer="Back" name="ButDnStr"/>
+        <Widget type="Button" skin="ButtonUp" position_real="0.108148 0.847826 0.0281481 0.0256917" layer="Back" name="ButUpAgi"/>
+        <Widget type="Button" skin="ButtonUp" position_real="0.237037 0.847826 0.0281481 0.0256917" layer="Back" name="ButUpWil"/>
+        <Widget type="Button" skin="ButtonUp" position_real="0.108148 0.909091 0.0281481 0.0256917" layer="Back" name="ButUpEnd"/>
+        <Widget type="Button" skin="ButtonUp" position_real="0.237037 0.909091 0.0281481 0.0256917" layer="Back" name="ButUpLck"/>
+        <Widget type="Button" skin="ButtonUp" position_real="0.237037 0.788538 0.0281481 0.0256917" layer="Back" name="ButUpInt"/>
+        <Widget type="Button" skin="ButtonDown" position_real="0.108148 0.869565 0.0281481 0.0256917" layer="Back" name="ButDnAgi"/>
+        <Widget type="Button" skin="ButtonDown" position_real="0.237037 0.869565 0.0281481 0.0256917" layer="Back" name="ButDnWil"/>
+        <Widget type="Button" skin="ButtonDown" position_real="0.108148 0.928854 0.0281481 0.0256917" layer="Back" name="ButDnEnd"/>
+        <Widget type="Button" skin="ButtonDown" position_real="0.237037 0.8083 0.0281481 0.0256917" layer="Back" name="ButDnInt"/>
+        <Widget type="Button" skin="ButtonDown" position_real="0.237037 0.928854 0.0281481 0.0256917" layer="Back" name="ButDnLck"/>
+        <Widget type="ScrollView" skin="ScrollView" position_real="0.337778 0.559289 0.638519 0.399209" layer="Back" name="ViewDescription"/>
+        <Widget type="RenderBox" skin="RenderBox" position_real="0.337778 0.0256917 0.395556 0.496047" layer="Back" name="RenderFace"/>
+        <Widget type="Button" skin="Button" position_real="0.765926 0.118577 0.195556 0.0573123" layer="Back" name="ButtonRandomize">
+            <Property key="Widget_Caption" value="Randomize values"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position_real="0.764444 0.0375494 0.194074 0.055336" layer="Back" name="ButtonCreate">
+            <Property key="Widget_Caption" value="Create"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position_real="0.764444 0.197628 0.194074 0.055336" layer="Back" name="ButtonLoadPreset">
+            <Property key="Widget_Caption" value="Load preset"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position_real="0.764444 0.27668 0.194074 0.055336" layer="Back" name="ButtonSavePreset">
+            <Property key="Widget_Caption" value="Save preset"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position_real="0.764444 0.355731 0.194074 0.055336" layer="Back" name="ButtonExit">
+            <Property key="Widget_Caption" value="Cancel"/>
+        </Widget>
+    </Widget>
+</MyGUI>

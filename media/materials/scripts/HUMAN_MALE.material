@@ -1,0 +1,59 @@
+material mat_man/SOLID/TEX/human_male_texture_copy.png/VertCol
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture human_male_texture_copy.png
+            }
+        }
+    }
+}
+
+material human_male_body
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture human_male_texture_copy.png
+            }
+        }
+    }
+}
+
+material human_male_head_1
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture human_male_texture_copy.png
+            }
+        }
+    }
+}
+
+material Male_Hair_1
+{
+    technique
+    {
+        pass
+        {
+            cull_hardware none
+                    cull_software none
+
+            texture_unit
+            {
+                texture human_male_hair_1.png
+            }
+        }
+    }
+}
+

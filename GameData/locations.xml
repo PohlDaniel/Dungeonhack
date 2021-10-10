@@ -1,0 +1,38 @@
+<locationsFile>
+  <locations>
+
+    <location name="Rusty Ogre Lodge" type="INN" size="0.1" roadSplatTexture="OgreLodgeSplat.png">
+      <position x="14" y="15"/>
+      <blocks>
+        <block x="0" y="0" exterior="Inn1_exterior.map.xml">
+          <interiors>
+            <interior id="1" block="Inn1_interior.map.xml" music="RobertHood_AThemeToShopBy.ogg" />
+          </interiors>
+        </block>
+      </blocks>
+    </location>
+
+    <location name="Ranshaw Family Crypt" type="DUNGEON" size="0.1" music="RobertHood_DF-IntoTheDark.ogg" roadSplatTexture="AlphaGraveyardRoadSplat.png">
+      <position x="14" y="16"/>
+      <blocks>
+        <block x="0" y="0" exterior="GraveYard1.map.xml">
+          <interiors>
+            <interior id="1" block="SmallTomb2.map.xml" music="RobertHood_DF-IntoTheDark.ogg" />
+          </interiors>
+        </block>
+      </blocks>
+    </location>
+
+    <location name="Forgotten Yeonhard Ruins" type="DUNGEON" size="0.1" music="RobertHood_DF-TheArcane.ogg" roadSplatTexture="AlphaRuinRoadSplat.png">
+      <position x="15" y="15"/>
+      <blocks>
+        <block x="0" y="0" exterior="TowerRuin1_exterior.map.xml">
+          <interiors>
+            <interior id="1" block="LargeTomb1.map.xml" music="RobertHood_DF-IntoTheDark.ogg"/>
+          </interiors>
+        </block>
+      </blocks>
+    </location>
+
+  </locations>
+</locationsFile>

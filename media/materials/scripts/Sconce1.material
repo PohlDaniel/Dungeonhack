@@ -1,0 +1,28 @@
+material Scones01_textures/Scone01_texture1
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture AnvilFe1.jpg 
+            }
+        }
+    }
+}
+
+material Scones01_textures/Scone01_texture2
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture Bark02.jpg 
+            }
+        }
+    }
+}
+

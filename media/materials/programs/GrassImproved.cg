@@ -1,0 +1,59 @@
+// Vertex program to wave some grass about
+// Simplistic, assumes base of the grass at 0
+void grassimp_vp(float4 position : POSITION,
+              float3 normal   : NORMAL,
+              float2 uv       : TEXCOORD0,
+              out float4 oPosition : POSITION,
+              out float2 oUv       : TEXCOORD0,
+              out float4 colour    : COLOR,
+
+              uniform float4x4 worldViewProj,
+              uniform float4 eyePosition,
+              uniform float4 ambient,
+              uniform float4 objSpaceLight,
+              uniform float4 lightColour,
+              uniform float4 objSpaceLight2,
+              uniform float4 lightColour2,
+              uniform float4 offset,
+              uniform float4 wave)
+{
+    float4 M = float4(1,1,1,max(0, 1-((distance(eyePosition, position)-1000) / 1200)));
+    //float4 M2 = float4(1,1,1,max(0, 1-((distance(objSpaceLight2, position)-50) / 300)));
+
+    float4 mypos = position;
+    //offset = float4(0.5, 0, 0, 0);
+    //mypos = mypos + (uv.y-1.0f)*offset*120;
+    float offsetFactor = (uv.y - 1.0f);
+    //float offsetSin = ((sin(((position.x / 150.0) + wave.x / 50.0)) + 1.0) / 2.0);
+
+    float offsetSin = (sin(((position.x / 150.0) + wave.x / 50.0)) + 0.05 + (sin(((position.x / 50.0) + wave.x / 20.0)) / 1.5));    
+
+    offsetSin += 0.10;
+    //mypos = (mypos + (offsetFactor)*offset*120);
+    mypos = (mypos + ((offsetFactor)*offset*(70 * offsetSin)));
+    //mypos = mypos + offset * mypos.yyyy;
+    oPosition = mul(worldViewProj, mypos);
+
+    float3 upNormal = float3(0.0,1.0,0.0);
+    upNormal = normal;
+
+    oUv = uv;
+    // get vertex light direction (support directional and point)
+    float3 light = normalize(
+        objSpaceLight.xyz -  (position.xyz * objSpaceLight.w));
+
+    float3 light2 = normalize(
+        objSpaceLight2.xyz -  (position.xyz * objSpaceLight2.w));
+
+
+    float diffuseFactor = max(dot(upNormal, light), 0);
+
+    float diffuseFactor2 = max(dot(normal, light2), 0);
+    
+    
+    colour = ambient + (diffuseFactor * lightColour);
+    //colour = float4(offsetSin,offsetSin,offsetSin,1.0);
+
+    colour.a = M.w;
+}
+

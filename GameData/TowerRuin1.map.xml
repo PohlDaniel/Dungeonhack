@@ -1,0 +1,108 @@
+<scene formatVersion="0.2.0">
+  <nodes>
+    <node name="Cube.001">
+      <position x="11.646671" y="-12.446859" z="0.009388"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="3.480000" y="3.480000" z="3.480000"/>
+      <entity name="Cube.001" meshFile="RubbleWall1.mesh"/>
+    </node>
+    <node name="Cube.003">
+      <position x="-6.681331" y="0.429142" z="0.009388"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="3.480000" y="3.480000" z="3.480000"/>
+      <entity name="Cube.003" meshFile="RubbleWall1.mesh"/>
+    </node>
+    <node name="D_Door1">
+      <position x="3.832775" y="2.009304" z="1.562089"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="D_Door1" meshFile="D_Door1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Entrance"/>
+        <property type="INT" name="Interior" data="0"/>
+        <property type="INT" name="EnterNum" data="0"/>
+      </userData>
+    </node>
+    <node name="Cube.005">
+      <position x="-10.509330" y="3.561142" z="0.009388"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="3.480000" y="3.480000" z="3.480000"/>
+      <entity name="Cube.005" meshFile="RubbleWall1.mesh"/>
+    </node>
+    <node name="RuinedTower">
+      <position x="0.232301" y="2.214514" z="0.734607"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="3.480000" y="3.480000" z="3.480000"/>
+      <entity name="RuinedTower" meshFile="RuinedTower.mesh"/>
+    </node>
+    <node name="Marker.001">
+      <position x="5.148403" y="-1.412945" z="1.246510"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Marker.001" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="barrels1"/>
+      </userData>
+    </node>
+    <node name="Sphere.001">
+      <position x="0.324479" y="2.214514" z="0.218411"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="3.480000" y="3.480000" z="3.480000"/>
+      <entity name="Sphere.001" meshFile="Sphere.002.mesh"/>
+    </node>
+    <node name="Cube.002">
+      <position x="1.554672" y="-9.314859" z="0.009388"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="3.480000" y="3.480000" z="3.480000"/>
+      <entity name="Cube.002" meshFile="RubbleWall1.mesh"/>
+    </node>
+    <node name="Cube">
+      <position x="4.686672" y="-5.486859" z="0.009388"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="3.480000" y="3.480000" z="3.480000"/>
+      <entity name="Cube" meshFile="RubbleWall1.mesh"/>
+    </node>
+    <node name="RuinedTowerTop">
+      <position x="0.301849" y="2.177554" z="10.827064"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="3.480000" y="3.480000" z="3.480000"/>
+      <entity name="RuinedTowerTop" meshFile="RuinedTowerTop.mesh"/>
+    </node>
+    <node name="Marker">
+      <position x="4.751539" y="-7.025733" z="1.246510"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Marker" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="barrels1"/>
+      </userData>
+    </node>
+    <node name="Marker.002">
+      <position x="5.298568" y="2.034623" z="1.246510"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Marker.002" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Enter"/>
+        <property type="INT" name="Num" data="0"/>
+      </userData>
+    </node>
+    <node name="RubbleWall1">
+      <position x="-2.432713" y="8.762562" z="0.009388"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="3.480000" y="3.480000" z="3.480000"/>
+      <entity name="RubbleWall1" meshFile="RubbleWall1.mesh"/>
+    </node>
+  </nodes>
+  <externals>
+    <item type="material">
+      <file name="Scene.material"/>
+    </item>
+  </externals>
+  <environment>
+    <colourAmbient r="0.000000" g="0.000000" b="0.000000"/>
+    <colourBackground r="0.056563" g="0.220815" b="0.400000"/>
+  </environment>
+</scene>

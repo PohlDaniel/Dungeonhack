@@ -1,0 +1,30 @@
+<terrainDefinition>
+  <terrain numToMake="200" baseGroundMaterial="Terrain/Grass1">
+
+
+    <foliage mesh="boulderlarge.mesh" density="4" scale="70.0" yOffset="-15.0">
+    <generateAround numMin="1" numMax="8">
+            <foliage mesh="Mushroom.mesh" density="8" scale="6.0" yOffset="0.0" radiusAround="700"/>
+            <foliage mesh="shrub1.mesh" density="2" scale="40.0" yOffset="-15.0" radiusAround="700"/>
+            <foliage mesh="bouldera.mesh" density="8" scale="31.0" yOffset="-15.0" radiusAround="330"/>
+        </generateAround>
+    </foliage>
+
+     <foliage mesh="boulderlarge.mesh" density="4" scale="60.0" yOffset="-15.0">
+    <generateAround numMin="1" numMax="8">
+            <foliage mesh="Mushroom.mesh" density="3" scale="6.0" yOffset="0.0" radiusAround="300"/>
+            <foliage mesh="shrub1.mesh" density="2" scale="40.0" yOffset="-15.0" radiusAround="330"/>
+            <foliage mesh="bouldera.mesh" density="8" scale="31.0" yOffset="-15.0" radiusAround="330"/>
+        </generateAround>
+    </foliage>
+
+    <foliage mesh="bouldera.mesh" density="5" scale="50.0" yOffset="-15.0">
+        <generateAround numMin="2" numMax="8">
+            <foliage mesh="shrub1.mesh" density="3" scale="55.0" yOffset="-15.0" radiusAround="330"/>
+            <foliage mesh="Mushroom.mesh" density="2" scale="6.0" yOffset="0.0" radiusAround="300"/>
+            <foliage mesh="boulderlarge.mesh" density="8" scale="31.0" yOffset="-15.0" radiusAround="330"/>
+        </generateAround>
+    </foliage>
+
+  </terrain>
+</terrainDefinition>

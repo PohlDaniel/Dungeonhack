@@ -1,0 +1,27 @@
+material SOLID/TEX/rock17.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture rock17.png
+            }
+        }
+    }
+}
+
+material SOLID/TEX/rockbrown.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture rockbrown.png
+            }
+        }
+    }
+}

@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\AlObjects.h" />
+    <ClInclude Include="src\btogre\include\BtOgreExtras.h" />
+    <ClInclude Include="src\btogre\include\BtOgreGP.h" />
+    <ClInclude Include="src\btogre\include\BtOgrePG.h" />
+    <ClInclude Include="src\CharacterController.h" />
+    <ClInclude Include="src\CollisionInfo.h" />
+    <ClInclude Include="src\ConfigState.h" />
+    <ClInclude Include="src\ConsoleState.h" />
+    <ClInclude Include="src\DungeonHack.h" />
+    <ClInclude Include="src\EntityLoader.h" />
+    <ClInclude Include="src\EntityManager.h" />
+    <ClInclude Include="src\FireEntity.h" />
+    <ClInclude Include="src\GameActor.h" />
+    <ClInclude Include="src\GameConfig.h" />
+    <ClInclude Include="src\GameFoliage.h" />
+    <ClInclude Include="src\GameLight.h" />
+    <ClInclude Include="src\GameManager.h" />
+    <ClInclude Include="src\GameObject.h" />
+    <ClInclude Include="src\GamePrereqs.h" />
+    <ClInclude Include="src\GameState.h" />
+    <ClInclude Include="src\GameStats.h" />
+    <ClInclude Include="src\GameTerrain.h" />
+    <ClInclude Include="src\GameWorld.h" />
+    <ClInclude Include="src\GeometryNode.h" />
+    <ClInclude Include="src\GuiConfig.h" />
+    <ClInclude Include="src\GuiConsole.h" />
+    <ClInclude Include="src\GuiFrameListener.h" />
+    <ClInclude Include="src\GuiHUD.h" />
+    <ClInclude Include="src\GuiMessagebox.h" />
+    <ClInclude Include="src\GuiPaused.h" />
+    <ClInclude Include="src\GuiView.h" />
+    <ClInclude Include="src\HDR.h" />
+    <ClInclude Include="src\InputManager.h" />
+    <ClInclude Include="src\IntroState.h" />
+    <ClInclude Include="src\InventoryState.h" />
+    <ClInclude Include="src\Items.h" />
+    <ClInclude Include="src\Location.h" />
+    <ClInclude Include="src\MainmenuState.h" />
+    <ClInclude Include="src\MessageState.h" />
+    <ClInclude Include="src\Monster.h" />
+    <ClInclude Include="src\myguiWrapper\UiManager.h" />
+    <ClInclude Include="src\NpcActor.h" />
+    <ClInclude Include="src\NpcVisualRepresentation.h" />
+    <ClInclude Include="src\PauseState.h" />
+    <ClInclude Include="src\PerlinNoise.h" />
+    <ClInclude Include="src\PhysicsBody.h" />
+    <ClInclude Include="src\PhysicsManager.h" />
+    <ClInclude Include="src\Player.h" />
+    <ClInclude Include="src\PlayState.h" />
+    <ClInclude Include="src\Projectiles.h" />
+    <ClInclude Include="src\QuestManager.h" />
+    <ClInclude Include="src\Raycast.h" />
+    <ClInclude Include="src\ScriptEntity.h" />
+    <ClInclude Include="src\scripting\PyPrototypes.h" />
+    <ClInclude Include="src\scripting\PythonManager.h" />
+    <ClInclude Include="src\scripting\PythonThread.h" />
+    <ClInclude Include="src\scripting\PythonThreadImpl.h" />
+    <ClInclude Include="src\scripting\ThreadMacros.h" />
+    <ClInclude Include="src\Sky.h" />
+    <ClInclude Include="src\SoundManager.h" />
+    <ClInclude Include="src\TerrainGenerator.h" />
+    <ClInclude Include="src\TerrainType.h" />
+    <ClInclude Include="src\TimeManager.h" />
+    <ClInclude Include="src\tinyXML\tinystr.h" />
+    <ClInclude Include="src\tinyXML\tinyxml.h" />
+    <ClInclude Include="src\WaterPlane.h" />
+    <ClInclude Include="src\WeaponState.h" />
+    <ClInclude Include="src\xmlConfig\xmlConfig.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\BladeState.cpp" />
+    <ClCompile Include="src\btogre\BtOgre.cpp" />
+    <ClCompile Include="src\CharacterController.cpp" />
+    <ClCompile Include="src\ConfigState.cpp" />
+    <ClCompile Include="src\ConsoleState.cpp" />
+    <ClCompile Include="src\DoorProp.cpp" />
+    <ClCompile Include="src\EntityLoader.cpp" />
+    <ClCompile Include="src\EntityManager.cpp" />
+    <ClCompile Include="src\FireEntity.cpp" />
+    <ClCompile Include="src\GameActor.cpp" />
+    <ClCompile Include="src\GameConfig.cpp" />
+    <ClCompile Include="src\GameCorona.cpp" />
+    <ClCompile Include="src\GameFoliage.cpp" />
+    <ClCompile Include="src\GameLight.cpp" />
+    <ClCompile Include="src\GameManager.cpp" />
+    <ClCompile Include="src\GamePrereqs.cpp" />
+    <ClCompile Include="src\GameProjectile.cpp" />
+    <ClCompile Include="src\GameProp.cpp" />
+    <ClCompile Include="src\GameTerrain.cpp" />
+    <ClCompile Include="src\GameWorld.cpp" />
+    <ClCompile Include="src\GeometryNode.cpp" />
+    <ClCompile Include="src\GuiConfig.cpp" />
+    <ClCompile Include="src\GuiConsole.cpp" />
+    <ClCompile Include="src\GuiHUD.cpp" />
+    <ClCompile Include="src\GuiMessagebox.cpp" />
+    <ClCompile Include="src\GuiPaused.cpp" />
+    <ClCompile Include="src\GuiView.cpp" />
+    <ClCompile Include="src\HDR.cpp" />
+    <ClCompile Include="src\InputManager.cpp" />
+    <ClCompile Include="src\InventoryState.cpp" />
+    <ClCompile Include="src\Items.cpp" />
+    <ClCompile Include="src\Locations.cpp" />
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\MainmenuState.cpp" />
+    <ClCompile Include="src\MessageState.cpp" />
+    <ClCompile Include="src\Monster.cpp" />
+    <ClCompile Include="src\myguiWrapper\UiManager.cpp" />
+    <ClCompile Include="src\NpcActor.cpp" />
+    <ClCompile Include="src\NpcVisualRepresentation.cpp" />
+    <ClCompile Include="src\PauseState.cpp" />
+    <ClCompile Include="src\PerlinNoise.cpp" />
+    <ClCompile Include="src\PhysicsBody.cpp" />
+    <ClCompile Include="src\PhysicsManager.cpp" />
+    <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\PlayState.cpp" />
+    <ClCompile Include="src\PrecompiledHeaders.cpp" />
+    <ClCompile Include="src\QuestManager.cpp" />
+    <ClCompile Include="src\ScriptEntity.cpp" />
+    <ClCompile Include="src\scripting\PyPrototypes_wrap.cxx" />
+    <ClCompile Include="src\scripting\PythonManager.cpp" />
+    <ClCompile Include="src\scripting\PythonThread.cpp" />
+    <ClCompile Include="src\scripting\PythonThreadImpl.cpp" />
+    <ClCompile Include="src\scripting\ScriptFunctions.cpp" />
+    <ClCompile Include="src\Sky.cpp" />
+    <ClCompile Include="src\SoundManager.cpp" />
+    <ClCompile Include="src\SoundObject.cpp" />
+    <ClCompile Include="src\TeleportDoorProp.cpp" />
+    <ClCompile Include="src\TerrainGenerator.cpp" />
+    <ClCompile Include="src\TerrainType.cpp" />
+    <ClCompile Include="src\TimeManager.cpp" />
+    <ClCompile Include="src\tinyXML\tinystr.cpp" />
+    <ClCompile Include="src\tinyXML\tinyxml.cpp" />
+    <ClCompile Include="src\tinyXML\tinyxmlerror.cpp" />
+    <ClCompile Include="src\tinyXML\tinyxmlparser.cpp" />
+    <ClCompile Include="src\VisualRepresentation.cpp" />
+    <ClCompile Include="src\WaterPlane.cpp" />
+    <ClCompile Include="src\WeaponState.cpp" />
+    <ClCompile Include="src\xmlConfig\xmlConfig.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{87558565-52C9-4736-913E-DCFBF8F2FCA6}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>dungeonhack</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <SourcePath>$(SourcePath)</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS;OIS_1_2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\include\PagedGeometry\include;..\include\OpenAL\include\AL;..\include\OgreSDK\include\OIS;..\include\OgreSDK\include\MyGUI;..\include\OgreSDK\include;..\include\bullet\include;..\include\alure\include\AL;..\include\Python26;src\.;src\btogre\include;src\xmlConfig;src\tinyXML;src\scripting;src\myguiWrapper;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\lib\PagedGeometry;..\lib\OpenAL;..\lib\OgreSDK;..\lib\bullet;..\lib\alure;..\lib\Python26;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OgreMain.lib;OgreGUIRenderer.lib;MyGUI.lib;OIS.lib;OpenAL32.lib;ALURE32.lib;libbulletcollision.lib;libbulletdynamics.lib;libbulletmath.lib;PagedGeometry.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <AdditionalOptions> /ignore:4099 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\include\PagedGeometry\include;.\include\OpenAL\include\AL;.\include\OgreSDK\include;.\include\OgreSDK\include\MyGUI;.\include\OgreSDK\include\OIS;.\include\bullet\include;.\include\alure\include\AL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>OgreMain.lib;OgreGUIRenderer.lib;MyGUI.lib;OIS.lib;OpenAL32.lib;ALURE32.lib;libbulletcollision.lib;libbulletdynamics.lib;libbulletmath.lib;PagedGeometry.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\lib\PagedGeometry;..\lib\OpenAL;..\lib\OgreSDK;..\lib\bullet;..\lib\alure;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

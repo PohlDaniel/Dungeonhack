@@ -1,0 +1,7 @@
+<terrainDefinition>
+  <terrain numToMake="3000" baseGroundMaterial="Terrain/Grass1">
+
+    <foliage mesh="TreeSmall1.mesh" density="15" scale="10.0" yOffset="-120.0" collisionRadius=23 collisionHeight=500 viewDistance=10000/>
+
+  </terrain>
+</terrainDefinition>

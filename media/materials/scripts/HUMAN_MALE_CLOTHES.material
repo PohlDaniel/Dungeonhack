@@ -1,0 +1,59 @@
+
+material Shirt_1
+{
+
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture human_male_shirt_1.png
+            }
+        }
+    }
+}
+material Boots_1
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture human_male_boots_1.png
+            }
+        }
+    }
+}
+
+material Tights_1
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture human_male_tights_1.png
+            }
+        }
+    }
+}
+
+material HUMAN_MALE_HOOD_1
+{
+    technique
+    {
+        pass
+        {
+            cull_hardware none
+                    cull_software none
+
+            texture_unit
+            {
+                texture human_male_boots_1.png
+            }
+        }
+    }
+}

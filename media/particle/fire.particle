@@ -1,0 +1,27 @@
+// Fire particle systems
+
+// smoke
+Emmiters/TorchFire
+{
+    	material        	BaseFire
+    	particle_width  	10
+    	particle_height 	20
+    	cull_each       	true
+    	quota           	1
+    	billboard_type  	point
+    
+    	// Area emitter
+    	emitter Box
+    	{
+		angle               		0
+        	emission_rate       		19
+        	time_to_live        		500
+        	direction           		0 1 0
+        	velocity_min        		0
+        	velocity_max        		0
+		width           0
+       		height          0
+		depth		0
+		colour		1 1 1
+	}
+}

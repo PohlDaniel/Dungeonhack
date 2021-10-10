@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+    <firstRun value = "1" />
+    <doGrass value = "1" />
+    <grassWave value="1" />
+    <doWaterReflection value = "1" />
+    <doBloom value = "0" />
+    <bloomTechnique value = "HDR" />
+    <testTerrainDefinition value="grassland_terrain.xml" />
+    <defaultFireMaterial value="Emmiters/TorchFire" />
+
+    <fogThickness value = "0.000022" />
+    <gameStartTileX value = "14" />
+    <gameStartTileY value = "15" />
+    <gameStartLocInterior value = "1" />
+    <gameStartLocStartMarker value = "1" />
+    <intro_camera_position_x value="3900" />
+    <intro_camera_position_y value="2220" />
+    <intro_camera_position_z value="6800" />
+    <gameDataPath value="../GameData/" />
+    <gravity value="192.913" />
+
+    <treePageSize value="2000" />
+    <treeModelDistance value="8000" />
+    <treeModelFadeDistance value="11000" />
+    <treeImposterDistance value="40000" />
+    <treeImposterFadeDistance value="45000" />
+
+    <noX11KeyboardGrab value="1" />
+    <noX11MouseGrab value="0" />
+
+    <enableMusic value="1" />
+    <enableAmbient value="1" />
+
+    <enableGuiConfig value="0" />
+</config>

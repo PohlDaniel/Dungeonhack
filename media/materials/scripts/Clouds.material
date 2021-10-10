@@ -1,0 +1,49 @@
+vertex_program CloudColorShader cg
+{
+    source CloudColor.cg
+    entry_point clouds_vp
+    profiles vs_1_1 arbvp1
+
+    default_params
+    {
+        param_indexed_auto 0 worldviewproj_matrix
+            param_indexed_auto 4 camera_position_object_space
+    }
+}
+
+material Clear
+{
+    technique
+    {
+        pass
+        {
+            depth_write off
+            cull_hardware none
+            cull_software none
+            scene_blend alpha_blend
+            texture_unit
+            {
+                texture Tx_Sky_Clear.dds
+            }
+        }
+    }
+}
+
+
+material HeavyClouds
+{
+    technique
+    {
+        pass
+        {
+            depth_write off
+            cull_hardware none
+            cull_software none
+            scene_blend alpha_blend
+            texture_unit
+            {
+                texture Tx_Sky_Cloudy.dds
+            }
+        }
+    }
+}

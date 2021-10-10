@@ -1,0 +1,11 @@
+<terrainDefinition>
+  <terrain numToMake="500" baseGroundMaterial="Terrain/Grass1">
+
+     <foliage mesh="Mushroom.mesh" density="3" scale="200.0" yOffset="0.0" radius="4">
+        <generateAround numMin="1" numMax="8">
+            <foliage mesh="Mushroom.mesh" density="3" scale="20.0" yOffset="0.0" radiusAround="800"/>
+        </generateAround>
+    </foliage>
+
+  </terrain>
+</terrainDefinition>

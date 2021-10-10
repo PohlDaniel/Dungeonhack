@@ -1,0 +1,21 @@
+material NightSky
+{
+    technique
+    {
+        pass
+        {
+            //fog_override true
+
+            //scene_blend alpha_blend
+            lighting off
+            depth_write off
+            texture_unit
+            {
+                scale 3.0 3.0
+                texture star_tex.png
+                tex_address_mode wrap
+                filtering trilinear
+            }
+        }
+    }
+}

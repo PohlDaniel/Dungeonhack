@@ -1,0 +1,19 @@
+void distanceFade_vp(
+      float4 pos         : POSITION,
+      float3 color      : COLOR,
+      float2 texCoord0      : TEXCOORD0,
+      out float4 oPos      : POSITION,
+      out float4 oColor   : COLOR,
+      out float2 oTexCoord0: TEXCOORD0,
+      uniform float4x4 worldViewProjMatrix,
+      uniform float4 eyePosition,
+      uniform float4 sunlightColor,
+      uniform float4 ambientlightColor
+      )
+{
+   float M = max(0, 1-((distance(eyePosition, pos)-1500) / 1900));
+   //M = 0.2;
+   oColor = float4((color * sunlightColor) + ambientlightColor, M);
+   oPos = mul(worldViewProjMatrix, pos);
+   oTexCoord0 = texCoord0;
+} 

@@ -1,0 +1,194 @@
+material Material/SOLID/TEX/brick_1_fc.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                filtering trilinear
+                texture brick_1_fc.png
+            }
+        }
+    }
+}
+material SOLID/TEX/rockwall.tga
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                filtering trilinear
+                texture rockwall.tga
+            }
+        }
+    }
+}
+
+material Material/SOLID/TEX/rockwall.tga
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                filtering trilinear
+                texture rockwall.tga
+            }
+        }
+    }
+}
+material Material/SOLID/TEX/brick_1_c.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                filtering trilinear
+                texture brick_1_c.png
+            }
+        }
+    }
+}
+material Material/SOLID/TEX/[WOOD]_LIGHT_DOOR.jpg
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                filtering trilinear
+                texture [WOOD]_LIGHT_DOOR.jpg
+            }
+        }
+    }
+}
+material Generic/Metal1.001/SOLID/TEX/RustySteel.jpg
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                filtering trilinear
+                texture RustySteel.jpg
+            }
+        }
+    }
+}
+material SOLID/TEX/RustySteel.jpg
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                filtering trilinear
+                texture RustySteel.jpg
+            }
+        }
+    }
+}
+material Objects/Torch1.001/SOLID/TEX/wood.jpg
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                filtering trilinear
+                texture wood.jpg
+            }
+        }
+    }
+}
+material SOLID/TEX/brick_1_c.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                filtering trilinear
+                texture brick_1_c.png
+            }
+        }
+    }
+}
+material SOLID/TEX/brick_1_fc.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                filtering trilinear
+                texture brick_1_fc.png
+            }
+        }
+    }
+}
+
+material Material/SOLID/TEX/Skull.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                filtering trilinear
+                texture Skull.png
+            }
+        }
+    }
+}
+
+material Coronas/Corona1
+{
+    technique
+    {
+        pass
+        {
+            fog_override true
+            lighting off
+            scene_blend add
+            //scene_blend alpha_blend
+            depth_write off
+            depth_check off
+
+            texture_unit
+            {
+                texture light_corona.png
+            }
+        }
+    }
+}
+
+material SOLID/TEX/stonewall2.jpg
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                scale 0.5 0.5
+                texture stonewall2.jpg
+            }
+        }
+    }
+}
+
+

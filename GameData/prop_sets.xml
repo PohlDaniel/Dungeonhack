@@ -1,0 +1,27 @@
+<setListing>
+  <sets>
+    <set name="barrels1">
+      <entity type="physics_prop">
+        <display mesh="barrel.mesh" x_scale="1.0" y_scale="1.0" z_scale="1.0" x_rot="0.0" y_rot="0.0" z_rot="0.0"/>
+        <collision primitive="cylinder" x_scale="15.0" y_scale="40.0" z_scale="15.0" x_rot="0.0" y_rot="0.0" z_rot="90.0"/>
+        <physics mass="55"/>
+      </entity>
+    </set>
+
+    <set name="braziers1">
+      <entity type="physics_prop">
+        <display mesh="brazier.mesh" x_scale="1.0" y_scale="1.0" z_scale="1.0" x_rot="0.0" y_rot="0.0" z_rot="0.0"/>
+        <collision primitive="cylinder" x_scale="15.0" y_scale="42.0" z_scale="15.0" x_rot="0.0" y_rot="0.0" z_rot="90.0"/>
+        <physics mass="30"/>
+      </entity>
+    </set>
+
+    <set name="old_skull">
+      <entity type="physics_prop">
+        <display mesh="Skull_1.mesh" x_scale="1.0" y_scale="1.0" z_scale="1.0" x_rot="0.0" y_rot="0.0" z_rot="0.0"/>
+        <collision primitive="Skull_Collision.mesh" x_scale="0.86" y_scale="0.86" z_scale="0.86" x_rot="0.0" y_rot="0.0" z_rot="0.0"/>
+        <physics mass="5"/>
+      </entity>
+    </set>
+  </sets>
+</setListing>

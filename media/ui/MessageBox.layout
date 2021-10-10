@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="StaticImage" skin="StaticImage" position_real="0.299805 0.0494792 0.399414 0.89974" layer="Main" name="Panel01">
+        <Property key="Image_Texture" value="MessageBoxBack.png"/>
+        <Property key="Widget_Show" value="true"/>
+        <Widget type="Edit" skin="WordWrapSimple" position_real="0.0953545 0.0781476 0.819071 0.0593343" layer="Main" name="Text01">
+            <Property key="Widget_Caption" value="Insert blabla here"/>
+            <Property key="Edit_ReadOnly" value="true"/>
+            <Property key="Edit_WordWrap" value="true"/>
+            <Property key="Edit_MultiLine" value="true"/>
+            <Property key="Widget_Colour" value="#000000"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position_real="0.246944 0.163531 0.528117 0.0564399" name="Button00">
+            <Property key="Widget_Caption" value="Button 00"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position_real="0.246944 0.227207 0.528117 0.0564399" name="Button01">
+            <Property key="Widget_Caption" value="Button 01"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position_real="0.246944 0.287988 0.528117 0.0564399" name="Button02">
+            <Property key="Widget_Caption" value="Button 02"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position_real="0.246944 0.353111 0.528117 0.0564399" name="Button03">
+            <Property key="Widget_Caption" value="Button 03"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position_real="0.246944 0.418234 0.528117 0.0564399" name="Button04">
+            <Property key="Widget_Caption" value="Button 04"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position_real="0.246944 0.479016 0.528117 0.0564399" name="Button05">
+            <Property key="Widget_Caption" value="Button 05"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position_real="0.246944 0.541245 0.528117 0.0564399" name="Button06">
+            <Property key="Widget_Caption" value="Button 06"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position_real="0.246944 0.602026 0.528117 0.0564399" name="Button07">
+            <Property key="Widget_Caption" value="Button 07"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position_real="0.246944 0.664255 0.528117 0.0564399" name="Button08">
+            <Property key="Widget_Caption" value="Button 08"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position_real="0.246944 0.730825 0.528117 0.0564399" name="Button09">
+            <Property key="Widget_Caption" value="Button 09"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position_real="0.246944 0.793054 0.528117 0.0564399" name="Button10">
+            <Property key="Widget_Caption" value="Button 10"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position_real="0.246944 0.853835 0.528117 0.0564399" name="Button11">
+            <Property key="Widget_Caption" value="Button 11"/>
+        </Widget>
+    </Widget>
+    <Widget type="StaticImage" skin="StaticImage" position_real="0 0 1 1" align="Stretch" layer="Back">
+        <Property key="Image_Texture" value="darkblue_t.png"/>
+        <Property key="Widget_Show" value="true"/>
+    </Widget>
+</MyGUI>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="StaticImage" skin="StaticImage" position_real="0.329102 0.158854 0.329102 0.658854" layer="Main">
+        <Property key="Image_Texture" value="MessageBoxBack.png"/>
+        <Property key="Widget_Show" value="true"/>
+        <Widget type="Button" skin="Button" position_real="0.246291 0.0988142 0.477745 0.0790514" name="ButtonResume">
+            <Property key="Widget_Caption" value="Resume game"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position_real="0.246291 0.310277 0.477745 0.0790514" name="ButtonExit">
+            <Property key="Widget_Caption" value="Quit game"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position_real="0.249258 0.199605 0.47181 0.083004"  name="ButtonConfig">
+            <Property key="Widget_Caption" value="Options"/>
+        </Widget>
+    </Widget>
+    <Widget type="StaticImage" skin="StaticImage" position_real="0 0 1 1" align="Stretch" layer="Back">
+        <Property key="Image_Texture" value="darkblue_t.png"/>
+        <Property key="Widget_Show" value="true"/>
+    </Widget>
+</MyGUI>

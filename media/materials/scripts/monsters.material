@@ -1,0 +1,13 @@
+material Material0.001/SOLID/TEX/ZOMBIE.JPG
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture ZOMBIE.JPG
+            }
+        }
+    }
+}

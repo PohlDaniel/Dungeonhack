@@ -1,0 +1,1292 @@
+<scene formatVersion="0.2.0">
+  <nodes>
+    <node name="Door.002">
+      <position x="1.266913" y="2.338935" z="-0.003641"/>
+      <rotation qx="-0.000000" qy="0.000000" qz="-0.959576" qw="0.281450"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Door.002" meshFile="D_Door1.mesh"/>
+    </node>
+    <node name="Cube.076">
+      <position x="-2.000000" y="8.000000" z="10.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.076" meshFile="DRamp1.mesh"/>
+    </node>
+    <node name="Cube.077">
+      <position x="2.000000" y="6.000000" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.077" meshFile="DLongHall1.mesh"/>
+    </node>
+    <node name="Brazier2.009">
+      <position x="12.005246" y="0.896036" z="0.136581"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Brazier2.009" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Emitter"/>
+        <property type="STRING" name="Set" data="torchfire1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.008">
+      <position x="2.005017" y="8.892142" z="10.144382"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Brazier2.008" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Emitter"/>
+        <property type="STRING" name="Set" data="torchfire1"/>
+      </userData>
+    </node>
+    <node name="Cube.072">
+      <position x="2.000000" y="14.000000" z="1.700000"/>
+      <rotation qx="0.707107" qy="0.707107" qz="0.000000" qw="0.000000"/>
+      <scale x="0.998333" y="-0.400000" z="0.400000"/>
+      <entity name="Cube.072" meshFile="DMetalRod.mesh"/>
+    </node>
+    <node name="Door.003">
+      <position x="1.300000" y="10.400001" z="-0.003641"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.965926" qw="0.258819"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Door.003" meshFile="D_Door1.mesh"/>
+    </node>
+    <node name="Brazier2.005">
+      <position x="0.109290" y="11.932993" z="-0.249087"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Brazier2.005" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Monster"/>
+      </userData>
+    </node>
+    <node name="Brazier2.004">
+      <position x="-6.884036" y="-0.007913" z="0.136581"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Brazier2.004" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Emitter"/>
+        <property type="STRING" name="Set" data="torchfire1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.007">
+      <position x="-5.994360" y="8.891839" z="5.145213"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Brazier2.007" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Emitter"/>
+        <property type="STRING" name="Set" data="torchfire1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.006">
+      <position x="2.006283" y="16.877325" z="0.136581"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Brazier2.006" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Emitter"/>
+        <property type="STRING" name="Set" data="torchfire1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.001">
+      <position x="5.984640" y="-2.111084" z="-0.249088"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Brazier2.001" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="braziers1"/>
+      </userData>
+    </node>
+    <node name="Cube.079">
+      <position x="2.000000" y="2.000000" z="-0.003642"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.079" meshFile="DDoorway2.mesh"/>
+    </node>
+    <node name="Brazier2.003">
+      <position x="6.003006" y="0.891680" z="0.136581"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Brazier2.003" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Emitter"/>
+        <property type="STRING" name="Set" data="torchfire1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.002">
+      <position x="10.069511" y="0.630816" z="-0.249088"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Brazier2.002" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="barrels1"/>
+      </userData>
+    </node>
+    <node name="Door.001">
+      <position x="12.000000" y="8.000000" z="9.996359"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Door.001" meshFile="D_Door1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Entrance"/>
+        <property type="INT" name="ExitNum" data="0"/>
+      </userData>
+    </node>
+    <node name="Cube.039">
+      <position x="0.000000" y="14.000000" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.039" meshFile="DAlcove1.mesh"/>
+    </node>
+    <node name="Cube.089">
+      <position x="2.007442" y="13.917639" z="-0.700000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.089" meshFile="Sarco1.mesh"/>
+    </node>
+    <node name="Cube.088">
+      <position x="2.007442" y="13.907242" z="-0.502752"/>
+      <rotation qx="0.000019" qy="-0.000019" qz="0.714211" qw="0.699931"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.088" meshFile="Sarco1_Cover.mesh"/>
+    </node>
+    <node name="Door.004">
+      <position x="32.400002" y="12.700000" z="-5.003641"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.887011" qw="0.461749"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Door.004" meshFile="D_Door1.mesh"/>
+    </node>
+    <node name="Cube.083">
+      <position x="2.000000" y="8.000000" z="9.996359"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.083" meshFile="DDoorway1.mesh"/>
+    </node>
+    <node name="Door.005">
+      <position x="2.676615" y="8.646770" z="9.996359"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.525228" qw="0.850962"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Door.005" meshFile="D_Door1.mesh"/>
+    </node>
+    <node name="Cube.085">
+      <position x="28.007442" y="10.296686" z="-5.700000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.085" meshFile="Sarco1.mesh"/>
+    </node>
+    <node name="Cube.084">
+      <position x="28.198559" y="10.286289" z="-5.502752"/>
+      <rotation qx="0.000016" qy="-0.000021" qz="0.604497" qw="0.796607"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.084" meshFile="Sarco1_Cover.mesh"/>
+    </node>
+    <node name="Cube.087">
+      <position x="28.007442" y="7.512123" z="-5.502752"/>
+      <rotation qx="0.000019" qy="-0.000019" qz="0.714211" qw="0.699931"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.087" meshFile="Sarco1_Cover.mesh"/>
+    </node>
+    <node name="Cube.086">
+      <position x="28.007442" y="7.522520" z="-5.700000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.086" meshFile="Sarco1.mesh"/>
+    </node>
+    <node name="Lamp.012">
+      <position x="8.015512" y="5.546246" z="10.149776"/>
+      <rotation qx="0.707107" qy="0.000000" qz="0.000000" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <light name="Lamp" type="point">
+        <colourDiffuse r="1.000000" g="0.534611" b="0.090050"/>
+        <colourSpecular r="1.000000" g="0.534611" b="0.090050"/>
+        <lightAttenuation range="5000.0" constant="1.000000" linear="0.400000" quadratic="0.000000"/>
+      </light>
+    </node>
+    <node name="Lamp.011">
+      <position x="2.006276" y="8.482217" z="10.149775"/>
+      <rotation qx="0.707107" qy="0.000000" qz="0.000000" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <light name="Lamp.004" type="point">
+        <colourDiffuse r="1.486021" g="0.740624" b="0.133816"/>
+        <colourSpecular r="1.486021" g="0.740624" b="0.133816"/>
+        <lightAttenuation range="5000.0" constant="1.000000" linear="0.333333" quadratic="0.000000"/>
+      </light>
+    </node>
+    <node name="Lamp.010">
+      <position x="-5.997880" y="8.716465" z="5.149775"/>
+      <rotation qx="0.707107" qy="0.000000" qz="0.000000" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <light name="Lamp.002" type="point">
+        <colourDiffuse r="1.431617" g="0.699425" b="0.000000"/>
+        <colourSpecular r="1.431617" g="0.699425" b="0.000000"/>
+        <lightAttenuation range="5000.0" constant="1.000000" linear="0.333333" quadratic="0.000000"/>
+      </light>
+    </node>
+    <node name="Cube.067">
+      <position x="30.000000" y="6.000000" z="-5.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.067" meshFile="DAlcove1.mesh"/>
+    </node>
+    <node name="Cube.109">
+      <position x="-1.962459" y="5.255575" z="-0.093839"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.391542" qw="0.920160"/>
+      <scale x="0.156289" y="0.156289" z="0.166379"/>
+      <entity name="Cube.109" meshFile="Skull_1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="old_skull"/>
+      </userData>
+    </node>
+    <node name="Cube.065">
+      <position x="30.000000" y="8.000000" z="-5.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.065" meshFile="DAlcove1.mesh"/>
+    </node>
+    <node name="Cube.064">
+      <position x="32.000000" y="12.000000" z="-5.003642"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.064" meshFile="DDoorway2.mesh"/>
+    </node>
+    <node name="Cube.063">
+      <position x="26.000000" y="8.000000" z="-5.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.063" meshFile="DAlcove1.mesh"/>
+    </node>
+    <node name="Cube.062">
+      <position x="26.000000" y="6.000000" z="-5.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.062" meshFile="DAlcove1.mesh"/>
+    </node>
+    <node name="Cube.061">
+      <position x="26.000000" y="10.000000" z="-5.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.061" meshFile="DAlcove1.mesh"/>
+    </node>
+    <node name="Cube.060">
+      <position x="30.000000" y="12.000000" z="-5.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.060" meshFile="DAlcove1.mesh"/>
+    </node>
+    <node name="Cube.101">
+      <position x="12.000000" y="8.000000" z="9.996359"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.101" meshFile="DDoorway2.mesh"/>
+    </node>
+    <node name="Cube.102">
+      <position x="7.990006" y="5.000000" z="10.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.102" meshFile="DRoomWall1.mesh"/>
+    </node>
+    <node name="Cube.103">
+      <position x="4.000000" y="0.000000" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.103" meshFile="DAlcove1.mesh"/>
+    </node>
+    <node name="Cube.104">
+      <position x="-6.751863" y="-0.379980" z="-0.841160"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.107522" qw="0.994203"/>
+      <scale x="1.010392" y="1.010392" z="1.075623"/>
+      <entity name="Cube.104" meshFile="Skull_1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="old_skull"/>
+      </userData>
+    </node>
+    <node name="Cube.069">
+      <position x="27.992085" y="4.471348" z="-5.664308"/>
+      <rotation qx="0.301446" qy="-0.301446" qz="0.639633" qw="0.639633"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.069" meshFile="Sarco1_Cover.mesh"/>
+    </node>
+    <node name="Cube.068">
+      <position x="28.007442" y="5.068126" z="-5.700000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.068" meshFile="Sarco1.mesh"/>
+    </node>
+    <node name="Cube.119">
+      <position x="4.485917" y="-1.164685" z="-0.097388"/>
+      <rotation qx="0.216819" qy="-0.332774" qz="-0.500997" qw="0.768930"/>
+      <scale x="1.010392" y="1.010392" z="1.075623"/>
+      <entity name="Cube.119" meshFile="Skull_1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="old_skull"/>
+      </userData>
+    </node>
+    <node name="Cube.118">
+      <position x="4.006938" y="-1.261977" z="-0.097388"/>
+      <rotation qx="0.021609" qy="0.232122" qz="0.090139" qw="0.968260"/>
+      <scale x="1.010392" y="1.010392" z="1.075623"/>
+      <entity name="Cube.118" meshFile="Skull_1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="old_skull"/>
+      </userData>
+    </node>
+    <node name="Torch.002">
+      <position x="-6.998090" y="0.002349" z="0.015322"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.015552" y="0.015552" z="0.015552"/>
+      <entity name="Torch.002" meshFile="WallTorch1_small.mesh"/>
+    </node>
+    <node name="Cube.117">
+      <position x="3.335943" y="-1.453969" z="-0.097388"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.654820" qw="0.755784"/>
+      <scale x="1.010392" y="1.010392" z="1.075623"/>
+      <entity name="Cube.117" meshFile="Skull_1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="old_skull"/>
+      </userData>
+    </node>
+    <node name="Cube.116">
+      <position x="-6.738284" y="-0.702029" z="-0.841160"/>
+      <rotation qx="0.610678" qy="0.364727" qz="-0.606536" qw="0.355189"/>
+      <scale x="1.010392" y="1.010392" z="1.075623"/>
+      <entity name="Cube.116" meshFile="Skull_1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="old_skull"/>
+      </userData>
+    </node>
+    <node name="Cube">
+      <position x="-2.000000" y="0.000000" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube" meshFile="DLongHall1.mesh"/>
+    </node>
+    <node name="Lamp.002">
+      <position x="12.032168" y="0.676789" z="0.149775"/>
+      <rotation qx="0.707107" qy="0.000000" qz="0.000000" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <light name="Lamp.002" type="point">
+        <colourDiffuse r="1.431617" g="0.699425" b="0.000000"/>
+        <colourSpecular r="1.431617" g="0.699425" b="0.000000"/>
+        <lightAttenuation range="5000.0" constant="1.000000" linear="0.333333" quadratic="0.000000"/>
+      </light>
+    </node>
+    <node name="Cube.128">
+      <position x="33.758873" y="13.382678" z="-5.058121"/>
+      <rotation qx="0.110155" qy="0.047291" qz="0.982756" qw="0.140782"/>
+      <scale x="1.010392" y="1.010392" z="1.075623"/>
+      <entity name="Cube.128" meshFile="Skull_1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="old_skull"/>
+      </userData>
+    </node>
+    <node name="Cube.129">
+      <position x="34.148693" y="13.214860" z="-5.058121"/>
+      <rotation qx="-0.033479" qy="-0.115107" qz="-0.733178" qw="0.669388"/>
+      <scale x="1.010392" y="1.010392" z="1.075623"/>
+      <entity name="Cube.129" meshFile="Skull_1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="old_skull"/>
+      </userData>
+    </node>
+    <node name="Cube.126">
+      <position x="35.418594" y="-0.500242" z="-5.058121"/>
+      <rotation qx="0.326578" qy="-0.183317" qz="0.453860" qw="0.808550"/>
+      <scale x="1.010392" y="1.010392" z="1.075623"/>
+      <entity name="Cube.126" meshFile="Skull_1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="old_skull"/>
+      </userData>
+    </node>
+    <node name="Cube.127">
+      <position x="34.681435" y="-0.131697" z="-5.058121"/>
+      <rotation qx="0.467746" qy="0.209438" qz="-0.467154" qw="0.720498"/>
+      <scale x="1.010392" y="1.010392" z="1.075623"/>
+      <entity name="Cube.127" meshFile="Skull_1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="old_skull"/>
+      </userData>
+    </node>
+    <node name="Cube.124">
+      <position x="5.382745" y="12.642994" z="-0.108479"/>
+      <rotation qx="0.232368" qy="-0.155311" qz="0.533544" qw="0.798257"/>
+      <scale x="1.010392" y="1.010392" z="1.075623"/>
+      <entity name="Cube.124" meshFile="Skull_1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="old_skull"/>
+      </userData>
+    </node>
+    <node name="Cube.125">
+      <position x="12.735858" y="0.394928" z="-0.810489"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.080723" qw="0.996737"/>
+      <scale x="1.010392" y="1.010392" z="1.075623"/>
+      <entity name="Cube.125" meshFile="Skull_1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="old_skull"/>
+      </userData>
+    </node>
+    <node name="Cube.122">
+      <position x="-1.212244" y="15.783438" z="-0.097388"/>
+      <rotation qx="-0.057433" qy="-0.176668" qz="-0.934455" qw="0.303781"/>
+      <scale x="1.010392" y="1.010392" z="1.075623"/>
+      <entity name="Cube.122" meshFile="Skull_1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="old_skull"/>
+      </userData>
+    </node>
+    <node name="Cube.123">
+      <position x="5.406443" y="16.352358" z="-0.097388"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.848770" qw="0.528762"/>
+      <scale x="1.010392" y="1.010392" z="1.075623"/>
+      <entity name="Cube.123" meshFile="Skull_1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="old_skull"/>
+      </userData>
+    </node>
+    <node name="Cube.121">
+      <position x="-1.375991" y="16.683252" z="-0.129330"/>
+      <rotation qx="0.198169" qy="0.166123" qz="-0.620572" qw="0.740286"/>
+      <scale x="1.010392" y="1.010392" z="1.075623"/>
+      <entity name="Cube.121" meshFile="Skull_1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="old_skull"/>
+      </userData>
+    </node>
+    <node name="Cube.058">
+      <position x="28.000000" y="4.000000" z="-5.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.058" meshFile="DAlcove1.mesh"/>
+    </node>
+    <node name="Cube.059">
+      <position x="28.000000" y="12.000000" z="-5.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.059" meshFile="DAlcove1.mesh"/>
+    </node>
+    <node name="Cube.052">
+      <position x="34.000000" y="12.000000" z="-5.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.052" meshFile="DHall2.mesh"/>
+    </node>
+    <node name="Torch.012">
+      <position x="8.001910" y="5.002349" z="10.015322"/>
+      <rotation qx="-0.000000" qy="0.000000" qz="-0.000000" qw="1.000000"/>
+      <scale x="0.015552" y="0.015552" z="0.015552"/>
+      <entity name="Torch.012" meshFile="WallTorch1_small.mesh"/>
+    </node>
+    <node name="Cube.051">
+      <position x="34.000000" y="0.000000" z="-5.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.051" meshFile="DAlcove1.mesh"/>
+    </node>
+    <node name="Cube.054">
+      <position x="28.000000" y="10.000000" z="-5.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.054" meshFile="DRoom2.mesh"/>
+    </node>
+    <node name="Cube.131">
+      <position x="27.402369" y="13.369389" z="-5.058121"/>
+      <rotation qx="-0.070593" qy="-0.096887" qz="-0.916981" qw="0.380494"/>
+      <scale x="1.010392" y="1.010392" z="1.075623"/>
+      <entity name="Cube.131" meshFile="Skull_1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="old_skull"/>
+      </userData>
+    </node>
+    <node name="Cube.130">
+      <position x="27.465014" y="5.110747" z="-5.058121"/>
+      <rotation qx="0.071043" qy="-0.096558" qz="0.085792" qw="0.989075"/>
+      <scale x="1.010392" y="1.010392" z="1.075623"/>
+      <entity name="Cube.130" meshFile="Skull_1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="old_skull"/>
+      </userData>
+    </node>
+    <node name="Cube.133">
+      <position x="24.571718" y="10.508855" z="-5.058121"/>
+      <rotation qx="-0.083026" qy="-0.086471" qz="-0.959950" qw="0.253232"/>
+      <scale x="1.010392" y="1.010392" z="1.075623"/>
+      <entity name="Cube.133" meshFile="Skull_1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="old_skull"/>
+      </userData>
+    </node>
+    <node name="Cube.132">
+      <position x="24.676027" y="7.484567" z="-5.058121"/>
+      <rotation qx="-0.083026" qy="-0.086471" qz="-0.959950" qw="0.253232"/>
+      <scale x="1.010392" y="1.010392" z="1.075623"/>
+      <entity name="Cube.132" meshFile="Skull_1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="old_skull"/>
+      </userData>
+    </node>
+    <node name="Cube.135">
+      <position x="28.080206" y="13.296069" z="-5.058121"/>
+      <rotation qx="0.018934" qy="-0.118372" qz="-0.376707" qw="0.918543"/>
+      <scale x="1.010392" y="1.010392" z="1.075623"/>
+      <entity name="Cube.135" meshFile="Skull_1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="old_skull"/>
+      </userData>
+    </node>
+    <node name="Cube.134">
+      <position x="24.780373" y="9.885686" z="-5.058121"/>
+      <rotation qx="-0.008260" qy="-0.119592" qz="-0.574225" qw="0.809873"/>
+      <scale x="1.010392" y="1.010392" z="1.075623"/>
+      <entity name="Cube.134" meshFile="Skull_1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="old_skull"/>
+      </userData>
+    </node>
+    <node name="Cube.137">
+      <position x="28.085815" y="2.629632" z="-5.058121"/>
+      <rotation qx="-0.009811" qy="-0.119475" qz="-0.584684" qw="0.802355"/>
+      <scale x="1.010392" y="1.010392" z="1.075623"/>
+      <entity name="Cube.137" meshFile="Skull_1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="old_skull"/>
+      </userData>
+    </node>
+    <node name="Cube.136">
+      <position x="31.437559" y="10.094620" z="-5.058121"/>
+      <rotation qx="0.117829" qy="-0.022065" qz="0.737863" qw="0.664220"/>
+      <scale x="1.010392" y="1.010392" z="1.075623"/>
+      <entity name="Cube.136" meshFile="Skull_1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="old_skull"/>
+      </userData>
+    </node>
+    <node name="Cube.031">
+      <position x="-6.000000" y="4.000000" z="5.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.031" meshFile="DRamp1.mesh"/>
+    </node>
+    <node name="Brazier2.015">
+      <position x="5.484640" y="5.888916" z="9.750913"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Brazier2.015" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="braziers1"/>
+      </userData>
+    </node>
+    <node name="Cube.034">
+      <position x="2.000000" y="-2.000000" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.034" meshFile="DHallEnd.mesh"/>
+    </node>
+    <node name="Lamp">
+      <position x="-6.497513" y="-0.001759" z="0.149774"/>
+      <rotation qx="0.707107" qy="0.000000" qz="0.000000" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <light name="Lamp.002" type="point">
+        <colourDiffuse r="1.431617" g="0.699425" b="0.000000"/>
+        <colourSpecular r="1.431617" g="0.699425" b="0.000000"/>
+        <lightAttenuation range="5000.0" constant="1.000000" linear="0.333333" quadratic="0.000000"/>
+      </light>
+    </node>
+    <node name="Torch.010">
+      <position x="2.001910" y="17.002350" z="0.015322"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.015552" y="0.015552" z="0.015552"/>
+      <entity name="Torch.010" meshFile="WallTorch1_small.mesh"/>
+    </node>
+    <node name="Cube.019">
+      <position x="24.000000" y="0.000000" z="-5.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.019" meshFile="DEnterHallSloped.mesh"/>
+    </node>
+    <node name="Cube.045">
+      <position x="2.000000" y="14.000000" z="1.700000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.045" meshFile="DGrate1.mesh"/>
+    </node>
+    <node name="Cube.040">
+      <position x="0.000000" y="16.000000" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.040" meshFile="DAlcove1.mesh"/>
+    </node>
+    <node name="Cube.043">
+      <position x="4.000000" y="16.000000" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.043" meshFile="DAlcove1.mesh"/>
+    </node>
+    <node name="Cube.042">
+      <position x="4.000000" y="12.000000" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.042" meshFile="DAlcove1.mesh"/>
+    </node>
+    <node name="Cube.029">
+      <position x="20.000000" y="0.000000" z="-5.003642"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.029" meshFile="DDoorway1.mesh"/>
+    </node>
+    <node name="Cube.028">
+      <position x="12.000000" y="0.000000" z="-0.003641"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.028" meshFile="DDoorway1.mesh"/>
+    </node>
+    <node name="Cube.023">
+      <position x="34.000000" y="12.000000" z="-5.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.023" meshFile="DAlcove1.mesh"/>
+    </node>
+    <node name="Cube.022">
+      <position x="34.000000" y="0.000000" z="-5.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.022" meshFile="DHall2.mesh"/>
+    </node>
+    <node name="Cube.020">
+      <position x="32.000000" y="0.000000" z="-5.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.020" meshFile="DEnterHallSloped.mesh"/>
+    </node>
+    <node name="Cube.027">
+      <position x="16.000000" y="0.000000" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.027" meshFile="DRamp1.mesh"/>
+    </node>
+    <node name="Cube.026">
+      <position x="34.000000" y="10.000000" z="-5.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.026" meshFile="DEnterHallSloped.mesh"/>
+    </node>
+    <node name="Cube.025">
+      <position x="34.000000" y="6.000000" z="-5.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.025" meshFile="DLongHallSloped.mesh"/>
+    </node>
+    <node name="Cube.024">
+      <position x="34.000000" y="2.000000" z="-5.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.024" meshFile="DEnterHallSloped.mesh"/>
+    </node>
+    <node name="Brazier2.034">
+      <position x="26.002588" y="12.893505" z="-4.801038"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.413576" y="0.413576" z="0.413576"/>
+      <entity name="Brazier2.034" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Corona1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.035">
+      <position x="25.102589" y="6.993505" z="-4.801038"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.413576" y="0.413576" z="0.413576"/>
+      <entity name="Brazier2.035" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Corona1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.030">
+      <position x="-5.991917" y="8.879084" z="5.214970"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.413576" y="0.413576" z="0.413576"/>
+      <entity name="Brazier2.030" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Corona1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.031">
+      <position x="22.002586" y="0.893505" z="-4.801038"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.413576" y="0.413576" z="0.413576"/>
+      <entity name="Brazier2.031" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Corona1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.032">
+      <position x="34.002586" y="-0.906495" z="-4.801038"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.413576" y="0.413576" z="0.413576"/>
+      <entity name="Brazier2.032" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Corona1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.033">
+      <position x="34.902588" y="11.993505" z="-4.801038"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.413576" y="0.413576" z="0.413576"/>
+      <entity name="Brazier2.033" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Corona1"/>
+      </userData>
+    </node>
+    <node name="Torch.005">
+      <position x="22.001911" y="1.002349" z="-4.984678"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.015552" y="0.015552" z="0.015552"/>
+      <entity name="Torch.005" meshFile="WallTorch1_small.mesh"/>
+    </node>
+    <node name="Torch.004">
+      <position x="2.001910" y="9.002349" z="10.015322"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.015552" y="0.015552" z="0.015552"/>
+      <entity name="Torch.004" meshFile="WallTorch1_small.mesh"/>
+    </node>
+    <node name="Torch">
+      <position x="6.001910" y="1.002349" z="0.015322"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.015552" y="0.015552" z="0.015552"/>
+      <entity name="Torch" meshFile="WallTorch1_small.mesh"/>
+    </node>
+    <node name="Torch.007">
+      <position x="35.001911" y="12.002349" z="-4.984678"/>
+      <rotation qx="-0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="0.015552" y="0.015552" z="0.015552"/>
+      <entity name="Torch.007" meshFile="WallTorch1_small.mesh"/>
+    </node>
+    <node name="Torch.006">
+      <position x="34.001911" y="-0.997651" z="-4.984678"/>
+      <rotation qx="-0.000000" qy="0.000000" qz="-0.000000" qw="1.000000"/>
+      <scale x="0.015552" y="0.015552" z="0.015552"/>
+      <entity name="Torch.006" meshFile="WallTorch1_small.mesh"/>
+    </node>
+    <node name="Torch.001">
+      <position x="12.001910" y="1.002349" z="0.015322"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.015552" y="0.015552" z="0.015552"/>
+      <entity name="Torch.001" meshFile="WallTorch1_small.mesh"/>
+    </node>
+    <node name="Torch.003">
+      <position x="-5.998090" y="9.002349" z="5.015322"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.015552" y="0.015552" z="0.015552"/>
+      <entity name="Torch.003" meshFile="WallTorch1_small.mesh"/>
+    </node>
+    <node name="Cube.038">
+      <position x="0.000000" y="12.000000" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.038" meshFile="DAlcove1.mesh"/>
+    </node>
+    <node name="Cube.066">
+      <position x="30.000000" y="10.000000" z="-5.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.066" meshFile="DAlcove1.mesh"/>
+    </node>
+    <node name="Cube.016">
+      <position x="22.000000" y="0.000000" z="-5.003642"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.016" meshFile="DDoorway1.mesh"/>
+    </node>
+    <node name="Cube.017">
+      <position x="28.000000" y="0.000000" z="-5.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.017" meshFile="DLongHallSloped.mesh"/>
+    </node>
+    <node name="Cube.014">
+      <position x="2.000000" y="10.000000" z="-0.003642"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.014" meshFile="DDoorway2.mesh"/>
+    </node>
+    <node name="Cube.015">
+      <position x="4.000000" y="0.000000" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.015" meshFile="DHall2.mesh"/>
+    </node>
+    <node name="Cube.012">
+      <position x="2.000000" y="0.000000" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.012" meshFile="DHallIntersection1.mesh"/>
+    </node>
+    <node name="Cube.013">
+      <position x="2.000000" y="10.000000" z="-0.003642"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.013" meshFile="DDoorway2.mesh"/>
+    </node>
+    <node name="Cube.010">
+      <position x="6.000000" y="-2.000000" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.010" meshFile="DHallEnd.mesh"/>
+    </node>
+    <node name="Brazier2.027">
+      <position x="2.008083" y="8.879084" z="10.214970"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.413576" y="0.413576" z="0.413576"/>
+      <entity name="Brazier2.027" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Corona1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.026">
+      <position x="2.003759" y="16.890772" z="0.198962"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.413576" y="0.413576" z="0.413576"/>
+      <entity name="Brazier2.026" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Corona1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.025">
+      <position x="12.002587" y="0.893505" z="0.198962"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.413576" y="0.413576" z="0.413576"/>
+      <entity name="Brazier2.025" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Corona1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.024">
+      <position x="-6.886181" y="0.000445" z="0.198962"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.413576" y="0.413576" z="0.413576"/>
+      <entity name="Brazier2.024" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Corona1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.023">
+      <position x="6.003873" y="0.874211" z="0.198962"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.413576" y="0.413576" z="0.413576"/>
+      <entity name="Brazier2.023" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Corona1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.022">
+      <position x="8.547766" y="7.438416" z="9.750913"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Brazier2.022" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="barrels1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.021">
+      <position x="8.805714" y="7.954310" z="9.750913"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Brazier2.021" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="barrels1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.020">
+      <position x="7.742454" y="9.437353" z="9.750914"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Brazier2.020" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="bones1"/>
+      </userData>
+    </node>
+    <node name="Cube.053">
+      <position x="32.000000" y="12.000000" z="-5.003642"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.053" meshFile="DDoorway2.mesh"/>
+    </node>
+    <node name="Torch.009">
+      <position x="24.999517" y="6.998620" z="-4.984678"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.015552" y="0.015552" z="0.015552"/>
+      <entity name="Torch.009" meshFile="WallTorch1_small.mesh"/>
+    </node>
+    <node name="Torch.008">
+      <position x="26.000223" y="13.000662" z="-4.984678"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.015552" y="0.015552" z="0.015552"/>
+      <entity name="Torch.008" meshFile="WallTorch1_small.mesh"/>
+    </node>
+    <node name="Brazier2.029">
+      <position x="8.006146" y="5.105765" z="10.214970"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.413576" y="0.413576" z="0.413576"/>
+      <entity name="Brazier2.029" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Corona1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.028">
+      <position x="8.006146" y="10.905766" z="10.214970"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.413576" y="0.413576" z="0.413576"/>
+      <entity name="Brazier2.028" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Corona1"/>
+      </userData>
+    </node>
+    <node name="Cylinder.008">
+      <position x="7.000216" y="-0.999399" z="0.000257"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cylinder.008" meshFile="DColumn1.mesh"/>
+    </node>
+    <node name="Cylinder.009">
+      <position x="5.000216" y="-0.999399" z="0.000257"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cylinder.009" meshFile="DColumn1.mesh"/>
+    </node>
+    <node name="Brazier2">
+      <position x="1.899769" y="-1.943212" z="-0.249087"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Brazier2" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="braziers1"/>
+      </userData>
+    </node>
+    <node name="Cylinder.004">
+      <position x="3.000216" y="1.000601" z="0.000257"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cylinder.004" meshFile="DColumn1.mesh"/>
+    </node>
+    <node name="Cylinder.005">
+      <position x="1.000216" y="-0.999399" z="0.000257"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cylinder.005" meshFile="DColumn1.mesh"/>
+    </node>
+    <node name="Cylinder.006">
+      <position x="3.000216" y="-0.999399" z="0.000257"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cylinder.006" meshFile="DColumn1.mesh"/>
+    </node>
+    <node name="Cylinder.007">
+      <position x="1.000216" y="1.000601" z="0.000257"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cylinder.007" meshFile="DColumn1.mesh"/>
+    </node>
+    <node name="Cylinder.001">
+      <position x="8.000217" y="8.000601" z="10.000257"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cylinder.001" meshFile="DColumn1Tall.mesh"/>
+    </node>
+    <node name="Cube.078">
+      <position x="2.000000" y="2.000000" z="-0.003642"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.078" meshFile="DDoorway2.mesh"/>
+    </node>
+    <node name="DCorner1">
+      <position x="-6.000000" y="0.000000" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="DCorner1" meshFile="DCorner1.mesh"/>
+    </node>
+    <node name="Cube.092">
+      <position x="1.700000" y="14.000000" z="1.700000"/>
+      <rotation qx="0.707107" qy="0.707107" qz="0.000000" qw="0.000000"/>
+      <scale x="0.998333" y="-0.400000" z="0.400000"/>
+      <entity name="Cube.092" meshFile="DMetalRod.mesh"/>
+    </node>
+    <node name="Lamp.009">
+      <position x="1.966464" y="16.564383" z="0.149775"/>
+      <rotation qx="0.707107" qy="0.000000" qz="0.000000" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <light name="Lamp.002" type="point">
+        <colourDiffuse r="1.431617" g="0.699425" b="0.000000"/>
+        <colourSpecular r="1.431617" g="0.699425" b="0.000000"/>
+        <lightAttenuation range="5000.0" constant="1.000000" linear="0.333333" quadratic="0.000000"/>
+      </light>
+    </node>
+    <node name="Cube.001">
+      <position x="8.000000" y="0.000000" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.001" meshFile="DHall1.mesh"/>
+    </node>
+    <node name="Cube.002">
+      <position x="2.000000" y="14.000000" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.002" meshFile="DRoom1.mesh"/>
+    </node>
+    <node name="Cube.005">
+      <position x="-6.000000" y="8.000000" z="5.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.005" meshFile="DCorner1.mesh"/>
+    </node>
+    <node name="Cube.009">
+      <position x="10.000000" y="0.000000" z="-0.003641"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.009" meshFile="DDoorway1.mesh"/>
+    </node>
+    <node name="Cube.008">
+      <position x="6.000000" y="0.000000" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.008" meshFile="DHall2.mesh"/>
+    </node>
+    <node name="Brazier2.012">
+      <position x="34.895206" y="11.999744" z="-4.856155"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Brazier2.012" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Emitter"/>
+        <property type="STRING" name="Set" data="torchfire1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.013">
+      <position x="26.003843" y="12.891819" z="-4.856155"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Brazier2.013" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Emitter"/>
+        <property type="STRING" name="Set" data="torchfire1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.010">
+      <position x="22.000511" y="0.896036" z="-4.856155"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Brazier2.010" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Emitter"/>
+        <property type="STRING" name="Set" data="torchfire1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.011">
+      <position x="34.010422" y="-0.889233" z="-4.856155"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Brazier2.011" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Emitter"/>
+        <property type="STRING" name="Set" data="torchfire1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.016">
+      <position x="5.484640" y="9.888916" z="9.750913"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Brazier2.016" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="braziers1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.017">
+      <position x="8.002640" y="10.888814" z="10.145212"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Brazier2.017" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Emitter"/>
+        <property type="STRING" name="Set" data="torchfire1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.014">
+      <position x="25.108992" y="7.004531" z="-4.856155"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Brazier2.014" meshFile="Marker.003.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Emitter"/>
+        <property type="STRING" name="Set" data="torchfire1"/>
+      </userData>
+    </node>
+    <node name="Torch.011">
+      <position x="8.001910" y="11.002349" z="10.015322"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.015552" y="0.015552" z="0.015552"/>
+      <entity name="Torch.011" meshFile="WallTorch1_small.mesh"/>
+    </node>
+    <node name="Brazier2.018">
+      <position x="8.001097" y="5.109454" z="10.145212"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Brazier2.018" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Emitter"/>
+        <property type="STRING" name="Set" data="torchfire1"/>
+      </userData>
+    </node>
+    <node name="Brazier2.019">
+      <position x="11.419701" y="8.017797" z="9.750914"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Brazier2.019" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Enter"/>
+      </userData>
+    </node>
+    <node name="Cube.096">
+      <position x="4.000000" y="8.000000" z="9.996359"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.096" meshFile="DDoorway1.mesh"/>
+    </node>
+    <node name="Cube.095">
+      <position x="8.000000" y="8.000000" z="10.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.095" meshFile="DNRoom1.mesh"/>
+    </node>
+    <node name="Lamp.008">
+      <position x="25.562685" y="6.989473" z="-4.850224"/>
+      <rotation qx="0.500000" qy="0.500000" qz="0.500000" qw="0.500000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <light name="Lamp.001" type="point">
+        <colourDiffuse r="1.431617" g="0.699425" b="0.000000"/>
+        <colourSpecular r="1.431617" g="0.699425" b="0.000000"/>
+        <lightAttenuation range="5000.0" constant="1.000000" linear="0.333333" quadratic="0.000000"/>
+      </light>
+    </node>
+    <node name="Cube.093">
+      <position x="1.400000" y="14.000000" z="1.700000"/>
+      <rotation qx="0.707107" qy="0.707107" qz="0.000000" qw="0.000000"/>
+      <scale x="0.998333" y="-0.400000" z="0.400000"/>
+      <entity name="Cube.093" meshFile="DMetalRod.mesh"/>
+    </node>
+    <node name="Cube.090">
+      <position x="2.300000" y="14.000000" z="1.700000"/>
+      <rotation qx="0.707107" qy="0.707107" qz="0.000000" qw="0.000000"/>
+      <scale x="0.998333" y="-0.400000" z="0.400000"/>
+      <entity name="Cube.090" meshFile="DMetalRod.mesh"/>
+    </node>
+    <node name="Cube.091">
+      <position x="2.600000" y="14.000000" z="1.700000"/>
+      <rotation qx="0.707107" qy="0.707107" qz="0.000000" qw="0.000000"/>
+      <scale x="0.998333" y="-0.400000" z="0.400000"/>
+      <entity name="Cube.091" meshFile="DMetalRod.mesh"/>
+    </node>
+    <node name="Lamp.004">
+      <position x="8.037891" y="10.514330" z="10.149776"/>
+      <rotation qx="0.707107" qy="0.000000" qz="0.000000" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <light name="Lamp" type="point">
+        <colourDiffuse r="1.000000" g="0.534611" b="0.090050"/>
+        <colourSpecular r="1.000000" g="0.534611" b="0.090050"/>
+        <lightAttenuation range="5000.0" constant="1.000000" linear="0.400000" quadratic="0.000000"/>
+      </light>
+    </node>
+    <node name="Lamp.005">
+      <position x="33.979485" y="-0.392050" z="-4.850224"/>
+      <rotation qx="0.707107" qy="0.000000" qz="0.000000" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <light name="Lamp.002" type="point">
+        <colourDiffuse r="1.431617" g="0.699425" b="0.000000"/>
+        <colourSpecular r="1.431617" g="0.699425" b="0.000000"/>
+        <lightAttenuation range="5000.0" constant="1.000000" linear="0.333333" quadratic="0.000000"/>
+      </light>
+    </node>
+    <node name="Lamp.006">
+      <position x="34.526279" y="12.013184" z="-4.850224"/>
+      <rotation qx="0.707107" qy="0.000000" qz="0.000000" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <light name="Lamp.002" type="point">
+        <colourDiffuse r="1.431617" g="0.699425" b="0.000000"/>
+        <colourSpecular r="1.431617" g="0.699425" b="0.000000"/>
+        <lightAttenuation range="5000.0" constant="1.000000" linear="0.333333" quadratic="0.000000"/>
+      </light>
+    </node>
+    <node name="Lamp.007">
+      <position x="25.988785" y="12.438127" z="-4.850224"/>
+      <rotation qx="0.707107" qy="0.000000" qz="0.000000" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <light name="Lamp.002" type="point">
+        <colourDiffuse r="1.431617" g="0.699425" b="0.000000"/>
+        <colourSpecular r="1.431617" g="0.699425" b="0.000000"/>
+        <lightAttenuation range="5000.0" constant="1.000000" linear="0.333333" quadratic="0.000000"/>
+      </light>
+    </node>
+    <node name="Lamp.001">
+      <position x="5.990977" y="0.677849" z="0.149774"/>
+      <rotation qx="0.707107" qy="0.000000" qz="0.000000" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <light name="Lamp.002" type="point">
+        <colourDiffuse r="1.431617" g="0.699425" b="0.000000"/>
+        <colourSpecular r="1.431617" g="0.699425" b="0.000000"/>
+        <lightAttenuation range="5000.0" constant="1.000000" linear="0.333333" quadratic="0.000000"/>
+      </light>
+    </node>
+    <node name="Cube.098">
+      <position x="7.990006" y="11.000000" z="10.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.098" meshFile="DRoomWall1.mesh"/>
+    </node>
+    <node name="Lamp.003">
+      <position x="22.141960" y="-0.403255" z="-4.850224"/>
+      <rotation qx="0.707107" qy="0.000000" qz="0.000000" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <light name="Lamp.002" type="point">
+        <colourDiffuse r="1.431617" g="0.699425" b="0.000000"/>
+        <colourSpecular r="1.431617" g="0.699425" b="0.000000"/>
+        <lightAttenuation range="5000.0" constant="1.000000" linear="0.333333" quadratic="0.000000"/>
+      </light>
+    </node>
+  </nodes>
+  <externals>
+    <item type="material">
+      <file name="Scene.material"/>
+    </item>
+  </externals>
+  <environment>
+    <colourAmbient r="0.000000" g="0.000000" b="0.000000"/>
+    <colourBackground r="0.000000" g="0.000000" b="0.000000"/>
+  </environment>
+</scene>

@@ -1,0 +1,157 @@
+material cabinet_003
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture cabinet_003.png
+            }
+        }
+    }
+}
+
+material table_002
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture Wood-Veneer.jpg
+            }
+        }
+    }
+}
+
+material chair_001
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture Wood-Veneer3.jpg
+            }
+        }
+    }
+}
+
+material barstool_002
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture Wood-Veneer3.jpg
+            }
+        }
+    }
+}
+
+material cabinet_001
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture cabinet_001.png
+            }
+        }
+    }
+}
+
+material Bed_002
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture bed_002.png
+            }
+        }
+    }
+}
+
+material InteriorProps/SOLID/TEX/candle_big1.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture candle_big1.png
+            }
+        }
+    }
+}
+
+material InteriorProps/SOLID/TEX/candle_big2.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture candle_big2.png
+            }
+        }
+    }
+}
+
+material InteriorProps/SOLID/TEX/candle_big3.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture candle_big3.png
+            }
+        }
+    }
+}
+
+material InteriorProps/SOLID/TEX/candle_stick1.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture candle_stick1.png
+            }
+        }
+    }
+}
+
+material InteriorProps/SOLID/TEX/candle_flame.png
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+            alpha_rejection greater 64
+            cull_hardware none
+            cull_software none
+            texture_unit
+            {
+                texture candle_flame.png
+            }
+        }
+    }
+}

@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowC" position_real="0.0984375 0.0593654 0.571875 0.671443" layer="Back" name="PanelOptions">
+        <Property key="Widget_Caption" value="Game configuration (not finished yet)"/>
+        <Widget type="Tab" skin="Tab" position_real="0.00692521 0.00646204 0.970914 0.974152" layer="Back" name="TabOptions">
+            <Widget type="TabItem" skin="Default" position="4 26 692 571" layer="Back" name="SubtabGameplay">
+                <Property key="Widget_Caption" value="Gameplay"/>
+                <Widget type="HScroll" skin="HSlider" position_real="0.0144509 0.0753065 0.24711 0.0227671" layer="Back" name="SliderPlaySpeed"/>
+                <Widget type="HScroll" skin="HSlider" position_real="0.0144509 0.17338 0.24711 0.0262697" layer="Back" name="SliderPlayGravity"/>
+                <Widget type="StaticText" skin="StaticText" position_real="0.0144509 0.033275 0.238439 0.0367776" layer="Back" name="LabelPlaySpeed">
+                    <Property key="Widget_Caption" value="Game speed"/>
+                </Widget>
+                <Widget type="StaticText" skin="StaticText" position_real="0.0144509 0.129597 0.24711 0.0385289" layer="Back" name="LabelPlayGravity">
+                    <Property key="Widget_Caption" value="Gravity scale"/>
+                </Widget>
+                <Widget type="Button" skin="CheckBox" position="13 136 163 25" layer="Back">
+                    <Property key="Widget_Caption" value="Display stats"/>
+                </Widget>
+            </Widget>
+            <Widget type="TabItem" skin="Default" position="4 26 692 571" layer="Back" name="SubtabGraphics">
+                <Property key="Widget_Caption" value="Graphics"/>
+                <Widget type="Button" skin="CheckBox" position_real="0.0144509 0.0402802 0.231214 0.0350263" layer="Back" name="CheckGraGrass">
+                    <Property key="Widget_Caption" value="Enable grass"/>
+                </Widget>
+                <Widget type="Button" skin="CheckBox" position_real="0.0144509 0.10683 0.231214 0.0385289" layer="Back" name="CheckGraReflect">
+                    <Property key="Widget_Caption" value="Water effects"/>
+                </Widget>
+            </Widget>
+            <Widget type="TabItem" skin="Default" position="4 26 692 571" layer="Back" name="SubtabAudio">
+                <Property key="Widget_Caption" value="Audio"/>
+                <Widget type="HScroll" skin="HSlider" position_real="0.0144509 0.0788091 0.239884 0.0297723" layer="Back" name="SliderAudAmbient"/>
+                <Widget type="HScroll" skin="HSlider" position_real="0.0144509 0.183888 0.239884 0.0297723" layer="Back" name="SliderAudMusic"/>
+                <Widget type="StaticText" skin="StaticText" position_real="0.0144509 0.0402802 0.238439 0.0437828" layer="Back" name="LabelAudAmbient">
+                    <Property key="Widget_Caption" value="Ambient sound"/>
+                </Widget>
+                <Widget type="StaticText" skin="StaticText" position_real="0.015896 0.143608 0.226879 0.0385289" layer="Back" name="LabelAudMusic">
+                    <Property key="Widget_Caption" value="Music"/>
+                </Widget>
+            </Widget>
+            <Widget type="TabItem" skin="Default" position="4 26 692 571" layer="Back" name="SubtabKeyboard">
+                <Property key="Widget_Caption" value="Keyboard"/>
+                <Widget type="Edit" skin="Edit" position_real="0.00144509 0.0805604 0.119942 0.0297723" layer="Back" name="EditKeyUp">
+                    <Property key="Edit_ReadOnly" value="true"/>
+                </Widget>
+                <Widget type="Edit" skin="Edit" position_real="0.00144509 0.182137 0.119942 0.0297723" layer="Back" name="EditKeyDown">
+                    <Property key="Edit_ReadOnly" value="true"/>
+                </Widget>
+                <Widget type="Edit" skin="Edit" position_real="0.00144509 0.278459 0.119942 0.0297723" layer="Back" name="EditKeyLeft">
+                    <Property key="Edit_ReadOnly" value="true"/>
+                </Widget>
+                <Widget type="Edit" skin="Edit" position_real="0.00144509 0.374781 0.119942 0.0297723" layer="Back" name="EditKeyRight">
+                    <Property key="Edit_ReadOnly" value="true"/>
+                </Widget>
+                <Widget type="Edit" skin="Edit" position_real="0.00144509 0.474606 0.119942 0.0297723" layer="Back" name="EditKeyAction">
+                    <Property key="Edit_ReadOnly" value="true"/>
+                </Widget>
+                <Widget type="Edit" skin="Edit" position_real="0.00144509 0.579685 0.119942 0.0297723" layer="Back" name="EditKeyConsole">
+                    <Property key="Edit_ReadOnly" value="true"/>
+                </Widget>
+                <Widget type="StaticText" skin="StaticText" position_real="0.00289017 0.0420315 0.138728 0.0420315" layer="Back" name="LabelKeyUp">
+                    <Property key="Widget_Caption" value="Up"/>
+                </Widget>
+                <Widget type="StaticText" skin="StaticText" position_real="0.00289017 0.138354 0.138728 0.0437828" layer="Back" name="LabelKeyDown">
+                    <Property key="Widget_Caption" value="Down"/>
+                </Widget>
+                <Widget type="StaticText" skin="StaticText" position_real="0.00289017 0.246935 0.138728 0.033275" layer="Back" name="LabelKeyLeft">
+                    <Property key="Widget_Caption" value="Left"/>
+                </Widget>
+                <Widget type="StaticText" skin="StaticText" position_real="0.00289017 0.334501 0.148844 0.0437828" layer="Back" name="LabelKeyRight">
+                    <Property key="Widget_Caption" value="Right"/>
+                </Widget>
+                <Widget type="StaticText" skin="StaticText" position_real="0.00722543 0.437828 0.154624 0.0385289" layer="Back" name="LabelKeyAction">
+                    <Property key="Widget_Caption" value="Action"/>
+                </Widget>
+                <Widget type="StaticText" skin="StaticText" position_real="0.00289017 0.539405 0.138728 0.0490368" layer="Back" name="LabelKeyConsole">
+                    <Property key="Widget_Caption" value="Console"/>
+                </Widget>
+            </Widget>
+            <Widget type="TabItem" skin="Default" position="4 26 692 571" layer="Back" name="SubtabMouse">
+                <Property key="Widget_Caption" value="Mouse"/>
+                <Widget type="HScroll" skin="HSlider" position_real="0.0260116 0.0683012 0.192197 0.0262697" layer="Back" name="SliderMouSensX"/>
+                <Widget type="HScroll" skin="HSlider" position_real="0.0260116 0.169877 0.192197 0.0262697" layer="Back" name="SliderMouSensY"/>
+                <Widget type="StaticText" skin="StaticText" position_real="0.0260116 0.0262697 0.239884 0.0437828" layer="Back" name="LabelMouSensX">
+                    <Property key="Widget_Caption" value="Horizontal sensitivity"/>
+                </Widget>
+                <Widget type="StaticText" skin="StaticText" position_real="0.0260116 0.126095 0.228324 0.0420315" layer="Back" name="LabelMouSensY">
+                    <Property key="Widget_Caption" value="Vertical Sensitivity"/>
+                </Widget>
+                <Widget type="Button" skin="CheckBox" position_real="0.0260116 0.224168 0.228324 0.056042" layer="Back" name="CheckMouInvert">
+                    <Property key="Widget_Caption" value="Invert vertical axis"/>
+                </Widget>
+            </Widget>
+        </Widget>
+    </Widget>
+</MyGUI>

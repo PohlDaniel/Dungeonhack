@@ -1,0 +1,13 @@
+material sign_002
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture inn_sign_002.png
+            }
+        }
+    }
+}

@@ -1,0 +1,289 @@
+material PC80_CoffinPyreTextur/SOLID/TEX/PC80_CoffinPyre01.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture PC80_CoffinPyre01.png
+            }
+        }
+    }
+}
+material PC80_TombStoneTex.014/SOLID/TEX/PC80_TombStone06.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture PC80_TombStone06.png
+            }
+        }
+    }
+}
+material PC80_TombStoneTex/SOLID/TEX/PC80_TombStone11.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture PC80_TombStone11.png
+            }
+        }
+    }
+}
+material PC80_TombStoneTex.011/SOLID/TEX/PC80_TombStone05.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture PC80_TombStone05.png
+            }
+        }
+    }
+}
+material PC80_CoffinTexture01/SOLID/TEX/PC80_Coffin01_Wood.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture PC80_Coffin01_Wood.png
+            }
+        }
+    }
+}
+material PC80_TombStoneTex.008/SOLID/TEX/PC80_TombStone02.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture PC80_TombStone02.png
+            }
+        }
+    }
+}
+material PC80_TombStoneTex.004/SOLID/TEX/PC80_TombStone08.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture PC80_TombStone08.png
+            }
+        }
+    }
+}
+material PC80_TombStoneTex.003/SOLID/TEX/PC80_TombStone07.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture PC80_TombStone07.png
+            }
+        }
+    }
+}
+material PC80_GraveEntTexture0/SOLID/TEX/PC80_Grave_Gate01.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture PC80_Grave_Gate01.png
+            }
+        }
+    }
+}
+material PC80_TombStoneTexture/SOLID/TEX/PC80_TombStone01.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture PC80_TombStone01.png
+            }
+        }
+    }
+}
+material PC80_TombStoneTex.012/SOLID/TEX/PC80_TombStone03.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture PC80_TombStone03.png
+            }
+        }
+    }
+}
+material PC80_CryptEntTexture0/SOLID/TEX/PC80_StoneCrypt01.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture PC80_StoneCrypt01.png
+            }
+        }
+    }
+}
+material PC80_CoffinTexture03/SOLID/TEX/PC80_Coffin03_Stone.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture PC80_Coffin03_Stone.png
+            }
+        }
+    }
+}
+material PC80_TombStoneTex.009/SOLID/TEX/PC80_TombStone15.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture PC80_TombStone15.png
+            }
+        }
+    }
+}
+material PC80_TombStoneTex.010/SOLID/TEX/PC80_TombStone16.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture PC80_TombStone16.png
+            }
+        }
+    }
+}
+material PC80_TombStoneTex.006/SOLID/TEX/PC80_TombStone09.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture PC80_TombStone09.png
+            }
+        }
+    }
+}
+
+material PC80_CoffinTexture2/SOLID/TEX/PC80_Coffin02_Stone.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture PC80_Coffin02_Stone.png
+            }
+        }
+    }
+}
+
+
+material PC80_TombStoneTex.007/SOLID/TEX/PC80_TombStone14.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture PC80_TombStone14.png
+            }
+        }
+    }
+}
+material PC80_TombStoneTex.013/SOLID/TEX/PC80_TombStone04.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture PC80_TombStone04.png
+            }
+        }
+    }
+}
+material PC80_TombStoneTex.001/SOLID/TEX/PC80_TombStone10.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture PC80_TombStone10.png
+            }
+        }
+    }
+}
+material PC80_TombStoneTex.002/SOLID/TEX/PC80_TombStone12.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture PC80_TombStone12.png
+            }
+        }
+    }
+}
+material PC80_TombStoneTex.005/SOLID/TEX/PC80_TombStone13.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture PC80_TombStone13.png
+            }
+        }
+    }
+}

@@ -105,11 +105,13 @@ Ogre PagedGeometry 1.1.0 https://code.google.com/archive/p/ogre-paged/downloads
 	
 Install the needed Sdk's	
 	OpenAL https://www.openal.org/downloads/OpenAL11CoreSDK.zip 
-	Python https://www.python.org/ftp/python/2.7/python-2.7.msi
+	Python https://www.python.org/ftp/python/2.6
 	
 Dungeonhack 0.10 http://dungeonhack.sourceforge.net/Downloads
-	-> add _SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS under Visual Studio Project ->properties -> C/C++ -> Preprocessor -> Preprocessor Definition
+	-> add _SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS and OIS_1_2 under Visual Studio Project ->properties -> C/C++ -> Preprocessor -> Preprocessor Definition
 	-> if neccessaray add the includes and link the project
 	-> if neccessaray link the project againts OpenAL manually
 	-> if neccessaray link the project againts Python manually
+	-> deactivate "Image Has Safe Exception Handlers" under properties->Linker->Advanced cuz. OpenAL
+	-> use python27.dll out of C:\Windows\SysWOW64
 	-> copy together the game directory similar to http://sourceforge.net/projects/dungeonhack/files/0.10/dungeonhack-0.10-win32.zip/download (dungeonhack-0.10-win32.zip)

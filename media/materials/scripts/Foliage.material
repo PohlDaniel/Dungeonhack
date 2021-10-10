@@ -1,0 +1,656 @@
+vertex_program DistanceFade cg
+{
+   source DistanceFade.cg
+   entry_point distanceFade_vp
+   profiles vs_1_1 arbvp1
+   
+   default_params
+   {
+      param_indexed_auto 0 worldviewproj_matrix
+      param_indexed_auto 4 camera_position_object_space
+      param_indexed_auto 5 light_diffuse_colour 0
+      param_indexed_auto 6 ambient_light_colour 0
+   }
+}
+
+vertex_program Examples/GrassWaverImprovedVp cg
+{
+    source GrassImproved.cg
+    entry_point grassimp_vp
+    profiles vs_1_1 vp40 arbvp1
+
+    default_params
+    {
+        param_indexed_auto 0 worldviewproj_matrix
+            param_indexed_auto 4 camera_position_object_space
+    }
+}
+
+vertex_program Examples/TreeSwayVp cg
+{
+    source TreeSway.cg
+    entry_point treesway_vp
+    profiles vs_1_1 vp40 arbvp1
+
+    default_params
+    {
+        param_indexed_auto 0 worldviewproj_matrix
+            param_indexed_auto 4 camera_position_object_space
+    }
+}
+
+material Material.001/SOLID/TEX/grass_clump.png/TWOSIDE
+{
+    technique
+    {
+        pass
+        {
+            //depth_write off
+            alpha_rejection greater 150
+
+            cull_hardware none
+            cull_software none
+            texture_unit
+            {
+                texture grass_clump.png
+                tex_address_mode clamp
+            }
+
+            vertex_program_ref Examples/GrassWaverImprovedVp
+            {
+                //param_named_auto worldViewProj worldviewproj_matrix
+                //param_named_auto camera_position_object_space
+                param_named_auto ambient ambient_light_colour
+                param_named_auto objSpaceLight light_position_object_space 0
+                param_named_auto lightColour light_diffuse_colour 0
+                param_named_auto offset custom 999
+                param_named_auto wave custom 998
+            }
+        }
+    }
+}
+
+material grass/SOLID/TEX/grass_clump.png
+{
+    technique
+    {
+        pass
+        {
+            //depth_write off
+            alpha_rejection greater 150
+
+            cull_hardware none
+            cull_software none
+            texture_unit
+            {
+                texture grass_clump.png
+                tex_address_mode clamp
+            }
+
+            vertex_program_ref Examples/GrassWaverImprovedVp
+            {
+                //param_named_auto worldViewProj worldviewproj_matrix
+                //param_named_auto camera_position_object_space
+                param_named_auto ambient ambient_light_colour
+                param_named_auto objSpaceLight light_position_object_space 0
+                param_named_auto lightColour light_diffuse_colour 0
+                param_named_auto offset custom 999
+                param_named_auto wave custom 998
+            }
+        }
+    }
+}
+
+material Foliage/Fern1
+{
+    technique
+    {
+            pass
+            {
+            vertex_program_ref Examples/GrassWaverImprovedVp
+            {
+                //param_named_auto worldViewProj worldviewproj_matrix
+                //param_named_auto camera_position_object_space
+                param_named_auto ambient ambient_light_colour
+                param_named_auto objSpaceLight light_position_object_space 0
+                param_named_auto lightColour light_diffuse_colour 0
+                param_named_auto offset custom 999
+                param_named_auto wave custom 998
+            }
+            alpha_rejection greater 150 
+
+            cull_hardware none
+                    cull_software none
+
+                texture_unit
+                    {
+                filtering trilinear
+                        texture fern001.png
+                tex_address_mode clamp
+                    }
+            }
+    }
+}
+
+
+material Foliage/Grass1Seeds
+{
+    technique
+    {
+            pass
+            {
+            vertex_program_ref Examples/GrassWaverImprovedVp
+            {
+                //param_named_auto worldViewProj worldviewproj_matrix
+                //param_named_auto camera_position_object_space
+                param_named_auto ambient ambient_light_colour
+                param_named_auto objSpaceLight light_position_object_space 0
+                param_named_auto lightColour light_diffuse_colour 0
+                param_named_auto offset custom 999
+                param_named_auto wave custom 998
+            }
+            alpha_rejection greater 150 
+
+            cull_hardware none
+                    cull_software none
+
+                texture_unit
+                    {
+                filtering trilinear
+                        texture grass_clump_seeds.png
+                tex_address_mode clamp
+                    }
+            }
+    }
+}
+
+material Foliage/PinkWhiteFlowers
+{
+    technique
+    {
+            pass
+            {
+            vertex_program_ref Examples/GrassWaverImprovedVp
+            {
+                //param_named_auto worldViewProj worldviewproj_matrix
+                //param_named_auto camera_position_object_space
+                param_named_auto ambient ambient_light_colour
+                param_named_auto objSpaceLight light_position_object_space 0
+                param_named_auto lightColour light_diffuse_colour 0
+                param_named_auto offset custom 999
+                param_named_auto wave custom 998
+            }
+            alpha_rejection greater 150 
+
+            cull_hardware none
+                    cull_software none
+
+                texture_unit
+                    {
+                filtering trilinear
+                        texture flowers.png
+                tex_address_mode clamp
+                    }
+            }
+    }
+}
+
+material Foliage/Grass1
+{
+    technique
+    {
+            pass
+            {
+            vertex_program_ref Examples/GrassWaverImprovedVp
+            {
+                //param_named_auto worldViewProj worldviewproj_matrix
+                //param_named_auto camera_position_object_space
+                param_named_auto ambient ambient_light_colour
+                param_named_auto objSpaceLight light_position_object_space 0
+                param_named_auto lightColour light_diffuse_colour 0
+                param_named_auto offset custom 999
+                param_named_auto wave custom 998
+            }
+            alpha_rejection greater 150 
+
+            cull_hardware none
+                    cull_software none
+
+                texture_unit
+                    {
+                filtering trilinear
+                        texture grass_clump.png
+                tex_address_mode clamp
+                    }
+            }
+    }
+}
+
+material Foliage/Grass1Red
+{
+    technique
+    {
+            pass
+            {
+            vertex_program_ref Examples/GrassWaverImprovedVp
+            {
+                //param_named_auto worldViewProj worldviewproj_matrix
+                //param_named_auto camera_position_object_space
+                param_named_auto ambient ambient_light_colour
+                param_named_auto objSpaceLight light_position_object_space 0
+                param_named_auto lightColour light_diffuse_colour 0
+                param_named_auto offset custom 999
+                param_named_auto wave custom 998
+            }
+            alpha_rejection greater 150 
+
+            cull_hardware none
+                    cull_software none
+
+                texture_unit
+                    {
+                filtering trilinear
+                        texture grass_clump_red.png
+                tex_address_mode clamp
+                    }
+            }
+    }
+}
+
+material Foliage/GrassDead1
+{
+    technique
+    {
+            pass
+            {
+            vertex_program_ref Examples/GrassWaverImprovedVp
+            {
+                //param_named_auto worldViewProj worldviewproj_matrix
+                //param_named_auto camera_position_object_space
+                param_named_auto ambient ambient_light_colour
+                param_named_auto objSpaceLight light_position_object_space 0
+                param_named_auto lightColour light_diffuse_colour 0
+                param_named_auto offset custom 999
+                param_named_auto wave custom 998
+            }
+            alpha_rejection greater 150 
+
+            cull_hardware none
+                    cull_software none
+
+                texture_unit
+                    {
+                filtering trilinear
+                        texture grass_dead_clump.png
+                tex_address_mode clamp
+                    }
+            }
+    }
+}
+
+
+material Foliage/Grass10
+{
+    technique
+    {
+        pass
+        {
+            //depth_write off
+            alpha_rejection greater 150
+
+            cull_hardware none
+            cull_software none
+            texture_unit
+            {
+                filtering trilinear
+                texture grass_clump.png
+                //texture grass2.png
+                tex_address_mode clamp
+            }
+
+            vertex_program_ref DistanceFade
+            {
+                }
+        }
+    }
+}
+
+material Foliage/Weed1
+{
+    technique
+    {
+        pass
+        {
+            //depth_write off
+            alpha_rejection greater 200
+
+            cull_hardware none
+            cull_software none
+            texture_unit
+            {
+                texture weed001.png
+                tex_address_mode clamp
+            }
+
+            vertex_program_ref Examples/GrassWaverImprovedVp
+            {
+                //param_named_auto worldViewProj worldviewproj_matrix
+                //param_named_auto camera_position_object_space
+                param_named_auto ambient ambient_light_colour
+                param_named_auto objSpaceLight light_position_object_space 0
+                param_named_auto lightColour light_diffuse_colour 0
+                param_named_auto offset custom 999
+                param_named_auto wave custom 998
+            }
+        }
+    }
+}
+
+material Foliage/Weed_Bush1
+{
+    technique
+    {
+        pass
+        {
+            //depth_write off
+            alpha_rejection greater 200
+
+            cull_hardware none
+            cull_software none
+            texture_unit
+            {
+                texture weed_bush.png
+                tex_address_mode clamp
+            }
+
+            vertex_program_ref Examples/GrassWaverImprovedVp
+            {
+                //param_named_auto worldViewProj worldviewproj_matrix
+                //param_named_auto camera_position_object_space
+                param_named_auto ambient ambient_light_colour
+                param_named_auto objSpaceLight light_position_object_space 0
+                param_named_auto lightColour light_diffuse_colour 0
+                param_named_auto offset custom 999
+                param_named_auto wave custom 998
+            }
+        }
+    }
+}
+
+material Foliage/Weed2
+{
+    technique
+    {
+        pass
+        {
+            //depth_write off
+            alpha_rejection greater 200
+
+            cull_hardware none
+            cull_software none
+            texture_unit
+            {
+                texture weed002.png
+                tex_address_mode clamp
+            }
+
+            vertex_program_ref Examples/GrassWaverImprovedVp
+            {
+                //param_named_auto worldViewProj worldviewproj_matrix
+                //param_named_auto camera_position_object_space
+                param_named_auto ambient ambient_light_colour
+                param_named_auto objSpaceLight light_position_object_space 0
+                param_named_auto lightColour light_diffuse_colour 0
+                param_named_auto offset custom 999
+                param_named_auto wave custom 998
+            }
+        }
+    }
+}
+
+material Foliage/Weed3
+{
+    technique
+    {
+        pass
+        {
+            //depth_write off
+            alpha_rejection greater 200
+
+            cull_hardware none
+            cull_software none
+            texture_unit
+            {
+                texture weed002.png
+                tex_address_mode clamp
+            }
+
+            vertex_program_ref Examples/GrassWaverImprovedVp
+            {
+                //param_named_auto worldViewProj worldviewproj_matrix
+                //param_named_auto camera_position_object_space
+                param_named_auto ambient ambient_light_colour
+                param_named_auto objSpaceLight light_position_object_space 0
+                param_named_auto lightColour light_diffuse_colour 0
+                param_named_auto offset custom 999
+                param_named_auto wave custom 998
+            }
+        }
+    }
+}
+
+material leaves2/ALPHA/TEX/leaves_2.png/TWOSIDE
+{
+    technique
+    {
+        pass
+        {
+            //depth_write off
+            alpha_rejection greater 180
+
+            cull_hardware none
+            cull_software none
+            texture_unit
+            {
+                texture leaves_5.png
+                tex_address_mode clamp
+            }
+
+        }
+    }
+}
+
+material leaves2/ALPHA/TEX/leaves_1.png/TWOSIDE
+{
+        technique
+    {
+        pass
+        {
+            //depth_write off
+            alpha_rejection greater 180
+
+            cull_hardware none
+            cull_software none
+            texture_unit
+            {
+                texture leaves_5.png
+                tex_address_mode clamp
+            }
+
+            
+        }
+    }
+}
+
+material Material/SOLID/TEX/bark_tex.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture bark_tex.png
+            }
+
+        }
+    }
+}
+
+material SOLID/TEX/bark_tex_dark.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture bark_tex_dark.png
+            }
+        }
+    }
+}
+
+material /SOLID/TEX/bark_tex_dark.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture bark_tex_dark.png
+            }
+        }
+    }
+}
+
+
+material /SOLID/TEX/pine_branch.png
+{
+    technique
+    {
+        pass
+        {
+            alpha_rejection greater 128
+
+            cull_hardware none
+            cull_software none
+
+            texture_unit
+            {
+                //texture pine_branch.png
+                texture fir01.png alpha
+                tex_address_mode clamp
+            }
+        }
+    }
+}
+
+material TreeCanopyShadow
+{
+    technique
+    {
+        pass
+        {
+            scene_blend alpha_blend
+            texture_unit
+            {
+                texture tree_shadow.png
+            }
+
+        }
+    }
+}
+
+material tree/SOLID/TEX/leaves_2.png
+{
+    technique
+    {
+        pass
+        {
+            //depth_write off
+            alpha_rejection greater 180
+
+            cull_hardware none
+            cull_software none
+            texture_unit
+            {
+                texture leaves_6.png
+                tex_address_mode clamp
+            }
+        }
+    }
+}
+
+material SOLID/TEX/leaves_4.png
+{
+    technique
+    {
+        pass
+        {
+            //depth_write off
+            alpha_rejection greater 180
+
+            cull_hardware none
+            cull_software none
+
+            texture_unit
+            {
+                texture leaves_4.png
+                tex_address_mode clamp
+            }
+        }
+    }
+}
+
+material SOLID/TEX/leaves_thick.png
+{
+    technique
+    {
+        pass
+        {
+            //depth_write off
+            alpha_rejection greater 180
+
+            cull_hardware none
+            cull_software none
+
+            texture_unit
+            {
+                texture leaves_thick.png
+                tex_address_mode clamp
+            }
+        }
+    }
+}
+
+
+material tree/SOLID/TEX/bark_tex_dark.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture bark_tex.png
+            }
+        }
+    }
+}
+
+// Dummy material to suppress error messages
+material Material.001/SOLID
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture grass_clump.png
+            }
+        }
+    }
+}

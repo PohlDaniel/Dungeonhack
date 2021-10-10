@@ -1,0 +1,9 @@
+<setListing>
+  <sets>
+    <set name="torchfire1">
+      <entity type="emmiter">
+        <display emmiter="Emmiters/TorchFire" x_scale="1.0" y_scale="1.0" z_scale="1.0" x_rot="0.0" y_rot="0.0" z_rot="0.0"/>
+      </entity>
+    </set>
+  </sets>
+</setListing>

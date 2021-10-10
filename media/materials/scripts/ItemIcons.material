@@ -1,0 +1,15 @@
+
+material ItemIcons/Weapons/steelShortSword
+{
+    technique
+    {
+        pass
+        {
+
+            texture_unit
+            {
+                texture steelShortSword_icon.png
+            }
+        }
+    }
+}

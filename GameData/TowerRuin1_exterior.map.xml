@@ -1,0 +1,255 @@
+<scene formatVersion="0.2.0">
+  <nodes>
+    <node name="Cube.019">
+      <position x="10.432167" y="-4.554102" z="24.812796"/>
+      <rotation qx="0.361053" qy="0.932276" qz="-0.000369" qw="0.022402"/>
+      <scale x="5.696822" y="5.696819" z="5.696820"/>
+      <entity name="Cube.019" meshFile="RuinedChunk1.mesh"/>
+    </node>
+    <node name="Cube.016">
+      <position x="4.679838" y="-11.973908" z="0.438779"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.060748" qw="0.998153"/>
+      <scale x="2.275785" y="2.275785" z="2.275785"/>
+      <entity name="Cube.016" meshFile="RuinArch.mesh"/>
+    </node>
+    <node name="Cube.014">
+      <position x="17.118839" y="-24.039694" z="0.791450"/>
+      <rotation qx="-0.092709" qy="0.005805" qz="0.254251" qw="0.962667"/>
+      <scale x="10.140000" y="10.140000" z="10.140001"/>
+      <entity name="Cube.014" meshFile="RuinArch.mesh"/>
+    </node>
+    <node name="Cube.015">
+      <position x="9.463899" y="-20.253727" z="-2.139355"/>
+      <rotation qx="0.010298" qy="0.086403" qz="-0.569955" qw="0.817056"/>
+      <scale x="8.112000" y="8.112000" z="8.112000"/>
+      <entity name="Cube.015" meshFile="RuinedWall1.mesh"/>
+    </node>
+    <node name="Cube.012">
+      <position x="9.281405" y="19.826344" z="1.375198"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.991016" qw="0.133743"/>
+      <scale x="10.140001" y="10.140001" z="10.140000"/>
+      <entity name="Cube.012" meshFile="RuinArch.mesh"/>
+    </node>
+    <node name="Cube.013">
+      <position x="-12.754946" y="-23.539457" z="-0.322638"/>
+      <rotation qx="-0.141793" qy="-0.030744" qz="0.919736" qw="0.364740"/>
+      <scale x="10.140001" y="10.140002" z="10.140001"/>
+      <entity name="Cube.013" meshFile="RuinArchBroken.mesh"/>
+    </node>
+    <node name="Cube.010">
+      <position x="26.790436" y="6.838146" z="1.375198"/>
+      <rotation qx="0.021701" qy="0.045566" qz="0.811886" qw="0.581631"/>
+      <scale x="10.140002" y="10.140002" z="10.139999"/>
+      <entity name="Cube.010" meshFile="RuinArch.mesh"/>
+    </node>
+    <node name="Cube.011">
+      <position x="-12.011032" y="16.568151" z="0.945295"/>
+      <rotation qx="-0.002657" qy="-0.074249" qz="-0.940570" qw="0.331373"/>
+      <scale x="10.140001" y="10.140001" z="10.140001"/>
+      <entity name="Cube.011" meshFile="RuinArchBroken.mesh"/>
+    </node>
+    <node name="Plane.009">
+      <position x="11.956416" y="-7.417771" z="14.120441"/>
+      <rotation qx="0.310274" qy="-0.635397" qz="-0.635397" qw="0.310274"/>
+      <scale x="6.084002" y="6.084001" z="6.084002"/>
+      <entity name="Plane.009" meshFile="IvyDecal.mesh"/>
+    </node>
+    <node name="Plane.008">
+      <position x="2.432210" y="4.904029" z="30.371708"/>
+      <rotation qx="0.042116" qy="-0.705851" qz="-0.705851" qw="0.042116"/>
+      <scale x="7.314955" y="7.314955" z="7.314955"/>
+      <entity name="Plane.008" meshFile="IvyDecal.mesh"/>
+    </node>
+    <node name="Plane.005">
+      <position x="-5.220686" y="2.172101" z="27.526941"/>
+      <rotation qx="0.634228" qy="0.312657" qz="0.312657" qw="0.634228"/>
+      <scale x="6.084002" y="6.084001" z="6.084002"/>
+      <entity name="Plane.005" meshFile="IvyDecal.mesh"/>
+    </node>
+    <node name="Plane.004">
+      <position x="-3.362043" y="4.577084" z="22.956165"/>
+      <rotation qx="0.811457" qy="0.391145" qz="-0.391145" qw="0.188543"/>
+      <scale x="-3.965634" y="0.000001" z="0.000002"/>
+      <entity name="Plane.004" meshFile="IvyDecal.mesh"/>
+    </node>
+    <node name="Plane.007">
+      <position x="-13.671921" y="17.626381" z="6.808843"/>
+      <rotation qx="0.660508" qy="0.252445" qz="0.252445" qw="0.660508"/>
+      <scale x="2.778409" y="2.778408" z="2.778409"/>
+      <entity name="Plane.007" meshFile="IvyDecal.mesh"/>
+    </node>
+    <node name="Plane.006">
+      <position x="-3.649076" y="4.230020" z="29.986773"/>
+      <rotation qx="0.634228" qy="0.312657" qz="0.312657" qw="0.634228"/>
+      <scale x="6.084002" y="6.084001" z="6.084002"/>
+      <entity name="Plane.006" meshFile="IvyDecal.mesh"/>
+    </node>
+    <node name="Plane.001">
+      <position x="10.204376" y="4.248183" z="25.740490"/>
+      <rotation qx="0.668446" qy="-0.230609" qz="-0.230609" qw="0.668446"/>
+      <scale x="6.084002" y="6.084001" z="6.084002"/>
+      <entity name="Plane.001" meshFile="IvyDecal.mesh"/>
+    </node>
+    <node name="Circle">
+      <position x="3.340986" y="-2.654940" z="0.361198"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.991079" qw="0.133273"/>
+      <scale x="10.139997" y="10.139997" z="10.140000"/>
+      <entity name="Circle" meshFile="RuinedTower1.mesh"/>
+    </node>
+    <node name="Plane.003">
+      <position x="-6.177302" y="-4.809691" z="24.648703"/>
+      <rotation qx="0.469376" qy="0.528854" qz="0.528854" qw="0.469376"/>
+      <scale x="6.084002" y="6.084000" z="6.084002"/>
+      <entity name="Plane.003" meshFile="IvyDecal.mesh"/>
+    </node>
+    <node name="Plane.002">
+      <position x="8.469499" y="5.635675" z="19.675617"/>
+      <rotation qx="0.668446" qy="-0.230609" qz="-0.230609" qw="0.668446"/>
+      <scale x="6.084002" y="6.084001" z="6.084002"/>
+      <entity name="Plane.002" meshFile="IvyDecal.mesh"/>
+    </node>
+    <node name="Cube">
+      <position x="14.866635" y="-4.802942" z="-0.010096"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.991079" qw="0.133273"/>
+      <scale x="9.200878" y="9.200878" z="9.200882"/>
+      <entity name="Cube" meshFile="RuinedChunk1.mesh"/>
+    </node>
+    <node name="Door">
+      <position x="4.688001" y="-12.022348" z="1.184275"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.663404" qw="0.748262"/>
+      <scale x="1.100000" y="1.100000" z="1.100000"/>
+      <entity name="Door" meshFile="D_Door1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Entrance"/>
+        <property type="INT" name="EnterNum" data="0"/>
+      </userData>
+    </node>
+    <node name="Plane">
+      <position x="-2.176133" y="-10.655608" z="5.641136"/>
+      <rotation qx="0.226306" qy="0.669915" qz="0.669915" qw="0.226306"/>
+      <scale x="6.084001" y="6.084001" z="6.084001"/>
+      <entity name="Plane" meshFile="IvyDecal.mesh"/>
+    </node>
+    <node name="Cube.001">
+      <position x="12.326889" y="-7.056629" z="1.203450"/>
+      <rotation qx="-0.691052" qy="0.636764" qz="-0.303812" qw="0.157086"/>
+      <scale x="9.200882" y="9.200881" z="9.200883"/>
+      <entity name="Cube.001" meshFile="RuinedChunk1.mesh"/>
+    </node>
+    <node name="Cube.003">
+      <position x="-0.752827" y="-12.112660" z="0.565657"/>
+      <rotation qx="0.655157" qy="-0.613347" qz="0.370708" qw="0.239062"/>
+      <scale x="4.865464" y="4.865465" z="4.865465"/>
+      <entity name="Cube.003" meshFile="RuinedChunk1.mesh"/>
+    </node>
+    <node name="Cube.002">
+      <position x="0.820280" y="-12.882846" z="-0.123493"/>
+      <rotation qx="-0.459402" qy="0.423312" qz="-0.693636" qw="0.358645"/>
+      <scale x="4.731294" y="4.731293" z="4.731293"/>
+      <entity name="Cube.002" meshFile="RuinedChunk1.mesh"/>
+    </node>
+    <node name="Cube.005">
+      <position x="-8.086443" y="1.265760" z="-0.123493"/>
+      <rotation qx="0.030221" qy="0.092197" qz="-0.228218" qw="0.968764"/>
+      <scale x="7.602290" y="7.602289" z="7.602289"/>
+      <entity name="Cube.005" meshFile="RuinedChunk1.mesh"/>
+    </node>
+    <node name="Cube.004">
+      <position x="-0.444651" y="-14.281974" z="-0.123493"/>
+      <rotation qx="0.079150" qy="-0.343959" qz="-0.023522" qw="0.935347"/>
+      <scale x="5.321602" y="5.321601" z="5.321603"/>
+      <entity name="Cube.004" meshFile="RuinedChunk1.mesh"/>
+    </node>
+    <node name="Cube.007">
+      <position x="-16.983580" y="0.415763" z="0.361198"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.998592" qw="0.053040"/>
+      <scale x="8.111998" y="8.111998" z="8.112000"/>
+      <entity name="Cube.007" meshFile="RuinedWall1.mesh"/>
+    </node>
+    <node name="Cube.006">
+      <position x="0.417678" y="-10.462377" z="24.607866"/>
+      <rotation qx="-0.124528" qy="0.066064" qz="-0.171506" qw="0.975046"/>
+      <scale x="6.737547" y="6.737546" z="6.737545"/>
+      <entity name="Cube.006" meshFile="RuinedChunk1.mesh"/>
+    </node>
+    <node name="Cube.009">
+      <position x="25.982611" y="-4.665218" z="0.361198"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.019921" qw="0.999802"/>
+      <scale x="4.822570" y="4.822570" z="4.822570"/>
+      <entity name="Cube.009" meshFile="RuinedWall1.mesh"/>
+    </node>
+    <node name="Cube.008">
+      <position x="19.923523" y="-1.674371" z="0.361198"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.677631" qw="0.735403"/>
+      <scale x="6.489601" y="6.489601" z="6.489601"/>
+      <entity name="Cube.008" meshFile="RuinedWall1.mesh"/>
+    </node>
+    <node name="Cube.020">
+      <position x="-26.292953" y="1.505858" z="-2.172899"/>
+      <rotation qx="0.316762" qy="0.365855" qz="-0.717817" qw="0.500550"/>
+      <scale x="10.140003" y="10.140002" z="10.140001"/>
+      <entity name="Cube.020" meshFile="RuinArchBroken.mesh"/>
+    </node>
+    <node name="Plane.016">
+      <position x="-3.750387" y="-9.522145" z="10.420572"/>
+      <rotation qx="0.118580" qy="0.323293" qz="-0.323293" qw="0.881420"/>
+      <scale x="4.632086" y="-0.000002" z="0.000001"/>
+      <entity name="Plane.016" meshFile="IvyDecal.mesh"/>
+    </node>
+    <node name="Plane.014">
+      <position x="-5.220686" y="2.172101" z="20.072481"/>
+      <rotation qx="0.634228" qy="0.312657" qz="0.312657" qw="0.634228"/>
+      <scale x="6.084002" y="6.084001" z="6.084002"/>
+      <entity name="Plane.014" meshFile="IvyDecal.mesh"/>
+    </node>
+    <node name="Plane.015">
+      <position x="-3.872238" y="3.848234" z="15.501705"/>
+      <rotation qx="0.634228" qy="0.312657" qz="0.312657" qw="0.634228"/>
+      <scale x="6.084002" y="6.084001" z="6.084002"/>
+      <entity name="Plane.015" meshFile="IvyDecal.mesh"/>
+    </node>
+    <node name="Plane.012">
+      <position x="10.258199" y="-9.680147" z="15.447123"/>
+      <rotation qx="0.310274" qy="-0.635397" qz="-0.635397" qw="0.310274"/>
+      <scale x="6.084002" y="6.084001" z="6.084002"/>
+      <entity name="Plane.012" meshFile="IvyDecal.mesh"/>
+    </node>
+    <node name="Plane.013">
+      <position x="17.103239" y="-23.692326" z="5.856887"/>
+      <rotation qx="0.190372" qy="-0.680998" qz="-0.680998" qw="0.190372"/>
+      <scale x="3.497392" y="3.497392" z="3.497392"/>
+      <entity name="Plane.013" meshFile="IvyDecal.mesh"/>
+    </node>
+    <node name="Plane.010">
+      <position x="10.572621" y="-9.155600" z="24.214485"/>
+      <rotation qx="0.310274" qy="-0.635397" qz="-0.635397" qw="0.310274"/>
+      <scale x="6.084002" y="6.084001" z="6.084002"/>
+      <entity name="Plane.010" meshFile="IvyDecal.mesh"/>
+    </node>
+    <node name="Plane.011">
+      <position x="11.650240" y="-7.811426" z="8.916715"/>
+      <rotation qx="0.310274" qy="-0.635397" qz="-0.635397" qw="0.310274"/>
+      <scale x="6.084002" y="6.084001" z="6.084002"/>
+      <entity name="Plane.011" meshFile="IvyDecal.mesh"/>
+    </node>
+    <node name="Marker">
+      <position x="4.763192" y="-12.616899" z="0.745574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.064056" qw="0.997946"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Enter"/>
+        <property type="INT" name="Num" data="0"/>
+      </userData>
+    </node>
+  </nodes>
+  <externals>
+    <item type="material">
+      <file name="Scene.material"/>
+    </item>
+  </externals>
+  <environment>
+    <colourAmbient r="0.000000" g="0.000000" b="0.000000"/>
+    <colourBackground r="0.056563" g="0.220815" b="0.400000"/>
+  </environment>
+</scene>

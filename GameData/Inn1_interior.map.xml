@@ -1,0 +1,1823 @@
+<scene formatVersion="0.2.0">
+  <nodes>
+    <node name="Cube.074">
+      <position x="-39.049999" y="-1.900000" z="0.900000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.074" meshFile="Beam1.mesh"/>
+    </node>
+    <node name="Cube.075">
+      <position x="-39.049999" y="-0.950000" z="1.854292"/>
+      <rotation qx="-0.707107" qy="0.000000" qz="0.000000" qw="0.707107"/>
+      <scale x="1.012892" y="0.545860" z="1.000000"/>
+      <entity name="Cube.075" meshFile="Beam1.mesh"/>
+    </node>
+    <node name="Cube.076">
+      <position x="-39.049999" y="1.050000" z="1.854292"/>
+      <rotation qx="-0.707107" qy="0.000000" qz="0.000000" qw="0.707107"/>
+      <scale x="1.012892" y="0.545860" z="1.000000"/>
+      <entity name="Cube.076" meshFile="Beam1.mesh"/>
+    </node>
+    <node name="Cube.077">
+      <position x="-39.049999" y="3.050000" z="1.854292"/>
+      <rotation qx="-0.707107" qy="0.000000" qz="0.000000" qw="0.707107"/>
+      <scale x="1.012892" y="0.545860" z="1.000000"/>
+      <entity name="Cube.077" meshFile="Beam1.mesh"/>
+    </node>
+    <node name="Cube.070">
+      <position x="-41.049999" y="3.950000" z="0.900000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.070" meshFile="Beam1.mesh"/>
+    </node>
+    <node name="Cube.071">
+      <position x="-43.049999" y="3.950000" z="0.900000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.071" meshFile="Beam1.mesh"/>
+    </node>
+    <node name="Cube.072">
+      <position x="-43.049999" y="-1.900000" z="0.900000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.072" meshFile="Beam1.mesh"/>
+    </node>
+    <node name="Cube.073">
+      <position x="-41.049999" y="-1.900000" z="0.900000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.073" meshFile="Beam1.mesh"/>
+    </node>
+    <node name="Cube.078">
+      <position x="-41.049999" y="3.050000" z="1.854292"/>
+      <rotation qx="-0.707107" qy="0.000000" qz="0.000000" qw="0.707107"/>
+      <scale x="1.012892" y="0.545860" z="1.000000"/>
+      <entity name="Cube.078" meshFile="Beam1.mesh"/>
+    </node>
+    <node name="Cube.079">
+      <position x="-41.049999" y="1.050000" z="1.854292"/>
+      <rotation qx="-0.707107" qy="0.000000" qz="0.000000" qw="0.707107"/>
+      <scale x="1.012892" y="0.545860" z="1.000000"/>
+      <entity name="Cube.079" meshFile="Beam1.mesh"/>
+    </node>
+    <node name="Cube.089">
+      <position x="-37.199997" y="3.000000" z="1.200000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.089" meshFile="small_shelf1.mesh"/>
+    </node>
+    <node name="Cube.081">
+      <position x="-43.049999" y="-0.950000" z="1.854292"/>
+      <rotation qx="-0.707107" qy="0.000000" qz="0.000000" qw="0.707107"/>
+      <scale x="1.012892" y="0.545860" z="1.000000"/>
+      <entity name="Cube.081" meshFile="Beam1.mesh"/>
+    </node>
+    <node name="Cube.080">
+      <position x="-41.049999" y="-0.950000" z="1.854292"/>
+      <rotation qx="-0.707107" qy="0.000000" qz="0.000000" qw="0.707107"/>
+      <scale x="1.012892" y="0.545860" z="1.000000"/>
+      <entity name="Cube.080" meshFile="Beam1.mesh"/>
+    </node>
+    <node name="Cube.083">
+      <position x="-43.049999" y="3.050000" z="1.854292"/>
+      <rotation qx="-0.707107" qy="0.000000" qz="0.000000" qw="0.707107"/>
+      <scale x="1.012892" y="0.545860" z="1.000000"/>
+      <entity name="Cube.083" meshFile="Beam1.mesh"/>
+    </node>
+    <node name="Cube.082">
+      <position x="-43.049999" y="1.050000" z="1.854292"/>
+      <rotation qx="-0.707107" qy="0.000000" qz="0.000000" qw="0.707107"/>
+      <scale x="1.012892" y="0.545860" z="1.000000"/>
+      <entity name="Cube.082" meshFile="Beam1.mesh"/>
+    </node>
+    <node name="Cube.085">
+      <position x="-44.899998" y="1.050000" z="1.200000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.085" meshFile="long_shelf1.mesh"/>
+    </node>
+    <node name="Cube.084">
+      <position x="-43.999996" y="-1.800000" z="1.200000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.084" meshFile="small_shelf1.mesh"/>
+    </node>
+    <node name="Cube.087">
+      <position x="-43.999996" y="3.900000" z="1.200000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.087" meshFile="small_shelf1.mesh"/>
+    </node>
+    <node name="Cube.086">
+      <position x="-44.899998" y="-0.950000" z="1.200000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.086" meshFile="long_shelf1.mesh"/>
+    </node>
+    <node name="Chair_001.019">
+      <position x="-44.877739" y="-17.669859" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.973454" qw="0.228881"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.019" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="Chair_001.018">
+      <position x="-44.862778" y="-14.233555" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.849348" qw="0.527833"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.018" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="Marker.002">
+      <position x="-39.258610" y="1.153688" z="1.145574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.002" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Fire"/>
+        <property type="FLOAT" name="LightOffset" data="25.0"/>
+      </userData>
+    </node>
+    <node name="Marker.003">
+      <position x="-43.048611" y="-1.696312" z="1.145574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.003" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Fire"/>
+        <property type="FLOAT" name="LightOffset" data="25.0"/>
+      </userData>
+    </node>
+    <node name="Marker.001">
+      <position x="-38.058609" y="-1.346312" z="0.745574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.001" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Enter"/>
+        <property type="INT" name="Num" data="0"/>
+      </userData>
+    </node>
+    <node name="Chair_001.017">
+      <position x="-45.796566" y="-14.486786" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.968655" qw="0.248412"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.017" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="Chair_001.016">
+      <position x="-45.812393" y="-13.505517" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.414954" qw="0.909842"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.016" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="Chair_001.015">
+      <position x="-49.799652" y="-14.427825" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.504730" qw="0.863277"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.015" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="Chair_001.014">
+      <position x="-49.890816" y="-11.442209" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.719216" qw="0.694787"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.014" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="Cube.171">
+      <position x="-32.805412" y="-12.691686" z="1.200000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.171" meshFile="small_shelf1.mesh"/>
+    </node>
+    <node name="Cube.170">
+      <position x="-30.100075" y="-12.856003" z="1.200000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.170" meshFile="small_shelf1.mesh"/>
+    </node>
+    <node name="Plane.009">
+      <position x="-46.000000" y="-17.949999" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.078110" y="0.980100" z="0.980100"/>
+      <entity name="Plane.009" meshFile="WallLong1End.mesh"/>
+    </node>
+    <node name="Plane.008">
+      <position x="-44.049999" y="-12.030001" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.078110" y="0.980100" z="0.980100"/>
+      <entity name="Plane.008" meshFile="WallLong1.mesh"/>
+    </node>
+    <node name="Cube.119">
+      <position x="-48.900002" y="-12.000000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.119" meshFile="Room2.mesh"/>
+    </node>
+    <node name="Plane.005">
+      <position x="-45.929996" y="-15.979999" z="1.900000"/>
+      <rotation qx="-0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.078110" y="0.980100" z="0.980100"/>
+      <entity name="Plane.005" meshFile="CielingLong1.mesh"/>
+    </node>
+    <node name="Plane.004">
+      <position x="-45.929996" y="-15.979999" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.078110" y="0.980100" z="0.980100"/>
+      <entity name="Plane.004" meshFile="FloorLong1.mesh"/>
+    </node>
+    <node name="Plane.007">
+      <position x="-44.049999" y="-15.980000" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.078110" y="0.980100" z="0.980100"/>
+      <entity name="Plane.007" meshFile="WallLong1.mesh"/>
+    </node>
+    <node name="Plane.006">
+      <position x="-45.929996" y="-12.030000" z="1.900000"/>
+      <rotation qx="-0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.078110" y="0.980100" z="0.980100"/>
+      <entity name="Plane.006" meshFile="CielingLong1.mesh"/>
+    </node>
+    <node name="barstool_002.001">
+      <position x="-41.799572" y="-0.401770" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.650270" qw="0.759703"/>
+      <scale x="0.500000" y="0.500000" z="0.500000"/>
+      <entity name="barstool_002.001" meshFile="barstool_002.mesh"/>
+    </node>
+    <node name="barstool_002.003">
+      <position x="-41.834736" y="0.496319" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.805985" qw="0.591936"/>
+      <scale x="0.500000" y="0.500000" z="0.500000"/>
+      <entity name="barstool_002.003" meshFile="barstool_002.mesh"/>
+    </node>
+    <node name="barstool_002.002">
+      <position x="-41.788467" y="-1.230414" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.861562" qw="0.507652"/>
+      <scale x="0.500000" y="0.500000" z="0.500000"/>
+      <entity name="barstool_002.002" meshFile="barstool_002.mesh"/>
+    </node>
+    <node name="cabinet_003">
+      <position x="-42.162876" y="3.765549" z="2.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.650000" y="0.650000" z="0.650000"/>
+      <entity name="cabinet_003" meshFile="cabinet_003.mesh"/>
+    </node>
+    <node name="cabinet_001">
+      <position x="-42.832493" y="2.663129" z="2.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="0.412500" y="0.412500" z="0.412500"/>
+      <entity name="cabinet_001" meshFile="cabinet_001.mesh"/>
+    </node>
+    <node name="Door.003">
+      <position x="-42.146694" y="4.050000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.975279" y="0.975279" z="0.975279"/>
+      <entity name="Door.003" meshFile="D_Door2.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Door_1"/>
+      </userData>
+    </node>
+    <node name="Door.001">
+      <position x="-38.049999" y="-1.950000" z="0.998499"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Door.001" meshFile="D_Door1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Entrance"/>
+        <property type="INT" name="ExitNum" data="0"/>
+      </userData>
+    </node>
+    <node name="Door.006">
+      <position x="-39.299793" y="-1.049019" z="2.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.975279" y="0.975279" z="0.975279"/>
+      <entity name="Door.006" meshFile="D_Door2.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Door_1"/>
+      </userData>
+    </node>
+    <node name="Door.004">
+      <position x="-40.799793" y="3.150981" z="2.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.975279" y="0.975279" z="0.975279"/>
+      <entity name="Door.004" meshFile="D_Door2.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Door_1"/>
+      </userData>
+    </node>
+    <node name="Door.005">
+      <position x="-40.799793" y="-1.049019" z="2.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.975279" y="0.975279" z="0.975279"/>
+      <entity name="Door.005" meshFile="D_Door2.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Door_1"/>
+      </userData>
+    </node>
+    <node name="Door.009">
+      <position x="-45.450001" y="-9.999999" z="0.998499"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Door.009" meshFile="D_Door1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Entrance"/>
+        <property type="INT" name="ExitNum" data="1"/>
+      </userData>
+    </node>
+    <node name="pillow_001.009">
+      <position x="-49.631451" y="-13.633344" z="0.373258"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.755032" qw="0.655687"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="pillow_001.009" meshFile="pillow_001.mesh"/>
+    </node>
+    <node name="pillow_001.003">
+      <position x="-42.751450" y="-1.622349" z="2.007529"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="pillow_001.003" meshFile="pillow_001.mesh"/>
+    </node>
+    <node name="pillow_001.002">
+      <position x="-37.440632" y="0.463479" z="2.373258"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.743547" qw="0.668683"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="pillow_001.002" meshFile="pillow_001.mesh"/>
+    </node>
+    <node name="pillow_001.001">
+      <position x="-42.691471" y="1.679463" z="2.373258"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.681926" qw="0.731421"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="pillow_001.001" meshFile="pillow_001.mesh"/>
+    </node>
+    <node name="pillow_001.006">
+      <position x="-42.768238" y="3.725585" z="2.007529"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707217" qw="0.706997"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="pillow_001.006" meshFile="pillow_001.mesh"/>
+    </node>
+    <node name="pillow_001.005">
+      <position x="-37.294003" y="-1.601138" z="2.007529"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.728146" qw="0.685422"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="pillow_001.005" meshFile="pillow_001.mesh"/>
+    </node>
+    <node name="pillow_001.004">
+      <position x="-42.817417" y="-1.622349" z="2.068824"/>
+      <rotation qx="0.206069" qy="-0.206069" qz="-0.676414" qw="0.676414"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="pillow_001.004" meshFile="pillow_001.mesh"/>
+    </node>
+    <node name="Cube.144">
+      <position x="-27.955219" y="-12.916125" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.144" meshFile="Room1.mesh"/>
+    </node>
+    <node name="Cube.145">
+      <position x="-30.955219" y="-12.916125" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.145" meshFile="Room2.mesh"/>
+    </node>
+    <node name="candle_big3.008">
+      <position x="-29.243156" y="-11.898589" z="1.260000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.365657" qw="0.930750"/>
+      <scale x="0.015041" y="0.015041" z="0.015041"/>
+      <entity name="candle_big3.008" meshFile="candle_big3.mesh"/>
+    </node>
+    <node name="Cube.140">
+      <position x="-25.855217" y="-11.766124" z="-3.481501"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.140" meshFile="DoorFrame.mesh"/>
+    </node>
+    <node name="Cube.141">
+      <position x="-27.855217" y="-11.766124" z="-3.481501"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.141" meshFile="DoorFrame.mesh"/>
+    </node>
+    <node name="Cube.142">
+      <position x="-32.055218" y="-11.766124" z="-3.481501"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.142" meshFile="DoorFrame.mesh"/>
+    </node>
+    <node name="Cube.143">
+      <position x="-25.955219" y="-12.916125" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.143" meshFile="Closet1.mesh"/>
+    </node>
+    <node name="candle_big3.002">
+      <position x="-43.916843" y="3.862484" z="1.260000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.993632" qw="0.112675"/>
+      <scale x="0.015041" y="0.015041" z="0.015041"/>
+      <entity name="candle_big3.002" meshFile="candle_big3.mesh"/>
+    </node>
+    <node name="candle_big3.003">
+      <position x="-42.824005" y="2.619875" z="2.606792"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.998635" qw="0.052229"/>
+      <scale x="0.015041" y="0.015041" z="0.015041"/>
+      <entity name="candle_big3.003" meshFile="candle_big3.mesh"/>
+    </node>
+    <node name="Cube.021">
+      <position x="-41.950001" y="-0.950000" z="3.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.021" meshFile="Room1.mesh"/>
+    </node>
+    <node name="candle_big3.001">
+      <position x="-44.690434" y="-1.779060" z="0.790000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.970175" qw="0.242407"/>
+      <scale x="0.015041" y="0.015041" z="0.015041"/>
+      <entity name="candle_big3.001" meshFile="candle_big3.mesh"/>
+    </node>
+    <node name="candle_big3.006">
+      <position x="-30.333025" y="-9.277409" z="0.700000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.999927" qw="0.012089"/>
+      <scale x="0.015041" y="0.015041" z="0.015041"/>
+      <entity name="candle_big3.006" meshFile="candle_big3.mesh"/>
+    </node>
+    <node name="candle_big3.004">
+      <position x="-37.783546" y="-1.678686" z="2.939255"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.052229" qw="0.998635"/>
+      <scale x="0.015041" y="0.015041" z="0.015041"/>
+      <entity name="candle_big3.004" meshFile="candle_big3.mesh"/>
+    </node>
+    <node name="cabinet_001.001">
+      <position x="-42.839870" y="-0.547468" z="2.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="0.412500" y="0.412500" z="0.412500"/>
+      <entity name="cabinet_001.001" meshFile="cabinet_001.mesh"/>
+    </node>
+    <node name="cabinet_001.002">
+      <position x="-37.260941" y="-0.550000" z="2.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.412500" y="0.412500" z="0.412500"/>
+      <entity name="cabinet_001.002" meshFile="cabinet_001.mesh"/>
+    </node>
+    <node name="cabinet_001.005">
+      <position x="-44.139874" y="-17.047468" z="1.100000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.412500" y="0.412500" z="0.412500"/>
+      <entity name="cabinet_001.005" meshFile="cabinet_001.mesh"/>
+    </node>
+    <node name="cabinet_001.004">
+      <position x="-49.733837" y="-15.177693" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.705686" qw="0.708525"/>
+      <scale x="0.412500" y="0.412500" z="0.412500"/>
+      <entity name="cabinet_001.004" meshFile="cabinet_001.mesh"/>
+    </node>
+    <node name="cabinet_001.007">
+      <position x="-27.307751" y="-8.155997" z="0.948935"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.412500" y="0.412500" z="0.412500"/>
+      <entity name="cabinet_001.007" meshFile="cabinet_001.mesh"/>
+    </node>
+    <node name="cabinet_001.006">
+      <position x="-44.139874" y="-15.647468" z="1.100000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.412500" y="0.412500" z="0.412500"/>
+      <entity name="cabinet_001.006" meshFile="cabinet_001.mesh"/>
+    </node>
+    <node name="cabinet_001.009">
+      <position x="-27.350677" y="-13.560251" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.906550" qw="0.422099"/>
+      <scale x="0.412500" y="0.412500" z="0.412500"/>
+      <entity name="cabinet_001.009" meshFile="cabinet_001.mesh"/>
+    </node>
+    <node name="cabinet_001.008">
+      <position x="-26.307751" y="-8.155997" z="0.948935"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.412500" y="0.412500" z="0.412500"/>
+      <entity name="cabinet_001.008" meshFile="cabinet_001.mesh"/>
+    </node>
+    <node name="Marker.004">
+      <position x="-38.182682" y="1.208278" z="3.145574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.004" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Fire"/>
+        <property type="FLOAT" name="LightOffset" data="25.0"/>
+      </userData>
+    </node>
+    <node name="BigRoom">
+      <position x="-40.049999" y="2.050000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="BigRoom" meshFile="BigInnRoom1.mesh"/>
+    </node>
+    <node name="Chair_001.013">
+      <position x="-44.862778" y="-13.394729" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.406900" qw="0.913473"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.013" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="candle_big1.008">
+      <position x="-30.363180" y="-11.629566" z="1.280287"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.074816" qw="0.997197"/>
+      <scale x="0.016800" y="0.016800" z="0.016800"/>
+      <entity name="candle_big1.008" meshFile="candle_big1.mesh"/>
+    </node>
+    <node name="candle_big1.009">
+      <position x="-29.163179" y="-11.929566" z="1.280287"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.394092" qw="0.919071"/>
+      <scale x="0.016800" y="0.016800" z="0.016800"/>
+      <entity name="candle_big1.009" meshFile="candle_big1.mesh"/>
+    </node>
+    <node name="Chair_001.010">
+      <position x="-38.834499" y="1.217762" z="2.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.999593" qw="0.028515"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.010" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="candle_big1.001">
+      <position x="-38.149998" y="0.980000" z="0.720287"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.087156" qw="0.996195"/>
+      <scale x="0.016800" y="0.016800" z="0.016800"/>
+      <entity name="candle_big1.001" meshFile="candle_big1.mesh"/>
+    </node>
+    <node name="candle_big1.002">
+      <position x="-44.006874" y="3.893299" z="1.280287"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.921576" qw="0.388198"/>
+      <scale x="0.016800" y="0.016800" z="0.016800"/>
+      <entity name="candle_big1.002" meshFile="candle_big1.mesh"/>
+    </node>
+    <node name="candle_big1.003">
+      <position x="-42.858250" y="2.570305" z="2.627079"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.974394" qw="0.224846"/>
+      <scale x="0.016800" y="0.016800" z="0.016800"/>
+      <entity name="candle_big1.003" meshFile="candle_big1.mesh"/>
+    </node>
+    <node name="candle_big1.004">
+      <position x="-37.749302" y="-1.629116" z="2.959542"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.224846" qw="0.974394"/>
+      <scale x="0.016800" y="0.016800" z="0.016800"/>
+      <entity name="candle_big1.004" meshFile="candle_big1.mesh"/>
+    </node>
+    <node name="candle_big1.006">
+      <position x="-30.363180" y="-9.329566" z="0.720287"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.982637" qw="0.185541"/>
+      <scale x="0.016800" y="0.016800" z="0.016800"/>
+      <entity name="candle_big1.006" meshFile="candle_big1.mesh"/>
+    </node>
+    <node name="Marker.009">
+      <position x="-42.058609" y="-0.846312" z="2.745574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.737277" qw="0.675590"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.009" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Marker"/>
+        <property type="STRING" name="Marker" data="Quest"/>
+      </userData>
+    </node>
+    <node name="Cube.028">
+      <position x="-40.049999" y="-1.900000" z="3.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.028" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="Cube.038">
+      <position x="-38.049999" y="4.800000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.038" meshFile="HallEndDoorR.mesh"/>
+    </node>
+    <node name="Cube.039">
+      <position x="-38.149998" y="3.050000" z="3.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.039" meshFile="Room2Doors.mesh"/>
+    </node>
+    <node name="Cube.030">
+      <position x="-37.099998" y="-0.950000" z="3.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.030" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="Cube.031">
+      <position x="-43.000000" y="-0.950000" z="3.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.031" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="candle_big3.010">
+      <position x="-26.233025" y="-9.966788" z="0.787084"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.999927" qw="0.012089"/>
+      <scale x="0.015041" y="0.015041" z="0.015041"/>
+      <entity name="candle_big3.010" meshFile="candle_big3.mesh"/>
+    </node>
+    <node name="Cube.029">
+      <position x="-37.099998" y="3.050000" z="3.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.029" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="table_002">
+      <position x="-38.138107" y="0.956674" z="0.350597"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.051872" qw="0.998654"/>
+      <scale x="0.259631" y="0.259631" z="0.259631"/>
+      <entity name="table_002" meshFile="table_002.mesh"/>
+    </node>
+    <node name="Chair_001.004">
+      <position x="-37.977955" y="3.531820" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.118149" qw="0.992996"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.004" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="Chair_001.005">
+      <position x="-38.675911" y="3.073848" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.630682" qw="0.776041"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.005" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="Marker.017">
+      <position x="-43.681007" y="-0.759690" z="0.745574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.998727" qw="0.050443"/>
+      <scale x="0.724915" y="0.724915" z="0.724914"/>
+      <entity name="Marker.017" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Marker"/>
+        <property type="STRING" name="Marker" data="QuestMonster"/>
+      </userData>
+    </node>
+    <node name="Chair_001.007">
+      <position x="-39.590816" y="3.557791" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.406900" qw="0.913473"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.007" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="Marker.011">
+      <position x="-42.031914" y="2.851068" z="2.745574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.675590" qw="0.737277"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.011" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Marker"/>
+        <property type="STRING" name="Marker" data="Quest"/>
+      </userData>
+    </node>
+    <node name="Chair_001.001">
+      <position x="-37.549667" y="0.925755" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.738383" qw="0.674381"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.001" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="Marker.013">
+      <position x="-42.889332" y="4.822766" z="1.145574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.013" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Fire"/>
+        <property type="FLOAT" name="LightOffset" data="25.0"/>
+      </userData>
+    </node>
+    <node name="Marker.012">
+      <position x="-44.025585" y="0.964648" z="0.745574"/>
+      <rotation qx="0.500000" qy="0.500000" qz="0.500000" qw="0.500000"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.012" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Marker"/>
+        <property type="STRING" name="Marker" data="Innkeep"/>
+      </userData>
+    </node>
+    <node name="Cube.117">
+      <position x="-48.900002" y="-12.000000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.117" meshFile="Room2.mesh"/>
+    </node>
+    <node name="Plane.019">
+      <position x="-26.485218" y="-11.716125" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.078110" y="0.980100" z="0.980100"/>
+      <entity name="Plane.019" meshFile="WallClosetDoor1.mesh"/>
+    </node>
+    <node name="Plane.014">
+      <position x="-47.700001" y="-16.469999" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.078110" y="0.980100" z="0.980100"/>
+      <entity name="Plane.014" meshFile="WallClosetDoor1.mesh"/>
+    </node>
+    <node name="candle_big1.007">
+      <position x="-45.439693" y="-13.940571" z="0.720287"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.563632" qw="0.826026"/>
+      <scale x="0.016800" y="0.016800" z="0.016800"/>
+      <entity name="candle_big1.007" meshFile="candle_big1.mesh"/>
+    </node>
+    <node name="Plane.013">
+      <position x="-47.700001" y="-11.520000" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.078110" y="0.980100" z="0.980100"/>
+      <entity name="Plane.013" meshFile="WallShort1DoorR.mesh"/>
+    </node>
+    <node name="Plane.010">
+      <position x="-45.750000" y="-10.049999" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.078110" y="0.980100" z="0.980100"/>
+      <entity name="Plane.010" meshFile="WallLong1End.mesh"/>
+    </node>
+    <node name="Plane.011">
+      <position x="-47.700001" y="-14.470000" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.078110" y="0.980100" z="0.980100"/>
+      <entity name="Plane.011" meshFile="WallShort1DoorL.mesh"/>
+    </node>
+    <node name="Chair_001.011">
+      <position x="-37.501373" y="2.733821" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.851391" qw="0.524532"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.011" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="Door.014">
+      <position x="-32.955219" y="-9.466125" z="0.998499"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Door.014" meshFile="D_Door1.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Entrance"/>
+        <property type="INT" name="ExitNum" data="2"/>
+      </userData>
+    </node>
+    <node name="Door.011">
+      <position x="-47.749996" y="-15.099999" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.000000" qw="1.000000"/>
+      <scale x="0.975279" y="0.975279" z="0.975279"/>
+      <entity name="Door.011" meshFile="D_Door2.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Door_1"/>
+      </userData>
+    </node>
+    <node name="Door.010">
+      <position x="-47.749996" y="-10.900000" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.000000" qw="1.000000"/>
+      <scale x="0.975279" y="0.975279" z="0.975279"/>
+      <entity name="Door.010" meshFile="D_Door2.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Door_1"/>
+      </userData>
+    </node>
+    <node name="Door.013">
+      <position x="-32.055218" y="-11.766120" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="0.975279" y="0.975279" z="0.975279"/>
+      <entity name="Door.013" meshFile="D_Door2.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Door_1"/>
+      </userData>
+    </node>
+    <node name="Door.012">
+      <position x="-27.855219" y="-11.766120" z="0.800000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="0.975279" y="0.975279" z="0.975279"/>
+      <entity name="Door.012" meshFile="D_Door2.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Door_1"/>
+      </userData>
+    </node>
+    <node name="Cube.016">
+      <position x="-38.149998" y="0.050000" z="3.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.016" meshFile="Room2.mesh"/>
+    </node>
+    <node name="Cube.015">
+      <position x="-41.950001" y="2.050000" z="3.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.015" meshFile="Room2.mesh"/>
+    </node>
+    <node name="Cube.013">
+      <position x="-40.049999" y="4.750000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.013" meshFile="Stairs1.mesh"/>
+    </node>
+    <node name="barstool_002">
+      <position x="-41.806915" y="1.275417" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.732420" qw="0.680853"/>
+      <scale x="0.500000" y="0.500000" z="0.500000"/>
+      <entity name="barstool_002" meshFile="barstool_002.mesh"/>
+    </node>
+    <node name="Marker.043">
+      <position x="-26.458418" y="-13.616412" z="0.745574"/>
+      <rotation qx="0.000815" qy="1.000000" qz="0.000054" qw="0.000000"/>
+      <scale x="0.960794" y="0.960793" z="0.960794"/>
+      <entity name="Marker.043" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="barrels1"/>
+      </userData>
+    </node>
+    <node name="candle_stick1">
+      <position x="-38.110001" y="2.980000" z="0.760000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.976296" qw="0.216440"/>
+      <scale x="0.015000" y="0.015000" z="0.015000"/>
+      <entity name="candle_stick1" meshFile="candle_stick1.mesh"/>
+    </node>
+    <node name="candle_big3">
+      <position x="-40.090435" y="2.970940" z="0.700000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.819152" qw="0.573576"/>
+      <scale x="0.015041" y="0.015041" z="0.015041"/>
+      <entity name="candle_big3" meshFile="candle_big3.mesh"/>
+    </node>
+    <node name="candle_big2">
+      <position x="-40.102734" y="3.026896" z="0.721147"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.766044" qw="0.642788"/>
+      <scale x="0.017000" y="0.017000" z="0.017000"/>
+      <entity name="candle_big2" meshFile="candle_big2.mesh"/>
+    </node>
+    <node name="candle_big1">
+      <position x="-40.149998" y="2.980000" z="0.720287"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="0.016800" y="0.016800" z="0.016800"/>
+      <entity name="candle_big1" meshFile="candle_big1.mesh"/>
+    </node>
+    <node name="Cube.128">
+      <position x="-46.809998" y="-10.039999" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.128" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="Cube.129">
+      <position x="-44.039993" y="-13.030000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.129" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="Cube.126">
+      <position x="-45.449997" y="-10.100000" z="-3.481501"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.126" meshFile="DoorFrame.mesh"/>
+    </node>
+    <node name="Cube.127">
+      <position x="-44.288670" y="-15.283949" z="0.960000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.127" meshFile="BarLong1.mesh"/>
+    </node>
+    <node name="Cube.124">
+      <position x="-47.750000" y="-17.100000" z="-3.481501"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.124" meshFile="DoorFrame.mesh"/>
+    </node>
+    <node name="Cube.122">
+      <position x="-47.750000" y="-10.900001" z="-3.481501"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.122" meshFile="DoorFrame.mesh"/>
+    </node>
+    <node name="Cube.123">
+      <position x="-47.750000" y="-15.100000" z="-3.481501"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.123" meshFile="DoorFrame.mesh"/>
+    </node>
+    <node name="Cube.120">
+      <position x="-48.900002" y="-15.000000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.120" meshFile="Room1.mesh"/>
+    </node>
+    <node name="Cube.121">
+      <position x="-48.900002" y="-17.000000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.121" meshFile="Closet1.mesh"/>
+    </node>
+    <node name="Cube.058">
+      <position x="-39.049999" y="3.950000" z="0.900000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.058" meshFile="Beam1.mesh"/>
+    </node>
+    <node name="Cube.052">
+      <position x="-42.450001" y="-0.950000" z="0.960000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.052" meshFile="Bar1.mesh"/>
+    </node>
+    <node name="Cube.053">
+      <position x="-43.400002" y="1.750000" z="0.960000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.053" meshFile="BarCorner1.mesh"/>
+    </node>
+    <node name="Cube.051">
+      <position x="-42.049999" y="5.500000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.051" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="Cube.056">
+      <position x="-40.099998" y="-1.900000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.056" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="Cube.057">
+      <position x="-39.049999" y="1.150000" z="0.900000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.057" meshFile="Beam1.mesh"/>
+    </node>
+    <node name="Cube.054">
+      <position x="-44.799999" y="1.700000" z="0.960000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.054" meshFile="BarLong1.mesh"/>
+    </node>
+    <node name="Plane.023">
+      <position x="-25.005219" y="-10.016124" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.078110" y="0.980100" z="0.980100"/>
+      <entity name="Plane.023" meshFile="WallLong1End.mesh"/>
+    </node>
+    <node name="Plane.022">
+      <position x="-32.905220" y="-9.766124" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.078110" y="0.980100" z="0.980100"/>
+      <entity name="Plane.022" meshFile="WallLong1End.mesh"/>
+    </node>
+    <node name="Plane.021">
+      <position x="-31.435219" y="-11.716125" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.078110" y="0.980100" z="0.980100"/>
+      <entity name="Plane.021" meshFile="WallShort1DoorR.mesh"/>
+    </node>
+    <node name="Plane.020">
+      <position x="-28.485218" y="-11.716125" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.078110" y="0.980100" z="0.980100"/>
+      <entity name="Plane.020" meshFile="WallShort1DoorL.mesh"/>
+    </node>
+    <node name="Plane.027">
+      <position x="-26.975220" y="-9.946120" z="1.900000"/>
+      <rotation qx="-0.000000" qy="-0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.078110" y="0.980100" z="0.980100"/>
+      <entity name="Plane.027" meshFile="CielingLong1.mesh"/>
+    </node>
+    <node name="Plane.026">
+      <position x="-30.925219" y="-9.946120" z="1.900000"/>
+      <rotation qx="-0.000000" qy="-0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.078110" y="0.980100" z="0.980100"/>
+      <entity name="Plane.026" meshFile="CielingLong1.mesh"/>
+    </node>
+    <node name="Plane.025">
+      <position x="-26.975218" y="-8.066123" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.078110" y="0.980100" z="0.980100"/>
+      <entity name="Plane.025" meshFile="WallLong1.mesh"/>
+    </node>
+    <node name="Plane.024">
+      <position x="-30.925217" y="-8.066123" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.078110" y="0.980100" z="0.980100"/>
+      <entity name="Plane.024" meshFile="WallLong1.mesh"/>
+    </node>
+    <node name="Plane.029">
+      <position x="-30.925219" y="-9.946120" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.078110" y="0.980100" z="0.980100"/>
+      <entity name="Plane.029" meshFile="FloorLong1.mesh"/>
+    </node>
+    <node name="Plane.028">
+      <position x="-26.975220" y="-9.946120" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.078110" y="0.980100" z="0.980100"/>
+      <entity name="Plane.028" meshFile="FloorLong1.mesh"/>
+    </node>
+    <node name="Marker.028">
+      <position x="-25.113497" y="-11.018806" z="1.145574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.028" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Fire"/>
+        <property type="FLOAT" name="LightOffset" data="25.0"/>
+      </userData>
+    </node>
+    <node name="Marker.029">
+      <position x="-31.708906" y="-8.174735" z="1.145574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.000000" qw="1.000000"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.029" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Fire"/>
+        <property type="FLOAT" name="LightOffset" data="25.0"/>
+      </userData>
+    </node>
+    <node name="Marker.022">
+      <position x="-49.450546" y="-16.484550" z="0.745574"/>
+      <rotation qx="0.000815" qy="1.000000" qz="0.000054" qw="0.000000"/>
+      <scale x="0.960794" y="0.960793" z="0.960794"/>
+      <entity name="Marker.022" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="barrels1"/>
+      </userData>
+    </node>
+    <node name="Marker.023">
+      <position x="-49.582413" y="-17.605396" z="0.745574"/>
+      <rotation qx="0.000815" qy="1.000000" qz="0.000054" qw="0.000000"/>
+      <scale x="0.960794" y="0.960793" z="0.960794"/>
+      <entity name="Marker.023" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="barrels1"/>
+      </userData>
+    </node>
+    <node name="Marker.024">
+      <position x="-49.000011" y="-17.099915" z="0.745574"/>
+      <rotation qx="0.000815" qy="1.000000" qz="0.000054" qw="0.000000"/>
+      <scale x="0.960794" y="0.960793" z="0.960794"/>
+      <entity name="Marker.024" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="barrels1"/>
+      </userData>
+    </node>
+    <node name="Marker.025">
+      <position x="-45.458611" y="-10.627789" z="0.745574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.000000" qw="1.000000"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.025" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Enter"/>
+        <property type="INT" name="Num" data="1"/>
+      </userData>
+    </node>
+    <node name="Marker.026">
+      <position x="-44.158611" y="-11.246311" z="1.145574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.026" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Fire"/>
+        <property type="FLOAT" name="LightOffset" data="25.0"/>
+      </userData>
+    </node>
+    <node name="Marker.027">
+      <position x="-45.002682" y="-17.841721" z="1.145574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.027" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Fire"/>
+        <property type="FLOAT" name="LightOffset" data="25.0"/>
+      </userData>
+    </node>
+    <node name="candle_stick1.001">
+      <position x="-42.469997" y="0.720000" z="0.850000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.357184" qw="0.934034"/>
+      <scale x="0.015000" y="0.015000" z="0.015000"/>
+      <entity name="candle_stick1.001" meshFile="candle_stick1.mesh"/>
+    </node>
+    <node name="candle_stick1.002">
+      <position x="-42.469997" y="-0.480000" z="0.850000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.068069" qw="0.997681"/>
+      <scale x="0.015000" y="0.015000" z="0.015000"/>
+      <entity name="candle_stick1.002" meshFile="candle_stick1.mesh"/>
+    </node>
+    <node name="candle_stick1.003">
+      <position x="-42.110001" y="3.770000" z="3.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.999887" qw="0.015033"/>
+      <scale x="0.015000" y="0.015000" z="0.015000"/>
+      <entity name="candle_stick1.003" meshFile="candle_stick1.mesh"/>
+    </node>
+    <node name="candle_stick1.004">
+      <position x="-42.860001" y="-0.490000" z="2.664106"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.706276" qw="0.707937"/>
+      <scale x="0.015000" y="0.015000" z="0.015000"/>
+      <entity name="candle_stick1.004" meshFile="candle_stick1.mesh"/>
+    </node>
+    <node name="candle_stick1.005">
+      <position x="-37.240002" y="-0.510000" z="2.664106"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.925848" qw="0.377895"/>
+      <scale x="0.015000" y="0.015000" z="0.015000"/>
+      <entity name="candle_stick1.005" meshFile="candle_stick1.mesh"/>
+    </node>
+    <node name="Cube.035">
+      <position x="-37.099998" y="1.050000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.035" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="candle_big2.009">
+      <position x="-49.607788" y="-10.693242" z="0.959051"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.684542" qw="0.728974"/>
+      <scale x="0.017000" y="0.017000" z="0.017000"/>
+      <entity name="candle_big2.009" meshFile="candle_big2.mesh"/>
+    </node>
+    <node name="candle_big2.008">
+      <position x="-49.785130" y="-14.964001" z="0.627343"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.353468" qw="0.935447"/>
+      <scale x="0.017000" y="0.017000" z="0.017000"/>
+      <entity name="candle_big2.008" meshFile="candle_big2.mesh"/>
+    </node>
+    <node name="candle_big2.007">
+      <position x="-26.289612" y="-9.957836" z="0.808231"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.270477" qw="0.962726"/>
+      <scale x="0.017000" y="0.017000" z="0.017000"/>
+      <entity name="candle_big2.007" meshFile="candle_big2.mesh"/>
+    </node>
+    <node name="candle_big2.006">
+      <position x="-32.826172" y="-12.683081" z="1.279560"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.270477" qw="0.962726"/>
+      <scale x="0.017000" y="0.017000" z="0.017000"/>
+      <entity name="candle_big2.006" meshFile="candle_big2.mesh"/>
+    </node>
+    <node name="candle_big2.005">
+      <position x="-30.389612" y="-9.268456" z="0.721147"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.270477" qw="0.962726"/>
+      <scale x="0.017000" y="0.017000" z="0.017000"/>
+      <entity name="candle_big2.005" meshFile="candle_big2.mesh"/>
+    </node>
+    <node name="candle_big2.003">
+      <position x="-37.727859" y="-1.692150" z="2.960402"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.951090" qw="0.308915"/>
+      <scale x="0.017000" y="0.017000" z="0.017000"/>
+      <entity name="candle_big2.003" meshFile="candle_big2.mesh"/>
+    </node>
+    <node name="candle_big2.002">
+      <position x="-42.879692" y="2.633339" z="2.627939"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.308915" qw="0.951090"/>
+      <scale x="0.017000" y="0.017000" z="0.017000"/>
+      <entity name="candle_big2.002" meshFile="candle_big2.mesh"/>
+    </node>
+    <node name="candle_big2.001">
+      <position x="-44.103600" y="3.862238" z="1.281147"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.766044" qw="0.642788"/>
+      <scale x="0.017000" y="0.017000" z="0.017000"/>
+      <entity name="candle_big2.001" meshFile="candle_big2.mesh"/>
+    </node>
+    <node name="Torch.007">
+      <position x="-45.004017" y="-17.952240" z="1.015322"/>
+      <rotation qx="-0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="0.015552" y="0.015552" z="0.015552"/>
+      <entity name="Torch.007" meshFile="WallTorch1_small.mesh"/>
+    </node>
+    <node name="Torch.006">
+      <position x="-44.048092" y="-11.247650" z="1.015322"/>
+      <rotation qx="-0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="0.015552" y="0.015552" z="0.015552"/>
+      <entity name="Torch.006" meshFile="WallTorch1_small.mesh"/>
+    </node>
+    <node name="Torch.001">
+      <position x="-43.048088" y="-1.807651" z="1.015322"/>
+      <rotation qx="-0.000000" qy="0.000000" qz="-0.000000" qw="1.000000"/>
+      <scale x="0.015552" y="0.015552" z="0.015552"/>
+      <entity name="Torch.001" meshFile="WallTorch1_small.mesh"/>
+    </node>
+    <node name="Torch.003">
+      <position x="-42.999851" y="4.824105" z="1.015322"/>
+      <rotation qx="-0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.015552" y="0.015552" z="0.015552"/>
+      <entity name="Torch.003" meshFile="WallTorch1_small.mesh"/>
+    </node>
+    <node name="Torch.002">
+      <position x="-38.184017" y="1.097758" z="3.015322"/>
+      <rotation qx="-0.000000" qy="0.000000" qz="-0.000000" qw="1.000000"/>
+      <scale x="0.015552" y="0.015552" z="0.015552"/>
+      <entity name="Torch.002" meshFile="WallTorch1_small.mesh"/>
+    </node>
+    <node name="Marker.015">
+      <position x="-40.048557" y="1.010591" z="2.745574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.015" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Marker"/>
+        <property type="STRING" name="Marker" data="QuestMonster"/>
+      </userData>
+    </node>
+    <node name="Torch.009">
+      <position x="-31.707567" y="-8.064216" z="1.015322"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.015552" y="0.015552" z="0.015552"/>
+      <entity name="Torch.009" meshFile="WallTorch1_small.mesh"/>
+    </node>
+    <node name="Torch.008">
+      <position x="-25.002977" y="-11.020141" z="1.015322"/>
+      <rotation qx="-0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="0.015552" y="0.015552" z="0.015552"/>
+      <entity name="Torch.008" meshFile="WallTorch1_small.mesh"/>
+    </node>
+    <node name="Plane">
+      <position x="-45.929996" y="-12.030000" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.078110" y="0.980100" z="0.980100"/>
+      <entity name="Plane" meshFile="FloorLong1.mesh"/>
+    </node>
+    <node name="Cube.003">
+      <position x="-40.049999" y="1.050000" z="3.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.003" meshFile="Hall1.mesh"/>
+    </node>
+    <node name="Cube.007">
+      <position x="-40.049999" y="3.050000" z="3.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.007" meshFile="HallDoubleDoorsEnd.mesh"/>
+    </node>
+    <node name="Cube.006">
+      <position x="-42.049999" y="4.800000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.006" meshFile="HallEndDoubletall.mesh"/>
+    </node>
+    <node name="Cube.008">
+      <position x="-40.049999" y="4.800000" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.008" meshFile="Hall1.003.mesh"/>
+    </node>
+    <node name="Cube.096">
+      <position x="-40.060566" y="1.850000" z="0.600000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.096" meshFile="box.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Script"/>
+        <property type="STRING" name="File" data="AlphaQuest.py"/>
+        <property type="STRING" name="Triggered" data="OnTouch"/>
+      </userData>
+    </node>
+    <node name="Cube.090">
+      <position x="-40.099998" y="3.900000" z="1.200000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.090" meshFile="small_shelf1.mesh"/>
+    </node>
+    <node name="Chair_001.026">
+      <position x="-31.114120" y="-9.495205" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.772446" qw="0.635081"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.026" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="Chair_001.027">
+      <position x="-29.602415" y="-12.140007" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.572499" qw="0.819906"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.027" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="Chair_001.024">
+      <position x="-29.602415" y="-13.689302" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.847438" qw="0.530895"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.024" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="Chair_001.025">
+      <position x="-32.709976" y="-12.648979" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.677977" qw="0.735083"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.025" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="Chair_001.022">
+      <position x="-29.752602" y="-9.036059" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.496964" qw="0.867771"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.022" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="Chair_001.023">
+      <position x="-30.241926" y="-9.886765" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.987412" qw="0.158170"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.023" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="Chair_001.020">
+      <position x="-25.285358" y="-8.893863" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.526493" qw="0.850180"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.020" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="Chair_001.021">
+      <position x="-30.684210" y="-8.774922" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.283068" qw="0.959100"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.021" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="bed_002.003">
+      <position x="-42.049999" y="1.650000" z="2.227659"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="0.975000" y="0.975000" z="0.975000"/>
+      <entity name="bed_002.003" meshFile="bed_002.mesh"/>
+    </node>
+    <node name="bed_002.002">
+      <position x="-42.049999" y="0.450000" z="2.227659"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="0.975000" y="0.975000" z="0.975000"/>
+      <entity name="bed_002.002" meshFile="bed_002.mesh"/>
+    </node>
+    <node name="bed_002.001">
+      <position x="-38.049999" y="0.450000" z="2.227659"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="0.975000" y="0.975000" z="0.975000"/>
+      <entity name="bed_002.001" meshFile="bed_002.mesh"/>
+    </node>
+    <node name="bed_002.007">
+      <position x="-30.605219" y="-12.966121" z="0.227659"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.975000" y="0.975000" z="0.975000"/>
+      <entity name="bed_002.007" meshFile="bed_002.mesh"/>
+    </node>
+    <node name="bed_002.005">
+      <position x="-48.949997" y="-13.650001" z="0.227659"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="0.975000" y="0.975000" z="0.975000"/>
+      <entity name="bed_002.005" meshFile="bed_002.mesh"/>
+    </node>
+    <node name="bed_002.004">
+      <position x="-48.949997" y="-12.350000" z="0.227659"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="0.975000" y="0.975000" z="0.975000"/>
+      <entity name="bed_002.004" meshFile="bed_002.mesh"/>
+    </node>
+    <node name="pillow_001">
+      <position x="-42.731453" y="0.466656" z="2.373258"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="pillow_001" meshFile="pillow_001.mesh"/>
+    </node>
+    <node name="Cube.168">
+      <position x="-27.103193" y="-12.564663" z="1.200000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.168" meshFile="small_shelf1.mesh"/>
+    </node>
+    <node name="Cube.169">
+      <position x="-29.178026" y="-11.911958" z="1.200000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.169" meshFile="small_shelf1.mesh"/>
+    </node>
+    <node name="Cube.162">
+      <position x="-48.799999" y="-12.849999" z="1.200000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.162" meshFile="long_shelf1.mesh"/>
+    </node>
+    <node name="Cube.163">
+      <position x="-44.149998" y="-14.500000" z="1.200000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.163" meshFile="small_shelf1.mesh"/>
+    </node>
+    <node name="Cube.160">
+      <position x="-37.973923" y="-1.312777" z="0.600000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.160" meshFile="box.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Script"/>
+        <property type="STRING" name="File" data="innEnter.py"/>
+        <property type="STRING" name="Triggered" data="OnTouch"/>
+      </userData>
+    </node>
+    <node name="Cube.161">
+      <position x="-48.799999" y="-13.150000" z="1.200000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.161" meshFile="long_shelf1.mesh"/>
+    </node>
+    <node name="Cube.166">
+      <position x="-28.499994" y="-8.160000" z="1.200000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.166" meshFile="small_shelf1.mesh"/>
+    </node>
+    <node name="Cube.167">
+      <position x="-30.000000" y="-11.620000" z="1.200000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.167" meshFile="long_shelf1.mesh"/>
+    </node>
+    <node name="Cube.164">
+      <position x="-47.599995" y="-13.710000" z="1.200000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.164" meshFile="small_shelf1.mesh"/>
+    </node>
+    <node name="Cube.165">
+      <position x="-47.599995" y="-12.410000" z="1.200000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.165" meshFile="small_shelf1.mesh"/>
+    </node>
+    <node name="pillow_001.008">
+      <position x="-49.631451" y="-12.333344" z="0.373258"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="pillow_001.008" meshFile="pillow_001.mesh"/>
+    </node>
+    <node name="pillow_001.011">
+      <position x="-30.621876" y="-13.647574" z="0.373258"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="pillow_001.011" meshFile="pillow_001.mesh"/>
+    </node>
+    <node name="Cube.131">
+      <position x="-49.959995" y="-14.459999" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.131" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="Cube.130">
+      <position x="-46.039993" y="-17.959999" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.130" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="Cube.133">
+      <position x="-31.295219" y="-13.976119" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.133" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="Cube.132">
+      <position x="-49.959995" y="-11.659999" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.132" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="Cube.135">
+      <position x="-24.995220" y="-8.856116" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.135" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="Cube.134">
+      <position x="-28.495220" y="-13.976119" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.134" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="Cube.137">
+      <position x="-32.915218" y="-10.826121" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.137" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="Cube.136">
+      <position x="-29.925219" y="-8.056117" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.136" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="Cube.139">
+      <position x="-32.855217" y="-9.466121" z="-3.481501"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.139" meshFile="DoorFrame.mesh"/>
+    </node>
+    <node name="Cube.138">
+      <position x="-27.571268" y="-9.904794" z="0.960000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.138" meshFile="BarLong1.mesh"/>
+    </node>
+    <node name="Cube.032">
+      <position x="-43.000000" y="3.050000" z="3.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.032" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="candle_big3.011">
+      <position x="-49.730961" y="-14.982656" z="0.606196"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.995056" qw="0.099312"/>
+      <scale x="0.015041" y="0.015041" z="0.015041"/>
+      <entity name="candle_big3.011" meshFile="candle_big3.mesh"/>
+    </node>
+    <node name="Chair_001.006">
+      <position x="-39.720043" y="2.615437" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.888964" qw="0.457978"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.006" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="candle_big3.013">
+      <position x="-44.175892" y="-14.377625" z="1.260713"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.388775" qw="0.921333"/>
+      <scale x="0.015041" y="0.015041" z="0.015041"/>
+      <entity name="candle_big3.013" meshFile="candle_big3.mesh"/>
+    </node>
+    <node name="candle_big3.012">
+      <position x="-49.582676" y="-10.744737" z="0.937905"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.881307" qw="0.472544"/>
+      <scale x="0.015041" y="0.015041" z="0.015041"/>
+      <entity name="candle_big3.012" meshFile="candle_big3.mesh"/>
+    </node>
+    <node name="cabinet_003.003">
+      <position x="-42.142437" y="-1.664749" z="2.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.650000" y="0.650000" z="0.650000"/>
+      <entity name="cabinet_003.003" meshFile="cabinet_003.mesh"/>
+    </node>
+    <node name="cabinet_003.002">
+      <position x="-37.959114" y="-1.679610" z="2.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.650000" y="0.650000" z="0.650000"/>
+      <entity name="cabinet_003.002" meshFile="cabinet_003.mesh"/>
+    </node>
+    <node name="Marker.016">
+      <position x="-42.048557" y="3.010591" z="0.745574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.382683" qw="0.923880"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.016" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Marker"/>
+        <property type="STRING" name="Marker" data="QuestMonster"/>
+      </userData>
+    </node>
+    <node name="cabinet_003.006">
+      <position x="-48.703938" y="-15.699304" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.999997" qw="0.002474"/>
+      <scale x="0.650000" y="0.650000" z="0.650000"/>
+      <entity name="cabinet_003.006" meshFile="cabinet_003.mesh"/>
+    </node>
+    <node name="cabinet_003.005">
+      <position x="-49.461159" y="-10.538366" z="0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.382683" qw="0.923880"/>
+      <scale x="0.650000" y="0.650000" z="0.650000"/>
+      <entity name="cabinet_003.005" meshFile="cabinet_003.mesh"/>
+    </node>
+    <node name="cabinet_003.008">
+      <position x="-32.386356" y="-13.713627" z="-0.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="0.650000" y="0.650000" z="0.650000"/>
+      <entity name="cabinet_003.008" meshFile="cabinet_003.mesh"/>
+    </node>
+    <node name="Marker.010">
+      <position x="-38.058609" y="-0.846312" z="2.745574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.675590" qw="0.737277"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.010" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Marker"/>
+        <property type="STRING" name="Marker" data="Quest"/>
+      </userData>
+    </node>
+    <node name="Chair_001.002">
+      <position x="-38.638550" y="0.503013" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.919479" qw="0.393138"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.002" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="Chair_001.003">
+      <position x="-40.512516" y="3.454230" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.373977" qw="0.927438"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.003" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="Cube.045">
+      <position x="-39.299999" y="-1.050000" z="-1.480000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.045" meshFile="DoorFrame.mesh"/>
+    </node>
+    <node name="Cube.044">
+      <position x="-40.799999" y="-1.050000" z="-1.480000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.044" meshFile="DoorFrame.mesh"/>
+    </node>
+    <node name="Cube.046">
+      <position x="-38.049999" y="-1.850000" z="-3.481501"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.046" meshFile="DoorFrame.mesh"/>
+    </node>
+    <node name="Cube.041">
+      <position x="-38.000000" y="4.050000" z="-1.480000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.041" meshFile="DoorFrame.mesh"/>
+    </node>
+    <node name="Cube.040">
+      <position x="-42.149998" y="4.050000" z="-3.480000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.040" meshFile="DoorFrame.mesh"/>
+    </node>
+    <node name="Cube.043">
+      <position x="-40.799999" y="3.150000" z="-1.480000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.043" meshFile="DoorFrame.mesh"/>
+    </node>
+    <node name="Cube.042">
+      <position x="-39.299999" y="3.150000" z="-1.480000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.042" meshFile="DoorFrame.mesh"/>
+    </node>
+    <node name="Marker.042">
+      <position x="-26.411400" y="-13.052188" z="0.745574"/>
+      <rotation qx="0.000815" qy="1.000000" qz="0.000054" qw="0.000000"/>
+      <scale x="0.960794" y="0.960793" z="0.960794"/>
+      <entity name="Marker.042" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="barrels1"/>
+      </userData>
+    </node>
+    <node name="Chair_001.008">
+      <position x="-44.165268" y="-1.743889" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.999959" qw="0.009069"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.008" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="Marker.044">
+      <position x="-25.825644" y="-13.035929" z="0.745574"/>
+      <rotation qx="0.000815" qy="1.000000" qz="0.000054" qw="0.000000"/>
+      <scale x="0.960794" y="0.960793" z="0.960794"/>
+      <entity name="Marker.044" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="barrels1"/>
+      </userData>
+    </node>
+    <node name="Chair_001.009">
+      <position x="-37.434906" y="1.267031" z="2.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.999973" qw="0.007378"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001.009" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="Torch">
+      <position x="-39.148090" y="1.152349" z="1.015322"/>
+      <rotation qx="-0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="0.015552" y="0.015552" z="0.015552"/>
+      <entity name="Torch" meshFile="WallTorch1_small.mesh"/>
+    </node>
+    <node name="Chair_001">
+      <position x="-38.046337" y="1.870295" z="0.400000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.050991" qw="0.998699"/>
+      <scale x="0.267395" y="0.267395" z="0.267395"/>
+      <entity name="Chair_001" meshFile="chair_001.mesh"/>
+    </node>
+    <node name="Marker.039">
+      <position x="-44.369144" y="3.150021" z="2.745574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.534183" qw="0.845369"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.039" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Marker"/>
+        <property type="STRING" name="Marker" data="NPC"/>
+      </userData>
+    </node>
+    <node name="Marker.038">
+      <position x="-40.955162" y="-1.197118" z="2.745574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.845439" qw="0.534072"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.038" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Marker"/>
+        <property type="STRING" name="Marker" data="NPC"/>
+      </userData>
+    </node>
+    <node name="Marker.037">
+      <position x="-38.929531" y="2.376184" z="2.745574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.260793" qw="0.965395"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.037" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Marker"/>
+        <property type="STRING" name="Marker" data="NPC"/>
+      </userData>
+    </node>
+    <node name="Marker.036">
+      <position x="-27.471455" y="-8.987620" z="0.760259"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.512691" qw="0.858573"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.036" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Marker"/>
+        <property type="STRING" name="Marker" data="NPC"/>
+      </userData>
+    </node>
+    <node name="Marker.035">
+      <position x="-46.048557" y="-11.989408" z="0.779035"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.958392" qw="0.285456"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.035" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Marker"/>
+        <property type="STRING" name="Marker" data="NPC"/>
+      </userData>
+    </node>
+    <node name="Marker.031">
+      <position x="-25.750063" y="-13.602791" z="0.745574"/>
+      <rotation qx="0.000815" qy="1.000000" qz="0.000054" qw="0.000000"/>
+      <scale x="0.960794" y="0.960793" z="0.960794"/>
+      <entity name="Marker.031" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Prop"/>
+        <property type="STRING" name="Set" data="barrels1"/>
+      </userData>
+    </node>
+    <node name="Marker.030">
+      <position x="-32.318378" y="-9.501953" z="0.745574"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.707107" qw="0.707107"/>
+      <scale x="0.724914" y="0.724914" z="0.724914"/>
+      <entity name="Marker.030" meshFile="Marker.mesh"/>
+      <userData>
+        <property type="STRING" name="Type" data="Enter"/>
+        <property type="INT" name="Num" data="2"/>
+      </userData>
+    </node>
+    <node name="candle_big1.013">
+      <position x="-44.165741" y="-14.752120" z="1.281000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.785862" qw="0.618402"/>
+      <scale x="0.016800" y="0.016800" z="0.016800"/>
+      <entity name="candle_big1.013" meshFile="candle_big1.mesh"/>
+    </node>
+    <node name="candle_big1.012">
+      <position x="-49.642700" y="-10.749934" z="0.958191"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.785862" qw="0.618402"/>
+      <scale x="0.016800" y="0.016800" z="0.016800"/>
+      <entity name="candle_big1.012" meshFile="candle_big1.mesh"/>
+    </node>
+    <node name="candle_big1.011">
+      <position x="-49.769730" y="-15.028775" z="0.626483"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.962694" qw="0.270593"/>
+      <scale x="0.016800" y="0.016800" z="0.016800"/>
+      <entity name="candle_big1.011" meshFile="candle_big1.mesh"/>
+    </node>
+    <node name="candle_big1.010">
+      <position x="-32.799740" y="-12.744190" z="1.278700"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.982637" qw="0.185541"/>
+      <scale x="0.016800" y="0.016800" z="0.016800"/>
+      <entity name="candle_big1.010" meshFile="candle_big1.mesh"/>
+    </node>
+    <node name="Cube.146">
+      <position x="-30.955219" y="-12.916125" z="1.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.707107" qw="0.707107"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.146" meshFile="Room2.mesh"/>
+    </node>
+    <node name="candle_big3.009">
+      <position x="-32.769585" y="-12.692032" z="1.258413"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.999927" qw="0.012089"/>
+      <scale x="0.015041" y="0.015041" z="0.015041"/>
+      <entity name="candle_big3.009" meshFile="candle_big3.mesh"/>
+    </node>
+    <node name="table_002.001">
+      <position x="-38.104328" y="2.982024" z="0.350597"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.666147" qw="0.745820"/>
+      <scale x="0.259631" y="0.259631" z="0.259631"/>
+      <entity name="table_002.001" meshFile="table_002.mesh"/>
+    </node>
+    <node name="table_002.002">
+      <position x="-40.145840" y="2.997478" z="0.350597"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.905852" qw="0.423594"/>
+      <scale x="0.259631" y="0.259631" z="0.259631"/>
+      <entity name="table_002.002" meshFile="table_002.mesh"/>
+    </node>
+    <node name="table_002.004">
+      <position x="-45.417801" y="-13.955041" z="0.350597"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.905852" qw="0.423594"/>
+      <scale x="0.259631" y="0.259631" z="0.259631"/>
+      <entity name="table_002.004" meshFile="table_002.mesh"/>
+    </node>
+    <node name="table_002.005">
+      <position x="-30.350367" y="-9.298535" z="0.350597"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.649149" qw="0.760661"/>
+      <scale x="0.259631" y="0.259631" z="0.259631"/>
+      <entity name="table_002.005" meshFile="table_002.mesh"/>
+    </node>
+    <node name="Cube.020">
+      <position x="-38.049999" y="5.500000" z="3.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="0.000000" qw="1.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.020" meshFile="WindowDouble1.mesh"/>
+    </node>
+    <node name="candle_big2.010">
+      <position x="-44.130829" y="-14.295428" z="1.281860"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.549026" qw="0.835805"/>
+      <scale x="0.017000" y="0.017000" z="0.017000"/>
+      <entity name="candle_big2.010" meshFile="candle_big2.mesh"/>
+    </node>
+    <node name="candle_big3.007">
+      <position x="-30.233025" y="-11.577409" z="1.260000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="-0.601811" qw="0.798638"/>
+      <scale x="0.015041" y="0.015041" z="0.015041"/>
+      <entity name="candle_big3.007" meshFile="candle_big3.mesh"/>
+    </node>
+    <node name="Cube.024">
+      <position x="-40.049999" y="-0.950000" z="3.000000"/>
+      <rotation qx="0.000000" qy="0.000000" qz="1.000000" qw="0.000000"/>
+      <scale x="1.000000" y="1.000000" z="1.000000"/>
+      <entity name="Cube.024" meshFile="HallDoubleDoorsEnd.mesh"/>
+    </node>
+  </nodes>
+  <externals>
+    <item type="material">
+      <file name="Scene.material"/>
+    </item>
+  </externals>
+  <environment>
+    <colourAmbient r="0.313627" g="0.300000" b="0.100000"/>
+    <colourBackground r="0.056563" g="0.220815" b="0.400000"/>
+  </environment>
+</scene>

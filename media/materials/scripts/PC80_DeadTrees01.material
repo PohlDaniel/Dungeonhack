@@ -1,0 +1,14 @@
+material DeadTreeBark01/SOLID/TEX/PC80_DeadTreeBark01.png
+{
+    technique
+    {
+        pass
+        {
+            specular 0.000000 0.000000 0.000000 0.250000
+            texture_unit
+            {
+                texture PC80_DeadTreeBark01.png
+            }
+        }
+    }
+}

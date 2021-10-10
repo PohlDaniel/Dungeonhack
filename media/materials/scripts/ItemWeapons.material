@@ -1,0 +1,13 @@
+material battle_axe_001_tex/SOLID/TEX/battle_axe_001_tex.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture battle_axe_001_tex.png
+            }
+        }
+    }
+}

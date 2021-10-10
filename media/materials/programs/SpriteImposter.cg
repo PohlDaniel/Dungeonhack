@@ -1,0 +1,36 @@
+void main_vp(float4 position : POSITION,
+              float3 normal   : NORMAL,
+              float2 uv       : TEXCOORD0,
+              out float4 oPosition : POSITION,
+              out float2 oUv :TEXCOORD0,
+              out float4 colour    : COLOR,
+
+              uniform float4x4 worldViewProj,
+              uniform float4 eyePosition,
+              uniform float4 ambient,
+              uniform float4 objSpaceLight,
+              uniform float4 lightColour)
+{
+    oUv = uv;
+    oPosition = mul(worldViewProj, position);
+
+    float3 light = normalize(
+        objSpaceLight.xyz -  (position.xyz * objSpaceLight.w));
+
+    float3 tEyePos = eyePosition;
+    tEyePos.y = 0;
+
+    float3 tPos = position;
+    position.y = 0;
+
+    float3 eyeNormal = normalize(tEyePos - tPos);
+    float3 upNormal = float3(0,1.0,0);
+
+
+    float diffuseFactor = max(dot(eyeNormal, light), 0);
+    float diffuseFactor2 = max(dot(upNormal, light), 0);
+
+    colour = ambient + ((diffuseFactor * lightColour) / 1.2 + (diffuseFactor2 * lightColour) / 1.5);
+    colour.a = 1.0;
+}
+

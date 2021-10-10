@@ -1,0 +1,153 @@
+material TownInterior/SOLID/TEX/GX_02_woodgrain02.jpg
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture GX_02_woodgrain02.jpg
+            }
+        }
+    }
+}
+
+material TownInterior/SOLID/TEX/house_indoor_wall1.jpg
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture house_indoor_wall1.jpg
+            }
+        }
+    }
+}
+
+material TownInterior/SOLID/TEX/house_indoor_wall2.jpg
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture house_indoor_wall2.jpg
+            }
+        }
+    }
+}
+
+material TownInterior/SOLID/TEX/Light-wood-floor.jpg
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture Light-wood-floor.jpg
+            }
+        }
+    }
+}
+
+material TownInterior/SOLID/TEX/Wood-Veneer.jpg
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture Wood-Veneer.jpg
+            }
+        }
+    }
+}
+
+material TownInterior/SOLID/TEX/Wood-Veneer2.jpg
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture Wood-Veneer2.jpg
+            }
+        }
+    }
+}
+
+material TownInterior/SOLID/TEX/Wood-Veneer3.jpg
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture Wood-Veneer3.jpg
+            }
+        }
+    }
+}
+
+material TownInterior/SOLID/TEX/Wood-Veneer4.jpg
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture Wood-Veneer4.jpg
+            }
+        }
+    }
+}
+
+material TownInterior/SOLID/TEX/Wood-Veneer5.jpg
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture Wood-Veneer5.jpg
+            }
+        }
+    }
+}
+
+material TownInterior/SOLID/TEX/Uneven_planks_512x1024.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture Uneven_planks.png
+            }
+        }
+    }
+}
+
+material TownInterior/SOLID/TEX/Veneer_512x512.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture Wood-Veneer.jpg
+            }
+        }
+    }
+}

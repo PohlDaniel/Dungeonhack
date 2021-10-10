@@ -1,0 +1,133 @@
+material SkyMaterial
+{
+    technique
+    {
+        pass
+        {
+            scene_blend alpha_blend
+            lighting off
+
+            fog_override false
+            depth_write off
+            texture_unit
+            {
+                texture sky_color.png
+                tex_address_mode wrap
+                filtering trilinear
+                //scroll_anim -0.05 0
+            }
+        }
+    }
+}
+
+material Sun
+{
+    technique
+    {
+        pass
+        {
+            //scene_blend alpha_blend
+            scene_blend add
+            lighting off
+
+            fog_override true   //not sure about whether the sun should be fogged yet...
+            depth_write off
+            texture_unit
+            {
+                texture sun_small.png
+                //colour_op add
+                filtering trilinear
+            }
+        }
+    }
+}
+
+material Moon
+{
+    technique
+    {
+        pass
+        {
+            scene_blend alpha_blend
+            //scene_blend add
+            lighting off
+
+            fog_override true   //not sure about whether the sun should be fogged yet...
+            depth_write off
+            texture_unit
+            {
+                texture moon.png
+                //colour_op add
+                filtering trilinear
+            }
+        }
+    }
+}
+
+material Coronas/SunFlare1
+{
+    technique
+    {
+        pass
+        {
+            fog_override true
+            lighting off
+            scene_blend add
+            //scene_blend alpha_blend
+            depth_write off
+            depth_check off
+
+            texture_unit
+            {
+                texture sun_flare_1.png
+            }
+        }
+    }
+}
+    
+
+material Coronas/SunFlare2
+{
+    technique
+    {
+        pass
+        {
+            fog_override true
+            lighting off
+            //scene_blend add
+            //scene_blend alpha_blend
+            scene_blend add
+            depth_write off
+            depth_check off
+
+            texture_unit
+            {
+                //colour_op add
+                texture sun_flare_new.png
+                tex_address_mode clamp
+            }
+        }
+    }
+}
+
+material Sky/FogRing
+{
+    technique
+    {
+        pass
+        {
+            scene_blend alpha_blend
+            lighting off
+
+            fog_override false
+            depth_write off
+            texture_unit
+            {
+                texture fogRing.png
+                tex_address_mode wrap
+                filtering trilinear
+            }
+        }
+    }
+}
+

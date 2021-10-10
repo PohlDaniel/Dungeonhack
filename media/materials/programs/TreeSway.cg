@@ -1,0 +1,46 @@
+// Vertex program to wave trees
+
+void treesway_vp(float4 position : POSITION,
+              float3 normal   : NORMAL,
+              float2 uv       : TEXCOORD0,
+              out float4 oPosition : POSITION,
+              out float2 oUv       : TEXCOORD0,
+              out float4 colour    : COLOR,
+
+              uniform float4x4 worldViewProj,
+              uniform float4 eyePosition,
+              uniform float4 ambient,
+              uniform float4 objSpaceLight,
+              uniform float4 lightColour,
+              uniform float4 offset,
+              uniform float4 wave)
+{
+    float4 M = float4(1,1,1,max(0, 1-((distance(eyePosition, position)-1200) / 1350)));
+    float4 mypos = position;
+    //offset = float4(0.5, 0, 0, 0);
+    //mypos = mypos + (uv.y-1.0f)*offset*120;
+    float offsetFactor = (1.0f);
+    float offsetSin = ((sin(((position.x / 150.0) + wave.x / 75.0)) + 1.0) / 2.0);
+    offsetSin += 0.10;
+    //mypos = (mypos + (offsetFactor)*offset*120);
+    mypos = (mypos + ((offsetFactor)*offset*(120 * offsetSin)));
+    //mypos = mypos + offset * mypos.yyyy;
+    oPosition = mul(worldViewProj, mypos);
+
+    float3 upNormal = float3(0.0,1.0,0.0);
+
+    oUv = uv;
+    // get vertex light direction (support directional and point)
+    float3 light = normalize(
+        objSpaceLight.xyz -  (position.xyz * objSpaceLight.w));
+
+
+    float diffuseFactor = max(dot(upNormal, light), 0);
+    
+    
+    colour = (ambient + diffuseFactor * lightColour);
+    //colour = float4(offsetSin,offsetSin,offsetSin,1.0);
+
+    colour.a = M;
+}
+

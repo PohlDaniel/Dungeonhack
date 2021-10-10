@@ -1,0 +1,13 @@
+material SOLID/TEX/Mushroom.png
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture Mushroom.png
+            }
+        }
+    }
+}

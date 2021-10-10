@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowCSX" position_real="0.0498047 0.0494792 0.65918 0.5" layer="Overlapped" name="WindowConsole">
+        <Property key="Widget_Caption" value="Console"/>
+        <Property key="Window_MinMax" value="200 100 2000 2000"/>
+        <Property key="Window_Snap" value="true"/>
+        <Property key="Widget_Alpha" value="40"/>
+        <Widget type="Widget" skin="PanelSmall" position_real="0.00601504 0.0115274 0.992481 0.896254" align="Stretch" name="PanelHistory">
+            <Widget type="Edit" skin="WordWrap" position="4 3 651 303" align="Stretch" name="ListHistory"/>
+        </Widget>
+        <Widget type="ComboBox" skin="ComboBox" position_real="0.0075188 0.92219 0.84812 0.074928" align="HStretch Bottom" name="ComboCommand"/>
+        <Widget type="Button" skin="Button" position_real="0.86015 0.92219 0.136842 0.074928" align="Right Bottom" name="ButtonSubmit">
+            <Property key="Widget_Caption" value="Submit"/>
+        </Widget>
+    </Widget>
+</MyGUI>

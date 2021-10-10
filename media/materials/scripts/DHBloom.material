@@ -1,0 +1,57 @@
+
+//DirectX 9.0 HLSL Pixel Shader ps_2_0
+fragment_program DHColor_ps20 hlsl
+{
+    source DHColor_ps20.hlsl
+    target ps_2_0
+    entry_point main
+}
+
+/// Overlay quad
+material DH/Compositor/BloomBlend
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+            scene_blend add
+        cull_hardware none
+        cull_software none
+        depth_check off
+
+        
+        fragment_program_ref DHColor_ps20
+        {
+        }
+
+            texture_unit RT
+            {
+                tex_coord_set 0
+        tex_address_mode clamp
+        filtering linear linear linear
+            }
+        }
+    }
+}
+
+material DH/Compositor/FlatBlend
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+        cull_hardware none
+        cull_software none
+        depth_check off
+
+            texture_unit RT1
+            {
+                tex_coord_set 0
+        tex_address_mode clamp
+        filtering linear linear linear
+            }
+        }
+    }
+}
