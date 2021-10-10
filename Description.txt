@@ -113,5 +113,9 @@ Dungeonhack 0.10 http://dungeonhack.sourceforge.net/Downloads
 	-> if neccessaray link the project againts OpenAL manually
 	-> if neccessaray link the project againts Python manually
 	-> deactivate "Image Has Safe Exception Handlers" under properties->Linker->Advanced cuz. OpenAL
-	-> use python27.dll out of C:\Windows\SysWOW64
-	-> copy together the game directory similar to http://sourceforge.net/projects/dungeonhack/files/0.10/dungeonhack-0.10-win32.zip/download (dungeonhack-0.10-win32.zip)
+	-> use python26.dll out of C:\Windows\SysWOW64
+	-> copy together the game directory similar to http://sourceforge.net/projects/dungeonhack/files/0.10/dungeonhack-0.10-win32.zip/download (dungeonhack-0.10-win32.zip)	
+	-> aktivate precompiled headers for Visual Studio 2015
+		* rightclick on PrecompiledHeaders.cpp -> C/C++ -> Precompiled Headers -> Precompiled Header :: Create (/Yc) |	Precompiled Header File :: DungeonHack.h
+		* mark all src .cpp of Dungeonhack and UiManager.cpp -> rightclick on PrecompiledHeaders.cpp -> C/C++ -> Precompiled Headers -> Precompiled Header :: Use (/Yu) |	Precompiled Header File :: DungeonHack.h
+		* important don't activate the header for btogre, scripting, tinyXML and xmlConfig
