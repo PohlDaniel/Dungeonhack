@@ -10,8 +10,8 @@
 #include "GameObject.h"
 #include "AlObjects.h"
 
-#define SOUND_DIR "../media/audio/"
-#define MUSIC_DIR "../media/audio/music/"
+#define SOUND_DIR "media/audio/"
+#define MUSIC_DIR "media/audio/music/"
 
 
 // Singleton

@@ -33,6 +33,42 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\btogre\include\BtOgreExtras.h">
+      <Filter>Source Files\btogre\include</Filter>
+    </ClInclude>
+    <ClInclude Include="src\btogre\include\BtOgreGP.h">
+      <Filter>Source Files\btogre\include</Filter>
+    </ClInclude>
+    <ClInclude Include="src\btogre\include\BtOgrePG.h">
+      <Filter>Source Files\btogre\include</Filter>
+    </ClInclude>
+    <ClInclude Include="src\xmlConfig\xmlConfig.h">
+      <Filter>Source Files\xmlConfig</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tinyXML\tinystr.h">
+      <Filter>Source Files\tinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tinyXML\tinyxml.h">
+      <Filter>Source Files\tinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="src\myguiWrapper\UiManager.h">
+      <Filter>Source Files\myguiWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\PyPrototypes.h">
+      <Filter>Source Files\scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\PythonManager.h">
+      <Filter>Source Files\scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\PythonThread.h">
+      <Filter>Source Files\scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\PythonThreadImpl.h">
+      <Filter>Source Files\scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\ThreadMacros.h">
+      <Filter>Source Files\scripting</Filter>
+    </ClInclude>
     <ClInclude Include="src\AlObjects.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -200,42 +236,6 @@
     </ClInclude>
     <ClInclude Include="src\WeaponState.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\btogre\include\BtOgreExtras.h">
-      <Filter>Source Files\btogre\include</Filter>
-    </ClInclude>
-    <ClInclude Include="src\btogre\include\BtOgreGP.h">
-      <Filter>Source Files\btogre\include</Filter>
-    </ClInclude>
-    <ClInclude Include="src\btogre\include\BtOgrePG.h">
-      <Filter>Source Files\btogre\include</Filter>
-    </ClInclude>
-    <ClInclude Include="src\xmlConfig\xmlConfig.h">
-      <Filter>Source Files\xmlConfig</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tinyXML\tinystr.h">
-      <Filter>Source Files\tinyXML</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tinyXML\tinyxml.h">
-      <Filter>Source Files\tinyXML</Filter>
-    </ClInclude>
-    <ClInclude Include="src\myguiWrapper\UiManager.h">
-      <Filter>Source Files\myguiWrapper</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\PyPrototypes.h">
-      <Filter>Source Files\scripting</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\PythonManager.h">
-      <Filter>Source Files\scripting</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\PythonThread.h">
-      <Filter>Source Files\scripting</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\PythonThreadImpl.h">
-      <Filter>Source Files\scripting</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\ThreadMacros.h">
-      <Filter>Source Files\scripting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

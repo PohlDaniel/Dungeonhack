@@ -43,7 +43,7 @@ GameConfiguration::GameConfiguration()
     setFloat("intro_camera_position_x", 3900);
     setFloat("intro_camera_position_y", 2220);
     setFloat("intro_camera_position_z", 6800);
-    setString("gameDataPath", "../GameData/");
+    setString("gameDataPath", "GameData/");
     setFloat("gravity", 192.913);
 
     setInteger("treePageSize", 2000);
