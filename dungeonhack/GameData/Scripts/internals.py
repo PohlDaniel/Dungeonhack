@@ -3,6 +3,9 @@
 # This file is automatically loaded at startup
 #
 
+import sys
+sys.path.append("GameData/Scripts/Lib")
+
 import random
 
 
