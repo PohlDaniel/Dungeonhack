@@ -9,14 +9,14 @@ The desired invariant is:  len(it)==len(list(it)).
 
 A complication is that an iterable and iterator can be the same object. To
 maintain the invariant, an iterator needs to dynamically update its length.
-For instance, an iterable such as xrange(10) always reports its length as ten,
-but it=iter(xrange(10)) starts at ten, and then goes to nine after it.next().
+For instance, an iterable such as range(10) always reports its length as ten,
+but it=iter(range(10)) starts at ten, and then goes to nine after next(it).
 Having this capability means that map() can ignore the distinction between
 map(func, iterable) and map(func, iter(iterable)).
 
 When the iterable is immutable, the implementation can straight-forwardly
 report the original length minus the cumulative number of calls to next().
-This is the case for tuples, xrange objects, and itertools.repeat().
+This is the case for tuples, range objects, and itertools.repeat().
 
 Some containers become temporarily immutable during iteration.  This includes
 dicts, sets, and collections.deque.  Their implementation is equally simple
@@ -42,10 +42,10 @@ enumerate(iter('abc')).
 """
 
 import unittest
-from test import test_support
+from test import support
 from itertools import repeat
 from collections import deque
-from __builtin__ import len as _len
+from builtins import len as _len
 
 n = 10
 
@@ -64,11 +64,11 @@ class TestInvariantWithoutMutations(unittest.TestCase):
 
     def test_invariant(self):
         it = self.it
-        for i in reversed(xrange(1, n+1)):
+        for i in reversed(range(1, n+1)):
             self.assertEqual(len(it), i)
-            it.next()
+            next(it)
         self.assertEqual(len(it), 0)
-        self.assertRaises(StopIteration, it.next)
+        self.assertRaises(StopIteration, next, it)
         self.assertEqual(len(it), 0)
 
 class TestTemporarilyImmutable(TestInvariantWithoutMutations):
@@ -79,10 +79,10 @@ class TestTemporarilyImmutable(TestInvariantWithoutMutations):
 
         it = self.it
         self.assertEqual(len(it), n)
-        it.next()
+        next(it)
         self.assertEqual(len(it), n-1)
         self.mutate()
-        self.assertRaises(RuntimeError, it.next)
+        self.assertRaises(RuntimeError, next, it)
         self.assertEqual(len(it), 0)
 
 ## ------- Concrete Type Tests -------
@@ -99,59 +99,59 @@ class TestRepeat(TestInvariantWithoutMutations):
 class TestXrange(TestInvariantWithoutMutations):
 
     def setUp(self):
-        self.it = iter(xrange(n))
+        self.it = iter(range(n))
 
 class TestXrangeCustomReversed(TestInvariantWithoutMutations):
 
     def setUp(self):
-        self.it = reversed(xrange(n))
+        self.it = reversed(range(n))
 
 class TestTuple(TestInvariantWithoutMutations):
 
     def setUp(self):
-        self.it = iter(tuple(xrange(n)))
+        self.it = iter(tuple(range(n)))
 
 ## ------- Types that should not be mutated during iteration -------
 
 class TestDeque(TestTemporarilyImmutable):
 
     def setUp(self):
-        d = deque(xrange(n))
+        d = deque(range(n))
         self.it = iter(d)
         self.mutate = d.pop
 
 class TestDequeReversed(TestTemporarilyImmutable):
 
     def setUp(self):
-        d = deque(xrange(n))
+        d = deque(range(n))
         self.it = reversed(d)
         self.mutate = d.pop
 
 class TestDictKeys(TestTemporarilyImmutable):
 
     def setUp(self):
-        d = dict.fromkeys(xrange(n))
+        d = dict.fromkeys(range(n))
         self.it = iter(d)
         self.mutate = d.popitem
 
 class TestDictItems(TestTemporarilyImmutable):
 
     def setUp(self):
-        d = dict.fromkeys(xrange(n))
-        self.it = d.iteritems()
+        d = dict.fromkeys(range(n))
+        self.it = iter(d.items())
         self.mutate = d.popitem
 
 class TestDictValues(TestTemporarilyImmutable):
 
     def setUp(self):
-        d = dict.fromkeys(xrange(n))
-        self.it = d.itervalues()
+        d = dict.fromkeys(range(n))
+        self.it = iter(d.values())
         self.mutate = d.popitem
 
 class TestSet(TestTemporarilyImmutable):
 
     def setUp(self):
-        d = set(xrange(n))
+        d = set(range(n))
         self.it = iter(d)
         self.mutate = d.pop
 
@@ -163,17 +163,17 @@ class TestList(TestInvariantWithoutMutations):
         self.it = iter(range(n))
 
     def test_mutation(self):
-        d = range(n)
+        d = list(range(n))
         it = iter(d)
-        it.next()
-        it.next()
+        next(it)
+        next(it)
         self.assertEqual(len(it), n-2)
         d.append(n)
         self.assertEqual(len(it), n-1)  # grow with append
         d[1:] = []
         self.assertEqual(len(it), 0)
         self.assertEqual(list(it), [])
-        d.extend(xrange(20))
+        d.extend(range(20))
         self.assertEqual(len(it), 0)
 
 class TestListReversed(TestInvariantWithoutMutations):
@@ -182,17 +182,17 @@ class TestListReversed(TestInvariantWithoutMutations):
         self.it = reversed(range(n))
 
     def test_mutation(self):
-        d = range(n)
+        d = list(range(n))
         it = reversed(d)
-        it.next()
-        it.next()
+        next(it)
+        next(it)
         self.assertEqual(len(it), n-2)
         d.append(n)
         self.assertEqual(len(it), n-2)  # ignore append
         d[1:] = []
         self.assertEqual(len(it), 0)
         self.assertEqual(list(it), [])  # confirm invariant
-        d.extend(xrange(20))
+        d.extend(range(20))
         self.assertEqual(len(it), 0)
 
 ## -- Check to make sure exceptions are not suppressed by __length_hint__()
@@ -220,12 +220,6 @@ class TestLengthHintExceptions(unittest.TestCase):
         self.assertRaises(RuntimeError, list, BadLengthHint())
         self.assertRaises(RuntimeError, [].extend, BadLen())
         self.assertRaises(RuntimeError, [].extend, BadLengthHint())
-        self.assertRaises(RuntimeError, zip, BadLen())
-        self.assertRaises(RuntimeError, zip, BadLengthHint())
-        self.assertRaises(RuntimeError, filter, None, BadLen())
-        self.assertRaises(RuntimeError, filter, None, BadLengthHint())
-        self.assertRaises(RuntimeError, map, chr, BadLen())
-        self.assertRaises(RuntimeError, map, chr, BadLengthHint())
         b = bytearray(range(10))
         self.assertRaises(RuntimeError, b.extend, BadLen())
         self.assertRaises(RuntimeError, b.extend, BadLengthHint())
@@ -251,7 +245,7 @@ def test_main():
         TestListReversed,
         TestLengthHintExceptions,
     ]
-    test_support.run_unittest(*unittests)
+    support.run_unittest(*unittests)
 
 if __name__ == "__main__":
     test_main()

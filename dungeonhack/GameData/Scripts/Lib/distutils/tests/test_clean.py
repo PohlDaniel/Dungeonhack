@@ -6,7 +6,7 @@ import getpass
 
 from distutils.command.clean import clean
 from distutils.tests import support
-from test.test_support import run_unittest
+from test.support import run_unittest
 
 class cleanTestCase(support.TempdirManager,
                     support.LoggingSilencer,
@@ -36,7 +36,7 @@ class cleanTestCase(support.TempdirManager,
 
         # make sure the files where removed
         for name, path in dirs:
-            self.assertFalse(os.path.exists(path),
+            self.assertTrue(not os.path.exists(path),
                          '%s was not removed' % path)
 
         # let's run the command again (should spit warnings but succeed)

@@ -1,10 +1,10 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 
 """Python interface for the 'lsprof' profiler.
    Compatible with the 'profile' module.
 """
 
-__all__ = ["run", "runctx", "help", "Profile"]
+__all__ = ["run", "runctx", "Profile"]
 
 import _lsprof
 
@@ -56,19 +56,14 @@ def runctx(statement, globals, locals, filename=None, sort=-1):
             result = prof.print_stats(sort)
     return result
 
-# Backwards compatibility.
-def help():
-    print "Documentation for the profile/cProfile modules can be found "
-    print "in the Python Library Reference, section 'The Python Profiler'."
-
 # ____________________________________________________________
 
 class Profile(_lsprof.Profiler):
-    """Profile(timer=None, timeunit=None, subcalls=True, builtins=True)
+    """Profile(custom_timer=None, time_unit=None, subcalls=True, builtins=True)
 
     Builds a profiler object using the specified timer function.
     The default timer is a fast built-in one based on real time.
-    For custom timer functions returning integers, timeunit can
+    For custom timer functions returning integers, time_unit can
     be a float specifying a scale (i.e. how long each integer unit
     is, in seconds).
     """
@@ -137,7 +132,7 @@ class Profile(_lsprof.Profiler):
     def runctx(self, cmd, globals, locals):
         self.enable()
         try:
-            exec cmd in globals, locals
+            exec(cmd, globals, locals)
         finally:
             self.disable()
         return self
@@ -161,7 +156,7 @@ def label(code):
 # ____________________________________________________________
 
 def main():
-    import os, sys, pstats
+    import os, sys
     from optparse import OptionParser
     usage = "cProfile.py [-o output_file_path] [-s sort] scriptfile [arg] ..."
     parser = OptionParser(usage=usage)
@@ -170,8 +165,7 @@ def main():
         help="Save stats to <outfile>", default=None)
     parser.add_option('-s', '--sort', dest="sort",
         help="Sort order when printing to stdout, based on pstats.Stats class",
-        default=-1,
-        choices=sorted(pstats.Stats.sort_arg_dict_default))
+        default=-1)
 
     if not sys.argv[1:]:
         parser.print_usage()
@@ -189,6 +183,7 @@ def main():
             '__file__': progname,
             '__name__': '__main__',
             '__package__': None,
+            '__cached__': None,
         }
         runctx(code, globs, None, options.outfile, options.sort)
     else:

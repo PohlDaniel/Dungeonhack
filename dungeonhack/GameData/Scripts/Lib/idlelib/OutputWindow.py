@@ -1,7 +1,7 @@
-from Tkinter import *
+from tkinter import *
 from idlelib.EditorWindow import EditorWindow
 import re
-import tkMessageBox
+import tkinter.messagebox as tkMessageBox
 from idlelib import IOBinding
 
 class OutputWindow(EditorWindow):
@@ -35,14 +35,8 @@ class OutputWindow(EditorWindow):
     # Act as output file
 
     def write(self, s, tags=(), mark="insert"):
-        # Tk assumes that byte strings are Latin-1;
-        # we assume that they are in the locale's encoding
-        if isinstance(s, str):
-            try:
-                s = unicode(s, IOBinding.encoding)
-            except UnicodeError:
-                # some other encoding; let Tcl deal with it
-                pass
+        if isinstance(s, (bytes, bytes)):
+            s = s.decode(IOBinding.encoding, "replace")
         self.text.insert(mark, s, tags)
         self.text.see(mark)
         self.text.update()
@@ -57,11 +51,7 @@ class OutputWindow(EditorWindow):
     # Our own right-button menu
 
     rmenu_specs = [
-        ("Cut", "<<cut>>", "rmenu_check_cut"),
-        ("Copy", "<<copy>>", "rmenu_check_copy"),
-        ("Paste", "<<paste>>", "rmenu_check_paste"),
-        (None, None, None),
-        ("Go to file/line", "<<goto-file-line>>", None),
+        ("Go to file/line", "<<goto-file-line>>"),
     ]
 
     file_line_pats = [
@@ -96,7 +86,7 @@ class OutputWindow(EditorWindow):
                     "No special line",
                     "The line you point at doesn't look like "
                     "a valid file name followed by a line number.",
-                    parent=self.text)
+                    master=self.text)
                 return
         filename, lineno = result
         edit = self.flist.open(filename)

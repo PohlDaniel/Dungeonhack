@@ -15,11 +15,9 @@
 
 MAGIC = 20031017
 
-try:
-    from _sre import MAXREPEAT
-except ImportError:
-    import _sre
-    MAXREPEAT = _sre.MAXREPEAT = 65535
+# max code word in this release
+
+MAXREPEAT = 65535
 
 # SRE standard exception (access as sre.error)
 # should this really be here?
@@ -209,9 +207,10 @@ SRE_FLAG_IGNORECASE = 2 # case insensitive
 SRE_FLAG_LOCALE = 4 # honour system locale
 SRE_FLAG_MULTILINE = 8 # treat target as multiline string
 SRE_FLAG_DOTALL = 16 # treat target as a single string
-SRE_FLAG_UNICODE = 32 # use unicode locale
+SRE_FLAG_UNICODE = 32 # use unicode "locale"
 SRE_FLAG_VERBOSE = 64 # ignore whitespace and comments
 SRE_FLAG_DEBUG = 128 # debugging
+SRE_FLAG_ASCII = 256 # use ascii "locale"
 
 # flags for INFO primitive
 SRE_INFO_PREFIX = 1 # has prefix
@@ -260,4 +259,4 @@ if __name__ == "__main__":
     f.write("#define SRE_INFO_CHARSET %d\n" % SRE_INFO_CHARSET)
 
     f.close()
-    print "done"
+    print("done")

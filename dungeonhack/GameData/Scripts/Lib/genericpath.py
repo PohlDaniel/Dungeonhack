@@ -10,14 +10,6 @@ __all__ = ['commonprefix', 'exists', 'getatime', 'getctime', 'getmtime',
            'getsize', 'isdir', 'isfile']
 
 
-try:
-    _unicode = unicode
-except NameError:
-    # If Python is built without Unicode support, the unicode type
-    # will not exist. Fake one.
-    class _unicode(object):
-        pass
-
 # Does a path exist?
 # This is false for dangling symbolic links on systems that support them.
 def exists(path):
@@ -30,7 +22,7 @@ def exists(path):
 
 
 # This follows symbolic links, so both islink() and isdir() can be true
-# for the same path on systems that support symlinks
+# for the same path ono systems that support symlinks
 def isfile(path):
     """Test whether a path is a regular file"""
     try:
@@ -95,6 +87,7 @@ def _splitext(p, sep, altsep, extsep):
 
     Extension is everything from the last dot to the end, ignoring
     leading dots.  Returns "(root, ext)"; ext may be empty."""
+    # NOTE: This code must work for text and bytes strings.
 
     sepIndex = p.rfind(sep)
     if altsep:
@@ -106,8 +99,8 @@ def _splitext(p, sep, altsep, extsep):
         # skip all leading dots
         filenameIndex = sepIndex + 1
         while filenameIndex < dotIndex:
-            if p[filenameIndex] != extsep:
+            if p[filenameIndex:filenameIndex+1] != extsep:
                 return p[:dotIndex], p[dotIndex:]
             filenameIndex += 1
 
-    return p, ''
+    return p, p[:0]

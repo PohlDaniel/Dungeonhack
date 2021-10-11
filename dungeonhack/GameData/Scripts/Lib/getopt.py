@@ -19,7 +19,7 @@ option involved with the exception.
 # Gerrit Holl <gerrit@nl.linux.org> moved the string-based exceptions
 # to class-based exceptions.
 #
-# Peter Astrand <astrand@lysator.liu.se> added gnu_getopt().
+# Peter Ãstrand <astrand@lysator.liu.se> added gnu_getopt().
 #
 # TODO for gnu_getopt():
 #
@@ -28,7 +28,7 @@ option involved with the exception.
 # - RETURN_IN_ORDER option
 # - GNU extension with '-' as first character of option string
 # - optional arguments, specified by double colons
-# - an option string with a W followed by semicolon should
+# - a option string with a W followed by semicolon should
 #   treat "-W foo" as "--foo"
 
 __all__ = ["GetoptError","error","getopt","gnu_getopt"]
@@ -207,4 +207,4 @@ def short_has_arg(opt, shortopts):
 
 if __name__ == '__main__':
     import sys
-    print getopt(sys.argv[1:], "a:b", ["alpha=", "beta"])
+    print(getopt(sys.argv[1:], "a:b", ["alpha=", "beta"]))

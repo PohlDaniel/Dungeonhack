@@ -1,10 +1,10 @@
 """Temporary files.
 
 This module provides generic, low- and high-level interfaces for
-creating temporary files and directories.  All of the interfaces
-provided by this module can be used without fear of race conditions
-except for 'mktemp'.  'mktemp' is subject to race conditions and
-should not be used; it is provided for backward compatibility only.
+creating temporary files and directories.  The interfaces listed
+as "safe" just below can be used without fear of race conditions.
+Those listed as "unsafe" cannot, and are provided for backward
+compatibility only.
 
 This module also provides some data items to the user:
 
@@ -19,7 +19,7 @@ This module also provides some data items to the user:
 
 __all__ = [
     "NamedTemporaryFile", "TemporaryFile", # high level safe interfaces
-    "SpooledTemporaryFile",
+    "SpooledTemporaryFile", "TemporaryDirectory",
     "mkstemp", "mkdtemp",                  # low level safe interfaces
     "mktemp",                              # deprecated unsafe interface
     "TMP_MAX", "gettempprefix",            # constants
@@ -29,15 +29,12 @@ __all__ = [
 
 # Imports.
 
+import warnings as _warnings
+import sys as _sys
 import io as _io
 import os as _os
 import errno as _errno
 from random import Random as _Random
-
-try:
-    from cStringIO import StringIO as _StringIO
-except ImportError:
-    from StringIO import StringIO as _StringIO
 
 try:
     import fcntl as _fcntl
@@ -57,9 +54,9 @@ else:
 
 
 try:
-    import thread as _thread
+    import _thread
 except ImportError:
-    import dummy_thread as _thread
+    import _dummy_thread as _thread
 _allocate_lock = _thread.allocate_lock
 
 _text_openflags = _os.O_RDWR | _os.O_CREAT | _os.O_EXCL
@@ -113,37 +110,19 @@ class _RandomNameSequence:
 
     _RandomNameSequence is an iterator."""
 
-    characters = ("abcdefghijklmnopqrstuvwxyz" +
-                  "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
-                  "0123456789_")
+    characters = "abcdefghijklmnopqrstuvwxyz0123456789_"
 
     def __init__(self):
-        self.mutex = _allocate_lock()
-        self.normcase = _os.path.normcase
-
-    @property
-    def rng(self):
-        cur_pid = _os.getpid()
-        if cur_pid != getattr(self, '_rng_pid', None):
-            self._rng = _Random()
-            self._rng_pid = cur_pid
-        return self._rng
+        self.rng = _Random()
 
     def __iter__(self):
         return self
 
-    def next(self):
-        m = self.mutex
+    def __next__(self):
         c = self.characters
         choose = self.rng.choice
-
-        m.acquire()
-        try:
-            letters = [choose(c) for dummy in "123456"]
-        finally:
-            m.release()
-
-        return self.normcase(''.join(letters))
+        letters = [choose(c) for dummy in "123456"]
+        return ''.join(letters)
 
 def _candidate_tempdir_list():
     """Generate a list of candidate temporary directories which
@@ -157,10 +136,7 @@ def _candidate_tempdir_list():
         if dirname: dirlist.append(dirname)
 
     # Failing that, try OS-specific locations.
-    if _os.name == 'riscos':
-        dirname = _os.getenv('Wimp$ScrapDir')
-        if dirname: dirlist.append(dirname)
-    elif _os.name == 'nt':
+    if _os.name == 'nt':
         dirlist.extend([ r'c:\temp', r'c:\tmp', r'\temp', r'\tmp' ])
     else:
         dirlist.extend([ '/tmp', '/var/tmp', '/usr/tmp' ])
@@ -184,37 +160,28 @@ def _get_default_tempdir():
 
     namer = _RandomNameSequence()
     dirlist = _candidate_tempdir_list()
-    flags = _text_openflags
 
     for dir in dirlist:
         if dir != _os.curdir:
             dir = _os.path.normcase(_os.path.abspath(dir))
         # Try only a few names per directory.
-        for seq in xrange(100):
-            name = namer.next()
+        for seq in range(100):
+            name = next(namer)
             filename = _os.path.join(dir, name)
             try:
-                fd = _os.open(filename, flags, 0o600)
-                try:
-                    try:
-                        with _io.open(fd, 'wb', closefd=False) as fp:
-                            fp.write(b'blat')
-                    finally:
-                        _os.close(fd)
-                finally:
-                    _os.unlink(filename)
+                fd = _os.open(filename, _bin_openflags, 0o600)
+                fp = _io.open(fd, 'wb')
+                fp.write(b'blat')
+                fp.close()
+                _os.unlink(filename)
+                del fp, fd
                 return dir
             except (OSError, IOError) as e:
-                if e.args[0] == _errno.EEXIST:
-                    continue
-                if (_os.name == 'nt' and e.args[0] == _errno.EACCES and
-                    _os.path.isdir(dir) and _os.access(dir, _os.W_OK)):
-                    # On windows, when a directory with the chosen name already
-                    # exists, EACCES error code is returned instead of EEXIST.
-                    continue
-                break # no point trying more names in this directory
-    raise IOError, (_errno.ENOENT,
-                    ("No usable temporary directory found in %s" % dirlist))
+                if e.args[0] != _errno.EEXIST:
+                    break # no point trying more names in this directory
+                pass
+    raise IOError(_errno.ENOENT,
+                  "No usable temporary directory found in %s" % dirlist)
 
 _name_sequence = None
 
@@ -237,24 +204,19 @@ def _mkstemp_inner(dir, pre, suf, flags):
 
     names = _get_candidate_names()
 
-    for seq in xrange(TMP_MAX):
-        name = names.next()
+    for seq in range(TMP_MAX):
+        name = next(names)
         file = _os.path.join(dir, pre + name + suf)
         try:
-            fd = _os.open(file, flags, 0600)
+            fd = _os.open(file, flags, 0o600)
             _set_cloexec(fd)
             return (fd, _os.path.abspath(file))
-        except OSError, e:
+        except OSError as e:
             if e.errno == _errno.EEXIST:
                 continue # try again
-            if (_os.name == 'nt' and e.errno == _errno.EACCES and
-                _os.path.isdir(dir) and _os.access(dir, _os.W_OK)):
-                # On windows, when a directory with the chosen name already
-                # exists, EACCES error code is returned instead of EEXIST.
-                continue
             raise
 
-    raise IOError, (_errno.EEXIST, "No usable temporary file name found")
+    raise IOError(_errno.EEXIST, "No usable temporary file name found")
 
 
 # User visible interfaces.
@@ -332,23 +294,18 @@ def mkdtemp(suffix="", prefix=template, dir=None):
 
     names = _get_candidate_names()
 
-    for seq in xrange(TMP_MAX):
-        name = names.next()
+    for seq in range(TMP_MAX):
+        name = next(names)
         file = _os.path.join(dir, prefix + name + suffix)
         try:
-            _os.mkdir(file, 0700)
+            _os.mkdir(file, 0o700)
             return file
-        except OSError, e:
+        except OSError as e:
             if e.errno == _errno.EEXIST:
                 continue # try again
-            if (_os.name == 'nt' and e.errno == _errno.EACCES and
-                _os.path.isdir(dir) and _os.access(dir, _os.W_OK)):
-                # On windows, when a directory with the chosen name already
-                # exists, EACCES error code is returned instead of EEXIST.
-                continue
             raise
 
-    raise IOError, (_errno.EEXIST, "No usable temporary directory name found")
+    raise IOError(_errno.EEXIST, "No usable temporary directory name found")
 
 def mktemp(suffix="", prefix=template, dir=None):
     """User-callable function to return a unique temporary file name.  The
@@ -371,13 +328,13 @@ def mktemp(suffix="", prefix=template, dir=None):
         dir = gettempdir()
 
     names = _get_candidate_names()
-    for seq in xrange(TMP_MAX):
-        name = names.next()
+    for seq in range(TMP_MAX):
+        name = next(names)
         file = _os.path.join(dir, prefix + name + suffix)
         if not _exists(file):
             return file
 
-    raise IOError, (_errno.EEXIST, "No usable temporary filename found")
+    raise IOError(_errno.EEXIST, "No usable temporary filename found")
 
 
 class _TemporaryFileWrapper:
@@ -400,7 +357,7 @@ class _TemporaryFileWrapper:
         # (i.e. methods are cached, closed and friends are not)
         file = self.__dict__['file']
         a = getattr(file, name)
-        if not issubclass(type(a), type(0)):
+        if not isinstance(a, int):
             setattr(self, name, a)
         return a
 
@@ -409,6 +366,10 @@ class _TemporaryFileWrapper:
     def __enter__(self):
         self.file.__enter__()
         return self
+
+    # iter() doesn't use __getattr__ to find the __iter__ method
+    def __iter__(self):
+        return iter(self.file)
 
     # NT provides delete-on-close as a primitive, so we don't need
     # the wrapper to do anything special.  We still use it so that
@@ -424,11 +385,9 @@ class _TemporaryFileWrapper:
         def close(self):
             if not self.close_called:
                 self.close_called = True
-                try:
-                    self.file.close()
-                finally:
-                    if self.delete:
-                        self.unlink(self.name)
+                self.file.close()
+                if self.delete:
+                    self.unlink(self.name)
 
         def __del__(self):
             self.close()
@@ -444,28 +403,28 @@ class _TemporaryFileWrapper:
             self.file.__exit__(exc, value, tb)
 
 
-def NamedTemporaryFile(mode='w+b', bufsize=-1, suffix="",
-                       prefix=template, dir=None, delete=True):
+def NamedTemporaryFile(mode='w+b', buffering=-1, encoding=None,
+                       newline=None, suffix="", prefix=template,
+                       dir=None, delete=True):
     """Create and return a temporary file.
     Arguments:
     'prefix', 'suffix', 'dir' -- as for mkstemp.
-    'mode' -- the mode argument to os.fdopen (default "w+b").
-    'bufsize' -- the buffer size argument to os.fdopen (default -1).
+    'mode' -- the mode argument to io.open (default "w+b").
+    'buffering' -- the buffer size argument to io.open (default -1).
+    'encoding' -- the encoding argument to io.open (default None)
+    'newline' -- the newline argument to io.open (default None)
     'delete' -- whether the file is deleted on close (default True).
     The file is created as mkstemp() would do it.
 
     Returns an object with a file-like interface; the name of the file
-    is accessible as its 'name' attribute.  The file will be automatically
-    deleted when it is closed unless the 'delete' argument is set to False.
+    is accessible as file.name.  The file will be automatically deleted
+    when it is closed unless the 'delete' argument is set to False.
     """
 
     if dir is None:
         dir = gettempdir()
 
-    if 'b' in mode:
-        flags = _bin_openflags
-    else:
-        flags = _text_openflags
+    flags = _bin_openflags
 
     # Setting O_TEMPORARY in the flags causes the OS to delete
     # the file when it is closed.  This is only supported by Windows.
@@ -473,13 +432,10 @@ def NamedTemporaryFile(mode='w+b', bufsize=-1, suffix="",
         flags |= _os.O_TEMPORARY
 
     (fd, name) = _mkstemp_inner(dir, prefix, suffix, flags)
-    try:
-        file = _os.fdopen(fd, mode, bufsize)
-        return _TemporaryFileWrapper(file, name, delete)
-    except BaseException:
-        _os.unlink(name)
-        _os.close(fd)
-        raise
+    file = _io.open(fd, mode, buffering=buffering,
+                    newline=newline, encoding=encoding)
+
+    return _TemporaryFileWrapper(file, name, delete)
 
 if _os.name != 'posix' or _os.sys.platform == 'cygwin':
     # On non-POSIX and Cygwin systems, assume that we cannot unlink a file
@@ -487,13 +443,16 @@ if _os.name != 'posix' or _os.sys.platform == 'cygwin':
     TemporaryFile = NamedTemporaryFile
 
 else:
-    def TemporaryFile(mode='w+b', bufsize=-1, suffix="",
-                      prefix=template, dir=None):
+    def TemporaryFile(mode='w+b', buffering=-1, encoding=None,
+                      newline=None, suffix="", prefix=template,
+                      dir=None):
         """Create and return a temporary file.
         Arguments:
         'prefix', 'suffix', 'dir' -- as for mkstemp.
-        'mode' -- the mode argument to os.fdopen (default "w+b").
-        'bufsize' -- the buffer size argument to os.fdopen (default -1).
+        'mode' -- the mode argument to io.open (default "w+b").
+        'buffering' -- the buffer size argument to io.open (default -1).
+        'encoding' -- the encoding argument to io.open (default None)
+        'newline' -- the newline argument to io.open (default None)
         The file is created as mkstemp() would do it.
 
         Returns an object with a file-like interface.  The file has no
@@ -503,15 +462,13 @@ else:
         if dir is None:
             dir = gettempdir()
 
-        if 'b' in mode:
-            flags = _bin_openflags
-        else:
-            flags = _text_openflags
+        flags = _bin_openflags
 
         (fd, name) = _mkstemp_inner(dir, prefix, suffix, flags)
         try:
             _os.unlink(name)
-            return _os.fdopen(fd, mode, bufsize)
+            return _io.open(fd, mode, buffering=buffering,
+                            newline=newline, encoding=encoding)
         except:
             _os.close(fd)
             raise
@@ -523,12 +480,22 @@ class SpooledTemporaryFile:
     """
     _rolled = False
 
-    def __init__(self, max_size=0, mode='w+b', bufsize=-1,
+    def __init__(self, max_size=0, mode='w+b', buffering=-1,
+                 encoding=None, newline=None,
                  suffix="", prefix=template, dir=None):
-        self._file = _StringIO()
+        if 'b' in mode:
+            self._file = _io.BytesIO()
+        else:
+            # Setting newline="\n" avoids newline translation;
+            # this is important because otherwise on Windows we'd
+            # hget double newline translation upon rollover().
+            self._file = _io.StringIO(newline="\n")
         self._max_size = max_size
         self._rolled = False
-        self._TemporaryFileArgs = (mode, bufsize, suffix, prefix, dir)
+        self._TemporaryFileArgs = {'mode': mode, 'buffering': buffering,
+                                   'suffix': suffix, 'prefix': prefix,
+                                   'encoding': encoding, 'newline': newline,
+                                   'dir': dir}
 
     def _check(self, file):
         if self._rolled: return
@@ -539,7 +506,7 @@ class SpooledTemporaryFile:
     def rollover(self):
         if self._rolled: return
         file = self._file
-        newfile = self._file = TemporaryFile(*self._TemporaryFileArgs)
+        newfile = self._file = TemporaryFile(**self._TemporaryFileArgs)
         del self._TemporaryFileArgs
 
         newfile.write(file.getvalue())
@@ -572,6 +539,10 @@ class SpooledTemporaryFile:
     def closed(self):
         return self._file.closed
 
+    @property
+    def encoding(self):
+        return self._file.encoding
+
     def fileno(self):
         self.rollover()
         return self._file.fileno()
@@ -584,17 +555,15 @@ class SpooledTemporaryFile:
 
     @property
     def mode(self):
-        try:
-            return self._file.mode
-        except AttributeError:
-            return self._TemporaryFileArgs[0]
+        return self._file.mode
 
     @property
     def name(self):
-        try:
-            return self._file.name
-        except AttributeError:
-            return None
+        return self._file.name
+
+    @property
+    def newlines(self):
+        return self._file.newlines
 
     def next(self):
         return self._file.next
@@ -634,7 +603,86 @@ class SpooledTemporaryFile:
         return rv
 
     def xreadlines(self, *args):
-        if hasattr(self._file, 'xreadlines'):  # real file
-            return iter(self._file)
-        else:  # StringIO()
-            return iter(self._file.readlines(*args))
+        return self._file.xreadlines(*args)
+
+
+class TemporaryDirectory(object):
+    """Create and return a temporary directory.  This has the same
+    behavior as mkdtemp but can be used as a context manager.  For
+    example:
+
+        with TemporaryDirectory() as tmpdir:
+            ...
+
+    Upon exiting the context, the directory and everthing contained
+    in it are removed.
+    """
+
+    def __init__(self, suffix="", prefix=template, dir=None):
+        self._closed = False
+        self.name = None # Handle mkdtemp throwing an exception
+        self.name = mkdtemp(suffix, prefix, dir)
+
+    def __repr__(self):
+        return "<{} {!r}>".format(self.__class__.__name__, self.name)
+
+    def __enter__(self):
+        return self.name
+
+    def cleanup(self, _warn=False):
+        if self.name and not self._closed:
+            try:
+                self._rmtree(self.name)
+            except (TypeError, AttributeError) as ex:
+                # Issue #10188: Emit a warning on stderr
+                # if the directory could not be cleaned
+                # up due to missing globals
+                if "None" not in str(ex):
+                    raise
+                print("ERROR: {!r} while cleaning up {!r}".format(ex, self,),
+                      file=_sys.stderr)
+                return
+            self._closed = True
+            if _warn:
+                self._warn("Implicitly cleaning up {!r}".format(self),
+                           ResourceWarning)
+
+    def __exit__(self, exc, value, tb):
+        self.cleanup()
+
+    def __del__(self):
+        # Issue a ResourceWarning if implicit cleanup needed
+        self.cleanup(_warn=True)
+
+    # XXX (ncoghlan): The following code attempts to make
+    # this class tolerant of the module nulling out process
+    # that happens during CPython interpreter shutdown
+    # Alas, it doesn't actually manage it. See issue #10188
+    _listdir = staticmethod(_os.listdir)
+    _path_join = staticmethod(_os.path.join)
+    _isdir = staticmethod(_os.path.isdir)
+    _remove = staticmethod(_os.remove)
+    _rmdir = staticmethod(_os.rmdir)
+    _os_error = _os.error
+    _warn = _warnings.warn
+
+    def _rmtree(self, path):
+        # Essentially a stripped down version of shutil.rmtree.  We can't
+        # use globals because they may be None'ed out at shutdown.
+        for name in self._listdir(path):
+            fullname = self._path_join(path, name)
+            try:
+                isdir = self._isdir(fullname)
+            except self._os_error:
+                isdir = False
+            if isdir:
+                self._rmtree(fullname)
+            else:
+                try:
+                    self._remove(fullname)
+                except self._os_error:
+                    pass
+        try:
+            self._rmdir(path)
+        except self._os_error:
+            pass

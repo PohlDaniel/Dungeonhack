@@ -19,9 +19,9 @@ xmlreader -- Base classes and constants which define the SAX 2 API for
 expatreader -- Driver that allows use of the Expat parser with SAX.
 """
 
-from xmlreader import InputSource
-from handler import ContentHandler, ErrorHandler
-from _exceptions import SAXException, SAXNotRecognizedException, \
+from .xmlreader import InputSource
+from .handler import ContentHandler, ErrorHandler
+from ._exceptions import SAXException, SAXNotRecognizedException, \
                         SAXParseException, SAXNotSupportedException, \
                         SAXReaderNotAvailable
 
@@ -33,10 +33,7 @@ def parse(source, handler, errorHandler=ErrorHandler()):
     parser.parse(source)
 
 def parseString(string, handler, errorHandler=ErrorHandler()):
-    try:
-        from cStringIO import StringIO
-    except ImportError:
-        from StringIO import StringIO
+    from io import BytesIO
 
     if errorHandler is None:
         errorHandler = ErrorHandler()
@@ -45,7 +42,7 @@ def parseString(string, handler, errorHandler=ErrorHandler()):
     parser.setErrorHandler(errorHandler)
 
     inpsrc = InputSource()
-    inpsrc.setByteStream(StringIO(string))
+    inpsrc.setByteStream(BytesIO(string))
     parser.parse(inpsrc)
 
 # this is the parser list used by the make_parser function if no
@@ -59,7 +56,7 @@ if _false:
     import xml.sax.expatreader
 
 import os, sys
-if not sys.flags.ignore_environment and "PY_SAX_PARSER" in os.environ:
+if "PY_SAX_PARSER" in os.environ:
     default_parser_list = os.environ["PY_SAX_PARSER"].split(",")
 del os
 
@@ -79,7 +76,7 @@ def make_parser(parser_list = []):
     for parser_name in parser_list + default_parser_list:
         try:
             return _create_parser(parser_name)
-        except ImportError,e:
+        except ImportError as e:
             import sys
             if parser_name in sys.modules:
                 # The parser module was found, but importing it

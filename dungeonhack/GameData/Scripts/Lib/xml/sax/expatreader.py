@@ -43,9 +43,6 @@ else:
     _mkproxy = weakref.proxy
     del weakref, _weakref
 
-class _ClosedParser:
-    pass
-
 # --- ExpatLocator
 
 class ExpatLocator(xmlreader.Locator):
@@ -105,23 +102,13 @@ class ExpatParser(xmlreader.IncrementalParser, xmlreader.Locator):
         source = saxutils.prepare_input_source(source)
 
         self._source = source
-        try:
-            self.reset()
-            self._cont_handler.setDocumentLocator(ExpatLocator(self))
-            xmlreader.IncrementalParser.parse(self, source)
-        except:
-            # bpo-30264: Close the source on error to not leak resources:
-            # xml.sax.parse() doesn't give access to the underlying parser
-            # to the caller
-            self._close_source()
-            raise
+        self.reset()
+        self._cont_handler.setDocumentLocator(ExpatLocator(self))
+        xmlreader.IncrementalParser.parse(self, source)
 
     def prepareParser(self, source):
         if source.getSystemId() is not None:
-            base = source.getSystemId()
-            if isinstance(base, unicode):
-                base = base.encode('utf-8')
-            self._parser.SetBase(base)
+            self._parser.SetBase(source.getSystemId())
 
     # Redefined setContentHandler to allow changing handlers during parsing
 
@@ -218,42 +205,23 @@ class ExpatParser(xmlreader.IncrementalParser, xmlreader.Locator):
             # document. When feeding chunks, they are not normally final -
             # except when invoked from close.
             self._parser.Parse(data, isFinal)
-        except expat.error, e:
+        except expat.error as e:
             exc = SAXParseException(expat.ErrorString(e.code), e, self)
             # FIXME: when to invoke error()?
             self._err_handler.fatalError(exc)
 
-    def _close_source(self):
-        source = self._source
-        try:
-            file = source.getCharacterStream()
-            if file is not None:
-                file.close()
-        finally:
-            file = source.getByteStream()
-            if file is not None:
-                file.close()
-
     def close(self):
-        if (self._entity_stack or self._parser is None or
-            isinstance(self._parser, _ClosedParser)):
+        if self._entity_stack:
             # If we are completing an external entity, do nothing here
             return
-        try:
-            self.feed("", isFinal = 1)
-            self._cont_handler.endDocument()
-            self._parsing = 0
-            # break cycle created by expat handlers pointing to our methods
-            self._parser = None
-        finally:
-            self._parsing = 0
-            if self._parser is not None:
-                # Keep ErrorColumnNumber and ErrorLineNumber after closing.
-                parser = _ClosedParser()
-                parser.ErrorColumnNumber = self._parser.ErrorColumnNumber
-                parser.ErrorLineNumber = self._parser.ErrorLineNumber
-                self._parser = parser
-            self._close_source()
+        self.feed("", isFinal = 1)
+        self._cont_handler.endDocument()
+        self._parsing = 0
+        # break cycle created by expat handlers pointing to our methods
+        self._parser = None
+        bs = self._source.getByteStream()
+        if bs is not None:
+            bs.close()
 
     def _reset_cont_handler(self):
         self._parser.ProcessingInstructionHandler = \

@@ -1,10 +1,9 @@
 """Test result object"""
 
 import os
+import io
 import sys
 import traceback
-
-from StringIO import StringIO
 
 from . import util
 from functools import wraps
@@ -65,8 +64,8 @@ class TestResult(object):
     def _setupStdout(self):
         if self.buffer:
             if self._stderr_buffer is None:
-                self._stderr_buffer = StringIO()
-                self._stdout_buffer = StringIO()
+                self._stderr_buffer = io.StringIO()
+                self._stdout_buffer = io.StringIO()
             sys.stdout = self._stdout_buffer
             sys.stderr = self._stderr_buffer
 
@@ -132,7 +131,7 @@ class TestResult(object):
         self.skipped.append((test, reason))
 
     def addExpectedFailure(self, test, err):
-        """Called when an expected failure/error occurred."""
+        """Called when an expected failure/error occured."""
         self.expectedFailures.append(
             (test, self._exc_info_to_string(err, test)))
 

@@ -22,13 +22,12 @@ import re
 import string
 import tabnanny
 import tokenize
-import tkMessageBox
-from idlelib import PyShell
+import tkinter.messagebox as tkMessageBox
+from idlelib.EditorWindow import EditorWindow
+from idlelib import PyShell, IOBinding
 
 from idlelib.configHandler import idleConf
 from idlelib import macosxSupport
-
-IDENTCHARS = string.ascii_letters + string.digits + "_"
 
 indent_message = """Error: Inconsistent indentation detected!
 
@@ -54,7 +53,7 @@ class ScriptBinding:
         self.flist = self.editwin.flist
         self.root = self.editwin.root
 
-        if macosxSupport.isCocoaTk():
+        if macosxSupport.runningAsOSXApp():
             self.editwin.text_frame.bind('<<run-module-event-2>>', self._run_module_event)
 
     def check_module_event(self, event):
@@ -67,11 +66,17 @@ class ScriptBinding:
             return 'break'
 
     def tabnanny(self, filename):
-        f = open(filename, 'r')
+        # XXX: tabnanny should work on binary files as well
+        with open(filename, 'r', encoding='iso-8859-1') as f:
+            two_lines = f.readline() + f.readline()
+        encoding = IOBinding.coding_spec(two_lines)
+        if not encoding:
+            encoding = 'utf-8'
+        f = open(filename, 'r', encoding=encoding)
         try:
             tabnanny.process_tokens(tokenize.generate_tokens(f.readline))
         except tokenize.TokenError as msg:
-            msgtxt, (lineno, start) = msg.args
+            msgtxt, (lineno, start) = msg
             self.editwin.gotoline(lineno)
             self.errorbox("Tabnanny Tokenizing Error",
                           "Token Error: %s" % msgtxt)
@@ -87,56 +92,55 @@ class ScriptBinding:
         self.shell = shell = self.flist.open_shell()
         saved_stream = shell.get_warning_stream()
         shell.set_warning_stream(shell.stderr)
-        with open(filename, 'r') as f:
-            source = f.read()
-        if '\r' in source:
-            source = re.sub(r"\r\n", "\n", source)
-            source = re.sub(r"\r", "\n", source)
-        if source and source[-1] != '\n':
-            source = source + '\n'
-        text = self.editwin.text
+        f = open(filename, 'rb')
+        source = f.read()
+        f.close()
+        if b'\r' in source:
+            source = source.replace(b'\r\n', b'\n')
+            source = source.replace(b'\r', b'\n')
+        if source and source[-1] != ord(b'\n'):
+            source = source + b'\n'
+        editwin = self.editwin
+        text = editwin.text
         text.tag_remove("ERROR", "1.0", "end")
         try:
-            try:
-                # If successful, return the compiled code
-                return compile(source, filename, "exec")
-            except (SyntaxError, OverflowError, ValueError) as err:
-                try:
-                    msg, (errorfilename, lineno, offset, line) = err
-                    if not errorfilename:
-                        err.args = msg, (filename, lineno, offset, line)
-                        err.filename = filename
-                    self.colorize_syntax_error(msg, lineno, offset)
-                except:
-                    msg = "*** " + str(err)
-                self.errorbox("Syntax error",
-                              "There's an error in your program:\n" + msg)
-                return False
+            # If successful, return the compiled code
+            return compile(source, filename, "exec")
+        except (SyntaxError, OverflowError) as value:
+            msg = value.msg or "<no detail available>"
+            lineno = value.lineno or 1
+            offset = value.offset or 0
+            if offset == 0:
+                lineno += 1  #mark end of offending line
+            pos = "0.0 + %d lines + %d chars" % (lineno-1, offset-1)
+            editwin.colorize_syntax_error(text, pos)
+            self.errorbox("SyntaxError", "%-20s" % msg)
+            return False
         finally:
             shell.set_warning_stream(saved_stream)
 
-    def colorize_syntax_error(self, msg, lineno, offset):
-        text = self.editwin.text
-        pos = "0.0 + %d lines + %d chars" % (lineno-1, offset-1)
-        text.tag_add("ERROR", pos)
-        char = text.get(pos)
-        if char and char in IDENTCHARS:
-            text.tag_add("ERROR", pos + " wordstart", pos)
-        if '\n' == text.get(pos):   # error at line end
-            text.mark_set("insert", pos)
-        else:
-            text.mark_set("insert", pos + "+1c")
-        text.see(pos)
-
     def run_module_event(self, event):
+        if macosxSupport.runningAsOSXApp():
+            # Tk-Cocoa in MacOSX is broken until at least
+            # Tk 8.5.9, and without this rather
+            # crude workaround IDLE would hang when a user
+            # tries to run a module using the keyboard shortcut
+            # (the menu item works fine).
+            self.editwin.text_frame.after(200,
+                lambda: self.editwin.text_frame.event_generate('<<run-module-event-2>>'))
+            return 'break'
+        else:
+            return self._run_module_event(event)
+
+    def _run_module_event(self, event):
         """Run the module after setting up the environment.
 
         First check the syntax.  If OK, make sure the shell is active and
         then transfer the arguments, set the run environment's working
         directory to the directory of the module being executed and also
         add that directory to its sys.path if not already included.
-
         """
+
         filename = self.getfilename()
         if not filename:
             return 'break'
@@ -145,41 +149,29 @@ class ScriptBinding:
             return 'break'
         if not self.tabnanny(filename):
             return 'break'
-        interp = self.shell.interp
+        shell = self.shell
+        interp = shell.interp
         if PyShell.use_subprocess:
-            interp.restart_subprocess(with_cwd=False, filename=code.co_filename)
+            shell.restart_shell()
         dirname = os.path.dirname(filename)
         # XXX Too often this discards arguments the user just set...
         interp.runcommand("""if 1:
-            __file__ = {filename!r}
+            _filename = %r
             import sys as _sys
             from os.path import basename as _basename
             if (not _sys.argv or
-                _basename(_sys.argv[0]) != _basename(__file__)):
-                _sys.argv = [__file__]
+                _basename(_sys.argv[0]) != _basename(_filename)):
+                _sys.argv = [_filename]
             import os as _os
-            _os.chdir({dirname!r})
-            del _sys, _basename, _os
-            \n""".format(filename=filename, dirname=dirname))
+            _os.chdir(%r)
+            del _filename, _sys, _basename, _os
+            \n""" % (filename, dirname))
         interp.prepend_syspath(filename)
         # XXX KBK 03Jul04 When run w/o subprocess, runtime warnings still
         #         go to __stderr__.  With subprocess, they go to the shell.
         #         Need to change streams in PyShell.ModifiedInterpreter.
         interp.runcode(code)
         return 'break'
-
-    if macosxSupport.isCocoaTk():
-        # Tk-Cocoa in MacOSX is broken until at least
-        # Tk 8.5.9, and without this rather
-        # crude workaround IDLE would hang when a user
-        # tries to run a module using the keyboard shortcut
-        # (the menu item works fine).
-        _run_module_event = run_module_event
-
-        def run_module_event(self, event):
-            self.editwin.text_frame.after(200,
-                lambda: self.editwin.text_frame.event_generate('<<run-module-event-2>>'))
-            return 'break'
 
     def getfilename(self):
         """Get source filename.  If not saved, offer to save (or create) file
@@ -213,10 +205,10 @@ class ScriptBinding:
         confirm = tkMessageBox.askokcancel(title="Save Before Run or Check",
                                            message=msg,
                                            default=tkMessageBox.OK,
-                                           parent=self.editwin.text)
+                                           master=self.editwin.text)
         return confirm
 
     def errorbox(self, title, message):
         # XXX This should really be a function of EditorWindow...
-        tkMessageBox.showerror(title, message, parent=self.editwin.text)
+        tkMessageBox.showerror(title, message, master=self.editwin.text)
         self.editwin.text.focus_set()

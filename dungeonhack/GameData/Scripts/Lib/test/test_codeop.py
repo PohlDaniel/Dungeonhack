@@ -3,18 +3,18 @@
    Nick Mathewson
 """
 import unittest
-from test.test_support import run_unittest, is_jython
+from test.support import run_unittest, is_jython
 
 from codeop import compile_command, PyCF_DONT_IMPLY_DEDENT
+import io
 
 if is_jython:
     import sys
-    import cStringIO
 
     def unify_callables(d):
         for n,v in d.items():
-            if callable(v):
-                d[n] = callable
+            if hasattr(v, '__call__'):
+                d[n] = True
         return d
 
 class CodeopTests(unittest.TestCase):
@@ -27,10 +27,10 @@ class CodeopTests(unittest.TestCase):
             if symbol == "single":
                 d,r = {},{}
                 saved_stdout = sys.stdout
-                sys.stdout = cStringIO.StringIO()
+                sys.stdout = io.StringIO()
                 try:
-                    exec code in d
-                    exec compile(str,"<input>","single") in r
+                    exec(code, d)
+                    exec(compile(str,"<input>","single"), r)
                 finally:
                     sys.stdout = saved_stdout
             elif symbol == 'eval':
@@ -50,7 +50,7 @@ class CodeopTests(unittest.TestCase):
         '''succeed iff str is the start of an invalid piece of code'''
         try:
             compile_command(str,symbol=symbol)
-            self.fail("No exception raised for invalid code")
+            self.fail("No exception thrown for invalid code")
         except SyntaxError:
             self.assertTrue(is_syntax)
         except OverflowError:

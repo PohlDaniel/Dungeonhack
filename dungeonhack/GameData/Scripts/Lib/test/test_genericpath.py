@@ -3,7 +3,7 @@ Tests common to genericpath, macpath, ntpath and posixpath
 """
 
 import unittest
-from test import test_support
+from test import support
 import os
 import genericpath
 import sys
@@ -61,6 +61,31 @@ class GenericTest(unittest.TestCase):
             ":home:swen:spam"
         )
 
+        self.assertEqual(
+            commonprefix([b"/home/swenson/spam", b"/home/swen/spam"]),
+            b"/home/swen"
+        )
+        self.assertEqual(
+            commonprefix([b"/home/swen/spam", b"/home/swen/eggs"]),
+            b"/home/swen/"
+        )
+        self.assertEqual(
+            commonprefix([b"/home/swen/spam", b"/home/swen/spam"]),
+            b"/home/swen/spam"
+        )
+        self.assertEqual(
+            commonprefix([b"home:swenson:spam", b"home:swen:spam"]),
+            b"home:swen"
+        )
+        self.assertEqual(
+            commonprefix([b":home:swen:spam", b":home:swen:eggs"]),
+            b":home:swen:"
+        )
+        self.assertEqual(
+            commonprefix([b":home:swen:spam", b":home:swen:spam"]),
+            b":home:swen:spam"
+        )
+
         testlist = ['', 'abc', 'Xbcd', 'Xb', 'XY', 'abcd',
                     'aXc', 'abd', 'ab', 'aX', 'abcX']
         for s1 in testlist:
@@ -73,86 +98,86 @@ class GenericTest(unittest.TestCase):
                     self.assertNotEqual(s1[n:n+1], s2[n:n+1])
 
     def test_getsize(self):
-        f = open(test_support.TESTFN, "wb")
+        f = open(support.TESTFN, "wb")
         try:
-            f.write("foo")
+            f.write(b"foo")
             f.close()
-            self.assertEqual(self.pathmodule.getsize(test_support.TESTFN), 3)
+            self.assertEqual(self.pathmodule.getsize(support.TESTFN), 3)
         finally:
             if not f.closed:
                 f.close()
-            test_support.unlink(test_support.TESTFN)
+            support.unlink(support.TESTFN)
 
     def test_time(self):
-        f = open(test_support.TESTFN, "wb")
+        f = open(support.TESTFN, "wb")
         try:
-            f.write("foo")
+            f.write(b"foo")
             f.close()
-            f = open(test_support.TESTFN, "ab")
-            f.write("bar")
+            f = open(support.TESTFN, "ab")
+            f.write(b"bar")
             f.close()
-            f = open(test_support.TESTFN, "rb")
+            f = open(support.TESTFN, "rb")
             d = f.read()
             f.close()
-            self.assertEqual(d, "foobar")
+            self.assertEqual(d, b"foobar")
 
             self.assertLessEqual(
-                self.pathmodule.getctime(test_support.TESTFN),
-                self.pathmodule.getmtime(test_support.TESTFN)
+                self.pathmodule.getctime(support.TESTFN),
+                self.pathmodule.getmtime(support.TESTFN)
             )
         finally:
             if not f.closed:
                 f.close()
-            test_support.unlink(test_support.TESTFN)
+            support.unlink(support.TESTFN)
 
     def test_exists(self):
-        self.assertIs(self.pathmodule.exists(test_support.TESTFN), False)
-        f = open(test_support.TESTFN, "wb")
+        self.assertIs(self.pathmodule.exists(support.TESTFN), False)
+        f = open(support.TESTFN, "wb")
         try:
-            f.write("foo")
+            f.write(b"foo")
             f.close()
-            self.assertIs(self.pathmodule.exists(test_support.TESTFN), True)
+            self.assertIs(self.pathmodule.exists(support.TESTFN), True)
             if not self.pathmodule == genericpath:
-                self.assertIs(self.pathmodule.lexists(test_support.TESTFN),
+                self.assertIs(self.pathmodule.lexists(support.TESTFN),
                               True)
         finally:
             if not f.close():
                 f.close()
-            test_support.unlink(test_support.TESTFN)
+            support.unlink(support.TESTFN)
 
     def test_isdir(self):
-        self.assertIs(self.pathmodule.isdir(test_support.TESTFN), False)
-        f = open(test_support.TESTFN, "wb")
+        self.assertIs(self.pathmodule.isdir(support.TESTFN), False)
+        f = open(support.TESTFN, "wb")
         try:
-            f.write("foo")
+            f.write(b"foo")
             f.close()
-            self.assertIs(self.pathmodule.isdir(test_support.TESTFN), False)
-            os.remove(test_support.TESTFN)
-            os.mkdir(test_support.TESTFN)
-            self.assertIs(self.pathmodule.isdir(test_support.TESTFN), True)
-            os.rmdir(test_support.TESTFN)
+            self.assertIs(self.pathmodule.isdir(support.TESTFN), False)
+            os.remove(support.TESTFN)
+            os.mkdir(support.TESTFN)
+            self.assertIs(self.pathmodule.isdir(support.TESTFN), True)
+            os.rmdir(support.TESTFN)
         finally:
             if not f.close():
                 f.close()
-            test_support.unlink(test_support.TESTFN)
-            safe_rmdir(test_support.TESTFN)
+            support.unlink(support.TESTFN)
+            safe_rmdir(support.TESTFN)
 
     def test_isfile(self):
-        self.assertIs(self.pathmodule.isfile(test_support.TESTFN), False)
-        f = open(test_support.TESTFN, "wb")
+        self.assertIs(self.pathmodule.isfile(support.TESTFN), False)
+        f = open(support.TESTFN, "wb")
         try:
-            f.write("foo")
+            f.write(b"foo")
             f.close()
-            self.assertIs(self.pathmodule.isfile(test_support.TESTFN), True)
-            os.remove(test_support.TESTFN)
-            os.mkdir(test_support.TESTFN)
-            self.assertIs(self.pathmodule.isfile(test_support.TESTFN), False)
-            os.rmdir(test_support.TESTFN)
+            self.assertIs(self.pathmodule.isfile(support.TESTFN), True)
+            os.remove(support.TESTFN)
+            os.mkdir(support.TESTFN)
+            self.assertIs(self.pathmodule.isfile(support.TESTFN), False)
+            os.rmdir(support.TESTFN)
         finally:
             if not f.close():
                 f.close()
-            test_support.unlink(test_support.TESTFN)
-            safe_rmdir(test_support.TESTFN)
+            support.unlink(support.TESTFN)
+            safe_rmdir(support.TESTFN)
 
 
 # Following TestCase is not supposed to be run from test_genericpath.
@@ -172,10 +197,18 @@ class CommonTest(GenericTest):
     ]
 
     def test_normcase(self):
-        # Check that normcase() is idempotent
-        p = "FoO/./BaR"
-        p = self.pathmodule.normcase(p)
-        self.assertEqual(p, self.pathmodule.normcase(p))
+        normcase = self.pathmodule.normcase
+        # check that normcase() is idempotent
+        for p in ["FoO/./BaR", b"FoO/./BaR"]:
+            p = normcase(p)
+            self.assertEqual(p, normcase(p))
+
+        self.assertEqual(normcase(''), '')
+        self.assertEqual(normcase(b''), b'')
+
+        # check that normcase raises a TypeError for invalid types
+        for path in (None, True, 0, 2.5, [], bytearray(b''), {'o','o'}):
+            self.assertRaises(TypeError, normcase, path)
 
     def test_splitdrive(self):
         # splitdrive for non-NT paths
@@ -184,11 +217,15 @@ class CommonTest(GenericTest):
         self.assertEqual(splitdrive("foo:bar"), ("", "foo:bar"))
         self.assertEqual(splitdrive(":foo:bar"), ("", ":foo:bar"))
 
+        self.assertEqual(splitdrive(b"/foo/bar"), (b"", b"/foo/bar"))
+        self.assertEqual(splitdrive(b"foo:bar"), (b"", b"foo:bar"))
+        self.assertEqual(splitdrive(b":foo:bar"), (b"", b":foo:bar"))
+
     def test_expandvars(self):
         if self.pathmodule.__name__ == 'macpath':
             self.skipTest('macpath.expandvars is a stub')
         expandvars = self.pathmodule.expandvars
-        with test_support.EnvironmentVarGuard() as env:
+        with support.EnvironmentVarGuard() as env:
             env.clear()
             env["foo"] = "bar"
             env["{foo"] = "baz1"
@@ -199,86 +236,72 @@ class CommonTest(GenericTest):
             self.assertEqual(expandvars("$[foo]bar"), "$[foo]bar")
             self.assertEqual(expandvars("$bar bar"), "$bar bar")
             self.assertEqual(expandvars("$?bar"), "$?bar")
+            self.assertEqual(expandvars("${foo}bar"), "barbar")
             self.assertEqual(expandvars("$foo}bar"), "bar}bar")
             self.assertEqual(expandvars("${foo"), "${foo")
             self.assertEqual(expandvars("${{foo}}"), "baz1}")
             self.assertEqual(expandvars("$foo$foo"), "barbar")
             self.assertEqual(expandvars("$bar$bar"), "$bar$bar")
 
-    @unittest.skipUnless(test_support.FS_NONASCII, 'need test_support.FS_NONASCII')
-    def test_expandvars_nonascii(self):
-        if self.pathmodule.__name__ == 'macpath':
-            self.skipTest('macpath.expandvars is a stub')
-        expandvars = self.pathmodule.expandvars
-        def check(value, expected):
-            self.assertEqual(expandvars(value), expected)
-        encoding = sys.getfilesystemencoding()
-        with test_support.EnvironmentVarGuard() as env:
-            env.clear()
-            unonascii = test_support.FS_NONASCII
-            snonascii = unonascii.encode(encoding)
-            env['spam'] = snonascii
-            env[snonascii] = 'ham' + snonascii
-            check(snonascii, snonascii)
-            check('$spam bar', '%s bar' % snonascii)
-            check('${spam}bar', '%sbar' % snonascii)
-            check('${%s}bar' % snonascii, 'ham%sbar' % snonascii)
-            check('$bar%s bar' % snonascii, '$bar%s bar' % snonascii)
-            check('$spam}bar', '%s}bar' % snonascii)
-
-            check(unonascii, unonascii)
-            check(u'$spam bar', u'%s bar' % unonascii)
-            check(u'${spam}bar', u'%sbar' % unonascii)
-            check(u'${%s}bar' % unonascii, u'ham%sbar' % unonascii)
-            check(u'$bar%s bar' % unonascii, u'$bar%s bar' % unonascii)
-            check(u'$spam}bar', u'%s}bar' % unonascii)
+            self.assertEqual(expandvars(b"foo"), b"foo")
+            self.assertEqual(expandvars(b"$foo bar"), b"bar bar")
+            self.assertEqual(expandvars(b"${foo}bar"), b"barbar")
+            self.assertEqual(expandvars(b"$[foo]bar"), b"$[foo]bar")
+            self.assertEqual(expandvars(b"$bar bar"), b"$bar bar")
+            self.assertEqual(expandvars(b"$?bar"), b"$?bar")
+            self.assertEqual(expandvars(b"${foo}bar"), b"barbar")
+            self.assertEqual(expandvars(b"$foo}bar"), b"bar}bar")
+            self.assertEqual(expandvars(b"${foo"), b"${foo")
+            self.assertEqual(expandvars(b"${{foo}}"), b"baz1}")
+            self.assertEqual(expandvars(b"$foo$foo"), b"barbar")
+            self.assertEqual(expandvars(b"$bar$bar"), b"$bar$bar")
 
     def test_abspath(self):
         self.assertIn("foo", self.pathmodule.abspath("foo"))
+        self.assertIn(b"foo", self.pathmodule.abspath(b"foo"))
 
         # Abspath returns bytes when the arg is bytes
-        for path in ('', 'foo', 'f\xf2\xf2', '/foo', 'C:\\'):
-            self.assertIsInstance(self.pathmodule.abspath(path), str)
+        for path in (b'', b'foo', b'f\xf2\xf2', b'/foo', b'C:\\'):
+            self.assertIsInstance(self.pathmodule.abspath(path), bytes)
 
     def test_realpath(self):
         self.assertIn("foo", self.pathmodule.realpath("foo"))
+        self.assertIn(b"foo", self.pathmodule.realpath(b"foo"))
 
-    @test_support.requires_unicode
     def test_normpath_issue5827(self):
         # Make sure normpath preserves unicode
-        for path in (u'', u'.', u'/', u'\\', u'///foo/.//bar//'):
-            self.assertIsInstance(self.pathmodule.normpath(path), unicode)
+        for path in ('', '.', '/', '\\', '///foo/.//bar//'):
+            self.assertIsInstance(self.pathmodule.normpath(path), str)
 
-    @test_support.requires_unicode
     def test_abspath_issue3426(self):
         # Check that abspath returns unicode when the arg is unicode
         # with both ASCII and non-ASCII cwds.
         abspath = self.pathmodule.abspath
-        for path in (u'', u'fuu', u'f\xf9\xf9', u'/fuu', u'U:\\'):
-            self.assertIsInstance(abspath(path), unicode)
+        for path in ('', 'fuu', 'f\xf9\xf9', '/fuu', 'U:\\'):
+            self.assertIsInstance(abspath(path), str)
 
-        unicwd = u'\xe7w\xf0'
+        unicwd = '\xe7w\xf0'
         try:
-            fsencoding = test_support.TESTFN_ENCODING or "ascii"
+            fsencoding = support.TESTFN_ENCODING or "ascii"
             unicwd.encode(fsencoding)
         except (AttributeError, UnicodeEncodeError):
             # FS encoding is probably ASCII
             pass
         else:
-            with test_support.temp_cwd(unicwd):
-                for path in (u'', u'fuu', u'f\xf9\xf9', u'/fuu', u'U:\\'):
-                    self.assertIsInstance(abspath(path), unicode)
+            with support.temp_cwd(unicwd):
+                for path in ('', 'fuu', 'f\xf9\xf9', '/fuu', 'U:\\'):
+                    self.assertIsInstance(abspath(path), str)
 
     @unittest.skipIf(sys.platform == 'darwin',
         "Mac OS X denies the creation of a directory with an invalid utf8 name")
     def test_nonascii_abspath(self):
         # Test non-ASCII, non-UTF8 bytes in the path.
-        with test_support.temp_cwd('\xe7w\xf0'):
+        with support.temp_cwd(b'\xe7w\xf0'):
             self.test_abspath()
 
 
 def test_main():
-    test_support.run_unittest(GenericTest)
+    support.run_unittest(GenericTest)
 
 
 if __name__=="__main__":

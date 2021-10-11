@@ -5,12 +5,12 @@ the test_suite() function there returns a test suite that's ready to
 be run.
 """
 
-import json.tests
-import test.test_support
+from test import json_tests
+import test.support
 
 
 def test_main():
-    test.test_support.run_unittest(json.tests.test_suite())
+    test.support.run_unittest(json_tests.test_suite())
 
 
 if __name__ == "__main__":

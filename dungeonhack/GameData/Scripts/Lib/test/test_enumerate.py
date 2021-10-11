@@ -1,7 +1,7 @@
 import unittest
 import sys
 
-from test import test_support
+from test import support
 
 class G:
     'Sequence using __getitem__'
@@ -17,7 +17,7 @@ class I:
         self.i = 0
     def __iter__(self):
         return self
-    def next(self):
+    def __next__(self):
         if self.i >= len(self.seqn): raise StopIteration
         v = self.seqn[self.i]
         self.i += 1
@@ -37,7 +37,7 @@ class X:
     def __init__(self, seqn):
         self.seqn = seqn
         self.i = 0
-    def next(self):
+    def __next__(self):
         if self.i >= len(self.seqn): raise StopIteration
         v = self.seqn[self.i]
         self.i += 1
@@ -50,11 +50,11 @@ class E:
         self.i = 0
     def __iter__(self):
         return self
-    def next(self):
+    def __next__(self):
         3 // 0
 
 class N:
-    'Iterator missing next()'
+    'Iterator missing __next__()'
     def __init__(self, seqn):
         self.seqn = seqn
         self.i = 0
@@ -76,23 +76,23 @@ class EnumerateTestCase(unittest.TestCase):
     def test_getitemseqn(self):
         self.assertEqual(list(self.enum(G(self.seq))), self.res)
         e = self.enum(G(''))
-        self.assertRaises(StopIteration, e.next)
+        self.assertRaises(StopIteration, next, e)
 
     def test_iteratorseqn(self):
         self.assertEqual(list(self.enum(I(self.seq))), self.res)
         e = self.enum(I(''))
-        self.assertRaises(StopIteration, e.next)
+        self.assertRaises(StopIteration, next, e)
 
     def test_iteratorgenerator(self):
         self.assertEqual(list(self.enum(Ig(self.seq))), self.res)
         e = self.enum(Ig(''))
-        self.assertRaises(StopIteration, e.next)
+        self.assertRaises(StopIteration, next, e)
 
     def test_noniterable(self):
         self.assertRaises(TypeError, self.enum, X(self.seq))
 
     def test_illformediterable(self):
-        self.assertRaises(TypeError, list, self.enum(N(self.seq)))
+        self.assertRaises(TypeError, self.enum, N(self.seq))
 
     def test_exception_propagation(self):
         self.assertRaises(ZeroDivisionError, list, self.enum(E(self.seq)))
@@ -103,7 +103,7 @@ class EnumerateTestCase(unittest.TestCase):
         self.assertRaises(TypeError, self.enum, 'abc', 'a') # wrong type
         self.assertRaises(TypeError, self.enum, 'abc', 2, 3) # too many arguments
 
-    @test_support.cpython_only
+    @support.cpython_only
     def test_tuple_reuse(self):
         # Tests an implementation detail where tuple is reused
         # whenever nothing else holds a reference to it
@@ -124,7 +124,7 @@ class TestEmpty(EnumerateTestCase):
 class TestBig(EnumerateTestCase):
 
     seq = range(10,20000,2)
-    res = zip(range(20000), seq)
+    res = list(zip(range(20000), seq))
 
 class TestReversed(unittest.TestCase):
 
@@ -136,27 +136,21 @@ class TestReversed(unittest.TestCase):
                 raise StopIteration
             def __len__(self):
                 return 5
-        for data in 'abc', range(5), tuple(enumerate('abc')), A(), xrange(1,17,5):
+        for data in 'abc', range(5), tuple(enumerate('abc')), A(), range(1,17,5):
             self.assertEqual(list(data)[::-1], list(reversed(data)))
         self.assertRaises(TypeError, reversed, {})
         # don't allow keyword arguments
         self.assertRaises(TypeError, reversed, [], a=1)
 
-    def test_classic_class(self):
-        class A:
-            def __reversed__(self):
-                return [2, 1]
-        self.assertEqual(list(reversed(A())), [2, 1])
-
-    def test_xrange_optimization(self):
-        x = xrange(1)
+    def test_range_optimization(self):
+        x = range(1)
         self.assertEqual(type(reversed(x)), type(iter(x)))
 
-    @test_support.cpython_only
+    @support.cpython_only
     def test_len(self):
         # This is an implementation detail, not an interface requirement
         from test.test_iterlen import len
-        for s in ('hello', tuple('hello'), list('hello'), xrange(5)):
+        for s in ('hello', tuple('hello'), list('hello'), range(5)):
             self.assertEqual(len(reversed(s)), len(s))
             r = reversed(s)
             list(r)
@@ -188,10 +182,11 @@ class TestReversed(unittest.TestCase):
         self.assertRaises(TypeError, reversed)
         self.assertRaises(TypeError, reversed, [], 'extra')
 
-    @unittest.skipUnless(hasattr(sys, 'getrefcount'), 'test needs sys.getrefcount()')
     def test_bug1229429(self):
         # this bug was never in reversed, it was in
         # PyObject_CallMethod, and reversed_new calls that sometimes.
+        if not hasattr(sys, "getrefcount"):
+            return
         def f():
             pass
         r = f.__reversed__ = object()
@@ -234,21 +229,21 @@ class TestStart(EnumerateStartTestCase):
 
 class TestLongStart(EnumerateStartTestCase):
 
-    enum = lambda self, i: enumerate(i, start=sys.maxint+1)
-    seq, res = 'abc', [(sys.maxint+1,'a'), (sys.maxint+2,'b'),
-                       (sys.maxint+3,'c')]
+    enum = lambda self, i: enumerate(i, start=sys.maxsize+1)
+    seq, res = 'abc', [(sys.maxsize+1,'a'), (sys.maxsize+2,'b'),
+                       (sys.maxsize+3,'c')]
 
 
 def test_main(verbose=None):
-    test_support.run_unittest(__name__)
+    support.run_unittest(__name__)
 
     # verify reference counting
     if verbose and hasattr(sys, "gettotalrefcount"):
         counts = [None] * 5
-        for i in xrange(len(counts)):
-            test_support.run_unittest(__name__)
+        for i in range(len(counts)):
+            support.run_unittest(__name__)
             counts[i] = sys.gettotalrefcount()
-        print counts
+        print(counts)
 
 if __name__ == "__main__":
     test_main(verbose=True)

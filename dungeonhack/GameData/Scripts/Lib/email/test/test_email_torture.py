@@ -9,11 +9,11 @@
 import sys
 import os
 import unittest
-from cStringIO import StringIO
+from io import StringIO
 from types import ListType
 
 from email.test.test_email import TestEmailBase
-from test.test_support import TestSkipped, run_unittest
+from test.support import TestSkipped, run_unittest
 
 import email
 from email import __file__ as testfile

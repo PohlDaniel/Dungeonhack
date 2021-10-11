@@ -1,3 +1,5 @@
+#! /usr/bin/env python3
+
 """
 Module difflib -- helpers for computing deltas between objects.
 
@@ -30,9 +32,9 @@ __all__ = ['get_close_matches', 'ndiff', 'restore', 'SequenceMatcher',
            'Differ','IS_CHARACTER_JUNK', 'IS_LINE_JUNK', 'context_diff',
            'unified_diff', 'HtmlDiff', 'Match']
 
+import warnings
 import heapq
 from collections import namedtuple as _namedtuple
-from functools import reduce
 
 Match = _namedtuple('Match', 'a b size')
 
@@ -78,7 +80,7 @@ class SequenceMatcher:
     sequences.  As a rule of thumb, a .ratio() value over 0.6 means the
     sequences are close matches:
 
-    >>> print round(s.ratio(), 3)
+    >>> print(round(s.ratio(), 3))
     0.866
     >>>
 
@@ -86,7 +88,7 @@ class SequenceMatcher:
     .get_matching_blocks() is handy:
 
     >>> for block in s.get_matching_blocks():
-    ...     print "a[%d] and b[%d] match for %d elements" % block
+    ...     print("a[%d] and b[%d] match for %d elements" % block)
     a[0] and b[0] match for 8 elements
     a[8] and b[17] match for 21 elements
     a[29] and b[38] match for 0 elements
@@ -99,7 +101,7 @@ class SequenceMatcher:
     use .get_opcodes():
 
     >>> for opcode in s.get_opcodes():
-    ...     print "%6s a[%d:%d] b[%d:%d]" % opcode
+    ...     print("%6s a[%d:%d] b[%d:%d]" % opcode)
      equal a[0:8] b[0:8]
     insert a[8:8] b[8:17]
      equal a[8:29] b[17:38]
@@ -181,7 +183,7 @@ class SequenceMatcher:
         #      we need to do to 'a' to change it into 'b'?"
         # b2j
         #      for x in b, b2j[x] is a list of the indices (into b)
-        #      at which x appears; junk elements do not appear
+        #      at which x appears; junk and popular elements do not appear
         # fullbcount
         #      for x in b, fullbcount[x] == the number of times x
         #      appears in b; only materialized if really needed (used
@@ -203,15 +205,10 @@ class SequenceMatcher:
         #      subtle but helpful effects on the algorithm, which I'll
         #      get around to writing up someday <0.9 wink>.
         #      DON'T USE!  Only __chain_b uses this.  Use isbjunk.
-        # isbjunk
-        #      for x in b, isbjunk(x) == isjunk(x) but much faster;
-        #      it's really the __contains__ method of a hidden dict.
-        #      DOES NOT WORK for x in a!
-        # isbpopular
-        #      for x in b, isbpopular(x) is true iff b is reasonably long
-        #      (at least 200 elements) and x accounts for more than 1 + 1% of
-        #      its elements (when autojunk is enabled).
-        #      DOES NOT WORK for x in a!
+        # bjunk
+        #      the items in b for which isjunk is True.
+        # bpopular
+        #      nonjunk items in b treated as junk by the heuristic (if used).
 
         self.isjunk = isjunk
         self.a = self.b = None
@@ -320,30 +317,39 @@ class SequenceMatcher:
             indices.append(i)
 
         # Purge junk elements
-        junk = set()
+        self.bjunk = junk = set()
         isjunk = self.isjunk
         if isjunk:
-            for elt in list(b2j.keys()):  # using list() since b2j is modified
+            for elt in b2j.keys():
                 if isjunk(elt):
                     junk.add(elt)
-                    del b2j[elt]
+            for elt in junk: # separate loop avoids separate list of keys
+                del b2j[elt]
 
         # Purge popular elements that are not junk
-        popular = set()
+        self.bpopular = popular = set()
         n = len(b)
         if self.autojunk and n >= 200:
             ntest = n // 100 + 1
-            for elt, idxs in list(b2j.items()):
+            for elt, idxs in b2j.items():
                 if len(idxs) > ntest:
                     popular.add(elt)
-                    del b2j[elt]
+            for elt in popular: # ditto; as fast for 1% deletion
+                del b2j[elt]
 
-        # Now for x in b, isjunk(x) == x in junk, but the latter is much faster.
-        # Sicne the number of *unique* junk elements is probably small, the
-        # memory burden of keeping this set alive is likely trivial compared to
-        # the size of b2j.
-        self.isbjunk = junk.__contains__
-        self.isbpopular = popular.__contains__
+    def isbjunk(self, item):
+        "Deprecated; use 'item in SequenceMatcher().bjunk'."
+        warnings.warn("'SequenceMatcher().isbjunk(item)' is deprecated;\n"
+                      "use 'item in SMinstance.bjunk' instead.",
+                      DeprecationWarning, 2)
+        return item in self.bjunk
+
+    def isbpopular(self, item):
+        "Deprecated; use 'item in SequenceMatcher().bpopular'."
+        warnings.warn("'SequenceMatcher().isbpopular(item)' is deprecated;\n"
+                      "use 'item in SMinstance.bpopular' instead.",
+                      DeprecationWarning, 2)
+        return item in self.bpopular
 
     def find_longest_match(self, alo, ahi, blo, bhi):
         """Find longest matching block in a[alo:ahi] and b[blo:bhi].
@@ -401,14 +407,14 @@ class SequenceMatcher:
         # Windiff ends up at the same place as diff, but by pairing up
         # the unique 'b's and then matching the first two 'a's.
 
-        a, b, b2j, isbjunk = self.a, self.b, self.b2j, self.isbjunk
+        a, b, b2j, isbjunk = self.a, self.b, self.b2j, self.bjunk.__contains__
         besti, bestj, bestsize = alo, blo, 0
         # find longest junk-free match
         # during an iteration of the loop, j2len[j] = length of longest
         # junk-free match ending with a[i-1] and b[j]
         j2len = {}
         nothing = []
-        for i in xrange(alo, ahi):
+        for i in range(alo, ahi):
             # look at all instances of a[i] in b; note that because
             # b2j has no junk keys, the loop is skipped if a[i] is junk
             j2lenget = j2len.get
@@ -470,7 +476,7 @@ class SequenceMatcher:
         triple with n==0.
 
         >>> s = SequenceMatcher(None, "abxcd", "abcd")
-        >>> s.get_matching_blocks()
+        >>> list(s.get_matching_blocks())
         [Match(a=0, b=0, size=2), Match(a=3, b=2, size=2), Match(a=5, b=4, size=0)]
         """
 
@@ -523,8 +529,8 @@ class SequenceMatcher:
             non_adjacent.append((i1, j1, k1))
 
         non_adjacent.append( (la, lb, 0) )
-        self.matching_blocks = map(Match._make, non_adjacent)
-        return self.matching_blocks
+        self.matching_blocks = non_adjacent
+        return map(Match._make, self.matching_blocks)
 
     def get_opcodes(self):
         """Return list of 5-tuples describing how to turn a into b.
@@ -546,8 +552,8 @@ class SequenceMatcher:
         >>> b = "abycdf"
         >>> s = SequenceMatcher(None, a, b)
         >>> for tag, i1, i2, j1, j2 in s.get_opcodes():
-        ...    print ("%7s a[%d:%d] (%s) b[%d:%d] (%s)" %
-        ...           (tag, i1, i2, a[i1:i2], j1, j2, b[j1:j2]))
+        ...    print(("%7s a[%d:%d] (%s) b[%d:%d] (%s)" %
+        ...           (tag, i1, i2, a[i1:i2], j1, j2, b[j1:j2])))
          delete a[0:1] (q) b[0:0] ()
           equal a[1:3] (ab) b[0:2] (ab)
         replace a[3:4] (x) b[2:3] (y)
@@ -584,11 +590,11 @@ class SequenceMatcher:
     def get_grouped_opcodes(self, n=3):
         """ Isolate change clusters by eliminating ranges with no changes.
 
-        Return a generator of groups with up to n lines of context.
+        Return a generator of groups with upto n lines of context.
         Each group is in the same format as returned by get_opcodes().
 
         >>> from pprint import pprint
-        >>> a = map(str, range(1,40))
+        >>> a = list(map(str, range(1,40)))
         >>> b = a[:]
         >>> b[8:8] = ['i']     # Make an insertion
         >>> b[20] += 'x'       # Make a replacement
@@ -653,8 +659,7 @@ class SequenceMatcher:
         1.0
         """
 
-        matches = reduce(lambda sum, triple: sum + triple[-1],
-                         self.get_matching_blocks(), 0)
+        matches = sum(triple[-1] for triple in self.get_matching_blocks())
         return _calculate_ratio(matches, len(self.a) + len(self.b))
 
     def quick_ratio(self):
@@ -721,7 +726,7 @@ def get_close_matches(word, possibilities, n=3, cutoff=0.6):
     >>> import keyword as _keyword
     >>> get_close_matches("wheel", _keyword.kwlist)
     ['while']
-    >>> get_close_matches("apple", _keyword.kwlist)
+    >>> get_close_matches("Apple", _keyword.kwlist)
     []
     >>> get_close_matches("accept", _keyword.kwlist)
     ['except']
@@ -834,7 +839,7 @@ class Differ:
 
     As a single multi-line string it looks like this:
 
-    >>> print ''.join(result),
+    >>> print(''.join(result), end="")
         1. Beautiful is better than ugly.
     -   2. Explicit is better than implicit.
     -   3. Simple is better than complex.
@@ -891,8 +896,9 @@ class Differ:
 
         Example:
 
-        >>> print ''.join(Differ().compare('one\ntwo\nthree\n'.splitlines(1),
+        >>> print(''.join(Differ().compare('one\ntwo\nthree\n'.splitlines(1),
         ...                                'ore\ntree\nemu\n'.splitlines(1))),
+        ...       end="")
         - one
         ?  ^
         + ore
@@ -915,14 +921,14 @@ class Differ:
             elif tag == 'equal':
                 g = self._dump(' ', a, alo, ahi)
             else:
-                raise ValueError, 'unknown tag %r' % (tag,)
+                raise ValueError('unknown tag %r' % (tag,))
 
             for line in g:
                 yield line
 
     def _dump(self, tag, x, lo, hi):
         """Generate comparison results for a same-tagged range."""
-        for i in xrange(lo, hi):
+        for i in range(lo, hi):
             yield '%s %s' % (tag, x[i])
 
     def _plain_replace(self, a, alo, ahi, b, blo, bhi):
@@ -952,7 +958,7 @@ class Differ:
         >>> d = Differ()
         >>> results = d._fancy_replace(['abcDefghiJkl\n'], 0, 1,
         ...                            ['abcdefGhijkl\n'], 0, 1)
-        >>> print ''.join(results),
+        >>> print(''.join(results), end="")
         - abcDefghiJkl
         ?    ^  ^  ^
         + abcdefGhijkl
@@ -968,10 +974,10 @@ class Differ:
         # search for the pair that matches best without being identical
         # (identical lines must be junk lines, & we don't want to synch up
         # on junk -- unless we have to)
-        for j in xrange(blo, bhi):
+        for j in range(blo, bhi):
             bj = b[j]
             cruncher.set_seq2(bj)
-            for i in xrange(alo, ahi):
+            for i in range(alo, ahi):
                 ai = a[i]
                 if ai == bj:
                     if eqi is None:
@@ -1027,7 +1033,7 @@ class Differ:
                     atags += ' ' * la
                     btags += ' ' * lb
                 else:
-                    raise ValueError, 'unknown tag %r' % (tag,)
+                    raise ValueError('unknown tag %r' % (tag,))
             for line in self._qformat(aelt, belt, atags, btags):
                 yield line
         else:
@@ -1060,7 +1066,7 @@ class Differ:
         >>> d = Differ()
         >>> results = d._qformat('\tabcDefghiJkl\n', '\tabcdefGhijkl\n',
         ...                      '  ^ ^  ^      ', '  ^ ^  ^      ')
-        >>> for line in results: print repr(line)
+        >>> for line in results: print(repr(line))
         ...
         '- \tabcDefghiJkl\n'
         '? \t ^ ^  ^\n'
@@ -1103,7 +1109,7 @@ class Differ:
 
 import re
 
-def IS_LINE_JUNK(line, pat=re.compile(r"\s*(?:#\s*)?$").match):
+def IS_LINE_JUNK(line, pat=re.compile(r"\s*#?\s*$").match):
     r"""
     Return 1 for ignorable line: iff `line` is blank or contains a single '#'.
 
@@ -1182,7 +1188,7 @@ def unified_diff(a, b, fromfile='', tofile='', fromfiledate='',
     ...             'zero one tree four'.split(), 'Original', 'Current',
     ...             '2005-01-26 23:30:50', '2010-04-02 10:20:52',
     ...             lineterm=''):
-    ...     print line                  # doctest: +NORMALIZE_WHITESPACE
+    ...     print(line)                 # doctest: +NORMALIZE_WHITESPACE
     --- Original        2005-01-26 23:30:50
     +++ Current         2010-04-02 10:20:52
     @@ -1,4 +1,4 @@
@@ -1213,10 +1219,10 @@ def unified_diff(a, b, fromfile='', tofile='', fromfiledate='',
                 for line in a[i1:i2]:
                     yield ' ' + line
                 continue
-            if tag in ('replace', 'delete'):
+            if tag in {'replace', 'delete'}:
                 for line in a[i1:i2]:
                     yield '-' + line
-            if tag in ('replace', 'insert'):
+            if tag in {'replace', 'insert'}:
                 for line in b[j1:j2]:
                     yield '+' + line
 
@@ -1263,8 +1269,9 @@ def context_diff(a, b, fromfile='', tofile='',
 
     Example:
 
-    >>> print ''.join(context_diff('one\ntwo\nthree\nfour\n'.splitlines(1),
+    >>> print(''.join(context_diff('one\ntwo\nthree\nfour\n'.splitlines(1),
     ...       'zero\none\ntree\nfour\n'.splitlines(1), 'Original', 'Current')),
+    ...       end="")
     *** Original
     --- Current
     ***************
@@ -1296,7 +1303,7 @@ def context_diff(a, b, fromfile='', tofile='',
         file1_range = _format_range_context(first[1], last[2])
         yield '*** {} ****{}'.format(file1_range, lineterm)
 
-        if any(tag in ('replace', 'delete') for tag, _, _, _, _ in group):
+        if any(tag in {'replace', 'delete'} for tag, _, _, _, _ in group):
             for tag, i1, i2, _, _ in group:
                 if tag != 'insert':
                     for line in a[i1:i2]:
@@ -1305,7 +1312,7 @@ def context_diff(a, b, fromfile='', tofile='',
         file2_range = _format_range_context(first[3], last[4])
         yield '--- {} ----{}'.format(file2_range, lineterm)
 
-        if any(tag in ('replace', 'insert') for tag, _, _, _, _ in group):
+        if any(tag in {'replace', 'insert'} for tag, _, _, _, _ in group):
             for tag, _, _, j1, j2 in group:
                 if tag != 'delete':
                     for line in b[j1:j2]:
@@ -1334,7 +1341,7 @@ def ndiff(a, b, linejunk=None, charjunk=IS_CHARACTER_JUNK):
 
     >>> diff = ndiff('one\ntwo\nthree\n'.splitlines(1),
     ...              'ore\ntree\nemu\n'.splitlines(1))
-    >>> print ''.join(diff),
+    >>> print(''.join(diff), end="")
     - one
     ?  ^
     + ore
@@ -1359,7 +1366,7 @@ def _mdiff(fromlines, tolines, context=None, linejunk=None,
     linejunk -- passed on to ndiff (see ndiff documentation)
     charjunk -- passed on to ndiff (see ndiff documentation)
 
-    This function returns an iterator which returns a tuple:
+    This function returns an interator which returns a tuple:
     (from line tuple, to line tuple, boolean flag)
 
     from/to line tuple -- (line num, line text)
@@ -1467,7 +1474,7 @@ def _mdiff(fromlines, tolines, context=None, linejunk=None,
             # so we can do some very readable comparisons.
             while len(lines) < 4:
                 try:
-                    lines.append(diff_lines_iterator.next())
+                    lines.append(next(diff_lines_iterator))
                 except StopIteration:
                     lines.append('X')
             s = ''.join([line[0] for line in lines])
@@ -1487,7 +1494,7 @@ def _mdiff(fromlines, tolines, context=None, linejunk=None,
                 yield _make_line(lines,'-',0), None, True
                 continue
             elif s.startswith(('--?+', '--+', '- ')):
-                # in delete block and see an intraline change or unchanged line
+                # in delete block and see a intraline change or unchanged line
                 # coming: yield the delete line and then blanks
                 from_line,to_line = _make_line(lines,'-',0), None
                 num_blanks_to_yield,num_blanks_pending = num_blanks_pending-1,0
@@ -1554,7 +1561,7 @@ def _mdiff(fromlines, tolines, context=None, linejunk=None,
         while True:
             # Collecting lines of text until we have a from/to pair
             while (len(fromlines)==0 or len(tolines)==0):
-                from_line, to_line, found_diff =line_iterator.next()
+                from_line, to_line, found_diff = next(line_iterator)
                 if from_line is not None:
                     fromlines.append((from_line,found_diff))
                 if to_line is not None:
@@ -1569,7 +1576,7 @@ def _mdiff(fromlines, tolines, context=None, linejunk=None,
     line_pair_iterator = _line_pair_iterator()
     if context is None:
         while True:
-            yield line_pair_iterator.next()
+            yield next(line_pair_iterator)
     # Handle case where user wants context differencing.  We must do some
     # storage of lines until we know for sure that they are to be yielded.
     else:
@@ -1582,7 +1589,7 @@ def _mdiff(fromlines, tolines, context=None, linejunk=None,
             index, contextLines = 0, [None]*(context)
             found_diff = False
             while(found_diff is False):
-                from_line, to_line, found_diff = line_pair_iterator.next()
+                from_line, to_line, found_diff = next(line_pair_iterator)
                 i = index % context
                 contextLines[i] = (from_line, to_line, found_diff)
                 index += 1
@@ -1602,7 +1609,7 @@ def _mdiff(fromlines, tolines, context=None, linejunk=None,
             # Now yield the context lines after the change
             lines_to_write = context-1
             while(lines_to_write):
-                from_line, to_line, found_diff = line_pair_iterator.next()
+                from_line, to_line, found_diff = next(line_pair_iterator)
                 # If another change within the context, extend the context
                 if found_diff:
                     lines_to_write = context-1
@@ -1961,7 +1968,7 @@ class HtmlDiff(object):
         self._make_prefix()
 
         # change tabs to spaces before it gets more difficult after we insert
-        # markup
+        # markkup
         fromlines,tolines = self._tab_newline_replace(fromlines,tolines)
 
         # create diffs iterator which generates side by side from/to data
@@ -2030,11 +2037,11 @@ def restore(delta, which):
     >>> diff = ndiff('one\ntwo\nthree\n'.splitlines(1),
     ...              'ore\ntree\nemu\n'.splitlines(1))
     >>> diff = list(diff)
-    >>> print ''.join(restore(diff, 1)),
+    >>> print(''.join(restore(diff, 1)), end="")
     one
     two
     three
-    >>> print ''.join(restore(diff, 2)),
+    >>> print(''.join(restore(diff, 2)), end="")
     ore
     tree
     emu
@@ -2042,7 +2049,7 @@ def restore(delta, which):
     try:
         tag = {1: "- ", 2: "+ "}[int(which)]
     except KeyError:
-        raise ValueError, ('unknown delta choice (must be 1 or 2): %r'
+        raise ValueError('unknown delta choice (must be 1 or 2): %r'
                            % which)
     prefixes = ("  ", tag)
     for line in delta:

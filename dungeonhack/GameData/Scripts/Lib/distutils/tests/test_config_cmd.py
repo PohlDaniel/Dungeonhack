@@ -2,7 +2,7 @@
 import unittest
 import os
 import sys
-from test.test_support import run_unittest
+from test.support import run_unittest
 
 from distutils.command.config import dump_file, config
 from distutils.tests import support
@@ -37,16 +37,17 @@ class ConfigTestCase(support.LoggingSilencer,
         dump_file(this_file, 'I am the header')
         self.assertEqual(len(self._logs), numlines+1)
 
-    @unittest.skipIf(sys.platform == 'win32', "can't test on Windows")
     def test_search_cpp(self):
+        if sys.platform == 'win32':
+            return
         pkg_dir, dist = self.create_dist()
         cmd = config(dist)
 
         # simple pattern searches
-        match = cmd.search_cpp(pattern='xxx', body='/* xxx */')
+        match = cmd.search_cpp(pattern='xxx', body='// xxx')
         self.assertEqual(match, 0)
 
-        match = cmd.search_cpp(pattern='_configtest', body='/* xxx */')
+        match = cmd.search_cpp(pattern='_configtest', body='// xxx')
         self.assertEqual(match, 1)
 
     def test_finalize_options(self):
@@ -80,7 +81,7 @@ class ConfigTestCase(support.LoggingSilencer,
         cmd._clean(f1, f2)
 
         for f in (f1, f2):
-            self.assertFalse(os.path.exists(f))
+            self.assertTrue(not os.path.exists(f))
 
 def test_suite():
     return unittest.makeSuite(ConfigTestCase)

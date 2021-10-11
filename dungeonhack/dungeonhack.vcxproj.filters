@@ -14,22 +14,22 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="Source Files\btogre">
-      <UniqueIdentifier>{404e8b08-39a7-4030-93ed-88becef956d4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\btogre\include">
-      <UniqueIdentifier>{5fc6896a-6352-4b4a-be89-1d4aa0a5ca98}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\tinyXML">
-      <UniqueIdentifier>{be62f052-dd5a-4ecc-ab68-24e0ac2036d2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\xmlConfig">
-      <UniqueIdentifier>{2950ea09-e0d8-4029-b20f-aae510d3b612}</UniqueIdentifier>
+      <UniqueIdentifier>{0ad3762a-ee2a-4b43-bf7e-eada7831aa7a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\myguiWrapper">
-      <UniqueIdentifier>{6e037e8e-4c5c-427a-8dc4-6a096e5ef0a1}</UniqueIdentifier>
+      <UniqueIdentifier>{1c02e9c1-0820-4ec2-a4f4-f0381cc6b871}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\scripting">
-      <UniqueIdentifier>{adcbbdb7-1d56-4c08-9c11-9e8f2bf10111}</UniqueIdentifier>
+      <UniqueIdentifier>{5df3e968-36ab-4b33-84a9-1a5ea52e4084}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\tinyXML">
+      <UniqueIdentifier>{83ceae00-5a00-4d88-bb0d-4a782a18bd78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\xmlConfig">
+      <UniqueIdentifier>{c65401db-92b8-498b-8f8e-e5bbb06eb261}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\btogre\include">
+      <UniqueIdentifier>{579c4f80-ab74-4859-b664-ac79f5dff089}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -42,6 +42,9 @@
     <ClInclude Include="src\btogre\include\BtOgrePG.h">
       <Filter>Source Files\btogre\include</Filter>
     </ClInclude>
+    <ClInclude Include="src\myguiWrapper\UiManager.h">
+      <Filter>Source Files\myguiWrapper</Filter>
+    </ClInclude>
     <ClInclude Include="src\xmlConfig\xmlConfig.h">
       <Filter>Source Files\xmlConfig</Filter>
     </ClInclude>
@@ -50,9 +53,6 @@
     </ClInclude>
     <ClInclude Include="src\tinyXML\tinyxml.h">
       <Filter>Source Files\tinyXML</Filter>
-    </ClInclude>
-    <ClInclude Include="src\myguiWrapper\UiManager.h">
-      <Filter>Source Files\myguiWrapper</Filter>
     </ClInclude>
     <ClInclude Include="src\scripting\PyPrototypes.h">
       <Filter>Source Files\scripting</Filter>
@@ -239,6 +239,42 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\btogre\BtOgre.cpp">
+      <Filter>Source Files\btogre</Filter>
+    </ClCompile>
+    <ClCompile Include="src\myguiWrapper\UiManager.cpp">
+      <Filter>Source Files\myguiWrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xmlConfig\xmlConfig.cpp">
+      <Filter>Source Files\xmlConfig</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tinyXML\tinystr.cpp">
+      <Filter>Source Files\tinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tinyXML\tinyxml.cpp">
+      <Filter>Source Files\tinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tinyXML\tinyxmlerror.cpp">
+      <Filter>Source Files\tinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tinyXML\tinyxmlparser.cpp">
+      <Filter>Source Files\tinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\PyPrototypes_wrap.cxx">
+      <Filter>Source Files\scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\PythonManager.cpp">
+      <Filter>Source Files\scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\PythonThread.cpp">
+      <Filter>Source Files\scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\PythonThreadImpl.cpp">
+      <Filter>Source Files\scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\ScriptFunctions.cpp">
+      <Filter>Source Files\scripting</Filter>
+    </ClCompile>
     <ClCompile Include="src\BladeState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -406,42 +442,6 @@
     </ClCompile>
     <ClCompile Include="src\WeaponState.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\btogre\BtOgre.cpp">
-      <Filter>Source Files\btogre</Filter>
-    </ClCompile>
-    <ClCompile Include="src\xmlConfig\xmlConfig.cpp">
-      <Filter>Source Files\xmlConfig</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tinyXML\tinystr.cpp">
-      <Filter>Source Files\tinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tinyXML\tinyxml.cpp">
-      <Filter>Source Files\tinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tinyXML\tinyxmlerror.cpp">
-      <Filter>Source Files\tinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tinyXML\tinyxmlparser.cpp">
-      <Filter>Source Files\tinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="src\myguiWrapper\UiManager.cpp">
-      <Filter>Source Files\myguiWrapper</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\PythonManager.cpp">
-      <Filter>Source Files\scripting</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\PythonThread.cpp">
-      <Filter>Source Files\scripting</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\PythonThreadImpl.cpp">
-      <Filter>Source Files\scripting</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\ScriptFunctions.cpp">
-      <Filter>Source Files\scripting</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\PyPrototypes_wrap.cxx">
-      <Filter>Source Files\scripting</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

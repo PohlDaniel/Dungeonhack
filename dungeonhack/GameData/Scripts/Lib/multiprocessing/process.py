@@ -93,7 +93,7 @@ class Process(object):
 
     def __init__(self, group=None, target=None, name=None, args=(), kwargs={}):
         assert group is None, 'group argument must be None for now'
-        count = _current_process._counter.next()
+        count = next(_current_process._counter)
         self._identity = _current_process._identity + (count,)
         self._authkey = _current_process._authkey
         self._daemonic = _current_process._daemonic
@@ -128,9 +128,6 @@ class Process(object):
         else:
             from .forking import Popen
         self._popen = Popen(self)
-        # Avoid a refcycle if the target function holds an indirect
-        # reference to the process object (see bpo-30775)
-        del self._target, self._args, self._kwargs
         _current_process._children.add(self)
 
     def terminate(self):
@@ -156,16 +153,10 @@ class Process(object):
         if self is _current_process:
             return True
         assert self._parent_pid == os.getpid(), 'can only test a child process'
-
         if self._popen is None:
             return False
-
-        returncode = self._popen.poll()
-        if returncode is None:
-            return True
-        else:
-            _current_process._children.discard(self)
-            return False
+        self._popen.poll()
+        return self._popen.returncode is None
 
     @property
     def name(self):
@@ -173,7 +164,7 @@ class Process(object):
 
     @name.setter
     def name(self, name):
-        assert isinstance(name, basestring), 'name must be a string'
+        assert isinstance(name, str), 'name must be a string'
         self._name = name
 
     @property
@@ -236,7 +227,7 @@ class Process(object):
             else:
                 status = 'started'
 
-        if type(status) in (int, long):
+        if type(status) is int:
             if status == 0:
                 status = 'stopped'
             else:
@@ -254,27 +245,34 @@ class Process(object):
         try:
             self._children = set()
             self._counter = itertools.count(1)
-            try:
-                sys.stdin.close()
-                sys.stdin = open(os.devnull)
-            except (OSError, ValueError):
-                pass
+            if sys.stdin is not None:
+                try:
+                    sys.stdin.close()
+                    sys.stdin = open(os.devnull)
+                except (OSError, ValueError):
+                    pass
+            old_process = _current_process
             _current_process = self
-            util._finalizer_registry.clear()
-            util._run_after_forkers()
+            try:
+                util._finalizer_registry.clear()
+                util._run_after_forkers()
+            finally:
+                # delay finalization of the old process object until after
+                # _run_after_forkers() is executed
+                del old_process
             util.info('child process calling self.run()')
             try:
                 self.run()
                 exitcode = 0
             finally:
                 util._exit_function()
-        except SystemExit, e:
+        except SystemExit as e:
             if not e.args:
                 exitcode = 1
-            elif isinstance(e.args[0], (int, long)):
-                exitcode = int(e.args[0])
+            elif type(e.args[0]) is int:
+                exitcode = e.args[0]
             else:
-                sys.stderr.write(str(e.args[0]) + '\n')
+                sys.stderr.write(e.args[0] + '\n')
                 sys.stderr.flush()
                 exitcode = 1
         except:
@@ -327,6 +325,6 @@ del _MainProcess
 
 _exitcode_to_name = {}
 
-for name, signum in signal.__dict__.items():
+for name, signum in list(signal.__dict__.items()):
     if name[:3]=='SIG' and '_' not in name:
         _exitcode_to_name[-signum] = name

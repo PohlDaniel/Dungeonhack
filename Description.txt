@@ -105,7 +105,7 @@ Ogre PagedGeometry 1.1.0 https://code.google.com/archive/p/ogre-paged/downloads
 	
 Install the needed Sdk's	
 	OpenAL https://www.openal.org/downloads/OpenAL11CoreSDK.zip 
-	Python https://www.python.org/ftp/python/2.7
+	Python https://www.python.org/ftp/python/3.2.1
 	
 Dungeonhack 0.10 http://dungeonhack.sourceforge.net/Downloads
 	-> add _SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS and OIS_1_2 under Visual Studio Project ->properties -> C/C++ -> Preprocessor -> Preprocessor Definition
@@ -113,9 +113,18 @@ Dungeonhack 0.10 http://dungeonhack.sourceforge.net/Downloads
 	-> if neccessaray link the project againts OpenAL manually
 	-> if neccessaray link the project againts Python manually
 	-> deactivate "Image Has Safe Exception Handlers" under properties->Linker->Advanced cuz. OpenAL
-	-> use python26.dll out of C:\Windows\SysWOW64
+	-> deactivate link 4099 "Properties->Linker->Command Line add /ignore:4099"
+	-> use python32.dll out of C:\Windows\SysWOW64
 	-> copy together the game directory similar to http://sourceforge.net/projects/dungeonhack/files/0.10/dungeonhack-0.10-win32.zip/download (dungeonhack-0.10-win32.zip)	
 	-> aktivate precompiled headers for Visual Studio 2015
 		* rightclick on PrecompiledHeaders.cpp -> C/C++ -> Precompiled Headers -> Precompiled Header :: Create (/Yc) |	Precompiled Header File :: DungeonHack.h
-		* mark all src .cpp of Dungeonhack and UiManager.cpp -> rightclick on PrecompiledHeaders.cpp -> C/C++ -> Precompiled Headers -> Precompiled Header :: Use (/Yu) |	Precompiled Header File :: DungeonHack.h
-		* important don't activate the header for btogre, scripting, tinyXML and xmlConfig
+		* mark all src .cpp of Dungeonhack and scripting and UiManager.cpp -> rightclick on PrecompiledHeaders.cpp -> C/C++ -> Precompiled Headers -> Precompiled Header :: Use (/Yu) |	Precompiled Header File :: DungeonHack.h
+		* important don't activate the header for btogre, tinyXML and xmlConfig
+		
+Scripting with swig http://www.swig.org/download.html
+	-> use the cmd and change the directory to dungeonhack/scripts
+	-> run the command "swig -c++ -python PyPrototypes.i"
+	-> add the generated "PyPrototypes_wrap.cxx" file to dungeonhack/dungeonhack/src/scripting
+	-> add the generated "dungeonhack.py" file to dungeonhack/dungeonhack/GameData/Scripts
+	-> for the progamatically embeding see "PythonManager.cpp" "line 15 extern "C" PyObject *PyInit__dungeonhack();" and "line 60 PyImport_AppendInittab("_dungeonhack", PyInit__dungeonhack);"
+	   it slightly differs from the origin src to make it workable with python 3.x.x

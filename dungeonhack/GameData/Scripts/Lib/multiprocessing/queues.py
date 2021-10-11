@@ -42,12 +42,12 @@ import time
 import atexit
 import weakref
 
-from Queue import Empty, Full
+from queue import Empty, Full
 import _multiprocessing
-from . import Pipe
-from .synchronize import Lock, BoundedSemaphore, Semaphore, Condition
-from .util import debug, info, Finalize, register_after_fork, is_exiting
-from .forking import assert_spawning
+from multiprocessing import Pipe
+from multiprocessing.synchronize import Lock, BoundedSemaphore, Semaphore, Condition
+from multiprocessing.util import debug, info, Finalize, register_after_fork
+from multiprocessing.forking import assert_spawning
 
 #
 # Queue type using a pipe, buffer and thread
@@ -126,11 +126,7 @@ class Queue(object):
             if not self._rlock.acquire(block, timeout):
                 raise Empty
             try:
-                if block:
-                    timeout = deadline - time.time()
-                    if not self._poll(timeout):
-                        raise Empty
-                elif not self._poll():
+                if not self._poll(block and (deadline-time.time()) or 0.0):
                     raise Empty
                 res = self._recv()
                 self._sem.release()
@@ -156,13 +152,9 @@ class Queue(object):
 
     def close(self):
         self._closed = True
-        try:
-            self._reader.close()
-        finally:
-            close = self._close
-            if close:
-                self._close = None
-                close()
+        self._reader.close()
+        if self._close:
+            self._close()
 
     def join_thread(self):
         debug('Queue.join_thread()')
@@ -196,7 +188,13 @@ class Queue(object):
         debug('... done self._thread.start()')
 
         # On process exit we will wait for data to be flushed to pipe.
-        if not self._joincancelled:
+        #
+        # However, if this process created the queue then all
+        # processes which use the queue will be descendants of this
+        # process.  Therefore waiting for the queue to be flushed
+        # is pointless once all the child processes have been joined.
+        created_by_this_process = (self._opid == os.getpid())
+        if not self._joincancelled and not created_by_this_process:
             self._jointhread = Finalize(
                 self._thread, Queue._finalize_join,
                 [weakref.ref(self._thread)],
@@ -233,6 +231,8 @@ class Queue(object):
     @staticmethod
     def _feed(buffer, notempty, send, writelock, close):
         debug('starting thread to feed data to pipe')
+        from .util import is_exiting
+
         nacquire = notempty.acquire
         nrelease = notempty.release
         nwait = notempty.wait
@@ -244,8 +244,8 @@ class Queue(object):
         else:
             wacquire = None
 
-        while 1:
-            try:
+        try:
+            while 1:
                 nacquire()
                 try:
                     if not buffer:
@@ -270,17 +270,19 @@ class Queue(object):
                                 wrelease()
                 except IndexError:
                     pass
-            except Exception as e:
-                # Since this runs in a daemon thread the resources it uses
-                # may be become unusable while the process is cleaning up.
-                # We ignore errors which happen after the process has
-                # started to cleanup.
+        except Exception as e:
+            # Since this runs in a daemon thread the resources it uses
+            # may be become unusable while the process is cleaning up.
+            # We ignore errors which happen after the process has
+            # started to cleanup.
+            try:
                 if is_exiting():
                     info('error in queue thread: %s', e)
-                    return
                 else:
                     import traceback
                     traceback.print_exc()
+            except Exception:
+                pass
 
 _sentinel = object()
 

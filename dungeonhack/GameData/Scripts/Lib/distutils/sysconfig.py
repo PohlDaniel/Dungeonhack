@@ -13,10 +13,9 @@ __revision__ = "$Id$"
 
 import os
 import re
-import string
 import sys
 
-from distutils.errors import DistutilsPlatformError
+from .errors import DistutilsPlatformError
 
 # These are needed in a couple of spots, so just compute them once.
 PREFIX = os.path.normpath(sys.prefix)
@@ -25,12 +24,7 @@ EXEC_PREFIX = os.path.normpath(sys.exec_prefix)
 # Path to the base directory of the project. On Windows the binary may
 # live in project/PCBuild9.  If we're dealing with an x64 Windows build,
 # it'll live in project/PCbuild/amd64.
-if sys.executable:
-    project_base = os.path.dirname(os.path.abspath(sys.executable))
-else:
-    # sys.executable can be empty if argv[0] has been changed and Python is
-    # unable to retrieve the real program name
-    project_base = os.getcwd()
+project_base = os.path.dirname(os.path.abspath(sys.executable))
 if os.name == "nt" and "pcbuild" in project_base[-8:].lower():
     project_base = os.path.abspath(os.path.join(project_base, os.path.pardir))
 # PC/VS7.1
@@ -41,11 +35,6 @@ if os.name == "nt" and "\\pc\\v" in project_base[-10:].lower():
 if os.name == "nt" and "\\pcbuild\\amd64" in project_base[-14:].lower():
     project_base = os.path.abspath(os.path.join(project_base, os.path.pardir,
                                                 os.path.pardir))
-
-# set for cross builds
-if "_PYTHON_PROJECT_BASE" in os.environ:
-    # this is the build directory, at least for posix
-    project_base = os.path.normpath(os.environ["_PYTHON_PROJECT_BASE"])
 
 # python_build: (Boolean) if true, we're either building Python or
 # building an extension with an un-installed Python, so we use
@@ -59,6 +48,17 @@ def _python_build():
     return False
 python_build = _python_build()
 
+# Calculate the build qualifier flags if they are defined.  Adding the flags
+# to the include and lib directories only makes sense for an installation, not
+# an in-source build.
+build_flags = ''
+try:
+    if not python_build:
+        build_flags = sys.abiflags
+except AttributeError:
+    # It's not a configure-based build, so the sys module doesn't have
+    # this attribute, which is fine.
+    pass
 
 def get_python_version():
     """Return a string containing the major and minor Python version,
@@ -81,26 +81,21 @@ def get_python_inc(plat_specific=0, prefix=None):
     """
     if prefix is None:
         prefix = plat_specific and EXEC_PREFIX or PREFIX
-
     if os.name == "posix":
         if python_build:
-            if sys.executable:
-                buildir = os.path.dirname(sys.executable)
-            else:
-                # sys.executable can be empty if argv[0] has been changed
-                # and Python is unable to retrieve the real program name
-                buildir = os.getcwd()
+            # Assume the executable is in the build directory.  The
+            # pyconfig.h file should be in the same directory.  Since
+            # the build directory may not be the source directory, we
+            # must use "srcdir" from the makefile to find the "Include"
+            # directory.
+            base = os.path.dirname(os.path.abspath(sys.executable))
             if plat_specific:
-                # python.h is located in the buildir
-                inc_dir = buildir
+                return base
             else:
-                # the source dir is relative to the buildir
-                srcdir = os.path.abspath(os.path.join(buildir,
-                                         get_config_var('srcdir')))
-                # Include is located in the srcdir
-                inc_dir = os.path.join(srcdir, "Include")
-            return inc_dir
-        return os.path.join(prefix, "include", "python" + get_python_version())
+                incdir = os.path.join(get_config_var('srcdir'), 'Include')
+                return os.path.normpath(incdir)
+        python_dir = 'python' + get_python_version() + build_flags
+        return os.path.join(prefix, "include", python_dir)
     elif os.name == "nt":
         return os.path.join(prefix, "include")
     elif os.name == "os2":
@@ -135,7 +130,6 @@ def get_python_lib(plat_specific=0, standard_lib=0, prefix=None):
             return libpython
         else:
             return os.path.join(libpython, "site-packages")
-
     elif os.name == "nt":
         if standard_lib:
             return os.path.join(prefix, "Lib")
@@ -144,18 +138,15 @@ def get_python_lib(plat_specific=0, standard_lib=0, prefix=None):
                 return prefix
             else:
                 return os.path.join(prefix, "Lib", "site-packages")
-
     elif os.name == "os2":
         if standard_lib:
             return os.path.join(prefix, "Lib")
         else:
             return os.path.join(prefix, "Lib", "site-packages")
-
     else:
         raise DistutilsPlatformError(
             "I don't know where Python installs its library "
             "on platform '%s'" % os.name)
-
 
 
 def customize_compiler(compiler):
@@ -165,36 +156,12 @@ def customize_compiler(compiler):
     varies across Unices and is stored in Python's Makefile.
     """
     if compiler.compiler_type == "unix":
-        if sys.platform == "darwin":
-            # Perform first-time customization of compiler-related
-            # config vars on OS X now that we know we need a compiler.
-            # This is primarily to support Pythons from binary
-            # installers.  The kind and paths to build tools on
-            # the user system may vary significantly from the system
-            # that Python itself was built on.  Also the user OS
-            # version and build tools may not support the same set
-            # of CPU architectures for universal builds.
-            global _config_vars
-            # Use get_config_var() to ensure _config_vars is initialized.
-            if not get_config_var('CUSTOMIZED_OSX_COMPILER'):
-                import _osx_support
-                _osx_support.customize_compiler(_config_vars)
-                _config_vars['CUSTOMIZED_OSX_COMPILER'] = 'True'
-
-        (cc, cxx, cflags, ccshared, ldshared, so_ext, ar, ar_flags) = \
-            get_config_vars('CC', 'CXX', 'CFLAGS',
-                            'CCSHARED', 'LDSHARED', 'SO', 'AR',
-                            'ARFLAGS')
+        (cc, cxx, opt, cflags, ccshared, ldshared, so_ext, ar, ar_flags) = \
+            get_config_vars('CC', 'CXX', 'OPT', 'CFLAGS',
+                            'CCSHARED', 'LDSHARED', 'SO', 'AR', 'ARFLAGS')
 
         if 'CC' in os.environ:
-            newcc = os.environ['CC']
-            if (sys.platform == 'darwin'
-                    and 'LDSHARED' not in os.environ
-                    and ldshared.startswith(cc)):
-                # On OS X, if CC is overridden, use that as the default
-                #       command for LDSHARED as well
-                ldshared = newcc + ldshared[len(cc):]
-            cc = newcc
+            cc = os.environ['CC']
         if 'CXX' in os.environ:
             cxx = os.environ['CXX']
         if 'LDSHARED' in os.environ:
@@ -206,7 +173,7 @@ def customize_compiler(compiler):
         if 'LDFLAGS' in os.environ:
             ldshared = ldshared + ' ' + os.environ['LDFLAGS']
         if 'CFLAGS' in os.environ:
-            cflags = cflags + ' ' + os.environ['CFLAGS']
+            cflags = opt + ' ' + os.environ['CFLAGS']
             ldshared = ldshared + ' ' + os.environ['CFLAGS']
         if 'CPPFLAGS' in os.environ:
             cpp = cpp + ' ' + os.environ['CPPFLAGS']
@@ -252,9 +219,10 @@ def get_config_h_filename():
 def get_makefile_filename():
     """Return full pathname of installed Makefile from the Python build."""
     if python_build:
-        return os.path.join(project_base, "Makefile")
+        return os.path.join(os.path.dirname(sys.executable), "Makefile")
     lib_dir = get_python_lib(plat_specific=1, standard_lib=1)
-    return os.path.join(lib_dir, "config", "Makefile")
+    config_file = 'config-{}{}'.format(get_python_version(), build_flags)
+    return os.path.join(lib_dir, config_file, 'Makefile')
 
 
 def parse_config_h(fp, g=None):
@@ -269,7 +237,7 @@ def parse_config_h(fp, g=None):
     define_rx = re.compile("#define ([A-Z][A-Za-z0-9_]+) (.*)\n")
     undef_rx = re.compile("/[*] #undef ([A-Z][A-Za-z0-9_]+) [*]/\n")
     #
-    while 1:
+    while True:
         line = fp.readline()
         if not line:
             break
@@ -300,16 +268,16 @@ def parse_makefile(fn, g=None):
     used instead of a new dictionary.
     """
     from distutils.text_file import TextFile
-    fp = TextFile(fn, strip_comments=1, skip_blanks=1, join_lines=1)
+    fp = TextFile(fn, strip_comments=1, skip_blanks=1, join_lines=1, errors="surrogateescape")
 
     if g is None:
         g = {}
     done = {}
     notdone = {}
 
-    while 1:
+    while True:
         line = fp.readline()
-        if line is None:  # eof
+        if line is None: # eof
             break
         m = _variable_rx.match(line)
         if m:
@@ -329,9 +297,15 @@ def parse_makefile(fn, g=None):
                 else:
                     done[n] = v
 
+    # Variables with a 'PY_' prefix in the makefile. These need to
+    # be made available without that prefix through sysconfig.
+    # Special care is needed to ensure that variable expansion works, even
+    # if the expansion uses the name without a prefix.
+    renamed_variables = ('CFLAGS', 'LDFLAGS', 'CPPFLAGS')
+
     # do variable interpolation here
     while notdone:
-        for name in notdone.keys():
+        for name in list(notdone):
             value = notdone[name]
             m = _findvar1_rx.search(value) or _findvar2_rx.search(value)
             if m:
@@ -345,6 +319,16 @@ def parse_makefile(fn, g=None):
                 elif n in os.environ:
                     # do it like make: fall back to environment
                     item = os.environ[n]
+
+                elif n in renamed_variables:
+                    if name.startswith('PY_') and name[3:] in renamed_variables:
+                        item = ""
+
+                    elif 'PY_' + n in notdone:
+                        found = False
+
+                    else:
+                        item = str(done['PY_' + n])
                 else:
                     done[n] = item = ""
                 if found:
@@ -359,6 +343,13 @@ def parse_makefile(fn, g=None):
                         else:
                             done[name] = value
                         del notdone[name]
+
+                        if name.startswith('PY_') \
+                            and name[3:] in renamed_variables:
+
+                            name = name[3:]
+                            if name not in done:
+                                done[name] = value
             else:
                 # bogus variable reference; just drop it since we can't deal
                 del notdone[name]
@@ -390,7 +381,7 @@ def expand_makefile_vars(s, vars):
     # 'parse_makefile()', which takes care of such expansions eagerly,
     # according to make's variable expansion semantics.
 
-    while 1:
+    while True:
         m = _findvar1_rx.search(s) or _findvar2_rx.search(s)
         if m:
             (beg, end) = m.span()
@@ -404,11 +395,49 @@ _config_vars = None
 
 def _init_posix():
     """Initialize the module as appropriate for POSIX systems."""
-    # _sysconfigdata is generated at build time, see the sysconfig module
-    from _sysconfigdata import build_time_vars
+    g = {}
+    # load the installed Makefile:
+    try:
+        filename = get_makefile_filename()
+        parse_makefile(filename, g)
+    except IOError as msg:
+        my_msg = "invalid Python installation: unable to open %s" % filename
+        if hasattr(msg, "strerror"):
+            my_msg = my_msg + " (%s)" % msg.strerror
+
+        raise DistutilsPlatformError(my_msg)
+
+    # load the installed pyconfig.h:
+    try:
+        filename = get_config_h_filename()
+        with open(filename) as file:
+            parse_config_h(file, g)
+    except IOError as msg:
+        my_msg = "invalid Python installation: unable to open %s" % filename
+        if hasattr(msg, "strerror"):
+            my_msg = my_msg + " (%s)" % msg.strerror
+
+        raise DistutilsPlatformError(my_msg)
+
+    # On AIX, there are wrong paths to the linker scripts in the Makefile
+    # -- these paths are relative to the Python source, but when installed
+    # the scripts are in another directory.
+    if python_build:
+        g['LDSHARED'] = g['BLDSHARED']
+
+    elif get_python_version() < '2.1':
+        # The following two branches are for 1.5.2 compatibility.
+        if sys.platform == 'aix4':          # what about AIX 3.x ?
+            # Linker script is in the config directory, not in Modules as the
+            # Makefile says.
+            python_lib = get_python_lib(standard_lib=1)
+            ld_so_aix = os.path.join(python_lib, 'config', 'ld_so_aix')
+            python_exp = os.path.join(python_lib, 'config', 'python.exp')
+
+            g['LDSHARED'] = "%s %s -bI:%s" % (ld_so_aix, g['CC'], python_exp)
+
     global _config_vars
-    _config_vars = {}
-    _config_vars.update(build_time_vars)
+    _config_vars = g
 
 
 def _init_nt():
@@ -471,11 +500,57 @@ def get_config_vars(*args):
         _config_vars['prefix'] = PREFIX
         _config_vars['exec_prefix'] = EXEC_PREFIX
 
-        # OS X platforms require special customization to handle
-        # multi-architecture, multi-os-version installers
+        # Convert srcdir into an absolute path if it appears necessary.
+        # Normally it is relative to the build directory.  However, during
+        # testing, for example, we might be running a non-installed python
+        # from a different directory.
+        if python_build and os.name == "posix":
+            base = os.path.dirname(os.path.abspath(sys.executable))
+            if (not os.path.isabs(_config_vars['srcdir']) and
+                base != os.getcwd()):
+                # srcdir is relative and we are not in the same directory
+                # as the executable. Assume executable is in the build
+                # directory and make srcdir absolute.
+                srcdir = os.path.join(base, _config_vars['srcdir'])
+                _config_vars['srcdir'] = os.path.normpath(srcdir)
+
         if sys.platform == 'darwin':
-            import _osx_support
-            _osx_support.customize_config_vars(_config_vars)
+            kernel_version = os.uname()[2] # Kernel version (8.4.3)
+            major_version = int(kernel_version.split('.')[0])
+
+            if major_version < 8:
+                # On Mac OS X before 10.4, check if -arch and -isysroot
+                # are in CFLAGS or LDFLAGS and remove them if they are.
+                # This is needed when building extensions on a 10.3 system
+                # using a universal build of python.
+                for key in ('LDFLAGS', 'BASECFLAGS',
+                        # a number of derived variables. These need to be
+                        # patched up as well.
+                        'CFLAGS', 'PY_CFLAGS', 'BLDSHARED'):
+                    flags = _config_vars[key]
+                    flags = re.sub('-arch\s+\w+\s', ' ', flags, re.ASCII)
+                    flags = re.sub('-isysroot [^ \t]*', ' ', flags)
+                    _config_vars[key] = flags
+
+            else:
+
+                # Allow the user to override the architecture flags using
+                # an environment variable.
+                # NOTE: This name was introduced by Apple in OSX 10.5 and
+                # is used by several scripting languages distributed with
+                # that OS release.
+
+                if 'ARCHFLAGS' in os.environ:
+                    arch = os.environ['ARCHFLAGS']
+                    for key in ('LDFLAGS', 'BASECFLAGS',
+                        # a number of derived variables. These need to be
+                        # patched up as well.
+                        'CFLAGS', 'PY_CFLAGS', 'BLDSHARED'):
+
+                        flags = _config_vars[key]
+                        flags = re.sub('-arch\s+\w+\s', ' ', flags)
+                        flags = flags + ' ' + arch
+                        _config_vars[key] = flags
 
     if args:
         vals = []

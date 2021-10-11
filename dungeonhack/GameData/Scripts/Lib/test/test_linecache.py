@@ -11,7 +11,7 @@ INVALID_NAME = '!@$)(!@#_1'
 EMPTY = ''
 TESTS = 'inspect_fodder inspect_fodder2 mapping_tests'
 TESTS = TESTS.split()
-TEST_PATH = support.TEST_HOME_DIR
+TEST_PATH = os.path.dirname(support.__file__)
 MODULES = "linecache abc".split()
 MODULE_PATH = os.path.dirname(FILENAME)
 
@@ -55,14 +55,16 @@ class LineCacheTests(unittest.TestCase):
         # Check whether lines correspond to those from file iteration
         for entry in TESTS:
             filename = os.path.join(TEST_PATH, entry) + '.py'
-            for index, line in enumerate(open(filename)):
-                self.assertEqual(line, getline(filename, index + 1))
+            with open(filename) as file:
+                for index, line in enumerate(file):
+                    self.assertEqual(line, getline(filename, index + 1))
 
         # Check module loading
         for entry in MODULES:
             filename = os.path.join(MODULE_PATH, entry) + '.py'
-            for index, line in enumerate(open(filename)):
-                self.assertEqual(line, getline(filename, index + 1))
+            with open(filename) as file:
+                for index, line in enumerate(file):
+                    self.assertEqual(line, getline(filename, index + 1))
 
         # Check that bogus data isn't returned (issue #1309567)
         empty = linecache.getlines('a/b/c/__init__.py')
@@ -123,22 +125,6 @@ class LineCacheTests(unittest.TestCase):
             for index, line in enumerate(source):
                 self.assertEqual(line, getline(source_name, index + 1))
                 source_list.append(line)
-
-    def test_memoryerror(self):
-        lines = linecache.getlines(FILENAME)
-        self.assertTrue(lines)
-        def raise_memoryerror(*args, **kwargs):
-            raise MemoryError
-        with support.swap_attr(linecache, 'updatecache', raise_memoryerror):
-            lines2 = linecache.getlines(FILENAME)
-        self.assertEqual(lines2, lines)
-
-        linecache.clearcache()
-        with support.swap_attr(linecache, 'updatecache', raise_memoryerror):
-            lines3 = linecache.getlines(FILENAME)
-        self.assertEqual(lines3, [])
-        self.assertEqual(linecache.getlines(FILENAME), lines)
-
 
 def test_main():
     support.run_unittest(LineCacheTests)

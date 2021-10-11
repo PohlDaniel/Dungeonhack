@@ -1,4 +1,4 @@
-from test import test_support
+from test import support
 import unittest
 import select
 import os
@@ -32,36 +32,26 @@ class SelectTestCase(unittest.TestCase):
         cmd = 'for i in 0 1 2 3 4 5 6 7 8 9; do echo testing...; sleep 1; done'
         p = os.popen(cmd, 'r')
         for tout in (0, 1, 2, 4, 8, 16) + (None,)*10:
-            if test_support.verbose:
-                print 'timeout =', tout
+            if support.verbose:
+                print('timeout =', tout)
             rfd, wfd, xfd = select.select([p], [], [], tout)
             if (rfd, wfd, xfd) == ([], [], []):
                 continue
             if (rfd, wfd, xfd) == ([p], [], []):
                 line = p.readline()
-                if test_support.verbose:
-                    print repr(line)
+                if support.verbose:
+                    print(repr(line))
                 if not line:
-                    if test_support.verbose:
-                        print 'EOF'
+                    if support.verbose:
+                        print('EOF')
                     break
                 continue
             self.fail('Unexpected return values from select():', rfd, wfd, xfd)
         p.close()
 
-    # Issue 16230: Crash on select resized list
-    def test_select_mutated(self):
-        a = []
-        class F:
-            def fileno(self):
-                del a[-1]
-                return sys.__stdout__.fileno()
-        a[:] = [F()] * 10
-        self.assertEqual(select.select([], a, []), ([], a[:5], []))
-
 def test_main():
-    test_support.run_unittest(SelectTestCase)
-    test_support.reap_children()
+    support.run_unittest(SelectTestCase)
+    support.reap_children()
 
 if __name__ == "__main__":
     test_main()

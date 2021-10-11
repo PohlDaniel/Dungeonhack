@@ -28,15 +28,9 @@ POP3_PORT = 110
 POP3_SSL_PORT = 995
 
 # Line terminators (we always output CRLF, but accept any of CRLF, LFCR, LF)
-CR = '\r'
-LF = '\n'
+CR = b'\r'
+LF = b'\n'
 CRLF = CR+LF
-
-# maximal line length when calling readline(). This is to prevent
-# reading arbitrary length lines. RFC 1939 limits POP3 line length to
-# 512 characters, including CRLF. We have selected 2048 just to be on
-# the safe side.
-_MAXLINE = 2048
 
 
 class POP3:
@@ -81,26 +75,30 @@ class POP3:
             above.
     """
 
+    encoding = 'UTF-8'
 
     def __init__(self, host, port=POP3_PORT,
                  timeout=socket._GLOBAL_DEFAULT_TIMEOUT):
         self.host = host
         self.port = port
-        self.sock = socket.create_connection((host, port), timeout)
+        self.sock = self._create_socket(timeout)
         self.file = self.sock.makefile('rb')
         self._debugging = 0
         self.welcome = self._getresp()
 
+    def _create_socket(self, timeout):
+        return socket.create_connection((self.host, self.port), timeout)
 
     def _putline(self, line):
-        if self._debugging > 1: print '*put*', repr(line)
-        self.sock.sendall('%s%s' % (line, CRLF))
+        if self._debugging > 1: print('*put*', repr(line))
+        self.sock.sendall(line + CRLF)
 
 
     # Internal: send one command to the server (through _putline())
 
     def _putcmd(self, line):
-        if self._debugging: print '*cmd*', repr(line)
+        if self._debugging: print('*cmd*', repr(line))
+        line = bytes(line, self.encoding)
         self._putline(line)
 
 
@@ -109,10 +107,8 @@ class POP3:
     # Raise error_proto('-ERR EOF') if the connection is closed.
 
     def _getline(self):
-        line = self.file.readline(_MAXLINE + 1)
-        if len(line) > _MAXLINE:
-            raise error_proto('line too long')
-        if self._debugging > 1: print '*get*', repr(line)
+        line = self.file.readline()
+        if self._debugging > 1: print('*get*', repr(line))
         if not line: raise error_proto('-ERR EOF')
         octets = len(line)
         # server can send any combination of CR & LF
@@ -130,9 +126,8 @@ class POP3:
 
     def _getresp(self):
         resp, o = self._getline()
-        if self._debugging > 1: print '*resp*', repr(resp)
-        c = resp[:1]
-        if c != '+':
+        if self._debugging > 1: print('*resp*', repr(resp))
+        if not resp.startswith(b'+'):
             raise error_proto(resp)
         return resp
 
@@ -143,8 +138,8 @@ class POP3:
         resp = self._getresp()
         list = []; octets = 0
         line, o = self._getline()
-        while line != '.':
-            if line[:2] == '..':
+        while line != b'.':
+            if line.startswith(b'..'):
                 o = o-1
                 line = line[1:]
             octets = octets + o
@@ -204,7 +199,7 @@ class POP3:
         """
         retval = self._shortcmd('STAT')
         rets = retval.split()
-        if self._debugging: print '*stat*', repr(rets)
+        if self._debugging: print('*stat*', repr(rets))
         numMessages = int(rets[1])
         sizeMessages = int(rets[2])
         return (numMessages, sizeMessages)
@@ -257,7 +252,7 @@ class POP3:
         """Signoff: commit changes on server, unlock mailbox, close connection."""
         try:
             resp = self._shortcmd('QUIT')
-        except error_proto, val:
+        except error_proto as val:
             resp = val
         self.file.close()
         self.sock.close()
@@ -274,25 +269,26 @@ class POP3:
         return self._shortcmd('RPOP %s' % user)
 
 
-    timestamp = re.compile(br'\+OK.[^<]*(<.*>)')
+    timestamp = re.compile(br'\+OK.*(<[^>]+>)')
 
-    def apop(self, user, secret):
+    def apop(self, user, password):
         """Authorisation
 
         - only possible if server has supplied a timestamp in initial greeting.
 
         Args:
-                user    - mailbox user;
-                secret  - secret shared between client and server.
+                user     - mailbox user;
+                password - mailbox password.
 
         NB: mailbox is locked by server from here to 'quit()'
         """
+        secret = bytes(password, self.encoding)
         m = self.timestamp.match(self.welcome)
         if not m:
             raise error_proto('-ERR APOP not supported by server')
         import hashlib
-        digest = hashlib.md5(m.group(1)+secret).digest()
-        digest = ''.join(map(lambda x:'%02x'%ord(x), digest))
+        digest = m.group(1)+secret
+        digest = hashlib.md5(digest).hexdigest()
         return self._shortcmd('APOP %s %s' % (user, digest))
 
 
@@ -329,99 +325,47 @@ else:
 
                hostname - the hostname of the pop3 over ssl server
                port - port number
-               keyfile - PEM formatted file that contains your private key
+               keyfile - PEM formatted file that countains your private key
                certfile - PEM formatted certificate chain file
 
-            See the methods of the parent class POP3 for more documentation.
+        See the methods of the parent class POP3 for more documentation.
         """
 
-        def __init__(self, host, port = POP3_SSL_PORT, keyfile = None, certfile = None):
-            self.host = host
-            self.port = port
+        def __init__(self, host, port=POP3_SSL_PORT, keyfile=None, certfile=None,
+                     timeout=socket._GLOBAL_DEFAULT_TIMEOUT, context=None):
+            if context is not None and keyfile is not None:
+                raise ValueError("context and keyfile arguments are mutually "
+                                 "exclusive")
+            if context is not None and certfile is not None:
+                raise ValueError("context and certfile arguments are mutually "
+                                 "exclusive")
             self.keyfile = keyfile
             self.certfile = certfile
-            self.buffer = ""
-            msg = "getaddrinfo returns an empty list"
-            self.sock = None
-            for res in socket.getaddrinfo(self.host, self.port, 0, socket.SOCK_STREAM):
-                af, socktype, proto, canonname, sa = res
-                try:
-                    self.sock = socket.socket(af, socktype, proto)
-                    self.sock.connect(sa)
-                except socket.error, msg:
-                    if self.sock:
-                        self.sock.close()
-                    self.sock = None
-                    continue
-                break
-            if not self.sock:
-                raise socket.error, msg
-            self.file = self.sock.makefile('rb')
-            self.sslobj = ssl.wrap_socket(self.sock, self.keyfile, self.certfile)
-            self._debugging = 0
-            self.welcome = self._getresp()
+            self.context = context
+            POP3.__init__(self, host, port, timeout)
 
-        def _fillBuffer(self):
-            localbuf = self.sslobj.read()
-            if len(localbuf) == 0:
-                raise error_proto('-ERR EOF')
-            self.buffer += localbuf
-
-        def _getline(self):
-            line = ""
-            renewline = re.compile(r'.*?\n')
-            match = renewline.match(self.buffer)
-            while not match:
-                self._fillBuffer()
-                if len(self.buffer) > _MAXLINE:
-                    raise error_proto('line too long')
-                match = renewline.match(self.buffer)
-            line = match.group(0)
-            self.buffer = renewline.sub('' ,self.buffer, 1)
-            if self._debugging > 1: print '*get*', repr(line)
-
-            octets = len(line)
-            if line[-2:] == CRLF:
-                return line[:-2], octets
-            if line[0] == CR:
-                return line[1:-1], octets
-            return line[:-1], octets
-
-        def _putline(self, line):
-            if self._debugging > 1: print '*put*', repr(line)
-            line += CRLF
-            bytes = len(line)
-            while bytes > 0:
-                sent = self.sslobj.write(line)
-                if sent == bytes:
-                    break    # avoid copy
-                line = line[sent:]
-                bytes = bytes - sent
-
-        def quit(self):
-            """Signoff: commit changes on server, unlock mailbox, close connection."""
-            try:
-                resp = self._shortcmd('QUIT')
-            except error_proto, val:
-                resp = val
-            self.sock.close()
-            del self.sslobj, self.sock
-            return resp
+        def _create_socket(self, timeout):
+            sock = POP3._create_socket(self, timeout)
+            if self.context is not None:
+                sock = self.context.wrap_socket(sock)
+            else:
+                sock = ssl.wrap_socket(sock, self.keyfile, self.certfile)
+            return sock
 
     __all__.append("POP3_SSL")
 
 if __name__ == "__main__":
     import sys
     a = POP3(sys.argv[1])
-    print a.getwelcome()
+    print(a.getwelcome())
     a.user(sys.argv[2])
     a.pass_(sys.argv[3])
     a.list()
     (numMsgs, totalSize) = a.stat()
     for i in range(1, numMsgs + 1):
         (header, msg, octets) = a.retr(i)
-        print "Message %d:" % i
+        print("Message %d:" % i)
         for line in msg:
-            print '   ' + line
-        print '-----------------------'
+            print('   ' + line)
+        print('-----------------------')
     a.quit()

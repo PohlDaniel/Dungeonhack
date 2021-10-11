@@ -7,28 +7,28 @@ import os
 import struct
 import sys
 import unittest
-from test.test_support import (verbose, TESTFN, unlink, run_unittest,
-    import_module, cpython_only)
+from test.support import verbose, TESTFN, unlink, run_unittest, import_module
 
-# Skip test if no fcntl module.
+# Skip test if no fnctl module.
 fcntl = import_module('fcntl')
 
 
 # TODO - Write tests for flock() and lockf().
 
 def get_lockdata():
-    if sys.platform.startswith('atheos'):
-        start_len = "qq"
+    try:
+        os.O_LARGEFILE
+    except AttributeError:
+        start_len = "ll"
     else:
-        try:
-            os.O_LARGEFILE
-        except AttributeError:
-            start_len = "ll"
-        else:
-            start_len = "qq"
+        start_len = "qq"
 
-    if (sys.platform.startswith(('netbsd', 'freebsd', 'openbsd', 'bsdos'))
-        or sys.platform == 'darwin'):
+    if sys.platform in ('netbsd1', 'netbsd2', 'netbsd3',
+                        'Darwin1.2', 'darwin',
+                        'freebsd2', 'freebsd3', 'freebsd4', 'freebsd5',
+                        'freebsd6', 'freebsd7', 'freebsd8',
+                        'bsdos2', 'bsdos3', 'bsdos4',
+                        'openbsd', 'openbsd2', 'openbsd3', 'openbsd4'):
         if struct.calcsize('l') == 8:
             off_t = 'l'
             pid_t = 'i'
@@ -45,17 +45,10 @@ def get_lockdata():
         lockdata = struct.pack('hh'+start_len+'hh', fcntl.F_WRLCK, 0, 0, 0, 0, 0)
     if lockdata:
         if verbose:
-            print 'struct.pack: ', repr(lockdata)
+            print('struct.pack: ', repr(lockdata))
     return lockdata
 
 lockdata = get_lockdata()
-
-
-class BadFile:
-    def __init__(self, fn):
-        self.fn = fn
-    def fileno(self):
-        return self.fn
 
 class TestFcntl(unittest.TestCase):
 
@@ -69,46 +62,23 @@ class TestFcntl(unittest.TestCase):
 
     def test_fcntl_fileno(self):
         # the example from the library docs
-        self.f = open(TESTFN, 'w')
+        self.f = open(TESTFN, 'wb')
         rv = fcntl.fcntl(self.f.fileno(), fcntl.F_SETFL, os.O_NONBLOCK)
         if verbose:
-            print 'Status from fcntl with O_NONBLOCK: ', rv
+            print('Status from fcntl with O_NONBLOCK: ', rv)
         if sys.platform not in ['os2emx']:
             rv = fcntl.fcntl(self.f.fileno(), fcntl.F_SETLKW, lockdata)
             if verbose:
-                print 'String from fcntl with F_SETLKW: ', repr(rv)
+                print('String from fcntl with F_SETLKW: ', repr(rv))
         self.f.close()
 
     def test_fcntl_file_descriptor(self):
         # again, but pass the file rather than numeric descriptor
-        self.f = open(TESTFN, 'w')
+        self.f = open(TESTFN, 'wb')
         rv = fcntl.fcntl(self.f, fcntl.F_SETFL, os.O_NONBLOCK)
         if sys.platform not in ['os2emx']:
             rv = fcntl.fcntl(self.f, fcntl.F_SETLKW, lockdata)
         self.f.close()
-
-    def test_fcntl_bad_file(self):
-        with self.assertRaises(ValueError):
-            fcntl.fcntl(-1, fcntl.F_SETFL, os.O_NONBLOCK)
-        with self.assertRaises(ValueError):
-            fcntl.fcntl(BadFile(-1), fcntl.F_SETFL, os.O_NONBLOCK)
-        with self.assertRaises(TypeError):
-            fcntl.fcntl('spam', fcntl.F_SETFL, os.O_NONBLOCK)
-        with self.assertRaises(TypeError):
-            fcntl.fcntl(BadFile('spam'), fcntl.F_SETFL, os.O_NONBLOCK)
-
-    @cpython_only
-    def test_fcntl_bad_file_overflow(self):
-        from _testcapi import INT_MAX, INT_MIN
-        # Issue 15989
-        with self.assertRaises(ValueError):
-            fcntl.fcntl(INT_MAX + 1, fcntl.F_SETFL, os.O_NONBLOCK)
-        with self.assertRaises(ValueError):
-            fcntl.fcntl(BadFile(INT_MAX + 1), fcntl.F_SETFL, os.O_NONBLOCK)
-        with self.assertRaises(ValueError):
-            fcntl.fcntl(INT_MIN - 1, fcntl.F_SETFL, os.O_NONBLOCK)
-        with self.assertRaises(ValueError):
-            fcntl.fcntl(BadFile(INT_MIN - 1), fcntl.F_SETFL, os.O_NONBLOCK)
 
     def test_fcntl_64_bit(self):
         # Issue #1309352: fcntl shouldn't fail when the third arg fits in a
@@ -121,10 +91,7 @@ class TestFcntl(unittest.TestCase):
             self.skipTest("F_NOTIFY or DN_MULTISHOT unavailable")
         fd = os.open(os.path.dirname(os.path.abspath(TESTFN)), os.O_RDONLY)
         try:
-            # This will raise OverflowError if issue1309352 is present.
             fcntl.fcntl(fd, cmd, flags)
-        except IOError:
-            pass  # Running on a system that doesn't support these flags.
         finally:
             os.close(fd)
 

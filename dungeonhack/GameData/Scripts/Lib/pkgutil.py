@@ -191,11 +191,8 @@ class ImpImporter:
 
         yielded = {}
         import inspect
-        try:
-            filenames = os.listdir(self.path)
-        except OSError:
-            # ignore unreadable directories like import does
-            filenames = []
+
+        filenames = os.listdir(self.path)
         filenames.sort()  # handle packages before same-named modules
 
         for fn in filenames:
@@ -208,12 +205,7 @@ class ImpImporter:
 
             if not modname and os.path.isdir(path) and '.' not in fn:
                 modname = fn
-                try:
-                    dircontents = os.listdir(path)
-                except OSError:
-                    # ignore unreadable directories like import does
-                    dircontents = []
-                for fn in dircontents:
+                for fn in os.listdir(path):
                     subname = inspect.getmodulename(fn)
                     if subname=='__init__':
                         ispkg = True
@@ -327,8 +319,7 @@ try:
     from zipimport import zipimporter
 
     def iter_zipimport_modules(importer, prefix=''):
-        dirlist = zipimport._zip_directory_cache[importer.archive].keys()
-        dirlist.sort()
+        dirlist = sorted(zipimport._zip_directory_cache[importer.archive])
         _prefix = importer.prefix
         plen = len(_prefix)
         yielded = {}
@@ -516,15 +507,13 @@ def extend_path(path, name):
         return path
 
     pname = os.path.join(*name.split('.')) # Reconstitute as relative path
-    # Just in case os.extsep != '.'
-    sname = os.extsep.join(name.split('.'))
-    sname_pkg = sname + os.extsep + "pkg"
-    init_py = "__init__" + os.extsep + "py"
+    sname_pkg = name + ".pkg"
+    init_py = "__init__.py"
 
     path = path[:] # Start with a copy of the existing path
 
     for dir in sys.path:
-        if not isinstance(dir, basestring) or not os.path.isdir(dir):
+        if not isinstance(dir, str) or not os.path.isdir(dir):
             continue
         subdir = os.path.join(dir, pname)
         # XXX This may still add duplicate entries to path on
@@ -538,7 +527,7 @@ def extend_path(path, name):
         if os.path.isfile(pkgfile):
             try:
                 f = open(pkgfile)
-            except IOError, msg:
+            except IOError as msg:
                 sys.stderr.write("Can't open %s: %s\n" %
                                  (pkgfile, msg))
             else:

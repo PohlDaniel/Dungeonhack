@@ -50,7 +50,8 @@ __getstate__() and __setstate__().  See the documentation for module
 
 import types
 import weakref
-from copy_reg import dispatch_table
+from copyreg import dispatch_table
+import builtins
 
 class Error(Exception):
     pass
@@ -100,13 +101,16 @@ _copy_dispatch = d = {}
 
 def _copy_immutable(x):
     return x
-for t in (type(None), int, long, float, bool, str, tuple,
-          frozenset, type, xrange, types.ClassType,
+for t in (type(None), int, float, bool, str, tuple,
+          frozenset, type, range,
           types.BuiltinFunctionType, type(Ellipsis),
           types.FunctionType, weakref.ref):
     d[t] = _copy_immutable
-for name in ("ComplexType", "UnicodeType", "CodeType"):
-    t = getattr(types, name, None)
+t = getattr(types, "CodeType", None)
+if t is not None:
+    d[t] = _copy_immutable
+for name in ("complex", "unicode"):
+    t = getattr(builtins, name, None)
     if t is not None:
         d[t] = _copy_immutable
 
@@ -119,26 +123,6 @@ def _copy_with_copy_method(x):
     return x.copy()
 if PyStringMap is not None:
     d[PyStringMap] = _copy_with_copy_method
-
-def _copy_inst(x):
-    if hasattr(x, '__copy__'):
-        return x.__copy__()
-    if hasattr(x, '__getinitargs__'):
-        args = x.__getinitargs__()
-        y = x.__class__(*args)
-    else:
-        y = _EmptyClass()
-        y.__class__ = x.__class__
-    if hasattr(x, '__getstate__'):
-        state = x.__getstate__()
-    else:
-        state = x.__dict__
-    if hasattr(y, '__setstate__'):
-        y.__setstate__(state)
-    else:
-        y.__dict__.update(state)
-    return y
-d[types.InstanceType] = _copy_inst
 
 del d
 
@@ -200,25 +184,20 @@ def _deepcopy_atomic(x, memo):
 d[type(None)] = _deepcopy_atomic
 d[type(Ellipsis)] = _deepcopy_atomic
 d[int] = _deepcopy_atomic
-d[long] = _deepcopy_atomic
 d[float] = _deepcopy_atomic
 d[bool] = _deepcopy_atomic
 try:
     d[complex] = _deepcopy_atomic
 except NameError:
     pass
+d[bytes] = _deepcopy_atomic
 d[str] = _deepcopy_atomic
-try:
-    d[unicode] = _deepcopy_atomic
-except NameError:
-    pass
 try:
     d[types.CodeType] = _deepcopy_atomic
 except AttributeError:
     pass
 d[type] = _deepcopy_atomic
-d[xrange] = _deepcopy_atomic
-d[types.ClassType] = _deepcopy_atomic
+d[range] = _deepcopy_atomic
 d[types.BuiltinFunctionType] = _deepcopy_atomic
 d[types.FunctionType] = _deepcopy_atomic
 d[weakref.ref] = _deepcopy_atomic
@@ -253,7 +232,7 @@ d[tuple] = _deepcopy_tuple
 def _deepcopy_dict(x, memo):
     y = {}
     memo[id(x)] = y
-    for key, value in x.iteritems():
+    for key, value in x.items():
         y[deepcopy(key, memo)] = deepcopy(value, memo)
     return y
 d[dict] = _deepcopy_dict
@@ -261,7 +240,7 @@ if PyStringMap is not None:
     d[PyStringMap] = _deepcopy_dict
 
 def _deepcopy_method(x, memo): # Copy instance methods
-    return type(x)(x.im_func, deepcopy(x.im_self, memo), x.im_class)
+    return type(x)(x.__func__, deepcopy(x.__self__, memo))
 _deepcopy_dispatch[types.MethodType] = _deepcopy_method
 
 def _keep_alive(x, memo):
@@ -280,29 +259,6 @@ def _keep_alive(x, memo):
         # aha, this is the first one :-)
         memo[id(memo)]=[x]
 
-def _deepcopy_inst(x, memo):
-    if hasattr(x, '__deepcopy__'):
-        return x.__deepcopy__(memo)
-    if hasattr(x, '__getinitargs__'):
-        args = x.__getinitargs__()
-        args = deepcopy(args, memo)
-        y = x.__class__(*args)
-    else:
-        y = _EmptyClass()
-        y.__class__ = x.__class__
-    memo[id(x)] = y
-    if hasattr(x, '__getstate__'):
-        state = x.__getstate__()
-    else:
-        state = x.__dict__
-    state = deepcopy(state, memo)
-    if hasattr(y, '__setstate__'):
-        y.__setstate__(state)
-    else:
-        y.__dict__.update(state)
-    return y
-d[types.InstanceType] = _deepcopy_inst
-
 def _reconstruct(x, info, deep, memo=None):
     if isinstance(info, str):
         return x
@@ -315,7 +271,7 @@ def _reconstruct(x, info, deep, memo=None):
     if n > 2:
         state = info[2]
     else:
-        state = None
+        state = {}
     if n > 3:
         listiter = info[3]
     else:
@@ -329,7 +285,7 @@ def _reconstruct(x, info, deep, memo=None):
     y = callable(*args)
     memo[id(x)] = y
 
-    if state is not None:
+    if state:
         if deep:
             state = deepcopy(state, memo)
         if hasattr(y, '__setstate__'):
@@ -342,7 +298,7 @@ def _reconstruct(x, info, deep, memo=None):
             if state is not None:
                 y.__dict__.update(state)
             if slotstate is not None:
-                for key, value in slotstate.iteritems():
+                for key, value in slotstate.items():
                     setattr(y, key, value)
 
     if listiter is not None:
@@ -367,14 +323,14 @@ class _EmptyClass:
     pass
 
 def _test():
-    l = [None, 1, 2L, 3.14, 'xyzzy', (1, 2L), [3.14, 'abc'],
+    l = [None, 1, 2, 3.14, 'xyzzy', (1, 2), [3.14, 'abc'],
          {'abc': 'ABC'}, (), [], {}]
     l1 = copy(l)
-    print l1==l
+    print(l1==l)
     l1 = map(copy, l)
-    print l1==l
+    print(l1==l)
     l1 = deepcopy(l)
-    print l1==l
+    print(l1==l)
     class C:
         def __init__(self, arg=None):
             self.a = 1
@@ -389,7 +345,7 @@ def _test():
         def __getstate__(self):
             return {'a': self.a, 'arg': self.arg}
         def __setstate__(self, state):
-            for key, value in state.iteritems():
+            for key, value in state.items():
                 setattr(self, key, value)
         def __deepcopy__(self, memo=None):
             new = self.__class__(deepcopy(self.arg, memo))
@@ -398,26 +354,25 @@ def _test():
     c = C('argument sketch')
     l.append(c)
     l2 = copy(l)
-    print l == l2
-    print l
-    print l2
+    print(l == l2)
+    print(l)
+    print(l2)
     l2 = deepcopy(l)
-    print l == l2
-    print l
-    print l2
+    print(l == l2)
+    print(l)
+    print(l2)
     l.append({l[1]: l, 'xyz': l[2]})
     l3 = copy(l)
-    import repr
-    print map(repr.repr, l)
-    print map(repr.repr, l1)
-    print map(repr.repr, l2)
-    print map(repr.repr, l3)
+    import reprlib
+    print(map(reprlib.repr, l))
+    print(map(reprlib.repr, l1))
+    print(map(reprlib.repr, l2))
+    print(map(reprlib.repr, l3))
     l3 = deepcopy(l)
-    import repr
-    print map(repr.repr, l)
-    print map(repr.repr, l1)
-    print map(repr.repr, l2)
-    print map(repr.repr, l3)
+    print(map(reprlib.repr, l))
+    print(map(reprlib.repr, l1))
+    print(map(reprlib.repr, l2))
+    print(map(reprlib.repr, l3))
     class odict(dict):
         def __init__(self, d = {}):
             self.a = 99

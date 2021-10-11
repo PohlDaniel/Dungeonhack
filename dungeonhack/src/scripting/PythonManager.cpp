@@ -12,13 +12,9 @@
 #include "GameWorld.h"
 #include "QuestManager.h"
 
-extern "C" {
-void init_dungeonhack(); // FROM SWIG
-};
-
+extern "C" PyObject *PyInit__dungeonhack(); // FROM SWIG
 
 #define SCRIPT_MAX_FILESIZE 16384
-
 
 // Singleton
 template<> PythonManager* Ogre::Singleton<PythonManager>::ms_Singleton = 0;
@@ -60,7 +56,8 @@ PythonManager::PythonManager()
 {
     string dummy;
 
-	Py_SetPythonHome("GameData/Scripts");
+	Py_SetPythonHome(L"GameData/Scripts");
+	PyImport_AppendInittab("_dungeonhack", PyInit__dungeonhack);
     Py_Initialize();
     PyEval_InitThreads();
     PyEval_ReleaseLock();
@@ -297,8 +294,6 @@ void PythonManager::callQuestFunction(string filename, string function, Quest * 
 
 void PythonManager::linkFunctions()
 {
-	
-    init_dungeonhack();
     loadScript("internals.py", m_mainThread);
     loadScript("dungeonhack.py", m_mainThread);
 }

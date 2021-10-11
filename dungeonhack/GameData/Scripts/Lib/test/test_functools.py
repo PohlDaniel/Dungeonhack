@@ -1,10 +1,11 @@
-import copy
 import functools
+import collections
 import sys
 import unittest
-from test import test_support
+from test import support
 from weakref import proxy
 import pickle
+from random import choice
 
 @staticmethod
 def PythonPartial(func, *args, **keywords):
@@ -26,39 +27,31 @@ def signature(part):
     """ return the signature of a partial object """
     return (part.func, part.args, part.keywords, part.__dict__)
 
-class MyTuple(tuple):
-    pass
-
-class BadTuple(tuple):
-    def __add__(self, other):
-        return list(self) + list(other)
-
-class MyDict(dict):
-    pass
-
 class TestPartial(unittest.TestCase):
 
-    partial = functools.partial
+    thetype = functools.partial
 
     def test_basic_examples(self):
-        p = self.partial(capture, 1, 2, a=10, b=20)
+        p = self.thetype(capture, 1, 2, a=10, b=20)
         self.assertEqual(p(3, 4, b=30, c=40),
                          ((1, 2, 3, 4), dict(a=10, b=30, c=40)))
-        p = self.partial(map, lambda x: x*10)
-        self.assertEqual(p([1,2,3,4]), [10, 20, 30, 40])
+        p = self.thetype(map, lambda x: x*10)
+        self.assertEqual(list(p([1,2,3,4])), [10, 20, 30, 40])
 
     def test_attributes(self):
-        p = self.partial(capture, 1, 2, a=10, b=20)
+        p = self.thetype(capture, 1, 2, a=10, b=20)
         # attributes should be readable
         self.assertEqual(p.func, capture)
         self.assertEqual(p.args, (1, 2))
         self.assertEqual(p.keywords, dict(a=10, b=20))
         # attributes should not be writable
-        self.assertRaises(TypeError, setattr, p, 'func', map)
-        self.assertRaises(TypeError, setattr, p, 'args', (1, 2))
-        self.assertRaises(TypeError, setattr, p, 'keywords', dict(a=1, b=2))
+        if not isinstance(self.thetype, type):
+            return
+        self.assertRaises(AttributeError, setattr, p, 'func', map)
+        self.assertRaises(AttributeError, setattr, p, 'args', (1, 2))
+        self.assertRaises(AttributeError, setattr, p, 'keywords', dict(a=1, b=2))
 
-        p = self.partial(hex)
+        p = self.thetype(hex)
         try:
             del p.__dict__
         except TypeError:
@@ -67,9 +60,9 @@ class TestPartial(unittest.TestCase):
             self.fail('partial object allowed __dict__ to be deleted')
 
     def test_argument_checking(self):
-        self.assertRaises(TypeError, self.partial)     # need at least a func arg
+        self.assertRaises(TypeError, self.thetype)     # need at least a func arg
         try:
-            self.partial(2)()
+            self.thetype(2)()
         except TypeError:
             pass
         else:
@@ -80,7 +73,7 @@ class TestPartial(unittest.TestCase):
         def func(a=10, b=20):
             return a
         d = {'a':3}
-        p = self.partial(func, a=5)
+        p = self.thetype(func, a=5)
         self.assertEqual(p(**d), 3)
         self.assertEqual(d, {'a':3})
         p(b=7)
@@ -89,22 +82,20 @@ class TestPartial(unittest.TestCase):
     def test_arg_combinations(self):
         # exercise special code paths for zero args in either partial
         # object or the caller
-        p = self.partial(capture)
+        p = self.thetype(capture)
         self.assertEqual(p(), ((), {}))
         self.assertEqual(p(1,2), ((1,2), {}))
-        p = self.partial(capture, 1, 2)
+        p = self.thetype(capture, 1, 2)
         self.assertEqual(p(), ((1,2), {}))
         self.assertEqual(p(3,4), ((1,2,3,4), {}))
 
     def test_kw_combinations(self):
         # exercise special code paths for no keyword args in
         # either the partial object or the caller
-        p = self.partial(capture)
-        self.assertEqual(p.keywords, {})
+        p = self.thetype(capture)
         self.assertEqual(p(), ((), {}))
         self.assertEqual(p(a=1), ((), {'a':1}))
-        p = self.partial(capture, a=1)
-        self.assertEqual(p.keywords, {'a':1})
+        p = self.thetype(capture, a=1)
         self.assertEqual(p(), ((), {'a':1}))
         self.assertEqual(p(b=2), ((), {'a':1, 'b':2}))
         # keyword args in the call override those in the partial object
@@ -113,7 +104,7 @@ class TestPartial(unittest.TestCase):
     def test_positional(self):
         # make sure positional arguments are captured correctly
         for args in [(), (0,), (0,1), (0,1,2), (0,1,2,3)]:
-            p = self.partial(capture, *args)
+            p = self.thetype(capture, *args)
             expected = args + ('x',)
             got, empty = p('x')
             self.assertTrue(expected == got and empty == {})
@@ -121,14 +112,14 @@ class TestPartial(unittest.TestCase):
     def test_keyword(self):
         # make sure keyword arguments are captured correctly
         for a in ['a', 0, None, 3.5]:
-            p = self.partial(capture, a=a)
+            p = self.thetype(capture, a=a)
             expected = {'a':a,'x':None}
             empty, got = p(x=None)
             self.assertTrue(expected == got and empty == ())
 
     def test_no_side_effects(self):
         # make sure there are no side effects that affect subsequent calls
-        p = self.partial(capture, 0, a=1)
+        p = self.thetype(capture, 0, a=1)
         args1, kw1 = p(1, b=2)
         self.assertTrue(args1 == (0,1) and kw1 == {'a':1,'b':2})
         args2, kw2 = p()
@@ -136,181 +127,74 @@ class TestPartial(unittest.TestCase):
 
     def test_error_propagation(self):
         def f(x, y):
-            x // y
-        self.assertRaises(ZeroDivisionError, self.partial(f, 1, 0))
-        self.assertRaises(ZeroDivisionError, self.partial(f, 1), 0)
-        self.assertRaises(ZeroDivisionError, self.partial(f), 1, 0)
-        self.assertRaises(ZeroDivisionError, self.partial(f, y=0), 1)
+            x / y
+        self.assertRaises(ZeroDivisionError, self.thetype(f, 1, 0))
+        self.assertRaises(ZeroDivisionError, self.thetype(f, 1), 0)
+        self.assertRaises(ZeroDivisionError, self.thetype(f), 1, 0)
+        self.assertRaises(ZeroDivisionError, self.thetype(f, y=0), 1)
 
     def test_weakref(self):
-        f = self.partial(int, base=16)
+        f = self.thetype(int, base=16)
         p = proxy(f)
         self.assertEqual(f.func, p.func)
         f = None
         self.assertRaises(ReferenceError, getattr, p, 'func')
 
     def test_with_bound_and_unbound_methods(self):
-        data = map(str, range(10))
-        join = self.partial(str.join, '')
+        data = list(map(str, range(10)))
+        join = self.thetype(str.join, '')
         self.assertEqual(join(data), '0123456789')
-        join = self.partial(''.join)
+        join = self.thetype(''.join)
         self.assertEqual(join(data), '0123456789')
+
+    def test_repr(self):
+        args = (object(), object())
+        args_repr = ', '.join(repr(a) for a in args)
+        kwargs = {'a': object(), 'b': object()}
+        kwargs_repr = ', '.join("%s=%r" % (k, v) for k, v in kwargs.items())
+        if self.thetype is functools.partial:
+            name = 'functools.partial'
+        else:
+            name = self.thetype.__name__
+
+        f = self.thetype(capture)
+        self.assertEqual('{}({!r})'.format(name, capture),
+                         repr(f))
+
+        f = self.thetype(capture, *args)
+        self.assertEqual('{}({!r}, {})'.format(name, capture, args_repr),
+                         repr(f))
+
+        f = self.thetype(capture, **kwargs)
+        self.assertEqual('{}({!r}, {})'.format(name, capture, kwargs_repr),
+                         repr(f))
+
+        f = self.thetype(capture, *args, **kwargs)
+        self.assertEqual('{}({!r}, {}, {})'.format(name, capture, args_repr, kwargs_repr),
+                         repr(f))
 
     def test_pickle(self):
-        f = self.partial(signature, ['asdf'], bar=[True])
-        f.attr = []
-        for proto in range(pickle.HIGHEST_PROTOCOL + 1):
-            f_copy = pickle.loads(pickle.dumps(f, proto))
-            self.assertEqual(signature(f_copy), signature(f))
-
-    def test_copy(self):
-        f = self.partial(signature, ['asdf'], bar=[True])
-        f.attr = []
-        f_copy = copy.copy(f)
-        self.assertEqual(signature(f_copy), signature(f))
-        self.assertIs(f_copy.attr, f.attr)
-        self.assertIs(f_copy.args, f.args)
-        self.assertIs(f_copy.keywords, f.keywords)
-
-    def test_deepcopy(self):
-        f = self.partial(signature, ['asdf'], bar=[True])
-        f.attr = []
-        f_copy = copy.deepcopy(f)
-        self.assertEqual(signature(f_copy), signature(f))
-        self.assertIsNot(f_copy.attr, f.attr)
-        self.assertIsNot(f_copy.args, f.args)
-        self.assertIsNot(f_copy.args[0], f.args[0])
-        self.assertIsNot(f_copy.keywords, f.keywords)
-        self.assertIsNot(f_copy.keywords['bar'], f.keywords['bar'])
-
-    def test_setstate(self):
-        f = self.partial(signature)
-        f.__setstate__((capture, (1,), dict(a=10), dict(attr=[])))
-        self.assertEqual(signature(f),
-                         (capture, (1,), dict(a=10), dict(attr=[])))
-        self.assertEqual(f(2, b=20), ((1, 2), {'a': 10, 'b': 20}))
-
-        f.__setstate__((capture, (1,), dict(a=10), None))
-        self.assertEqual(signature(f), (capture, (1,), dict(a=10), {}))
-        self.assertEqual(f(2, b=20), ((1, 2), {'a': 10, 'b': 20}))
-
-        f.__setstate__((capture, (1,), None, None))
-        #self.assertEqual(signature(f), (capture, (1,), {}, {}))
-        self.assertEqual(f(2, b=20), ((1, 2), {'b': 20}))
-        self.assertEqual(f(2), ((1, 2), {}))
-        self.assertEqual(f(), ((1,), {}))
-
-        f.__setstate__((capture, (), {}, None))
-        self.assertEqual(signature(f), (capture, (), {}, {}))
-        self.assertEqual(f(2, b=20), ((2,), {'b': 20}))
-        self.assertEqual(f(2), ((2,), {}))
-        self.assertEqual(f(), ((), {}))
-
-    def test_setstate_errors(self):
-        f = self.partial(signature)
-        self.assertRaises(TypeError, f.__setstate__, (capture, (), {}))
-        self.assertRaises(TypeError, f.__setstate__, (capture, (), {}, {}, None))
-        self.assertRaises(TypeError, f.__setstate__, [capture, (), {}, None])
-        self.assertRaises(TypeError, f.__setstate__, (None, (), {}, None))
-        self.assertRaises(TypeError, f.__setstate__, (capture, None, {}, None))
-        self.assertRaises(TypeError, f.__setstate__, (capture, [], {}, None))
-        self.assertRaises(TypeError, f.__setstate__, (capture, (), [], None))
-
-    def test_setstate_subclasses(self):
-        f = self.partial(signature)
-        f.__setstate__((capture, MyTuple((1,)), MyDict(a=10), None))
-        s = signature(f)
-        self.assertEqual(s, (capture, (1,), dict(a=10), {}))
-        self.assertIs(type(s[1]), tuple)
-        self.assertIs(type(s[2]), dict)
-        r = f()
-        self.assertEqual(r, ((1,), {'a': 10}))
-        self.assertIs(type(r[0]), tuple)
-        self.assertIs(type(r[1]), dict)
-
-        f.__setstate__((capture, BadTuple((1,)), {}, None))
-        s = signature(f)
-        self.assertEqual(s, (capture, (1,), {}, {}))
-        self.assertIs(type(s[1]), tuple)
-        r = f(2)
-        self.assertEqual(r, ((1, 2), {}))
-        self.assertIs(type(r[0]), tuple)
-
-    def test_recursive_pickle(self):
-        f = self.partial(capture)
-        f.__setstate__((f, (), {}, {}))
-        try:
-            for proto in range(pickle.HIGHEST_PROTOCOL + 1):
-                with self.assertRaises(RuntimeError):
-                    pickle.dumps(f, proto)
-        finally:
-            f.__setstate__((capture, (), {}, {}))
-
-        f = self.partial(capture)
-        f.__setstate__((capture, (f,), {}, {}))
-        try:
-            for proto in range(pickle.HIGHEST_PROTOCOL + 1):
-                f_copy = pickle.loads(pickle.dumps(f, proto))
-                try:
-                    self.assertIs(f_copy.args[0], f_copy)
-                finally:
-                    f_copy.__setstate__((capture, (), {}, {}))
-        finally:
-            f.__setstate__((capture, (), {}, {}))
-
-        f = self.partial(capture)
-        f.__setstate__((capture, (), {'a': f}, {}))
-        try:
-            for proto in range(pickle.HIGHEST_PROTOCOL + 1):
-                f_copy = pickle.loads(pickle.dumps(f, proto))
-                try:
-                    self.assertIs(f_copy.keywords['a'], f_copy)
-                finally:
-                    f_copy.__setstate__((capture, (), {}, {}))
-        finally:
-            f.__setstate__((capture, (), {}, {}))
-
-    # Issue 6083: Reference counting bug
-    def test_setstate_refcount(self):
-        class BadSequence:
-            def __len__(self):
-                return 4
-            def __getitem__(self, key):
-                if key == 0:
-                    return max
-                elif key == 1:
-                    return tuple(range(1000000))
-                elif key in (2, 3):
-                    return {}
-                raise IndexError
-
-        f = self.partial(object)
-        self.assertRaises(TypeError, f.__setstate__, BadSequence())
+        f = self.thetype(signature, 'asdf', bar=True)
+        f.add_something_to__dict__ = True
+        f_copy = pickle.loads(pickle.dumps(f))
+        self.assertEqual(signature(f), signature(f_copy))
 
 class PartialSubclass(functools.partial):
     pass
 
 class TestPartialSubclass(TestPartial):
 
-    partial = PartialSubclass
+    thetype = PartialSubclass
 
 class TestPythonPartial(TestPartial):
 
-    partial = PythonPartial
+    thetype = PythonPartial
+
+    # the python version hasn't a nice repr
+    def test_repr(self): pass
 
     # the python version isn't picklable
-    test_pickle = None
-    test_setstate = None
-    test_setstate_errors = None
-    test_setstate_subclasses = None
-    test_setstate_refcount = None
-    test_recursive_pickle = None
-
-    # the python version isn't deepcopyable
-    test_deepcopy = None
-
-    # the python version isn't a type
-    test_attributes = None
+    def test_pickle(self): pass
 
 class TestUpdateWrapper(unittest.TestCase):
 
@@ -328,11 +212,11 @@ class TestUpdateWrapper(unittest.TestCase):
                 self.assertTrue(wrapped_attr[key] is wrapper_attr[key])
 
     def _default_update(self):
-        def f():
+        def f(a:'This is a new annotation'):
             """This is a test"""
             pass
         f.attr = 'This is also a test'
-        def wrapper():
+        def wrapper(b:'This is the prior annotation'):
             pass
         functools.update_wrapper(wrapper, f)
         return wrapper, f
@@ -340,8 +224,11 @@ class TestUpdateWrapper(unittest.TestCase):
     def test_default_update(self):
         wrapper, f = self._default_update()
         self.check_wrapper(wrapper, f)
+        self.assertIs(wrapper.__wrapped__, f)
         self.assertEqual(wrapper.__name__, 'f')
         self.assertEqual(wrapper.attr, 'This is also a test')
+        self.assertEqual(wrapper.__annotations__['a'], 'This is a new annotation')
+        self.assertNotIn('b', wrapper.__annotations__)
 
     @unittest.skipIf(sys.flags.optimize >= 2,
                      "Docstrings are omitted with -O2 and above")
@@ -360,6 +247,7 @@ class TestUpdateWrapper(unittest.TestCase):
         self.check_wrapper(wrapper, f, (), ())
         self.assertEqual(wrapper.__name__, 'wrapper')
         self.assertEqual(wrapper.__doc__, None)
+        self.assertEqual(wrapper.__annotations__, {})
         self.assertFalse(hasattr(wrapper, 'attr'))
 
     def test_selective_update(self):
@@ -379,7 +267,28 @@ class TestUpdateWrapper(unittest.TestCase):
         self.assertEqual(wrapper.attr, 'This is a different test')
         self.assertEqual(wrapper.dict_attr, f.dict_attr)
 
-    @test_support.requires_docstrings
+    def test_missing_attributes(self):
+        def f():
+            pass
+        def wrapper():
+            pass
+        wrapper.dict_attr = {}
+        assign = ('attr',)
+        update = ('dict_attr',)
+        # Missing attributes on wrapped object are ignored
+        functools.update_wrapper(wrapper, f, assign, update)
+        self.assertNotIn('attr', wrapper.__dict__)
+        self.assertEqual(wrapper.dict_attr, {})
+        # Wrapper must have expected attributes for updating
+        del wrapper.dict_attr
+        with self.assertRaises(AttributeError):
+            functools.update_wrapper(wrapper, f, assign, update)
+        wrapper.dict_attr = 1
+        with self.assertRaises(AttributeError):
+            functools.update_wrapper(wrapper, f, assign, update)
+
+    @unittest.skipIf(sys.flags.optimize >= 2,
+                     "Docstrings are omitted with -O2 and above")
     def test_builtin_update(self):
         # Test for bug #1576241
         def wrapper():
@@ -387,6 +296,7 @@ class TestUpdateWrapper(unittest.TestCase):
         functools.update_wrapper(wrapper, max)
         self.assertEqual(wrapper.__name__, 'max')
         self.assertTrue(wrapper.__doc__.startswith('max('))
+        self.assertEqual(wrapper.__annotations__, {})
 
 class TestWraps(TestUpdateWrapper):
 
@@ -406,7 +316,7 @@ class TestWraps(TestUpdateWrapper):
         self.assertEqual(wrapper.__name__, 'f')
         self.assertEqual(wrapper.attr, 'This is also a test')
 
-    @unittest.skipIf(sys.flags.optimize >= 2,
+    @unittest.skipIf(not sys.flags.optimize <= 1,
                      "Docstrings are omitted with -O2 and above")
     def test_default_update_doc(self):
         wrapper = self._default_update()
@@ -445,17 +355,17 @@ class TestWraps(TestUpdateWrapper):
         self.assertEqual(wrapper.attr, 'This is a different test')
         self.assertEqual(wrapper.dict_attr, f.dict_attr)
 
-
 class TestReduce(unittest.TestCase):
+    func = functools.reduce
 
     def test_reduce(self):
         class Squares:
-
             def __init__(self, max):
                 self.max = max
                 self.sofar = []
 
-            def __len__(self): return len(self.sofar)
+            def __len__(self):
+                return len(self.sofar)
 
             def __getitem__(self, i):
                 if not 0 <= i < self.max: raise IndexError
@@ -464,27 +374,66 @@ class TestReduce(unittest.TestCase):
                     self.sofar.append(n*n)
                     n += 1
                 return self.sofar[i]
-
-        reduce = functools.reduce
-        self.assertEqual(reduce(lambda x, y: x+y, ['a', 'b', 'c'], ''), 'abc')
+        def add(x, y):
+            return x + y
+        self.assertEqual(self.func(add, ['a', 'b', 'c'], ''), 'abc')
         self.assertEqual(
-            reduce(lambda x, y: x+y, [['a', 'c'], [], ['d', 'w']], []),
+            self.func(add, [['a', 'c'], [], ['d', 'w']], []),
             ['a','c','d','w']
         )
-        self.assertEqual(reduce(lambda x, y: x*y, range(2,8), 1), 5040)
+        self.assertEqual(self.func(lambda x, y: x*y, range(2,8), 1), 5040)
         self.assertEqual(
-            reduce(lambda x, y: x*y, range(2,21), 1L),
-            2432902008176640000L
+            self.func(lambda x, y: x*y, range(2,21), 1),
+            2432902008176640000
         )
-        self.assertEqual(reduce(lambda x, y: x+y, Squares(10)), 285)
-        self.assertEqual(reduce(lambda x, y: x+y, Squares(10), 0), 285)
-        self.assertEqual(reduce(lambda x, y: x+y, Squares(0), 0), 0)
-        self.assertRaises(TypeError, reduce)
-        self.assertRaises(TypeError, reduce, 42, 42)
-        self.assertRaises(TypeError, reduce, 42, 42, 42)
-        self.assertEqual(reduce(42, "1"), "1") # func is never called with one item
-        self.assertEqual(reduce(42, "", "1"), "1") # func is never called with one item
-        self.assertRaises(TypeError, reduce, 42, (42, 42))
+        self.assertEqual(self.func(add, Squares(10)), 285)
+        self.assertEqual(self.func(add, Squares(10), 0), 285)
+        self.assertEqual(self.func(add, Squares(0), 0), 0)
+        self.assertRaises(TypeError, self.func)
+        self.assertRaises(TypeError, self.func, 42, 42)
+        self.assertRaises(TypeError, self.func, 42, 42, 42)
+        self.assertEqual(self.func(42, "1"), "1") # func is never called with one item
+        self.assertEqual(self.func(42, "", "1"), "1") # func is never called with one item
+        self.assertRaises(TypeError, self.func, 42, (42, 42))
+        self.assertRaises(TypeError, self.func, add, []) # arg 2 must not be empty sequence with no initial value
+        self.assertRaises(TypeError, self.func, add, "")
+        self.assertRaises(TypeError, self.func, add, ())
+        self.assertRaises(TypeError, self.func, add, object())
+
+        class TestFailingIter:
+            def __iter__(self):
+                raise RuntimeError
+        self.assertRaises(RuntimeError, self.func, add, TestFailingIter())
+
+        self.assertEqual(self.func(add, [], None), None)
+        self.assertEqual(self.func(add, [], 42), 42)
+
+        class BadSeq:
+            def __getitem__(self, index):
+                raise ValueError
+        self.assertRaises(ValueError, self.func, 42, BadSeq())
+
+    # Test reduce()'s use of iterators.
+    def test_iterator_usage(self):
+        class SequenceClass:
+            def __init__(self, n):
+                self.n = n
+            def __getitem__(self, i):
+                if 0 <= i < self.n:
+                    return i
+                else:
+                    raise IndexError
+
+        from operator import add
+        self.assertEqual(self.func(add, SequenceClass(5)), 10)
+        self.assertEqual(self.func(add, SequenceClass(5), 42), 52)
+        self.assertRaises(TypeError, self.func, add, SequenceClass(0))
+        self.assertEqual(self.func(add, SequenceClass(0), 42), 42)
+        self.assertEqual(self.func(add, SequenceClass(1)), 0)
+        self.assertEqual(self.func(add, SequenceClass(1), 42), 42)
+
+        d = {"one": 1, "two": 2, "three": 3}
+        self.assertEqual(self.func(add, d), "".join(d.keys()))
 
 class TestCmpToKey(unittest.TestCase):
     def test_cmp_to_key(self):
@@ -498,7 +447,8 @@ class TestCmpToKey(unittest.TestCase):
             return y - x
         key = functools.cmp_to_key(mycmp)
         k = key(10)
-        self.assertRaises(TypeError, hash(k))
+        self.assertRaises(TypeError, hash, k)
+        self.assertFalse(isinstance(k, collections.Hashable))
 
 class TestTotalOrdering(unittest.TestCase):
 
@@ -569,14 +519,14 @@ class TestTotalOrdering(unittest.TestCase):
     def test_total_ordering_no_overwrite(self):
         # new methods should not overwrite existing
         @functools.total_ordering
-        class A(str):
+        class A(int):
             pass
-        self.assertTrue(A("a") < A("b"))
-        self.assertTrue(A("b") > A("a"))
-        self.assertTrue(A("a") <= A("b"))
-        self.assertTrue(A("b") >= A("a"))
-        self.assertTrue(A("b") <= A("b"))
-        self.assertTrue(A("b") >= A("b"))
+        self.assertTrue(A(1) < A(2))
+        self.assertTrue(A(2) > A(1))
+        self.assertTrue(A(1) <= A(2))
+        self.assertTrue(A(2) >= A(1))
+        self.assertTrue(A(2) <= A(2))
+        self.assertTrue(A(2) >= A(2))
 
     def test_no_operations_defined(self):
         with self.assertRaises(ValueError):
@@ -600,66 +550,110 @@ class TestTotalOrdering(unittest.TestCase):
         with self.assertRaises(TypeError):
             TestTO(8) <= ()
 
-    def test_bug_25732(self):
-        @functools.total_ordering
-        class A:
-            def __init__(self, value):
-                self.value = value
-            def __gt__(self, other):
-                return self.value > other.value
-            def __eq__(self, other):
-                return self.value == other.value
-            def __hash__(self):
-                return hash(self.value)
-        self.assertTrue(A(1) != A(2))
-        self.assertFalse(A(1) != A(1))
+class TestLRU(unittest.TestCase):
 
-        @functools.total_ordering
-        class A(object):
-            def __init__(self, value):
-                self.value = value
-            def __gt__(self, other):
-                return self.value > other.value
-            def __eq__(self, other):
-                return self.value == other.value
-            def __hash__(self):
-                return hash(self.value)
-        self.assertTrue(A(1) != A(2))
-        self.assertFalse(A(1) != A(1))
+    def test_lru(self):
+        def orig(x, y):
+            return 3*x+y
+        f = functools.lru_cache(maxsize=20)(orig)
+        hits, misses, maxsize, currsize = f.cache_info()
+        self.assertEqual(maxsize, 20)
+        self.assertEqual(currsize, 0)
+        self.assertEqual(hits, 0)
+        self.assertEqual(misses, 0)
 
-        @functools.total_ordering
-        class A:
-            def __init__(self, value):
-                self.value = value
-            def __gt__(self, other):
-                return self.value > other.value
-            def __eq__(self, other):
-                return self.value == other.value
-            def __ne__(self, other):
-                raise RuntimeError(self, other)
-            def __hash__(self):
-                return hash(self.value)
-        with self.assertRaises(RuntimeError):
-            A(1) != A(2)
-        with self.assertRaises(RuntimeError):
-            A(1) != A(1)
+        domain = range(5)
+        for i in range(1000):
+            x, y = choice(domain), choice(domain)
+            actual = f(x, y)
+            expected = orig(x, y)
+            self.assertEqual(actual, expected)
+        hits, misses, maxsize, currsize = f.cache_info()
+        self.assertTrue(hits > misses)
+        self.assertEqual(hits + misses, 1000)
+        self.assertEqual(currsize, 20)
 
-        @functools.total_ordering
-        class A(object):
-            def __init__(self, value):
-                self.value = value
-            def __gt__(self, other):
-                return self.value > other.value
-            def __eq__(self, other):
-                return self.value == other.value
-            def __ne__(self, other):
-                raise RuntimeError(self, other)
-            def __hash__(self):
-                return hash(self.value)
-        with self.assertRaises(RuntimeError):
-            A(1) != A(2)
-        with self.assertRaises(RuntimeError):
-            A(1) != A(1)
+        f.cache_clear()   # test clearing
+        hits, misses, maxsize, currsize = f.cache_info()
+        self.assertEqual(hits, 0)
+        self.assertEqual(misses, 0)
+        self.assertEqual(currsize, 0)
+        f(x, y)
+        hits, misses, maxsize, currsize = f.cache_info()
+        self.assertEqual(hits, 0)
+        self.assertEqual(misses, 1)
+        self.assertEqual(currsize, 1)
+
+        # Test bypassing the cache
+        self.assertIs(f.__wrapped__, orig)
+        f.__wrapped__(x, y)
+        hits, misses, maxsize, currsize = f.cache_info()
+        self.assertEqual(hits, 0)
+        self.assertEqual(misses, 1)
+        self.assertEqual(currsize, 1)
+
+        # test size zero (which means "never-cache")
+        @functools.lru_cache(0)
+        def f():
+            nonlocal f_cnt
+            f_cnt += 1
+            return 20
+        self.assertEqual(f.cache_info().maxsize, 0)
+        f_cnt = 0
+        for i in range(5):
+            self.assertEqual(f(), 20)
+        self.assertEqual(f_cnt, 5)
+        hits, misses, maxsize, currsize = f.cache_info()
+        self.assertEqual(hits, 0)
+        self.assertEqual(misses, 5)
+        self.assertEqual(currsize, 0)
+
+        # test size one
+        @functools.lru_cache(1)
+        def f():
+            nonlocal f_cnt
+            f_cnt += 1
+            return 20
+        self.assertEqual(f.cache_info().maxsize, 1)
+        f_cnt = 0
+        for i in range(5):
+            self.assertEqual(f(), 20)
+        self.assertEqual(f_cnt, 1)
+        hits, misses, maxsize, currsize = f.cache_info()
+        self.assertEqual(hits, 4)
+        self.assertEqual(misses, 1)
+        self.assertEqual(currsize, 1)
+
+        # test size two
+        @functools.lru_cache(2)
+        def f(x):
+            nonlocal f_cnt
+            f_cnt += 1
+            return x*10
+        self.assertEqual(f.cache_info().maxsize, 2)
+        f_cnt = 0
+        for x in 7, 9, 7, 9, 7, 9, 8, 8, 8, 9, 9, 9, 8, 8, 8, 7:
+            #    *  *              *                          *
+            self.assertEqual(f(x), x*10)
+        self.assertEqual(f_cnt, 4)
+        hits, misses, maxsize, currsize = f.cache_info()
+        self.assertEqual(hits, 12)
+        self.assertEqual(misses, 4)
+        self.assertEqual(currsize, 2)
+
+    def test_lru_with_maxsize_none(self):
+        @functools.lru_cache(maxsize=None)
+        def fib(n):
+            if n < 2:
+                return n
+            return fib(n-1) + fib(n-2)
+        self.assertEqual([fib(n) for n in range(16)],
+            [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610])
+        self.assertEqual(fib.cache_info(),
+            functools._CacheInfo(hits=28, misses=16, maxsize=None, currsize=16))
+        fib.cache_clear()
+        self.assertEqual(fib.cache_info(),
+            functools._CacheInfo(hits=0, misses=0, maxsize=None, currsize=0))
 
 def test_main(verbose=None):
     test_classes = (
@@ -668,20 +662,22 @@ def test_main(verbose=None):
         TestPythonPartial,
         TestUpdateWrapper,
         TestTotalOrdering,
+        TestCmpToKey,
         TestWraps,
         TestReduce,
+        TestLRU,
     )
-    test_support.run_unittest(*test_classes)
+    support.run_unittest(*test_classes)
 
     # verify reference counting
     if verbose and hasattr(sys, "gettotalrefcount"):
         import gc
         counts = [None] * 5
-        for i in xrange(len(counts)):
-            test_support.run_unittest(*test_classes)
+        for i in range(len(counts)):
+            support.run_unittest(*test_classes)
             gc.collect()
             counts[i] = sys.gettotalrefcount()
-        print counts
+        print(counts)
 
 if __name__ == '__main__':
     test_main(verbose=True)

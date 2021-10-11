@@ -9,7 +9,7 @@
 #
 
 import unittest
-from test import test_support
+from test import support
 
 from textwrap import TextWrapper, wrap, fill, dedent
 
@@ -23,7 +23,7 @@ class BaseTestCase(unittest.TestCase):
             for i in range(len(textin)):
                 result.append("  %d: %r" % (i, textin[i]))
             result = '\n'.join(result)
-        elif isinstance(textin, basestring):
+        elif isinstance(textin, str):
             result = "  %s\n" % repr(textin)
         return result
 
@@ -66,15 +66,6 @@ class WrapTestCase(BaseTestCase):
                          "I'm glad to hear it!"])
         self.check_wrap(text, 80, [text])
 
-    def test_empty_string(self):
-        # Check that wrapping the empty string returns an empty list.
-        self.check_wrap("", 6, [])
-        self.check_wrap("", 6, [], drop_whitespace=False)
-
-    def test_empty_string_with_initial_indent(self):
-        # Check that the empty string is not indented.
-        self.check_wrap("", 6, [], initial_indent="++")
-        self.check_wrap("", 6, [], initial_indent="++", drop_whitespace=False)
 
     def test_whitespace(self):
         # Whitespace munging and end-of-sentence detection
@@ -183,7 +174,7 @@ What a mess!
         text = ("Python 1.0.0 was released on 1994-01-26.  Python 1.0.1 was\n"
                 "released on 1994-02-15.")
 
-        self.check_wrap(text, 35, ['Python 1.0.0 was released on',
+        self.check_wrap(text, 30, ['Python 1.0.0 was released on',
                                    '1994-01-26.  Python 1.0.1 was',
                                    'released on 1994-02-15.'])
         self.check_wrap(text, 40, ['Python 1.0.0 was released on 1994-01-26.',
@@ -332,32 +323,7 @@ What a mess!
                          ["blah", " ", "(ding", " ", "dong),",
                           " ", "wubba"])
 
-    def test_drop_whitespace_false(self):
-        # Check that drop_whitespace=False preserves whitespace.
-        # SF patch #1581073
-        text = " This is a    sentence with     much whitespace."
-        self.check_wrap(text, 10,
-                        [" This is a", "    ", "sentence ",
-                         "with     ", "much white", "space."],
-                        drop_whitespace=False)
-
-    def test_drop_whitespace_false_whitespace_only(self):
-        # Check that drop_whitespace=False preserves a whitespace-only string.
-        self.check_wrap("   ", 6, ["   "], drop_whitespace=False)
-
-    def test_drop_whitespace_false_whitespace_only_with_indent(self):
-        # Check that a whitespace-only string gets indented (when
-        # drop_whitespace is False).
-        self.check_wrap("   ", 6, ["     "], drop_whitespace=False,
-                        initial_indent="  ")
-
-    def test_drop_whitespace_whitespace_only(self):
-        # Check drop_whitespace on a whitespace-only string.
-        self.check_wrap("  ", 6, [])
-
-    def test_drop_whitespace_leading_whitespace(self):
-        # Check that drop_whitespace does not drop leading whitespace (if
-        # followed by non-whitespace).
+    def test_initial_whitespace(self):
         # SF bug #622849 reported inconsistent handling of leading
         # whitespace; let's test that a bit, shall we?
         text = " This is a sentence with leading whitespace."
@@ -366,49 +332,13 @@ What a mess!
         self.check_wrap(text, 30,
                         [" This is a sentence with", "leading whitespace."])
 
-    def test_drop_whitespace_whitespace_line(self):
-        # Check that drop_whitespace skips the whole line if a non-leading
-        # line consists only of whitespace.
-        text = "abcd    efgh"
-        # Include the result for drop_whitespace=False for comparison.
-        self.check_wrap(text, 6, ["abcd", "    ", "efgh"],
+    def test_no_drop_whitespace(self):
+        # SF patch #1581073
+        text = " This is a    sentence with     much whitespace."
+        self.check_wrap(text, 10,
+                        [" This is a", "    ", "sentence ",
+                         "with     ", "much white", "space."],
                         drop_whitespace=False)
-        self.check_wrap(text, 6, ["abcd", "efgh"])
-
-    def test_drop_whitespace_whitespace_only_with_indent(self):
-        # Check that initial_indent is not applied to a whitespace-only
-        # string.  This checks a special case of the fact that dropping
-        # whitespace occurs before indenting.
-        self.check_wrap("  ", 6, [], initial_indent="++")
-
-    def test_drop_whitespace_whitespace_indent(self):
-        # Check that drop_whitespace does not drop whitespace indents.
-        # This checks a special case of the fact that dropping whitespace
-        # occurs before indenting.
-        self.check_wrap("abcd efgh", 6, ["  abcd", "  efgh"],
-                        initial_indent="  ", subsequent_indent="  ")
-
-    if test_support.have_unicode:
-        def test_unicode(self):
-            # *Very* simple test of wrapping Unicode strings.  I'm sure
-            # there's more to it than this, but let's at least make
-            # sure textwrap doesn't crash on Unicode input!
-            text = u"Hello there, how are you today?"
-            self.check_wrap(text, 50, [u"Hello there, how are you today?"])
-            self.check_wrap(text, 20, [u"Hello there, how are", "you today?"])
-            olines = self.wrapper.wrap(text)
-            self.assertIsInstance(olines, list)
-            self.assertIsInstance(olines[0], unicode)
-            otext = self.wrapper.fill(text)
-            self.assertIsInstance(otext, unicode)
-
-        def test_no_split_at_umlaut(self):
-            text = u"Die Empf\xe4nger-Auswahl"
-            self.check_wrap(text, 13, [u"Die", u"Empf\xe4nger-", u"Auswahl"])
-
-        def test_umlaut_followed_by_dash(self):
-            text = u"aa \xe4\xe4-\xe4\xe4"
-            self.check_wrap(text, 7, [u"aa \xe4\xe4-", u"\xe4\xe4"])
 
     def test_split(self):
         # Ensure that the standard _split() method works as advertised
@@ -434,6 +364,14 @@ What a mess!
         text = "Whatever, it doesn't matter."
         self.assertRaises(ValueError, wrap, text, 0)
         self.assertRaises(ValueError, wrap, text, -1)
+
+    def test_no_split_at_umlaut(self):
+        text = "Die Empf\xe4nger-Auswahl"
+        self.check_wrap(text, 13, ["Die", "Empf\xe4nger-", "Auswahl"])
+
+    def test_umlaut_followed_by_dash(self):
+        text = "aa \xe4\xe4-\xe4\xe4"
+        self.check_wrap(text, 7, ["aa \xe4\xe4-", "\xe4\xe4"])
 
 
 class LongWordTestCase (BaseTestCase):
@@ -647,14 +585,9 @@ def foo():
         expect = "hello there\n  how are you?"
         self.assertEqual(expect, dedent(text))
 
-        # test margin is smaller than smallest indent
-        text = "  \thello there\n   \thow are you?\n \tI'm fine, thanks"
-        expect = " \thello there\n  \thow are you?\n\tI'm fine, thanks"
-        self.assertEqual(expect, dedent(text))
-
 
 def test_main():
-    test_support.run_unittest(WrapTestCase,
+    support.run_unittest(WrapTestCase,
                               LongWordTestCase,
                               IndentTestCases,
                               DedentTestCase)

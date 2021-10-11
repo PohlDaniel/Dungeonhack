@@ -1,13 +1,11 @@
-# -*- encoding: utf8 -*-
 """Tests for distutils.command.upload."""
 import os
 import unittest
-from test.test_support import run_unittest
+import http.client as httpclient
+from test.support import run_unittest
 
-from distutils.command import upload as upload_mod
 from distutils.command.upload import upload
 from distutils.core import Distribution
-from distutils.errors import DistutilsError
 
 from distutils.tests.test_config import PYPIRC, PyPIRCCommandTestCase
 
@@ -39,39 +37,47 @@ index-servers =
 [server1]
 username:me
 """
+class Response(object):
+    def __init__(self, status=200, reason='OK'):
+        self.status = status
+        self.reason = reason
 
-class FakeOpen(object):
+class FakeConnection(object):
 
-    def __init__(self, url, msg=None, code=None):
-        self.url = url
-        if not isinstance(url, str):
-            self.req = url
-        else:
-            self.req = None
-        self.msg = msg or 'OK'
-        self.code = code or 200
+    def __init__(self):
+        self.requests = []
+        self.headers = []
+        self.body = ''
 
-    def getcode(self):
-        return self.code
+    def __call__(self, netloc):
+        return self
 
+    def connect(self):
+        pass
+    endheaders = connect
+
+    def putrequest(self, method, url):
+        self.requests.append((method, url))
+
+    def putheader(self, name, value):
+        self.headers.append((name, value))
+
+    def send(self, body):
+        self.body = body
+
+    def getresponse(self):
+        return Response()
 
 class uploadTestCase(PyPIRCCommandTestCase):
 
     def setUp(self):
         super(uploadTestCase, self).setUp()
-        self.old_open = upload_mod.urlopen
-        upload_mod.urlopen = self._urlopen
-        self.last_open = None
-        self.next_msg = None
-        self.next_code = None
+        self.old_class = httpclient.HTTPConnection
+        self.conn = httpclient.HTTPConnection = FakeConnection()
 
     def tearDown(self):
-        upload_mod.urlopen = self.old_open
+        httpclient.HTTPConnection = self.old_class
         super(uploadTestCase, self).tearDown()
-
-    def _urlopen(self, url):
-        self.last_open = FakeOpen(url, msg=self.next_msg, code=self.next_code)
-        return self.last_open
 
     def test_finalize_options(self):
 
@@ -82,7 +88,7 @@ class uploadTestCase(PyPIRCCommandTestCase):
         cmd.finalize_options()
         for attr, waited in (('username', 'me'), ('password', 'secret'),
                              ('realm', 'pypi'),
-                             ('repository', 'https://upload.pypi.org/legacy/')):
+                             ('repository', 'http://pypi.python.org/pypi')):
             self.assertEqual(getattr(cmd, attr), waited)
 
     def test_saved_password(self):
@@ -111,53 +117,19 @@ class uploadTestCase(PyPIRCCommandTestCase):
         self.write_file(self.rc, PYPIRC_LONG_PASSWORD)
 
         # lets run it
-        pkg_dir, dist = self.create_dist(dist_files=dist_files, author=u'dédé')
+        pkg_dir, dist = self.create_dist(dist_files=dist_files)
         cmd = upload(dist)
         cmd.ensure_finalized()
         cmd.run()
 
         # what did we send ?
-        self.assertIn('dédé', self.last_open.req.data)
-        headers = dict(self.last_open.req.headers)
-        self.assertEqual(headers['Content-length'], '2159')
+        headers = dict(self.conn.headers)
+        self.assertEqual(headers['Content-length'], '2087')
         self.assertTrue(headers['Content-type'].startswith('multipart/form-data'))
-        self.assertEqual(self.last_open.req.get_method(), 'POST')
-        self.assertEqual(self.last_open.req.get_full_url(),
-                         'https://upload.pypi.org/legacy/')
-        self.assertIn('xxx', self.last_open.req.data)
-        auth = self.last_open.req.headers['Authorization']
-        self.assertNotIn('\n', auth)
+        self.assertFalse('\n' in headers['Authorization'])
 
-    # bpo-32304: archives whose last byte was b'\r' were corrupted due to
-    # normalization intended for Mac OS 9.
-    def test_upload_correct_cr(self):
-        # content that ends with \r should not be modified.
-        tmp = self.mkdtemp()
-        path = os.path.join(tmp, 'xxx')
-        self.write_file(path, content='yy\r')
-        command, pyversion, filename = 'xxx', '2.6', path
-        dist_files = [(command, pyversion, filename)]
-        self.write_file(self.rc, PYPIRC_LONG_PASSWORD)
-
-        # other fields that ended with \r used to be modified, now are
-        # preserved.
-        pkg_dir, dist = self.create_dist(
-            dist_files=dist_files,
-            description='long description\r'
-        )
-        cmd = upload(dist)
-        cmd.ensure_finalized()
-        cmd.run()
-
-        headers = dict(self.last_open.req.headers)
-        self.assertEqual(headers['Content-length'], '2170')
-        self.assertIn(b'long description\r', self.last_open.req.data)
-        self.assertNotIn(b'long description\r\n', self.last_open.req.data)
-
-    def test_upload_fails(self):
-        self.next_msg = "Not Found"
-        self.next_code = 404
-        self.assertRaises(DistutilsError, self.test_upload)
+        self.assertEqual(self.conn.requests, [('POST', '/pypi')])
+        self.assertTrue((b'xxx') in self.conn.body)
 
 def test_suite():
     return unittest.makeSuite(uploadTestCase)

@@ -10,7 +10,7 @@ try:
     fd = int(sys.argv[2])
 
     try:
-        os.write(fd, "blat")
+        os.write(fd, b"blat")
     except os.error:
         # Success -- could not write to fd.
         sys.exit(0)
@@ -19,7 +19,7 @@ try:
             sys.stderr.write("fd %d is open in child" % fd)
         sys.exit(1)
 
-except StandardError:
+except Exception:
     if verbose:
         raise
     sys.exit(1)

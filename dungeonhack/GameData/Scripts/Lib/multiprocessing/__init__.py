@@ -9,7 +9,7 @@
 # wrapper for 'threading'.
 #
 # Try calling `multiprocessing.doc.main()` to read the html
-# documentation in a webbrowser.
+# documentation in in a webbrowser.
 #
 #
 # Copyright (c) 2006-2008, R Oudkerk
@@ -80,7 +80,6 @@ class TimeoutError(ProcessError):
 class AuthenticationError(ProcessError):
     pass
 
-# This is down here because _multiprocessing uses BufferTooShort
 import _multiprocessing
 
 #

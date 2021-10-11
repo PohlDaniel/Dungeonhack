@@ -1,7 +1,7 @@
 """Tests for distutils.cmd."""
 import unittest
 import os
-from test.test_support import captured_stdout, run_unittest
+from test.support import captured_stdout, run_unittest
 
 from distutils.cmd import Command
 from distutils.dist import Distribution
@@ -33,18 +33,6 @@ class CommandTestCase(unittest.TestCase):
 
         self.assertRaises(DistutilsOptionError,
                           cmd.ensure_string_list, 'not_string_list2')
-
-        cmd.option1 = 'ok,dok'
-        cmd.ensure_string_list('option1')
-        self.assertEqual(cmd.option1, ['ok', 'dok'])
-
-        cmd.option2 = ['xxx', 'www']
-        cmd.ensure_string_list('option2')
-
-        cmd.option3 = ['ok', 2]
-        self.assertRaises(DistutilsOptionError, cmd.ensure_string_list,
-                          'option3')
-
 
     def test_make_file(self):
 
@@ -88,6 +76,19 @@ class CommandTestCase(unittest.TestCase):
 
         cmd.option3 = 1
         self.assertRaises(DistutilsOptionError, cmd.ensure_string, 'option3')
+
+    def test_ensure_string_list(self):
+        cmd = self.cmd
+        cmd.option1 = 'ok,dok'
+        cmd.ensure_string_list('option1')
+        self.assertEqual(cmd.option1, ['ok', 'dok'])
+
+        cmd.option2 = ['xxx', 'www']
+        cmd.ensure_string_list('option2')
+
+        cmd.option3 = ['ok', 2]
+        self.assertRaises(DistutilsOptionError, cmd.ensure_string_list,
+                          'option3')
 
     def test_ensure_filename(self):
         cmd = self.cmd

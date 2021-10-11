@@ -14,19 +14,18 @@ import os
 import sys
 import stat
 import genericpath
-import warnings
 from genericpath import *
-from genericpath import _unicode
 
 __all__ = ["normcase","isabs","join","splitdrive","split","splitext",
            "basename","dirname","commonprefix","getsize","getmtime",
            "getatime","getctime","islink","exists","lexists","isdir","isfile",
-           "ismount","walk","expanduser","expandvars","normpath","abspath",
+           "ismount", "expanduser","expandvars","normpath","abspath",
            "samefile","sameopenfile","samestat",
            "curdir","pardir","sep","pathsep","defpath","altsep","extsep",
            "devnull","realpath","supports_unicode_filenames","relpath"]
 
-# strings representing various path-related bits and pieces
+# Strings representing various path-related bits and pieces.
+# These are primarily for export; internally, they are hardcoded.
 curdir = '.'
 pardir = '..'
 extsep = '.'
@@ -36,6 +35,12 @@ defpath = ':/bin:/usr/bin'
 altsep = None
 devnull = '/dev/null'
 
+def _get_sep(path):
+    if isinstance(path, bytes):
+        return b'/'
+    else:
+        return '/'
+
 # Normalize the case of a pathname.  Trivial in Posix, string.lower on Mac.
 # On MS-DOS this may also turn slashes into backslashes; however, other
 # normalizations (such as optimizing '../' away) are not allowed
@@ -43,6 +48,10 @@ devnull = '/dev/null'
 
 def normcase(s):
     """Normalize case of pathname.  Has no effect under Posix"""
+    # TODO: on Mac OS X, this should really return s.lower().
+    if not isinstance(s, (bytes, str)):
+        raise TypeError("normcase() argument must be str or bytes, "
+                        "not '{}'".format(s.__class__.__name__))
     return s
 
 
@@ -51,7 +60,8 @@ def normcase(s):
 
 def isabs(s):
     """Test whether a path is absolute"""
-    return s.startswith('/')
+    sep = _get_sep(s)
+    return s.startswith(sep)
 
 
 # Join pathnames.
@@ -61,16 +71,16 @@ def isabs(s):
 def join(a, *p):
     """Join two or more pathname components, inserting '/' as needed.
     If any component is an absolute path, all previous path components
-    will be discarded.  An empty last part will result in a path that
-    ends with a separator."""
+    will be discarded."""
+    sep = _get_sep(a)
     path = a
     for b in p:
-        if b.startswith('/'):
+        if b.startswith(sep):
             path = b
-        elif path == '' or path.endswith('/'):
+        elif not path or path.endswith(sep):
             path +=  b
         else:
-            path += '/' + b
+            path += sep + b
     return path
 
 
@@ -82,10 +92,11 @@ def join(a, *p):
 def split(p):
     """Split a pathname.  Returns tuple "(head, tail)" where "tail" is
     everything after the final slash.  Either part may be empty."""
-    i = p.rfind('/') + 1
+    sep = _get_sep(p)
+    i = p.rfind(sep) + 1
     head, tail = p[:i], p[i:]
-    if head and head != '/'*len(head):
-        head = head.rstrip('/')
+    if head and head != sep*len(head):
+        head = head.rstrip(sep)
     return head, tail
 
 
@@ -95,7 +106,13 @@ def split(p):
 # It is always true that root + ext == p.
 
 def splitext(p):
-    return genericpath._splitext(p, sep, altsep, extsep)
+    if isinstance(p, bytes):
+        sep = b'/'
+        extsep = b'.'
+    else:
+        sep = '/'
+        extsep = '.'
+    return genericpath._splitext(p, sep, None, extsep)
 splitext.__doc__ = genericpath._splitext.__doc__
 
 # Split a pathname into a drive specification and the rest of the
@@ -104,14 +121,15 @@ splitext.__doc__ = genericpath._splitext.__doc__
 def splitdrive(p):
     """Split a pathname into drive and path. On Posix, drive is always
     empty."""
-    return '', p
+    return p[:0], p
 
 
 # Return the tail (basename) part of a path, same as split(path)[1].
 
 def basename(p):
     """Returns the final component of a pathname"""
-    i = p.rfind('/') + 1
+    sep = _get_sep(p)
+    i = p.rfind(sep) + 1
     return p[i:]
 
 
@@ -119,10 +137,11 @@ def basename(p):
 
 def dirname(p):
     """Returns the directory component of a pathname"""
-    i = p.rfind('/') + 1
+    sep = _get_sep(p)
+    i = p.rfind(sep) + 1
     head = p[:i]
-    if head and head != '/'*len(head):
-        head = head.rstrip('/')
+    if head and head != sep*len(head):
+        head = head.rstrip(sep)
     return head
 
 
@@ -186,7 +205,11 @@ def ismount(path):
         return False
     try:
         s1 = os.lstat(path)
-        s2 = os.lstat(realpath(join(path, '..')))
+        if isinstance(path, bytes):
+            parent = join(path, b'..')
+        else:
+            parent = join(path, '..')
+        s2 = os.lstat(parent)
     except os.error:
         return False # It doesn't exist -- so not a mount point :-)
     dev1 = s1.st_dev
@@ -198,45 +221,6 @@ def ismount(path):
     if ino1 == ino2:
         return True     # path/.. is the same i-node as path
     return False
-
-
-# Directory tree walk.
-# For each directory under top (including top itself, but excluding
-# '.' and '..'), func(arg, dirname, filenames) is called, where
-# dirname is the name of the directory and filenames is the list
-# of files (and subdirectories etc.) in the directory.
-# The func may modify the filenames list, to implement a filter,
-# or to impose a different order of visiting.
-
-def walk(top, func, arg):
-    """Directory tree walk with callback function.
-
-    For each directory in the directory tree rooted at top (including top
-    itself, but excluding '.' and '..'), call func(arg, dirname, fnames).
-    dirname is the name of the directory, and fnames a list of the names of
-    the files and subdirectories in dirname (excluding '.' and '..').  func
-    may modify the fnames list in-place (e.g. via del or slice assignment),
-    and walk will only recurse into the subdirectories whose names remain in
-    fnames; this can be used to implement a filter, or to impose a specific
-    order of visiting.  No semantics are defined for, or required of, arg,
-    beyond that arg is always passed to func.  It can be used, e.g., to pass
-    a filename pattern, or a mutable object designed to accumulate
-    statistics.  Passing None for arg is common."""
-    warnings.warnpy3k("In 3.x, os.path.walk is removed in favor of os.walk.",
-                      stacklevel=2)
-    try:
-        names = os.listdir(top)
-    except os.error:
-        return
-    func(arg, top, names)
-    for name in names:
-        name = join(top, name)
-        try:
-            st = os.lstat(name)
-        except os.error:
-            continue
-        if stat.S_ISDIR(st.st_mode):
-            walk(name, func, arg)
 
 
 # Expand paths beginning with '~' or '~user'.
@@ -251,33 +235,39 @@ def walk(top, func, arg):
 def expanduser(path):
     """Expand ~ and ~user constructions.  If user or $HOME is unknown,
     do nothing."""
-    if not path.startswith('~'):
+    if isinstance(path, bytes):
+        tilde = b'~'
+    else:
+        tilde = '~'
+    if not path.startswith(tilde):
         return path
-    i = path.find('/', 1)
+    sep = _get_sep(path)
+    i = path.find(sep, 1)
     if i < 0:
         i = len(path)
     if i == 1:
         if 'HOME' not in os.environ:
             import pwd
-            try:
-                userhome = pwd.getpwuid(os.getuid()).pw_dir
-            except KeyError:
-                # bpo-10496: if the current user identifier doesn't exist in the
-                # password database, return the path unchanged
-                return path
+            userhome = pwd.getpwuid(os.getuid()).pw_dir
         else:
             userhome = os.environ['HOME']
     else:
         import pwd
+        name = path[1:i]
+        if isinstance(name, bytes):
+            name = str(name, 'ASCII')
         try:
-            pwent = pwd.getpwnam(path[1:i])
+            pwent = pwd.getpwnam(name)
         except KeyError:
-            # bpo-10496: if the user name from the path doesn't exist in the
-            # password database, return the path unchanged
             return path
         userhome = pwent.pw_dir
-    userhome = userhome.rstrip('/')
-    return (userhome + path[i:]) or '/'
+    if isinstance(path, bytes):
+        userhome = os.fsencode(userhome)
+        root = b'/'
+    else:
+        root = '/'
+    userhome = userhome.rstrip(root) or userhome
+    return userhome + path[i:]
 
 
 # Expand paths containing shell variable substitutions.
@@ -285,42 +275,46 @@ def expanduser(path):
 # Non-existent variables are left unchanged.
 
 _varprog = None
-_uvarprog = None
+_varprogb = None
 
 def expandvars(path):
     """Expand shell variables of form $var and ${var}.  Unknown variables
     are left unchanged."""
-    global _varprog, _uvarprog
-    if '$' not in path:
-        return path
-    if isinstance(path, _unicode):
-        if not _uvarprog:
+    global _varprog, _varprogb
+    if isinstance(path, bytes):
+        if b'$' not in path:
+            return path
+        if not _varprogb:
             import re
-            _uvarprog = re.compile(ur'\$(\w+|\{[^}]*\})', re.UNICODE)
-        varprog = _uvarprog
-        encoding = sys.getfilesystemencoding()
+            _varprogb = re.compile(br'\$(\w+|\{[^}]*\})', re.ASCII)
+        search = _varprogb.search
+        start = b'{'
+        end = b'}'
     else:
+        if '$' not in path:
+            return path
         if not _varprog:
             import re
-            _varprog = re.compile(r'\$(\w+|\{[^}]*\})')
-        varprog = _varprog
-        encoding = None
+            _varprog = re.compile(r'\$(\w+|\{[^}]*\})', re.ASCII)
+        search = _varprog.search
+        start = '{'
+        end = '}'
     i = 0
     while True:
-        m = varprog.search(path, i)
+        m = search(path, i)
         if not m:
             break
         i, j = m.span(0)
         name = m.group(1)
-        if name.startswith('{') and name.endswith('}'):
+        if name.startswith(start) and name.endswith(end):
             name = name[1:-1]
-        if encoding:
-            name = name.encode(encoding)
+        if isinstance(name, bytes):
+            name = str(name, 'ASCII')
         if name in os.environ:
             tail = path[j:]
             value = os.environ[name]
-            if encoding:
-                value = value.decode(encoding)
+            if isinstance(path, bytes):
+                value = value.encode('ASCII')
             path = path[:i] + value
             i = len(path)
             path += tail
@@ -335,38 +329,46 @@ def expandvars(path):
 
 def normpath(path):
     """Normalize path, eliminating double slashes, etc."""
-    # Preserve unicode (if path is unicode)
-    slash, dot = (u'/', u'.') if isinstance(path, _unicode) else ('/', '.')
-    if path == '':
+    if isinstance(path, bytes):
+        sep = b'/'
+        empty = b''
+        dot = b'.'
+        dotdot = b'..'
+    else:
+        sep = '/'
+        empty = ''
+        dot = '.'
+        dotdot = '..'
+    if path == empty:
         return dot
-    initial_slashes = path.startswith('/')
+    initial_slashes = path.startswith(sep)
     # POSIX allows one or two initial slashes, but treats three or more
     # as single slash.
     if (initial_slashes and
-        path.startswith('//') and not path.startswith('///')):
+        path.startswith(sep*2) and not path.startswith(sep*3)):
         initial_slashes = 2
-    comps = path.split('/')
+    comps = path.split(sep)
     new_comps = []
     for comp in comps:
-        if comp in ('', '.'):
+        if comp in (empty, dot):
             continue
-        if (comp != '..' or (not initial_slashes and not new_comps) or
-             (new_comps and new_comps[-1] == '..')):
+        if (comp != dotdot or (not initial_slashes and not new_comps) or
+             (new_comps and new_comps[-1] == dotdot)):
             new_comps.append(comp)
         elif new_comps:
             new_comps.pop()
     comps = new_comps
-    path = slash.join(comps)
+    path = sep.join(comps)
     if initial_slashes:
-        path = slash*initial_slashes + path
+        path = sep*initial_slashes + path
     return path or dot
 
 
 def abspath(path):
     """Return an absolute path."""
     if not isabs(path):
-        if isinstance(path, _unicode):
-            cwd = os.getcwdu()
+        if isinstance(path, bytes):
+            cwd = os.getcwdb()
         else:
             cwd = os.getcwd()
         path = join(cwd, path)
@@ -379,60 +381,71 @@ def abspath(path):
 def realpath(filename):
     """Return the canonical path of the specified filename, eliminating any
 symbolic links encountered in the path."""
-    path, ok = _joinrealpath('', filename, {})
-    return abspath(path)
+    if isinstance(filename, bytes):
+        sep = b'/'
+        empty = b''
+    else:
+        sep = '/'
+        empty = ''
+    if isabs(filename):
+        bits = [sep] + filename.split(sep)[1:]
+    else:
+        bits = [empty] + filename.split(sep)
 
-# Join two paths, normalizing and eliminating any symbolic links
-# encountered in the second path.
-def _joinrealpath(path, rest, seen):
-    if isabs(rest):
-        rest = rest[1:]
-        path = sep
-
-    while rest:
-        name, _, rest = rest.partition(sep)
-        if not name or name == curdir:
-            # current dir
-            continue
-        if name == pardir:
-            # parent dir
-            if path:
-                path, name = split(path)
-                if name == pardir:
-                    path = join(path, pardir, pardir)
+    for i in range(2, len(bits)+1):
+        component = join(*bits[0:i])
+        # Resolve symbolic links.
+        if islink(component):
+            resolved = _resolve_link(component)
+            if resolved is None:
+                # Infinite loop -- return original component + rest of the path
+                return abspath(join(*([component] + bits[i:])))
             else:
-                path = pardir
-            continue
-        newpath = join(path, name)
-        if not islink(newpath):
-            path = newpath
-            continue
-        # Resolve the symbolic link
-        if newpath in seen:
-            # Already seen this path
-            path = seen[newpath]
-            if path is not None:
-                # use cached value
-                continue
-            # The symlink is not resolved, so we must have a symlink loop.
-            # Return already resolved part + rest of the path unchanged.
-            return join(newpath, rest), False
-        seen[newpath] = None # not resolved symlink
-        path, ok = _joinrealpath(path, os.readlink(newpath), seen)
-        if not ok:
-            return join(path, rest), False
-        seen[newpath] = path # resolved symlink
+                newpath = join(*([resolved] + bits[i:]))
+                return realpath(newpath)
 
-    return path, True
+    return abspath(filename)
 
+
+def _resolve_link(path):
+    """Internal helper function.  Takes a path and follows symlinks
+    until we either arrive at something that isn't a symlink, or
+    encounter a path we've seen before (meaning that there's a loop).
+    """
+    paths_seen = set()
+    while islink(path):
+        if path in paths_seen:
+            # Already seen this path, so we must have a symlink loop
+            return None
+        paths_seen.add(path)
+        # Resolve where the link points to
+        resolved = os.readlink(path)
+        if not isabs(resolved):
+            dir = dirname(path)
+            path = normpath(join(dir, resolved))
+        else:
+            path = normpath(resolved)
+    return path
 
 supports_unicode_filenames = (sys.platform == 'darwin')
 
-def relpath(path, start=curdir):
+def relpath(path, start=None):
     """Return a relative version of a path"""
 
     if not path:
         raise ValueError("no path specified")
+
+    if isinstance(path, bytes):
+        curdir = b'.'
+        sep = b'/'
+        pardir = b'..'
+    else:
+        curdir = '.'
+        sep = '/'
+        pardir = '..'
+
+    if start is None:
+        start = curdir
 
     start_list = [x for x in abspath(start).split(sep) if x]
     path_list = [x for x in abspath(path).split(sep) if x]

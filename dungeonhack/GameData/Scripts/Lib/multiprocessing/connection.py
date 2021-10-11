@@ -90,7 +90,7 @@ def arbitrary_address(family):
         return tempfile.mktemp(prefix='listener-', dir=get_temp_dir())
     elif family == 'AF_PIPE':
         return tempfile.mktemp(prefix=r'\\.\pipe\pyc-%d-%d-' %
-                               (os.getpid(), _mmap_counter.next()), dir="")
+                               (os.getpid(), next(_mmap_counter)))
     else:
         raise ValueError('unrecognized family')
 
@@ -132,7 +132,7 @@ class Listener(object):
             self._listener = SocketListener(address, family, backlog)
 
         if authkey is not None and not isinstance(authkey, bytes):
-            raise TypeError, 'authkey should be a byte string'
+            raise TypeError('authkey should be a byte string')
 
         self._authkey = authkey
 
@@ -169,7 +169,7 @@ def Client(address, family=None, authkey=None):
         c = SocketClient(address)
 
     if authkey is not None and not isinstance(authkey, bytes):
-        raise TypeError, 'authkey should be a byte string'
+        raise TypeError('authkey should be a byte string')
 
     if authkey is not None:
         answer_challenge(c, authkey)
@@ -186,8 +186,6 @@ if sys.platform != 'win32':
         '''
         if duplex:
             s1, s2 = socket.socketpair()
-            s1.setblocking(True)
-            s2.setblocking(True)
             c1 = _multiprocessing.Connection(os.dup(s1.fileno()))
             c2 = _multiprocessing.Connection(os.dup(s2.fileno()))
             s1.close()
@@ -200,6 +198,7 @@ if sys.platform != 'win32':
         return c1, c2
 
 else:
+
     from _multiprocessing import win32
 
     def Pipe(duplex=True):
@@ -231,7 +230,7 @@ else:
 
         try:
             win32.ConnectNamedPipe(h1, win32.NULL)
-        except WindowsError, e:
+        except WindowsError as e:
             if e.args[0] != win32.ERROR_PIPE_CONNECTED:
                 raise
 
@@ -250,15 +249,10 @@ class SocketListener(object):
     '''
     def __init__(self, address, family, backlog=1):
         self._socket = socket.socket(getattr(socket, family))
-        try:
-            self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-            self._socket.setblocking(True)
-            self._socket.bind(address)
-            self._socket.listen(backlog)
-            self._address = self._socket.getsockname()
-        except socket.error:
-            self._socket.close()
-            raise
+        self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self._socket.bind(address)
+        self._socket.listen(backlog)
+        self._address = self._socket.getsockname()
         self._family = family
         self._last_accepted = None
 
@@ -270,56 +264,41 @@ class SocketListener(object):
             self._unlink = None
 
     def accept(self):
-        while True:
-            try:
-                s, self._last_accepted = self._socket.accept()
-            except socket.error as e:
-                if e.args[0] != errno.EINTR:
-                    raise
-            else:
-                break
-        s.setblocking(True)
+        s, self._last_accepted = self._socket.accept()
         fd = duplicate(s.fileno())
         conn = _multiprocessing.Connection(fd)
         s.close()
         return conn
 
     def close(self):
-        try:
-            self._socket.close()
-        finally:
-            unlink = self._unlink
-            if unlink is not None:
-                self._unlink = None
-                unlink()
+        self._socket.close()
+        if self._unlink is not None:
+            self._unlink()
 
 
 def SocketClient(address):
     '''
     Return a connection object connected to the socket given by `address`
     '''
-    family = getattr(socket, address_type(address))
-    t = _init_timeout()
+    family = address_type(address)
+    with socket.socket( getattr(socket, family) ) as s:
+        t = _init_timeout()
 
-    while 1:
-        s = socket.socket(family)
-        s.setblocking(True)
-        try:
-            s.connect(address)
-        except socket.error, e:
-            s.close()
-            if e.args[0] != errno.ECONNREFUSED or _check_timeout(t):
-                debug('failed to connect to address %s', address)
-                raise
-            time.sleep(0.01)
+        while 1:
+            try:
+                s.connect(address)
+            except socket.error as e:
+                if e.args[0] != errno.ECONNREFUSED or _check_timeout(t):
+                    debug('failed to connect to address %s', address)
+                    raise
+                time.sleep(0.01)
+            else:
+                break
         else:
-            break
-    else:
-        raise
+            raise
 
-    fd = duplicate(s.fileno())
+        fd = duplicate(s.fileno())
     conn = _multiprocessing.Connection(fd)
-    s.close()
     return conn
 
 #
@@ -363,11 +342,8 @@ if sys.platform == 'win32':
             handle = self._handle_queue.pop(0)
             try:
                 win32.ConnectNamedPipe(handle, win32.NULL)
-            except WindowsError, e:
-                # ERROR_NO_DATA can occur if a client has already connected,
-                # written data and then disconnected -- see Issue 14725.
-                if e.args[0] not in (win32.ERROR_PIPE_CONNECTED,
-                                     win32.ERROR_NO_DATA):
+            except WindowsError as e:
+                if e.args[0] != win32.ERROR_PIPE_CONNECTED:
                     raise
             return _multiprocessing.PipeConnection(handle)
 
@@ -389,7 +365,7 @@ if sys.platform == 'win32':
                     address, win32.GENERIC_READ | win32.GENERIC_WRITE,
                     0, win32.NULL, win32.OPEN_EXISTING, 0, win32.NULL
                     )
-            except WindowsError, e:
+            except WindowsError as e:
                 if e.args[0] not in (win32.ERROR_SEM_TIMEOUT,
                                      win32.ERROR_PIPE_BUSY) or _check_timeout(t):
                     raise
@@ -458,20 +434,20 @@ class ConnectionWrapper(object):
         return self._loads(s)
 
 def _xml_dumps(obj):
-    return xmlrpclib.dumps((obj,), None, None, None, 1)
+    return xmlrpclib.dumps((obj,), None, None, None, 1).encode('utf8')
 
 def _xml_loads(s):
-    (obj,), method = xmlrpclib.loads(s)
+    (obj,), method = xmlrpclib.loads(s.decode('utf8'))
     return obj
 
 class XmlListener(Listener):
     def accept(self):
         global xmlrpclib
-        import xmlrpclib
+        import xmlrpc.client as xmlrpclib
         obj = Listener.accept(self)
         return ConnectionWrapper(obj, _xml_dumps, _xml_loads)
 
 def XmlClient(*args, **kwds):
     global xmlrpclib
-    import xmlrpclib
+    import xmlrpc.client as xmlrpclib
     return ConnectionWrapper(Client(*args, **kwds), _xml_dumps, _xml_loads)

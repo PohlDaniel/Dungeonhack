@@ -91,16 +91,33 @@ class Queue:
         return n
 
     def empty(self):
-        """Return True if the queue is empty, False otherwise (not reliable!)."""
+        """Return True if the queue is empty, False otherwise (not reliable!).
+
+        This method is likely to be removed at some point.  Use qsize() == 0
+        as a direct substitute, but be aware that either approach risks a race
+        condition where a queue can grow before the result of empty() or
+        qsize() can be used.
+
+        To create code that needs to wait for all queued tasks to be
+        completed, the preferred technique is to use the join() method.
+
+        """
         self.mutex.acquire()
         n = not self._qsize()
         self.mutex.release()
         return n
 
     def full(self):
-        """Return True if the queue is full, False otherwise (not reliable!)."""
+        """Return True if the queue is full, False otherwise (not reliable!).
+
+        This method is likely to be removed at some point.  Use qsize() >= n
+        as a direct substitute, but be aware that either approach risks a race
+        condition where a queue can shrink before the result of full() or
+        qsize() can be used.
+
+        """
         self.mutex.acquire()
-        n = 0 < self.maxsize == self._qsize()
+        n = 0 < self.maxsize <= self._qsize()
         self.mutex.release()
         return n
 
@@ -109,7 +126,7 @@ class Queue:
 
         If optional args 'block' is true and 'timeout' is None (the default),
         block if necessary until a free slot is available. If 'timeout' is
-        a non-negative number, it blocks at most 'timeout' seconds and raises
+        a positive number, it blocks at most 'timeout' seconds and raises
         the Full exception if no free slot was available within that time.
         Otherwise ('block' is false), put an item on the queue if a free slot
         is immediately available, else raise the Full exception ('timeout'
@@ -119,16 +136,16 @@ class Queue:
         try:
             if self.maxsize > 0:
                 if not block:
-                    if self._qsize() == self.maxsize:
+                    if self._qsize() >= self.maxsize:
                         raise Full
                 elif timeout is None:
-                    while self._qsize() == self.maxsize:
+                    while self._qsize() >= self.maxsize:
                         self.not_full.wait()
                 elif timeout < 0:
-                    raise ValueError("'timeout' must be a non-negative number")
+                    raise ValueError("'timeout' must be a positive number")
                 else:
                     endtime = _time() + timeout
-                    while self._qsize() == self.maxsize:
+                    while self._qsize() >= self.maxsize:
                         remaining = endtime - _time()
                         if remaining <= 0.0:
                             raise Full
@@ -152,7 +169,7 @@ class Queue:
 
         If optional args 'block' is true and 'timeout' is None (the default),
         block if necessary until an item is available. If 'timeout' is
-        a non-negative number, it blocks at most 'timeout' seconds and raises
+        a positive number, it blocks at most 'timeout' seconds and raises
         the Empty exception if no item was available within that time.
         Otherwise ('block' is false), return an item if one is immediately
         available, else raise the Empty exception ('timeout' is ignored
@@ -167,7 +184,7 @@ class Queue:
                 while not self._qsize():
                     self.not_empty.wait()
             elif timeout < 0:
-                raise ValueError("'timeout' must be a non-negative number")
+                raise ValueError("'timeout' must be a positive number")
             else:
                 endtime = _time() + timeout
                 while not self._qsize():

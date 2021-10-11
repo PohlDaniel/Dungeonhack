@@ -20,7 +20,7 @@ class FixerTestCase(support.TestCase):
             fix_list = [self.fixer]
         self.refactor = support.get_refactorer(fixer_pkg, fix_list, options)
         self.fixer_log = []
-        self.filename = u"<string>"
+        self.filename = "<string>"
 
         for fixer in chain(self.refactor.pre_order,
                            self.refactor.post_order):
@@ -30,7 +30,7 @@ class FixerTestCase(support.TestCase):
         before = support.reformat(before)
         after = support.reformat(after)
         tree = self.refactor.refactor_string(before, self.filename)
-        self.assertEqual(after, unicode(tree))
+        self.assertEqual(after, str(tree))
         return tree
 
     def check(self, before, after, ignore_warnings=False):
@@ -41,7 +41,7 @@ class FixerTestCase(support.TestCase):
 
     def warns(self, before, after, message, unchanged=False):
         tree = self._check(before, after)
-        self.assertIn(message, "".join(self.fixer_log))
+        self.assertTrue(message in "".join(self.fixer_log))
         if not unchanged:
             self.assertTrue(tree.was_changed)
 
@@ -258,10 +258,6 @@ class Test_apply(FixerTestCase):
 
     def test_unchanged_6(self):
         s = """apply(f, *args)"""
-        self.unchanged(s)
-
-    def test_unchanged_6b(self):
-        s = """apply(f, **kwds)"""
         self.unchanged(s)
 
     def test_unchanged_7(self):
@@ -1143,36 +1139,36 @@ class Test_execfile(FixerTestCase):
 
     def test_conversion(self):
         b = """execfile("fn")"""
-        a = """exec(compile(open("fn", "rb").read(), "fn", 'exec'))"""
+        a = """exec(compile(open("fn").read(), "fn", 'exec'))"""
         self.check(b, a)
 
         b = """execfile("fn", glob)"""
-        a = """exec(compile(open("fn", "rb").read(), "fn", 'exec'), glob)"""
+        a = """exec(compile(open("fn").read(), "fn", 'exec'), glob)"""
         self.check(b, a)
 
         b = """execfile("fn", glob, loc)"""
-        a = """exec(compile(open("fn", "rb").read(), "fn", 'exec'), glob, loc)"""
+        a = """exec(compile(open("fn").read(), "fn", 'exec'), glob, loc)"""
         self.check(b, a)
 
         b = """execfile("fn", globals=glob)"""
-        a = """exec(compile(open("fn", "rb").read(), "fn", 'exec'), globals=glob)"""
+        a = """exec(compile(open("fn").read(), "fn", 'exec'), globals=glob)"""
         self.check(b, a)
 
         b = """execfile("fn", locals=loc)"""
-        a = """exec(compile(open("fn", "rb").read(), "fn", 'exec'), locals=loc)"""
+        a = """exec(compile(open("fn").read(), "fn", 'exec'), locals=loc)"""
         self.check(b, a)
 
         b = """execfile("fn", globals=glob, locals=loc)"""
-        a = """exec(compile(open("fn", "rb").read(), "fn", 'exec'), globals=glob, locals=loc)"""
+        a = """exec(compile(open("fn").read(), "fn", 'exec'), globals=glob, locals=loc)"""
         self.check(b, a)
 
     def test_spacing(self):
         b = """execfile( "fn" )"""
-        a = """exec(compile(open( "fn", "rb" ).read(), "fn", 'exec'))"""
+        a = """exec(compile(open( "fn" ).read(), "fn", 'exec'))"""
         self.check(b, a)
 
         b = """execfile("fn",  globals = glob)"""
-        a = """exec(compile(open("fn", "rb").read(), "fn", 'exec'),  globals = glob)"""
+        a = """exec(compile(open("fn").read(), "fn", 'exec'),  globals = glob)"""
         self.check(b, a)
 
 
@@ -1409,27 +1405,27 @@ class Test_dict(FixerTestCase):
         a = "d.values()"
         self.check(b, a)
 
-    def test_28(self):
+    def test_14(self):
         b = "[i for i in d.viewkeys()]"
         a = "[i for i in d.keys()]"
         self.check(b, a)
 
-    def test_29(self):
+    def test_15(self):
         b = "(i for i in d.viewkeys())"
         a = "(i for i in d.keys())"
         self.check(b, a)
 
-    def test_30(self):
+    def test_17(self):
         b = "iter(d.viewkeys())"
         a = "iter(d.keys())"
         self.check(b, a)
 
-    def test_31(self):
+    def test_18(self):
         b = "list(d.viewkeys())"
         a = "list(d.keys())"
         self.check(b, a)
 
-    def test_32(self):
+    def test_19(self):
         b = "sorted(d.viewkeys())"
         a = "sorted(d.keys())"
         self.check(b, a)
@@ -2748,7 +2744,7 @@ class Test_renames(FixerTestCase):
               }
 
     def test_import_from(self):
-        for mod, (old, new) in self.modules.items():
+        for mod, (old, new) in list(self.modules.items()):
             b = "from %s import %s" % (mod, old)
             a = "from %s import %s" % (mod, new)
             self.check(b, a)
@@ -2757,13 +2753,13 @@ class Test_renames(FixerTestCase):
             self.unchanged(s)
 
     def test_import_from_as(self):
-        for mod, (old, new) in self.modules.items():
+        for mod, (old, new) in list(self.modules.items()):
             b = "from %s import %s as foo_bar" % (mod, old)
             a = "from %s import %s as foo_bar" % (mod, new)
             self.check(b, a)
 
     def test_import_module_usage(self):
-        for mod, (old, new) in self.modules.items():
+        for mod, (old, new) in list(self.modules.items()):
             b = """
                 import %s
                 foo(%s, %s.%s)
@@ -2776,7 +2772,7 @@ class Test_renames(FixerTestCase):
 
     def XXX_test_from_import_usage(self):
         # not implemented yet
-        for mod, (old, new) in self.modules.items():
+        for mod, (old, new) in list(self.modules.items()):
             b = """
                 from %s import %s
                 foo(%s, %s)
@@ -2828,43 +2824,98 @@ class Test_unicode(FixerTestCase):
         a = """R'''x''' """
         self.check(b, a)
 
-    def test_native_literal_escape_u(self):
-        b = """'\\\\\\u20ac\\U0001d121\\\\u20ac'"""
-        a = """'\\\\\\\\u20ac\\\\U0001d121\\\\u20ac'"""
+class Test_callable(FixerTestCase):
+    fixer = "callable"
+
+    def test_prefix_preservation(self):
+        b = """callable(    x)"""
+        a = """import collections\nisinstance(    x, collections.Callable)"""
         self.check(b, a)
 
-        b = """r'\\\\\\u20ac\\U0001d121\\\\u20ac'"""
-        a = """r'\\\\\\u20ac\\U0001d121\\\\u20ac'"""
+        b = """if     callable(x): pass"""
+        a = """import collections
+if     isinstance(x, collections.Callable): pass"""
         self.check(b, a)
 
-    def test_bytes_literal_escape_u(self):
-        b = """b'\\\\\\u20ac\\U0001d121\\\\u20ac'"""
-        a = """b'\\\\\\u20ac\\U0001d121\\\\u20ac'"""
+    def test_callable_call(self):
+        b = """callable(x)"""
+        a = """import collections\nisinstance(x, collections.Callable)"""
         self.check(b, a)
 
-        b = """br'\\\\\\u20ac\\U0001d121\\\\u20ac'"""
-        a = """br'\\\\\\u20ac\\U0001d121\\\\u20ac'"""
+    def test_global_import(self):
+        b = """
+def spam(foo):
+    callable(foo)"""[1:]
+        a = """
+import collections
+def spam(foo):
+    isinstance(foo, collections.Callable)"""[1:]
         self.check(b, a)
 
-    def test_unicode_literal_escape_u(self):
-        b = """u'\\\\\\u20ac\\U0001d121\\\\u20ac'"""
-        a = """'\\\\\\u20ac\\U0001d121\\\\u20ac'"""
+        b = """
+import collections
+def spam(foo):
+    callable(foo)"""[1:]
+        # same output if it was already imported
         self.check(b, a)
 
-        b = """ur'\\\\\\u20ac\\U0001d121\\\\u20ac'"""
-        a = """r'\\\\\\u20ac\\U0001d121\\\\u20ac'"""
+        b = """
+from collections import *
+def spam(foo):
+    callable(foo)"""[1:]
+        a = """
+from collections import *
+import collections
+def spam(foo):
+    isinstance(foo, collections.Callable)"""[1:]
         self.check(b, a)
 
-    def test_native_unicode_literal_escape_u(self):
-        f = 'from __future__ import unicode_literals\n'
-        b = f + """'\\\\\\u20ac\\U0001d121\\\\u20ac'"""
-        a = f + """'\\\\\\u20ac\\U0001d121\\\\u20ac'"""
+        b = """
+do_stuff()
+do_some_other_stuff()
+assert callable(do_stuff)"""[1:]
+        a = """
+import collections
+do_stuff()
+do_some_other_stuff()
+assert isinstance(do_stuff, collections.Callable)"""[1:]
         self.check(b, a)
 
-        b = f + """r'\\\\\\u20ac\\U0001d121\\\\u20ac'"""
-        a = f + """r'\\\\\\u20ac\\U0001d121\\\\u20ac'"""
+        b = """
+if isinstance(do_stuff, Callable):
+    assert callable(do_stuff)
+    do_stuff(do_stuff)
+    if not callable(do_stuff):
+        exit(1)
+    else:
+        assert callable(do_stuff)
+else:
+    assert not callable(do_stuff)"""[1:]
+        a = """
+import collections
+if isinstance(do_stuff, Callable):
+    assert isinstance(do_stuff, collections.Callable)
+    do_stuff(do_stuff)
+    if not isinstance(do_stuff, collections.Callable):
+        exit(1)
+    else:
+        assert isinstance(do_stuff, collections.Callable)
+else:
+    assert not isinstance(do_stuff, collections.Callable)"""[1:]
         self.check(b, a)
 
+    def test_callable_should_not_change(self):
+        a = """callable(*x)"""
+        self.unchanged(a)
+
+        a = """callable(x, y)"""
+        self.unchanged(a)
+
+        a = """callable(x, kw=y)"""
+        self.unchanged(a)
+
+        a = """callable()"""
+        self.unchanged(a)
 
 class Test_filter(FixerTestCase):
     fixer = "filter"
@@ -2929,10 +2980,6 @@ class Test_filter(FixerTestCase):
         a = """sorted(filter(f, 'abc'), key=blah)"""
         self.unchanged(a)
         a = """sorted(filter(f, 'abc'), key=blah)[0]"""
-        self.unchanged(a)
-        a = """enumerate(filter(f, 'abc'))"""
-        self.unchanged(a)
-        a = """enumerate(filter(f, 'abc'), start=1)"""
         self.unchanged(a)
         a = """for i in filter(f, 'abc'): pass"""
         self.unchanged(a)
@@ -3042,10 +3089,6 @@ class Test_map(FixerTestCase):
         self.unchanged(a)
         a = """sorted(map(f, 'abc'), key=blah)[0]"""
         self.unchanged(a)
-        a = """enumerate(map(f, 'abc'))"""
-        self.unchanged(a)
-        a = """enumerate(map(f, 'abc'), start=1)"""
-        self.unchanged(a)
         a = """for i in map(f, 'abc'): pass"""
         self.unchanged(a)
         a = """[x for x in map(f, 'abc')]"""
@@ -3109,10 +3152,6 @@ class Test_zip(FixerTestCase):
         self.unchanged(a)
         a = """sorted(zip(a, b), key=blah)[0]"""
         self.unchanged(a)
-        a = """enumerate(zip(a, b))"""
-        self.unchanged(a)
-        a = """enumerate(zip(a, b), start=1)"""
-        self.unchanged(a)
         a = """for i in zip(a, b): pass"""
         self.unchanged(a)
         a = """[x for x in zip(a, b)]"""
@@ -3173,10 +3212,6 @@ class Test_types(FixerTestCase):
 
         b = """types.NoneType"""
         a = """type(None)"""
-        self.check(b, a)
-
-        b = "types.StringTypes"
-        a = "(str,)"
         self.check(b, a)
 
 class Test_idioms(FixerTestCase):
@@ -4492,53 +4527,3 @@ class Test_exitfunc(FixerTestCase):
     def test_unchanged(self):
         s = """f(sys.exitfunc)"""
         self.unchanged(s)
-
-
-class Test_asserts(FixerTestCase):
-
-    fixer = "asserts"
-
-    def test_deprecated_names(self):
-        tests = [
-            ('self.assert_(True)', 'self.assertTrue(True)'),
-            ('self.assertEquals(2, 2)', 'self.assertEqual(2, 2)'),
-            ('self.assertNotEquals(2, 3)', 'self.assertNotEqual(2, 3)'),
-            ('self.assertAlmostEquals(2, 3)', 'self.assertAlmostEqual(2, 3)'),
-            ('self.assertNotAlmostEquals(2, 8)', 'self.assertNotAlmostEqual(2, 8)'),
-            ('self.failUnlessEqual(2, 2)', 'self.assertEqual(2, 2)'),
-            ('self.failIfEqual(2, 3)', 'self.assertNotEqual(2, 3)'),
-            ('self.failUnlessAlmostEqual(2, 3)', 'self.assertAlmostEqual(2, 3)'),
-            ('self.failIfAlmostEqual(2, 8)', 'self.assertNotAlmostEqual(2, 8)'),
-            ('self.failUnless(True)', 'self.assertTrue(True)'),
-            ('self.failUnlessRaises(foo)', 'self.assertRaises(foo)'),
-            ('self.failIf(False)', 'self.assertFalse(False)'),
-        ]
-        for b, a in tests:
-            self.check(b, a)
-
-    def test_variants(self):
-        b = 'eq = self.assertEquals'
-        a = 'eq = self.assertEqual'
-        self.check(b, a)
-        b = 'self.assertEquals(2, 3, msg="fail")'
-        a = 'self.assertEqual(2, 3, msg="fail")'
-        self.check(b, a)
-        b = 'self.assertEquals(2, 3, msg="fail") # foo'
-        a = 'self.assertEqual(2, 3, msg="fail") # foo'
-        self.check(b, a)
-        b = 'self.assertEquals (2, 3)'
-        a = 'self.assertEqual (2, 3)'
-        self.check(b, a)
-        b = '  self.assertEquals (2, 3)'
-        a = '  self.assertEqual (2, 3)'
-        self.check(b, a)
-        b = 'with self.failUnlessRaises(Explosion): explode()'
-        a = 'with self.assertRaises(Explosion): explode()'
-        self.check(b, a)
-        b = 'with self.failUnlessRaises(Explosion) as cm: explode()'
-        a = 'with self.assertRaises(Explosion) as cm: explode()'
-        self.check(b, a)
-
-    def test_unchanged(self):
-        self.unchanged('self.assertEqualsOnSaturday')
-        self.unchanged('self.assertEqualsOnSaturday(3, 5)')

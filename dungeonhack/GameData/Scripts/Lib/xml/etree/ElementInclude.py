@@ -67,7 +67,7 @@ class FatalIncludeError(SyntaxError):
 #
 # @param href Resource reference.
 # @param parse Parse mode.  Either "xml" or "text".
-# @param encoding Optional text encoding.
+# @param encoding Optional text encoding (UTF-8 by default for "text").
 # @return The expanded resource.  If the parse mode is "xml", this
 #    is an ElementTree instance.  If the parse mode is "text", this
 #    is a Unicode string.  If the loader fails, it can return None
@@ -75,13 +75,15 @@ class FatalIncludeError(SyntaxError):
 # @throws IOError If the loader fails to load the resource.
 
 def default_loader(href, parse, encoding=None):
-    with open(href) as file:
-        if parse == "xml":
-            data = ElementTree.parse(file).getroot()
-        else:
-            data = file.read()
-            if encoding:
-                data = data.decode(encoding)
+    if parse == "xml":
+        file = open(href, 'rb')
+        data = ElementTree.parse(file).getroot()
+    else:
+        if not encoding:
+            encoding = 'UTF-8'
+        file = open(href, 'r', encoding=encoding)
+        data = file.read()
+    file.close()
     return data
 
 ##

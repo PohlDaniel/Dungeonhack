@@ -1,7 +1,7 @@
 import operator
 import unittest
 
-from test import test_support
+from test import support
 
 class Seq1:
     def __init__(self, lst):
@@ -57,7 +57,6 @@ class OperatorTestCase(unittest.TestCase):
         class C(object):
             def __eq__(self, other):
                 raise SyntaxError
-            __hash__ = None # Silence Py3k warning
         self.assertRaises(TypeError, operator.eq)
         self.assertRaises(SyntaxError, operator.eq, C(), C())
         self.assertFalse(operator.eq(1, 0))
@@ -103,8 +102,8 @@ class OperatorTestCase(unittest.TestCase):
     def test_abs(self):
         self.assertRaises(TypeError, operator.abs)
         self.assertRaises(TypeError, operator.abs, None)
-        self.assertTrue(operator.abs(-1) == 1)
-        self.assertTrue(operator.abs(1) == 1)
+        self.assertEqual(operator.abs(-1), 1)
+        self.assertEqual(operator.abs(1), 1)
 
     def test_add(self):
         self.assertRaises(TypeError, operator.add)
@@ -138,20 +137,6 @@ class OperatorTestCase(unittest.TestCase):
         self.assertTrue(operator.delitem(a, 1) is None)
         self.assertTrue(a == [4, 2, 1])
 
-    def test_delslice(self):
-        a = range(10)
-        self.assertRaises(TypeError, operator.delslice, a)
-        self.assertRaises(TypeError, operator.delslice, a, None, None)
-        self.assertTrue(operator.delslice(a, 2, 8) is None)
-        self.assertTrue(a == [0, 1, 8, 9])
-        operator.delslice(a, 0, test_support.MAX_Py_ssize_t)
-        self.assertTrue(a == [])
-
-    def test_div(self):
-        self.assertRaises(TypeError, operator.div, 5)
-        self.assertRaises(TypeError, operator.div, None, None)
-        self.assertTrue(operator.floordiv(5, 2) == 2)
-
     def test_floordiv(self):
         self.assertRaises(TypeError, operator.floordiv, 5)
         self.assertRaises(TypeError, operator.floordiv, None, None)
@@ -168,14 +153,6 @@ class OperatorTestCase(unittest.TestCase):
         self.assertRaises(TypeError, operator.getitem, a, None)
         self.assertTrue(operator.getitem(a, 2) == 2)
 
-    def test_getslice(self):
-        a = range(10)
-        self.assertRaises(TypeError, operator.getslice)
-        self.assertRaises(TypeError, operator.getslice, a, None, None)
-        self.assertTrue(operator.getslice(a, 4, 6) == [4, 5])
-        b = operator.getslice(a, 0, test_support.MAX_Py_ssize_t)
-        self.assertTrue(b == a)
-
     def test_indexOf(self):
         self.assertRaises(TypeError, operator.indexOf)
         self.assertRaises(TypeError, operator.indexOf, None, None)
@@ -185,45 +162,7 @@ class OperatorTestCase(unittest.TestCase):
     def test_invert(self):
         self.assertRaises(TypeError, operator.invert)
         self.assertRaises(TypeError, operator.invert, None)
-        self.assertTrue(operator.inv(4) == -5)
-
-    def test_isCallable(self):
-        self.assertRaises(TypeError, operator.isCallable)
-        class C:
-            pass
-        def check(self, o, v):
-            with test_support.check_py3k_warnings():
-                self.assertEqual(operator.isCallable(o), v)
-                self.assertEqual(callable(o), v)
-        check(self, 4, 0)
-        check(self, operator.isCallable, 1)
-        check(self, C, 1)
-        check(self, C(), 0)
-
-    def test_isMappingType(self):
-        self.assertRaises(TypeError, operator.isMappingType)
-        self.assertFalse(operator.isMappingType(1))
-        self.assertFalse(operator.isMappingType(operator.isMappingType))
-        self.assertTrue(operator.isMappingType(operator.__dict__))
-        self.assertTrue(operator.isMappingType({}))
-
-    def test_isNumberType(self):
-        self.assertRaises(TypeError, operator.isNumberType)
-        self.assertTrue(operator.isNumberType(8))
-        self.assertTrue(operator.isNumberType(8j))
-        self.assertTrue(operator.isNumberType(8L))
-        self.assertTrue(operator.isNumberType(8.3))
-        self.assertFalse(operator.isNumberType(dir()))
-
-    def test_isSequenceType(self):
-        self.assertRaises(TypeError, operator.isSequenceType)
-        self.assertTrue(operator.isSequenceType(dir()))
-        self.assertTrue(operator.isSequenceType(()))
-        self.assertTrue(operator.isSequenceType(xrange(10)))
-        self.assertTrue(operator.isSequenceType('yeahbuddy'))
-        self.assertFalse(operator.isSequenceType(3))
-        class Dict(dict): pass
-        self.assertFalse(operator.isSequenceType(Dict()))
+        self.assertEqual(operator.inv(4), -5)
 
     def test_lshift(self):
         self.assertRaises(TypeError, operator.lshift)
@@ -245,10 +184,10 @@ class OperatorTestCase(unittest.TestCase):
     def test_neg(self):
         self.assertRaises(TypeError, operator.neg)
         self.assertRaises(TypeError, operator.neg, None)
-        self.assertTrue(operator.neg(5) == -5)
-        self.assertTrue(operator.neg(-5) == 5)
-        self.assertTrue(operator.neg(0) == 0)
-        self.assertTrue(operator.neg(-0) == 0)
+        self.assertEqual(operator.neg(5), -5)
+        self.assertEqual(operator.neg(-5), 5)
+        self.assertEqual(operator.neg(0), 0)
+        self.assertEqual(operator.neg(-0), 0)
 
     def test_bitwise_or(self):
         self.assertRaises(TypeError, operator.or_)
@@ -258,43 +197,18 @@ class OperatorTestCase(unittest.TestCase):
     def test_pos(self):
         self.assertRaises(TypeError, operator.pos)
         self.assertRaises(TypeError, operator.pos, None)
-        self.assertTrue(operator.pos(5) == 5)
-        self.assertTrue(operator.pos(-5) == -5)
-        self.assertTrue(operator.pos(0) == 0)
-        self.assertTrue(operator.pos(-0) == 0)
+        self.assertEqual(operator.pos(5), 5)
+        self.assertEqual(operator.pos(-5), -5)
+        self.assertEqual(operator.pos(0), 0)
+        self.assertEqual(operator.pos(-0), 0)
 
     def test_pow(self):
         self.assertRaises(TypeError, operator.pow)
         self.assertRaises(TypeError, operator.pow, None, None)
-        self.assertTrue(operator.pow(3,5) == 3**5)
-        self.assertTrue(operator.__pow__(3,5) == 3**5)
+        self.assertEqual(operator.pow(3,5), 3**5)
+        self.assertEqual(operator.__pow__(3,5), 3**5)
         self.assertRaises(TypeError, operator.pow, 1)
         self.assertRaises(TypeError, operator.pow, 1, 2, 3)
-
-    def test_repeat(self):
-        a = range(3)
-        self.assertRaises(TypeError, operator.repeat)
-        self.assertRaises(TypeError, operator.repeat, a, None)
-        self.assertTrue(operator.repeat(a, 2) == a+a)
-        self.assertTrue(operator.repeat(a, 1) == a)
-        self.assertTrue(operator.repeat(a, 0) == [])
-        a = (1, 2, 3)
-        self.assertTrue(operator.repeat(a, 2) == a+a)
-        self.assertTrue(operator.repeat(a, 1) == a)
-        self.assertTrue(operator.repeat(a, 0) == ())
-        a = '123'
-        self.assertTrue(operator.repeat(a, 2) == a+a)
-        self.assertTrue(operator.repeat(a, 1) == a)
-        self.assertTrue(operator.repeat(a, 0) == '')
-        a = Seq1([4, 5, 6])
-        self.assertTrue(operator.repeat(a, 2) == [4, 5, 6, 4, 5, 6])
-        self.assertTrue(operator.repeat(a, 1) == [4, 5, 6])
-        self.assertTrue(operator.repeat(a, 0) == [])
-        a = Seq2([4, 5, 6])
-        self.assertTrue(operator.repeat(a, 2) == [4, 5, 6, 4, 5, 6])
-        self.assertTrue(operator.repeat(a, 1) == [4, 5, 6])
-        self.assertTrue(operator.repeat(a, 0) == [])
-        self.assertRaises(TypeError, operator.repeat, 6, 7)
 
     def test_rshift(self):
         self.assertRaises(TypeError, operator.rshift)
@@ -308,26 +222,14 @@ class OperatorTestCase(unittest.TestCase):
         self.assertRaises(TypeError, operator.contains, None, None)
         self.assertTrue(operator.contains(range(4), 2))
         self.assertFalse(operator.contains(range(4), 5))
-        with test_support.check_py3k_warnings():
-            self.assertTrue(operator.sequenceIncludes(range(4), 2))
-            self.assertFalse(operator.sequenceIncludes(range(4), 5))
 
     def test_setitem(self):
-        a = range(3)
+        a = list(range(3))
         self.assertRaises(TypeError, operator.setitem, a)
         self.assertRaises(TypeError, operator.setitem, a, None, None)
         self.assertTrue(operator.setitem(a, 0, 2) is None)
         self.assertTrue(a == [2, 1, 2])
         self.assertRaises(IndexError, operator.setitem, a, 4, 2)
-
-    def test_setslice(self):
-        a = range(4)
-        self.assertRaises(TypeError, operator.setslice, a)
-        self.assertRaises(TypeError, operator.setslice, a, None, None, None)
-        self.assertTrue(operator.setslice(a, 1, 3, [2, 1]) is None)
-        self.assertTrue(a == [0, 2, 1, 3])
-        operator.setslice(a, 0, test_support.MAX_Py_ssize_t, [])
-        self.assertTrue(a == [])
 
     def test_sub(self):
         self.assertRaises(TypeError, operator.sub)
@@ -336,7 +238,7 @@ class OperatorTestCase(unittest.TestCase):
 
     def test_truth(self):
         class C(object):
-            def __nonzero__(self):
+            def __bool__(self):
                 raise SyntaxError
         self.assertRaises(TypeError, operator.truth)
         self.assertRaises(SyntaxError, operator.truth, C())
@@ -371,13 +273,9 @@ class OperatorTestCase(unittest.TestCase):
         a.name = 'arthur'
         f = operator.attrgetter('name')
         self.assertEqual(f(a), 'arthur')
-        self.assertRaises(TypeError, f)
-        self.assertRaises(TypeError, f, a, 'dent')
-        self.assertRaises(TypeError, f, a, surname='dent')
         f = operator.attrgetter('rank')
         self.assertRaises(AttributeError, f, a)
-        f = operator.attrgetter(2)
-        self.assertRaises(TypeError, f, a)
+        self.assertRaises(TypeError, operator.attrgetter, 2)
         self.assertRaises(TypeError, operator.attrgetter)
 
         # multiple gets
@@ -386,7 +284,7 @@ class OperatorTestCase(unittest.TestCase):
         record.y = 'Y'
         record.z = 'Z'
         self.assertEqual(operator.attrgetter('x','z','y')(record), ('X', 'Z', 'Y'))
-        self.assertRaises(TypeError, operator.attrgetter('x', (), 'y'), record)
+        self.assertRaises(TypeError, operator.attrgetter, ('x', (), 'y'))
 
         class C(object):
             def __getattr__(self, name):
@@ -405,6 +303,10 @@ class OperatorTestCase(unittest.TestCase):
         self.assertEqual(f(a), ('arthur', 'thomas'))
         f = operator.attrgetter('name', 'child.name', 'child.child.name')
         self.assertRaises(AttributeError, f, a)
+        f = operator.attrgetter('child.')
+        self.assertRaises(AttributeError, f, a)
+        f = operator.attrgetter('.child')
+        self.assertRaises(AttributeError, f, a)
 
         a.child.child = A()
         a.child.child.name = 'johnson'
@@ -417,9 +319,6 @@ class OperatorTestCase(unittest.TestCase):
         a = 'ABCDE'
         f = operator.itemgetter(2)
         self.assertEqual(f(a), 'C')
-        self.assertRaises(TypeError, f)
-        self.assertRaises(TypeError, f, a, 3)
-        self.assertRaises(TypeError, f, a, size=3)
         f = operator.itemgetter(10)
         self.assertRaises(IndexError, f, a)
 
@@ -441,12 +340,12 @@ class OperatorTestCase(unittest.TestCase):
         # example used in the docs
         inventory = [('apple', 3), ('banana', 2), ('pear', 5), ('orange', 1)]
         getcount = operator.itemgetter(1)
-        self.assertEqual(map(getcount, inventory), [3, 2, 5, 1])
+        self.assertEqual(list(map(getcount, inventory)), [3, 2, 5, 1])
         self.assertEqual(sorted(inventory, key=getcount),
             [('orange', 1), ('banana', 2), ('apple', 3), ('pear', 5)])
 
         # multiple gets
-        data = map(str, range(20))
+        data = list(map(str, range(20)))
         self.assertEqual(operator.itemgetter(2,10,5)(data), ('2', '10', '5'))
         self.assertRaises(TypeError, operator.itemgetter(2, 'x', 5), data)
 
@@ -462,9 +361,6 @@ class OperatorTestCase(unittest.TestCase):
         self.assertRaises(IndexError, f, a)
         f = operator.methodcaller('foo', 1, 2)
         self.assertEqual(f(a), 3)
-        self.assertRaises(TypeError, f)
-        self.assertRaises(TypeError, f, a, 3)
-        self.assertRaises(TypeError, f, a, spam=3)
         f = operator.methodcaller('bar')
         self.assertEqual(f(a), 42)
         self.assertRaises(TypeError, f, a, a)
@@ -475,7 +371,6 @@ class OperatorTestCase(unittest.TestCase):
         class C(object):
             def __iadd__     (self, other): return "iadd"
             def __iand__     (self, other): return "iand"
-            def __idiv__     (self, other): return "idiv"
             def __ifloordiv__(self, other): return "ifloordiv"
             def __ilshift__  (self, other): return "ilshift"
             def __imod__     (self, other): return "imod"
@@ -490,7 +385,6 @@ class OperatorTestCase(unittest.TestCase):
         c = C()
         self.assertEqual(operator.iadd     (c, 5), "iadd")
         self.assertEqual(operator.iand     (c, 5), "iand")
-        self.assertEqual(operator.idiv     (c, 5), "idiv")
         self.assertEqual(operator.ifloordiv(c, 5), "ifloordiv")
         self.assertEqual(operator.ilshift  (c, 5), "ilshift")
         self.assertEqual(operator.imod     (c, 5), "imod")
@@ -502,10 +396,8 @@ class OperatorTestCase(unittest.TestCase):
         self.assertEqual(operator.itruediv (c, 5), "itruediv")
         self.assertEqual(operator.ixor     (c, 5), "ixor")
         self.assertEqual(operator.iconcat  (c, c), "iadd")
-        self.assertEqual(operator.irepeat  (c, 5), "imul")
         self.assertEqual(operator.__iadd__     (c, 5), "iadd")
         self.assertEqual(operator.__iand__     (c, 5), "iand")
-        self.assertEqual(operator.__idiv__     (c, 5), "idiv")
         self.assertEqual(operator.__ifloordiv__(c, 5), "ifloordiv")
         self.assertEqual(operator.__ilshift__  (c, 5), "ilshift")
         self.assertEqual(operator.__imod__     (c, 5), "imod")
@@ -517,7 +409,6 @@ class OperatorTestCase(unittest.TestCase):
         self.assertEqual(operator.__itruediv__ (c, 5), "itruediv")
         self.assertEqual(operator.__ixor__     (c, 5), "ixor")
         self.assertEqual(operator.__iconcat__  (c, c), "iadd")
-        self.assertEqual(operator.__irepeat__  (c, 5), "imul")
 
 def test_main(verbose=None):
     import sys
@@ -525,17 +416,17 @@ def test_main(verbose=None):
         OperatorTestCase,
     )
 
-    test_support.run_unittest(*test_classes)
+    support.run_unittest(*test_classes)
 
     # verify reference counting
     if verbose and hasattr(sys, "gettotalrefcount"):
         import gc
         counts = [None] * 5
-        for i in xrange(len(counts)):
-            test_support.run_unittest(*test_classes)
+        for i in range(len(counts)):
+            support.run_unittest(*test_classes)
             gc.collect()
             counts[i] = sys.gettotalrefcount()
-        print counts
+        print(counts)
 
 if __name__ == "__main__":
     test_main(verbose=True)

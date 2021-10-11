@@ -4,16 +4,9 @@ import unittest
 import distutils.dir_util
 import tempfile
 
-from test import test_support
-
-try: set
-except NameError: from sets import Set as set
+from test import support
 
 import modulefinder
-
-# Note: To test modulefinder with Python 2.2, sets.py and
-# modulefinder.py must be available - they are not in the standard
-# library.
 
 TEST_DIR = tempfile.mkdtemp()
 TEST_PATH = [TEST_DIR, os.path.dirname(__future__.__file__)]
@@ -65,7 +58,7 @@ b/__init__.py
 package_test = [
     "a.module",
     ["a", "a.b", "a.c", "a.module", "mymodule", "sys"],
-    ["blahblah"], [],
+    ["blahblah", "c"], [],
     """\
 mymodule.py
 a/__init__.py
@@ -87,8 +80,8 @@ absolute_import_test = [
     "a.module",
     ["a", "a.module",
      "b", "b.x", "b.y", "b.z",
-     "__future__", "sys", "exceptions"],
-    ["blahblah"], [],
+     "__future__", "sys", "gc"],
+    ["blahblah", "z"], [],
     """\
 mymodule.py
 a/__init__.py
@@ -96,11 +89,11 @@ a/module.py
                                 from __future__ import absolute_import
                                 import sys # sys
                                 import blahblah # fails
-                                import exceptions # exceptions
+                                import gc # gc
                                 import b.x # b.x
                                 from b import y # b.y
                                 from b.z import * # b.z.*
-a/exceptions.py
+a/gc.py
 a/sys.py
                                 import mymodule
 a/b/__init__.py
@@ -123,7 +116,7 @@ relative_import_test = [
      "a.b.c", "a.b.c.moduleC",
      "a.b.c.d", "a.b.c.e",
      "a.b.x",
-     "exceptions"],
+     "gc"],
     [], [],
     """\
 mymodule.py
@@ -131,8 +124,8 @@ a/__init__.py
                                 from .b import y, z # a.b.y, a.b.z
 a/module.py
                                 from __future__ import absolute_import # __future__
-                                import exceptions # exceptions
-a/exceptions.py
+                                import gc # gc
+a/gc.py
 a/sys.py
 a/b/__init__.py
                                 from ..b import x # a.b.x
@@ -170,7 +163,7 @@ a/__init__.py
 a/another.py
 a/module.py
                                 from .b import y, z # a.b.y, a.b.z
-a/exceptions.py
+a/gc.py
 a/sys.py
 a/b/__init__.py
                                 from .c import moduleC # a.b.c.moduleC
@@ -278,22 +271,9 @@ class ModuleFinderTest(unittest.TestCase):
         def test_relative_imports_3(self):
             self._do_test(relative_import_test_3)
 
-    def test_extended_opargs(self):
-        extended_opargs_test = [
-            "a",
-            ["a", "b"],
-            [], [],
-            """\
-a.py
-                                %r
-                                import b
-b.py
-""" % range(2**16)]  # 2**16 constants
-        self._do_test(extended_opargs_test)
-
 def test_main():
     distutils.log.set_threshold(distutils.log.WARN)
-    test_support.run_unittest(ModuleFinderTest)
+    support.run_unittest(ModuleFinderTest)
 
 if __name__ == "__main__":
     unittest.main()

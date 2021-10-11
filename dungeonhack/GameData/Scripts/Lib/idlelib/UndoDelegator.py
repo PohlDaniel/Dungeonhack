@@ -1,5 +1,5 @@
 import string
-from Tkinter import *
+from tkinter import *
 
 from idlelib.Delegator import Delegator
 
@@ -38,10 +38,10 @@ class UndoDelegator(Delegator):
     def dump_event(self, event):
         from pprint import pprint
         pprint(self.undolist[:self.pointer])
-        print "pointer:", self.pointer,
-        print "saved:", self.saved,
-        print "can_merge:", self.can_merge,
-        print "get_saved():", self.get_saved()
+        print("pointer:", self.pointer, end=' ')
+        print("saved:", self.saved, end=' ')
+        print("can_merge:", self.can_merge, end=' ')
+        print("get_saved():", self.get_saved())
         pprint(self.undolist[self.pointer:])
         return "break"
 
@@ -336,30 +336,17 @@ class CommandSequence(Command):
         self.depth = self.depth + incr
         return self.depth
 
-def _undo_delegator(parent):
+def main():
     from idlelib.Percolator import Percolator
     root = Tk()
-    root.title("Test UndoDelegator")
-    width, height, x, y = list(map(int, re.split('[x+]', parent.geometry())))
-    root.geometry("+%d+%d"%(x, y + 150))
-
-    text = Text(root)
-    text.config(height=10)
+    root.wm_protocol("WM_DELETE_WINDOW", root.quit)
+    text = Text()
     text.pack()
     text.focus_set()
     p = Percolator(text)
     d = UndoDelegator()
     p.insertfilter(d)
-
-    undo = Button(root, text="Undo", command=lambda:d.undo_event(None))
-    undo.pack(side='left')
-    redo = Button(root, text="Redo", command=lambda:d.redo_event(None))
-    redo.pack(side='left')
-    dump = Button(root, text="Dump", command=lambda:d.dump_event(None))
-    dump.pack(side='left')
-
     root.mainloop()
 
 if __name__ == "__main__":
-    from idlelib.idle_test.htest import run
-    run(_undo_delegator)
+    main()

@@ -5,19 +5,16 @@ distributions)."""
 
 __revision__ = "$Id$"
 
-import sys
-import os
-import string
-
+import sys, os
 from distutils.core import Command
 from distutils.debug import DEBUG
+from distutils.util import get_platform
 from distutils.file_util import write_file
+from distutils.errors import *
 from distutils.sysconfig import get_python_version
-from distutils.errors import (DistutilsOptionError, DistutilsPlatformError,
-                              DistutilsFileError, DistutilsExecError)
 from distutils import log
 
-class bdist_rpm (Command):
+class bdist_rpm(Command):
 
     description = "create an RPM distribution"
 
@@ -63,7 +60,7 @@ class bdist_rpm (Command):
          "RPM \"vendor\" (eg. \"Joe Blow <joe@example.com>\") "
          "[default: maintainer or author from setup script]"),
         ('packager=', None,
-         "RPM packager (eg. \"Jane Doe <jane@example.net>\") "
+         "RPM packager (eg. \"Jane Doe <jane@example.net>\")"
          "[default: vendor]"),
         ('doc-files=', None,
          "list of documentation files (space or comma-separated)"),
@@ -138,7 +135,7 @@ class bdist_rpm (Command):
                     'rpm2-mode': 'rpm3-mode'}
 
 
-    def initialize_options (self):
+    def initialize_options(self):
         self.bdist_base = None
         self.rpm_base = None
         self.dist_dir = None
@@ -183,15 +180,12 @@ class bdist_rpm (Command):
         self.force_arch = None
         self.quiet = 0
 
-    # initialize_options()
-
-
-    def finalize_options (self):
+    def finalize_options(self):
         self.set_undefined_options('bdist', ('bdist_base', 'bdist_base'))
         if self.rpm_base is None:
             if not self.rpm3_mode:
-                raise DistutilsOptionError, \
-                      "you must specify --rpm-base in RPM 2 mode"
+                raise DistutilsOptionError(
+                      "you must specify --rpm-base in RPM 2 mode")
             self.rpm_base = os.path.join(self.bdist_base, "rpm")
 
         if self.python is None:
@@ -200,16 +194,15 @@ class bdist_rpm (Command):
             else:
                 self.python = "python"
         elif self.fix_python:
-            raise DistutilsOptionError, \
-                  "--python and --fix-python are mutually exclusive options"
+            raise DistutilsOptionError(
+                  "--python and --fix-python are mutually exclusive options")
 
         if os.name != 'posix':
-            raise DistutilsPlatformError, \
-                  ("don't know how to create RPM "
+            raise DistutilsPlatformError("don't know how to create RPM "
                    "distributions on platform %s" % os.name)
         if self.binary_only and self.source_only:
-            raise DistutilsOptionError, \
-                  "cannot supply both '--source-only' and '--binary-only'"
+            raise DistutilsOptionError(
+                  "cannot supply both '--source-only' and '--binary-only'")
 
         # don't pass CFLAGS to pure python distributions
         if not self.distribution.has_ext_modules():
@@ -218,9 +211,7 @@ class bdist_rpm (Command):
         self.set_undefined_options('bdist', ('dist_dir', 'dist_dir'))
         self.finalize_package_data()
 
-    # finalize_options()
-
-    def finalize_package_data (self):
+    def finalize_package_data(self):
         self.ensure_string('group', "Development/Libraries")
         self.ensure_string('vendor',
                            "%s <%s>" % (self.distribution.get_contact(),
@@ -264,17 +255,14 @@ class bdist_rpm (Command):
         self.ensure_string_list('obsoletes')
 
         self.ensure_string('force_arch')
-    # finalize_package_data ()
 
-
-    def run (self):
-
+    def run(self):
         if DEBUG:
-            print "before _get_package_data():"
-            print "vendor =", self.vendor
-            print "packager =", self.packager
-            print "doc_files =", self.doc_files
-            print "changelog =", self.changelog
+            print("before _get_package_data():")
+            print("vendor =", self.vendor)
+            print("packager =", self.packager)
+            print("doc_files =", self.doc_files)
+            print("changelog =", self.changelog)
 
         # make directories
         if self.spec_only:
@@ -318,9 +306,8 @@ class bdist_rpm (Command):
             if os.path.exists(self.icon):
                 self.copy_file(self.icon, source_dir)
             else:
-                raise DistutilsFileError, \
-                      "icon file '%s' does not exist" % self.icon
-
+                raise DistutilsFileError(
+                      "icon file '%s' does not exist" % self.icon)
 
         # build package
         log.info("building RPMs")
@@ -359,11 +346,11 @@ class bdist_rpm (Command):
         try:
             binary_rpms = []
             source_rpm = None
-            while 1:
+            while True:
                 line = out.readline()
                 if not line:
                     break
-                l = string.split(string.strip(line))
+                l = line.strip().split()
                 assert(len(l) == 2)
                 binary_rpms.append(l[1])
                 # The source rpm is named after the first entry in the spec file
@@ -380,29 +367,16 @@ class bdist_rpm (Command):
         self.spawn(rpm_cmd)
 
         if not self.dry_run:
-            if self.distribution.has_ext_modules():
-                pyversion = get_python_version()
-            else:
-                pyversion = 'any'
-
             if not self.binary_only:
                 srpm = os.path.join(rpm_dir['SRPMS'], source_rpm)
                 assert(os.path.exists(srpm))
                 self.move_file(srpm, self.dist_dir)
-                filename = os.path.join(self.dist_dir, source_rpm)
-                self.distribution.dist_files.append(
-                    ('bdist_rpm', pyversion, filename))
 
             if not self.source_only:
                 for rpm in binary_rpms:
                     rpm = os.path.join(rpm_dir['RPMS'], rpm)
                     if os.path.exists(rpm):
                         self.move_file(rpm, self.dist_dir)
-                        filename = os.path.join(self.dist_dir,
-                                                os.path.basename(rpm))
-                        self.distribution.dist_files.append(
-                            ('bdist_rpm', pyversion, filename))
-    # run()
 
     def _dist_path(self, path):
         return os.path.join(self.dist_dir, os.path.basename(path))
@@ -461,9 +435,9 @@ class bdist_rpm (Command):
                       'Conflicts',
                       'Obsoletes',
                       ):
-            val = getattr(self, string.lower(field))
+            val = getattr(self, field.lower())
             if isinstance(val, list):
-                spec_file.append('%s: %s' % (field, string.join(val)))
+                spec_file.append('%s: %s' % (field, ' '.join(val)))
             elif val is not None:
                 spec_file.append('%s: %s' % (field, val))
 
@@ -476,7 +450,7 @@ class bdist_rpm (Command):
 
         if self.build_requires:
             spec_file.append('BuildRequires: ' +
-                             string.join(self.build_requires))
+                             ' '.join(self.build_requires))
 
         if self.icon:
             spec_file.append('Icon: ' + os.path.basename(self.icon))
@@ -537,7 +511,7 @@ class bdist_rpm (Command):
                     '',
                     '%' + rpm_opt,])
                 if val:
-                    spec_file.extend(string.split(open(val, 'r').read(), '\n'))
+                    spec_file.extend(open(val, 'r').read().split('\n'))
                 else:
                     spec_file.append(default)
 
@@ -550,7 +524,7 @@ class bdist_rpm (Command):
             ])
 
         if self.doc_files:
-            spec_file.append('%doc ' + string.join(self.doc_files))
+            spec_file.append('%doc ' + ' '.join(self.doc_files))
 
         if self.changelog:
             spec_file.extend([
@@ -560,16 +534,14 @@ class bdist_rpm (Command):
 
         return spec_file
 
-    # _make_spec_file ()
-
     def _format_changelog(self, changelog):
         """Format the changelog correctly and convert it to a list of strings
         """
         if not changelog:
             return changelog
         new_changelog = []
-        for line in string.split(string.strip(changelog), '\n'):
-            line = string.strip(line)
+        for line in changelog.strip().split('\n'):
+            line = line.strip()
             if line[0] == '*':
                 new_changelog.extend(['', line])
             elif line[0] == '-':
@@ -582,7 +554,3 @@ class bdist_rpm (Command):
             del new_changelog[0]
 
         return new_changelog
-
-    # _format_changelog()
-
-# class bdist_rpm

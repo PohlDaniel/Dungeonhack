@@ -1,17 +1,10 @@
 # Tests universal newline support for both reading and parsing files.
-
-# NOTE: this file tests the new `io` library backported from Python 3.x.
-# Similar tests for the builtin file object can be found in test_univnewlines2k.py.
-
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import io
 import _pyio as pyio
 import unittest
 import os
 import sys
-from test import test_support as support
+from test import support
 
 if not hasattr(sys.stdin, 'newlines'):
     raise unittest.SkipTest(
@@ -60,13 +53,13 @@ class TestGenericUnivNewlines(unittest.TestCase):
         with self.open(support.TESTFN, self.READMODE) as fp:
             data = fp.read()
         self.assertEqual(data, DATA_LF)
-        self.assertEqual(set(fp.newlines), set(self.NEWLINE))
+        self.assertEqual(repr(fp.newlines), repr(self.NEWLINE))
 
     def test_readlines(self):
         with self.open(support.TESTFN, self.READMODE) as fp:
             data = fp.readlines()
         self.assertEqual(data, DATA_SPLIT)
-        self.assertEqual(set(fp.newlines), set(self.NEWLINE))
+        self.assertEqual(repr(fp.newlines), repr(self.NEWLINE))
 
     def test_readline(self):
         with self.open(support.TESTFN, self.READMODE) as fp:
@@ -76,7 +69,7 @@ class TestGenericUnivNewlines(unittest.TestCase):
                 data.append(d)
                 d = fp.readline()
         self.assertEqual(data, DATA_SPLIT)
-        self.assertEqual(set(fp.newlines), set(self.NEWLINE))
+        self.assertEqual(repr(fp.newlines), repr(self.NEWLINE))
 
     def test_seek(self):
         with self.open(support.TESTFN, self.READMODE) as fp:
@@ -123,10 +116,10 @@ def test_main():
     for test in base_tests:
         class CTest(test):
             open = io.open
-        CTest.__name__ = str("C" + test.__name__)
+        CTest.__name__ = "C" + test.__name__
         class PyTest(test):
             open = staticmethod(pyio.open)
-        PyTest.__name__ = str("Py" + test.__name__)
+        PyTest.__name__ = "Py" + test.__name__
         tests.append(CTest)
         tests.append(PyTest)
     support.run_unittest(*tests)

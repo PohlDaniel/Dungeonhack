@@ -1,5 +1,5 @@
 import unittest
-from test import test_support as support
+from test import support
 
 import io # C implementation.
 import _pyio as pyio # Python implementation.
@@ -34,7 +34,7 @@ class BufferSizeTest(unittest.TestCase):
             line = f.readline()
             self.assertEqual(line, s)
             line = f.readline()
-            self.assertFalse(line) # Must be at EOF
+            self.assertTrue(not line) # Must be at EOF
             f.close()
         finally:
             support.unlink(support.TESTFN)
@@ -68,12 +68,9 @@ class CBufferSizeTest(BufferSizeTest):
 class PyBufferSizeTest(BufferSizeTest):
     open = staticmethod(pyio.open)
 
-class BuiltinBufferSizeTest(BufferSizeTest):
-    open = open
-
 
 def test_main():
-    support.run_unittest(CBufferSizeTest, PyBufferSizeTest, BuiltinBufferSizeTest)
+    support.run_unittest(CBufferSizeTest, PyBufferSizeTest)
 
 if __name__ == "__main__":
     test_main()

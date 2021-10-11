@@ -46,18 +46,13 @@ __all__ = ['RawValue', 'RawArray', 'Value', 'Array', 'copy', 'synchronized']
 #
 
 typecode_to_type = {
-    'c': ctypes.c_char,
+    'c': ctypes.c_char,  'u': ctypes.c_wchar,
     'b': ctypes.c_byte,  'B': ctypes.c_ubyte,
     'h': ctypes.c_short, 'H': ctypes.c_ushort,
     'i': ctypes.c_int,   'I': ctypes.c_uint,
     'l': ctypes.c_long,  'L': ctypes.c_ulong,
     'f': ctypes.c_float, 'd': ctypes.c_double
     }
-try:
-    typecode_to_type['u'] = ctypes.c_wchar
-except AttributeError:
-    pass
-
 
 #
 #
@@ -83,7 +78,7 @@ def RawArray(typecode_or_type, size_or_initializer):
     Returns a ctypes array allocated from shared memory
     '''
     type_ = typecode_to_type.get(typecode_or_type, typecode_or_type)
-    if isinstance(size_or_initializer, (int, long)):
+    if isinstance(size_or_initializer, int):
         type_ = type_ * size_or_initializer
         obj = _new_value(type_)
         ctypes.memset(ctypes.addressof(obj), 0, ctypes.sizeof(obj))
@@ -94,13 +89,10 @@ def RawArray(typecode_or_type, size_or_initializer):
         result.__init__(*size_or_initializer)
         return result
 
-def Value(typecode_or_type, *args, **kwds):
+def Value(typecode_or_type, *args, lock=None):
     '''
     Return a synchronization wrapper for a Value
     '''
-    lock = kwds.pop('lock', None)
-    if kwds:
-        raise ValueError('unrecognized keyword argument(s): %s' % kwds.keys())
     obj = RawValue(typecode_or_type, *args)
     if lock is False:
         return obj
@@ -116,7 +108,7 @@ def Array(typecode_or_type, size_or_initializer, **kwds):
     '''
     lock = kwds.pop('lock', None)
     if kwds:
-        raise ValueError('unrecognized keyword argument(s): %s' % kwds.keys())
+        raise ValueError('unrecognized keyword argument(s): %s' % list(kwds.keys()))
     obj = RawArray(typecode_or_type, size_or_initializer)
     if lock is False:
         return obj
@@ -179,7 +171,7 @@ def make_property(name):
         return prop_cache[name]
     except KeyError:
         d = {}
-        exec template % ((name,)*7) in d
+        exec(template % ((name,)*7), d)
         prop_cache[name] = d[name]
         return d[name]
 

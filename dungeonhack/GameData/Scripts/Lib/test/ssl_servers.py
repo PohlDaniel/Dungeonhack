@@ -2,13 +2,13 @@ import os
 import sys
 import ssl
 import pprint
-import urllib
-import urlparse
+import socket
+import urllib.parse
 # Rename HTTPServer to _HTTPServer so as to avoid confusion with HTTPSServer.
-from BaseHTTPServer import HTTPServer as _HTTPServer, BaseHTTPRequestHandler
-from SimpleHTTPServer import SimpleHTTPRequestHandler
+from http.server import (HTTPServer as _HTTPServer,
+    SimpleHTTPRequestHandler, BaseHTTPRequestHandler)
 
-from test import test_support as support
+from test import support
 threading = support.import_module("threading")
 
 here = os.path.dirname(__file__)
@@ -35,17 +35,12 @@ class HTTPSServer(_HTTPServer):
         try:
             sock, addr = self.socket.accept()
             sslconn = self.context.wrap_socket(sock, server_side=True)
-        except OSError as e:
+        except socket.error as e:
             # socket errors are silenced by the caller, print them here
             if support.verbose:
                 sys.stderr.write("Got an error:\n%s\n" % e)
             raise
         return sslconn, addr
-
-    def handle_error(self, request, client_address):
-        "Suppose noisy error output by default."
-        if support.verbose:
-            _HTTPServer.handle_error(self, request, client_address)
 
 class RootedHTTPRequestHandler(SimpleHTTPRequestHandler):
     # need to override translate_path to get a known root,
@@ -66,8 +61,8 @@ class RootedHTTPRequestHandler(SimpleHTTPRequestHandler):
 
         """
         # abandon query parameters
-        path = urlparse.urlparse(path)[2]
-        path = os.path.normpath(urllib.unquote(path))
+        path = urllib.parse.urlparse(path)[2]
+        path = os.path.normpath(urllib.parse.unquote(path))
         words = path.split('/')
         words = filter(None, words)
         path = self.root
@@ -99,12 +94,7 @@ class StatsRequestHandler(BaseHTTPRequestHandler):
         """Serve a GET request."""
         sock = self.rfile.raw._sock
         context = sock.context
-        stats = {
-            'session_cache': context.session_stats(),
-            'cipher': sock.cipher(),
-            'compression': sock.compression(),
-            }
-        body = pprint.pformat(stats)
+        body = pprint.pformat(context.session_stats())
         body = body.encode('utf-8')
         self.send_response(200)
         self.send_header("Content-type", "text/plain; charset=utf-8")
@@ -152,11 +142,9 @@ class HTTPSServerThread(threading.Thread):
         self.server.shutdown()
 
 
-def make_https_server(case, context=None, certfile=CERTFILE,
-                      host=HOST, handler_class=None):
-    if context is None:
-        context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
-    # We assume the certfile contains both private key and certificate
+def make_https_server(case, certfile=CERTFILE, host=HOST, handler_class=None):
+    # we assume the certfile contains both private key and certificate
+    context = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
     context.load_cert_chain(certfile)
     server = HTTPSServerThread(context, host, handler_class)
     flag = threading.Event()
@@ -184,13 +172,6 @@ if __name__ == "__main__":
                         action='store_false', help='be less verbose')
     parser.add_argument('-s', '--stats', dest='use_stats_handler', default=False,
                         action='store_true', help='always return stats page')
-    parser.add_argument('--curve-name', dest='curve_name', type=str,
-                        action='store',
-                        help='curve name for EC-based Diffie-Hellman')
-    parser.add_argument('--ciphers', dest='ciphers', type=str,
-                        help='allowed cipher list')
-    parser.add_argument('--dh', dest='dh_file', type=str, action='store',
-                        help='PEM file containing DH parameters')
     args = parser.parse_args()
 
     support.verbose = args.verbose
@@ -199,14 +180,8 @@ if __name__ == "__main__":
     else:
         handler_class = RootedHTTPRequestHandler
         handler_class.root = os.getcwd()
-    context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
+    context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
     context.load_cert_chain(CERTFILE)
-    if args.curve_name:
-        context.set_ecdh_curve(args.curve_name)
-    if args.dh_file:
-        context.load_dh_params(args.dh_file)
-    if args.ciphers:
-        context.set_ciphers(args.ciphers)
 
     server = HTTPSServer(("", args.port), handler_class, context)
     if args.verbose:

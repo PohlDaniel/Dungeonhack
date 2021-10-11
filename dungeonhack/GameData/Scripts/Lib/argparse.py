@@ -89,7 +89,7 @@ import re as _re
 import sys as _sys
 import textwrap as _textwrap
 
-from gettext import gettext as _
+from gettext import gettext as _, ngettext
 
 
 def _callable(obj):
@@ -168,8 +168,6 @@ class HelpFormatter(object):
         self._prog = prog
         self._indent_increment = indent_increment
         self._max_help_position = max_help_position
-        self._max_help_position = min(max_help_position,
-                                      max(width - 20, indent_increment * 2))
         self._width = width
 
         self._current_indent = 0
@@ -324,11 +322,7 @@ class HelpFormatter(object):
             if len(prefix) + len(usage) > text_width:
 
                 # break usage into wrappable parts
-                part_regexp = (
-                    r'\(.*?\)+(?=\s|$)|'
-                    r'\[.*?\]+(?=\s|$)|'
-                    r'\S+'
-                )
+                part_regexp = r'\(.*?\)+|\[.*?\]+|\S+'
                 opt_usage = format(optionals, groups)
                 pos_usage = format(positionals, groups)
                 opt_parts = _re.findall(part_regexp, opt_usage)
@@ -345,7 +339,7 @@ class HelpFormatter(object):
                     else:
                         line_len = len(indent) - 1
                     for part in parts:
-                        if line_len + 1 + len(part) > text_width and line:
+                        if line_len + 1 + len(part) > text_width:
                             lines.append(indent + ' '.join(line))
                             line = []
                             line_len = len(indent) - 1
@@ -484,7 +478,7 @@ class HelpFormatter(object):
     def _format_text(self, text):
         if '%(prog)' in text:
             text = text % dict(prog=self._prog)
-        text_width = max(self._width - self._current_indent, 11)
+        text_width = self._width - self._current_indent
         indent = ' ' * self._current_indent
         return self._fill_text(text, text_width, indent) + '\n\n'
 
@@ -492,7 +486,7 @@ class HelpFormatter(object):
         # determine the required width and the entry label
         help_position = min(self._action_max_length + 2,
                             self._max_help_position)
-        help_width = max(self._width - help_position, 11)
+        help_width = self._width - help_position
         action_width = help_position - self._current_indent - 2
         action_header = self._format_action_invocation(action)
 
@@ -746,10 +740,10 @@ class Action(_AttributeHolder):
 
         - default -- The value to be produced if the option is not specified.
 
-        - type -- A callable that accepts a single string argument, and
-            returns the converted value.  The standard Python types str, int,
-            float, and complex are useful examples of such callables.  If None,
-            str is used.
+        - type -- The type which the command-line arguments should be converted
+            to, should be one of 'string', 'int', 'float', 'complex' or a
+            callable object that accepts a single string argument. If None,
+            'string' is assumed.
 
         - choices -- A container of values that should be allowed. If not None,
             after a command-line argument has been converted to the appropriate
@@ -1030,9 +1024,13 @@ class _SubParsersAction(Action):
 
     class _ChoicesPseudoAction(Action):
 
-        def __init__(self, name, help):
+        def __init__(self, name, aliases, help):
+            metavar = dest = name
+            if aliases:
+                metavar += ' (%s)' % ', '.join(aliases)
             sup = super(_SubParsersAction._ChoicesPseudoAction, self)
-            sup.__init__(option_strings=[], dest=name, help=help)
+            sup.__init__(option_strings=[], dest=dest, help=help,
+                         metavar=metavar)
 
     def __init__(self,
                  option_strings,
@@ -1060,15 +1058,22 @@ class _SubParsersAction(Action):
         if kwargs.get('prog') is None:
             kwargs['prog'] = '%s %s' % (self._prog_prefix, name)
 
+        aliases = kwargs.pop('aliases', ())
+
         # create a pseudo-action to hold the choice help
         if 'help' in kwargs:
             help = kwargs.pop('help')
-            choice_action = self._ChoicesPseudoAction(name, help)
+            choice_action = self._ChoicesPseudoAction(name, aliases, help)
             self._choices_actions.append(choice_action)
 
         # create the parser and add it to the map
         parser = self._parser_class(**kwargs)
         self._name_parser_map[name] = parser
+
+        # make parser available under aliases also
+        for alias in aliases:
+            self._name_parser_map[alias] = parser
+
         return parser
 
     def _get_subactions(self):
@@ -1086,21 +1091,15 @@ class _SubParsersAction(Action):
         try:
             parser = self._name_parser_map[parser_name]
         except KeyError:
-            tup = parser_name, ', '.join(self._name_parser_map)
-            msg = _('unknown parser %r (choices: %s)') % tup
+            args = {'parser_name': parser_name,
+                    'choices': ', '.join(self._name_parser_map)}
+            msg = _('unknown parser %(parser_name)r (choices: %(choices)s)') % args
             raise ArgumentError(self, msg)
 
         # parse all the remaining options into the namespace
         # store any unrecognized options on the object, so that the top
         # level parser can decide what to do with them
-
-        # In case this subparser defines new defaults, we parse them
-        # in a new namespace object and then update the original
-        # namespace for the relevant parts.
-        subnamespace, arg_strings = parser.parse_known_args(arg_strings, None)
-        for key, value in vars(subnamespace).items():
-            setattr(namespace, key, value)
-
+        namespace, arg_strings = parser.parse_known_args(arg_strings, namespace)
         if arg_strings:
             vars(namespace).setdefault(_UNRECOGNIZED_ARGS_ATTR, [])
             getattr(namespace, _UNRECOGNIZED_ARGS_ATTR).extend(arg_strings)
@@ -1165,16 +1164,10 @@ class Namespace(_AttributeHolder):
         for name in kwargs:
             setattr(self, name, kwargs[name])
 
-    __hash__ = None
-
     def __eq__(self, other):
-        if not isinstance(other, Namespace):
-            return NotImplemented
         return vars(self) == vars(other)
 
     def __ne__(self, other):
-        if not isinstance(other, Namespace):
-            return NotImplemented
         return not (self == other)
 
     def __contains__(self, key):
@@ -1408,10 +1401,11 @@ class _ActionsContainer(object):
         for option_string in args:
             # error on strings that don't start with an appropriate prefix
             if not option_string[0] in self.prefix_chars:
-                msg = _('invalid option string %r: '
-                        'must start with a character %r')
-                tup = option_string, self.prefix_chars
-                raise ValueError(msg % tup)
+                args = {'option': option_string,
+                        'prefix_chars': self.prefix_chars}
+                msg = _('invalid option string %(option)r: '
+                        'must start with a character %(prefix_chars)r')
+                raise ValueError(msg % args)
 
             # strings starting with two prefix characters are long options
             option_strings.append(option_string)
@@ -1464,7 +1458,9 @@ class _ActionsContainer(object):
             conflict_handler(action, confl_optionals)
 
     def _handle_conflict_error(self, action, conflicting_actions):
-        message = _('conflicting option string(s): %s')
+        message = ngettext('conflicting option string: %s',
+                           'conflicting option strings: %s',
+                           len(conflicting_actions))
         conflict_string = ', '.join([option_string
                                      for option_string, action
                                      in conflicting_actions])
@@ -1709,12 +1705,9 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
         return args
 
     def parse_known_args(self, args=None, namespace=None):
+        # args default to the system args
         if args is None:
-            # args default to the system args
             args = _sys.argv[1:]
-        else:
-            # make sure that args are mutable
-            args = list(args)
 
         # default Namespace built from parser defaults
         if namespace is None:
@@ -1725,7 +1718,10 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
             if action.dest is not SUPPRESS:
                 if not hasattr(namespace, action.dest):
                     if action.default is not SUPPRESS:
-                        setattr(namespace, action.dest, action.default)
+                        default = action.default
+                        if isinstance(action.default, str):
+                            default = self._get_value(action, default)
+                        setattr(namespace, action.dest, default)
 
         # add any parser defaults that aren't present
         for dest in self._defaults:
@@ -1953,23 +1949,12 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
         if positionals:
             self.error(_('too few arguments'))
 
-        # make sure all required actions were present, and convert defaults.
+        # make sure all required actions were present
         for action in self._actions:
-            if action not in seen_actions:
-                if action.required:
+            if action.required:
+                if action not in seen_actions:
                     name = _get_action_name(action)
                     self.error(_('argument %s is required') % name)
-                else:
-                    # Convert action default now instead of doing it before
-                    # parsing arguments to avoid calling convert functions
-                    # twice (which may fail) if the argument was given, but
-                    # only if it was defined already in the namespace
-                    if (action.default is not None and
-                            isinstance(action.default, basestring) and
-                            hasattr(namespace, action.dest) and
-                            action.default is getattr(namespace, action.dest)):
-                        setattr(namespace, action.dest,
-                                self._get_value(action, action.default))
 
         # make sure all required groups had one option present
         for group in self._mutually_exclusive_groups:
@@ -1995,7 +1980,7 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
         for arg_string in arg_strings:
 
             # for regular arguments, just add them back into the list
-            if not arg_string or arg_string[0] not in self.fromfile_prefix_chars:
+            if arg_string[0] not in self.fromfile_prefix_chars:
                 new_arg_strings.append(arg_string)
 
             # replace arguments referencing files with the file content
@@ -2033,7 +2018,9 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
                 OPTIONAL: _('expected at most one argument'),
                 ONE_OR_MORE: _('expected at least one argument'),
             }
-            default = _('expected %s argument(s)') % action.nargs
+            default = ngettext('expected %s argument',
+                               'expected %s arguments',
+                               action.nargs) % action.nargs
             msg = nargs_errors.get(action.nargs, default)
             raise ArgumentError(action, msg)
 
@@ -2089,8 +2076,9 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
         if len(option_tuples) > 1:
             options = ', '.join([option_string
                 for action, option_string, explicit_arg in option_tuples])
-            tup = arg_string, options
-            self.error(_('ambiguous option: %s could match %s') % tup)
+            args = {'option': arg_string, 'matches': options}
+            msg = _('ambiguous option: %(option)s could match %(matches)s')
+            self.error(msg % args)
 
         # if exactly one action matched, this segmentation is good,
         # so return the parsed action
@@ -2202,12 +2190,9 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     # Value conversion methods
     # ========================
     def _get_values(self, action, arg_strings):
-        # for everything but PARSER, REMAINDER args, strip out first '--'
+        # for everything but PARSER args, strip out '--'
         if action.nargs not in [PARSER, REMAINDER]:
-            try:
-                arg_strings.remove('--')
-            except ValueError:
-                pass
+            arg_strings = [s for s in arg_strings if s != '--']
 
         # optional argument produces a default when not present
         if not arg_strings and action.nargs == OPTIONAL:
@@ -2215,7 +2200,7 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
                 value = action.const
             else:
                 value = action.default
-            if isinstance(value, basestring):
+            if isinstance(value, str):
                 value = self._get_value(action, value)
                 self._check_value(action, value)
 
@@ -2272,8 +2257,9 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
         # TypeErrors or ValueErrors also indicate errors
         except (TypeError, ValueError):
             name = getattr(action.type, '__name__', repr(action.type))
-            msg = _('invalid %s value: %r')
-            raise ArgumentError(action, msg % (name, arg_string))
+            args = {'type': name, 'value': arg_string}
+            msg = _('invalid %(type)s value: %(value)r')
+            raise ArgumentError(action, msg % args)
 
         # return the converted value
         return result
@@ -2281,9 +2267,10 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     def _check_value(self, action, value):
         # converted value must be one of the choices (if specified)
         if action.choices is not None and value not in action.choices:
-            tup = value, ', '.join(map(repr, action.choices))
-            msg = _('invalid choice: %r (choose from %s)') % tup
-            raise ArgumentError(action, msg)
+            args = {'value': value,
+                    'choices': ', '.join(map(repr, action.choices))}
+            msg = _('invalid choice: %(value)r (choose from %(choices)s)')
+            raise ArgumentError(action, msg % args)
 
     # =======================
     # Help-formatting methods
@@ -2375,4 +2362,5 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
         should either exit or raise an exception.
         """
         self.print_usage(_sys.stderr)
-        self.exit(2, _('%s: error: %s\n') % (self.prog, message))
+        args = {'prog': self.prog, 'message': message}
+        self.exit(2, _('%(prog)s: error: %(message)s\n') % args)

@@ -10,20 +10,26 @@ class PlatformTest(unittest.TestCase):
     def test_architecture(self):
         res = platform.architecture()
 
-    if hasattr(os, "symlink"):
-        def test_architecture_via_symlink(self): # issue3762
-            def get(python):
-                cmd = [python, '-c',
-                    'import platform; print platform.architecture()']
-                p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
-                return p.communicate()
-            real = os.path.realpath(sys.executable)
-            link = os.path.abspath(support.TESTFN)
-            os.symlink(real, link)
-            try:
-                self.assertEqual(get(real), get(link))
-            finally:
-                os.remove(link)
+    @support.skip_unless_symlink
+    def test_architecture_via_symlink(self): # issue3762
+        # On Windows, the EXE needs to know where pythonXY.dll is at so we have
+        # to add the directory to the path.
+        if sys.platform == "win32":
+            os.environ["Path"] = "{};{}".format(
+                os.path.dirname(sys.executable), os.environ["Path"])
+
+        def get(python):
+            cmd = [python, '-c',
+                'import platform; print(platform.architecture())']
+            p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+            return p.communicate()
+        real = os.path.realpath(sys.executable)
+        link = os.path.abspath(support.TESTFN)
+        os.symlink(real, link)
+        try:
+            self.assertEqual(get(real), get(link))
+        finally:
+            os.remove(link)
 
     def test_platform(self):
         for aliased in (False, True):
@@ -51,11 +57,13 @@ class PlatformTest(unittest.TestCase):
     def setUp(self):
         self.save_version = sys.version
         self.save_subversion = sys.subversion
+        self.save_mercurial = sys._mercurial
         self.save_platform = sys.platform
 
     def tearDown(self):
         sys.version = self.save_version
         sys.subversion = self.save_subversion
+        sys._mercurial = self.save_mercurial
         sys.platform = self.save_platform
 
     def test_sys_version(self):
@@ -67,22 +75,6 @@ class PlatformTest(unittest.TestCase):
              ('IronPython', '1.0.60816', '', '', '', '', '.NET 2.0.50727.42')),
             ('IronPython 1.0 (1.0.61005.1977) on .NET 2.0.50727.42',
              ('IronPython', '1.0.0', '', '', '', '', '.NET 2.0.50727.42')),
-            ('2.4.3 (truncation, date, t) \n[GCC]',
-             ('CPython', '2.4.3', '', '', 'truncation', 'date t', 'GCC')),
-            ('2.4.3 (truncation, date, ) \n[GCC]',
-             ('CPython', '2.4.3', '', '', 'truncation', 'date', 'GCC')),
-            ('2.4.3 (truncation, date,) \n[GCC]',
-             ('CPython', '2.4.3', '', '', 'truncation', 'date', 'GCC')),
-            ('2.4.3 (truncation, date) \n[GCC]',
-             ('CPython', '2.4.3', '', '', 'truncation', 'date', 'GCC')),
-            ('2.4.3 (truncation, d) \n[GCC]',
-             ('CPython', '2.4.3', '', '', 'truncation', 'd', 'GCC')),
-            ('2.4.3 (truncation, ) \n[GCC]',
-             ('CPython', '2.4.3', '', '', 'truncation', '', 'GCC')),
-            ('2.4.3 (truncation,) \n[GCC]',
-             ('CPython', '2.4.3', '', '', 'truncation', '', 'GCC')),
-            ('2.4.3 (truncation) \n[GCC]',
-             ('CPython', '2.4.3', '', '', 'truncation', '', 'GCC')),
             ):
             # branch and revision are not "parsed", but fetched
             # from sys.subversion.  Ignore them
@@ -100,28 +92,15 @@ class PlatformTest(unittest.TestCase):
                 ("CPython", "2.6.1", "tags/r261", "67515",
                  ('r261:67515', 'Dec  6 2008 15:26:00'),
                  'GCC 4.0.1 (Apple Computer, Inc. build 5370)'),
-
             ("IronPython 2.0 (2.0.0.0) on .NET 2.0.50727.3053", None, "cli")
             :
                 ("IronPython", "2.0.0", "", "", ("", ""),
                  ".NET 2.0.50727.3053"),
-
-            ("2.6.1 (IronPython 2.6.1 (2.6.10920.0) on .NET 2.0.50727.1433)", None, "cli")
-            :
-                ("IronPython", "2.6.1", "", "", ("", ""),
-                 ".NET 2.0.50727.1433"),
-
-            ("2.7.4 (IronPython 2.7.4 (2.7.0.40) on Mono 4.0.30319.1 (32-bit))", None, "cli")
-            :
-                ("IronPython", "2.7.4", "", "", ("", ""),
-                 "Mono 4.0.30319.1 (32-bit)"),
-
             ("2.5 (trunk:6107, Mar 26 2009, 13:02:18) \n[Java HotSpot(TM) Client VM (\"Apple Computer, Inc.\")]",
             ('Jython', 'trunk', '6107'), "java1.5.0_16")
             :
                 ("Jython", "2.5.0", "trunk", "6107",
                  ('trunk:6107', 'Mar 26 2009'), "java1.5.0_16"),
-
             ("2.5.2 (63378, Mar 26 2009, 18:03:29)\n[PyPy 1.0.0]",
              ('PyPy', 'trunk', '63378'), self.save_platform)
             :
@@ -129,13 +108,15 @@ class PlatformTest(unittest.TestCase):
                  "")
             }
         for (version_tag, subversion, sys_platform), info in \
-                sys_versions.iteritems():
+                sys_versions.items():
             sys.version = version_tag
             if subversion is None:
+                if hasattr(sys, "_mercurial"):
+                    del sys._mercurial
                 if hasattr(sys, "subversion"):
                     del sys.subversion
             else:
-                sys.subversion = subversion
+                sys._mercurial = subversion
             if sys_platform is not None:
                 sys.platform = sys_platform
             self.assertEqual(platform.python_implementation(), info[0])
@@ -188,14 +169,7 @@ class PlatformTest(unittest.TestCase):
     def test_mac_ver(self):
         res = platform.mac_ver()
 
-        try:
-            import gestalt
-        except ImportError:
-            have_toolbox_glue = False
-        else:
-            have_toolbox_glue = True
-
-        if have_toolbox_glue and platform.uname()[0] == 'Darwin':
+        if platform.uname()[0] == 'Darwin':
             # We're on a MacOSX system, check that
             # the right version information is returned
             fd = os.popen('sw_vers', 'r')
@@ -220,7 +194,7 @@ class PlatformTest(unittest.TestCase):
             self.assertEqual(res[1], ('', '', ''))
 
             if sys.byteorder == 'little':
-                self.assertIn(res[2], ('i386', 'x86_64'))
+                self.assertEqual(res[2], 'i386')
             else:
                 self.assertEqual(res[2], 'PowerPC')
 
@@ -247,6 +221,7 @@ class PlatformTest(unittest.TestCase):
         res = platform.dist()
 
     def test_libc_ver(self):
+        import os
         if os.path.isdir(sys.executable) and \
            os.path.exists(sys.executable+'.exe'):
             # Cygwin horror
@@ -254,13 +229,6 @@ class PlatformTest(unittest.TestCase):
         else:
             executable = sys.executable
         res = platform.libc_ver(executable)
-
-        self.addCleanup(support.unlink, support.TESTFN)
-        with open(support.TESTFN, 'wb') as f:
-            f.write(b'x'*(16384-10))
-            f.write(b'GLIBC_1.23.4\0GLIBC_1.9\0GLIBC_1.21\0')
-        self.assertEqual(platform.libc_ver(support.TESTFN),
-                         ('glibc', '1.23.4'))
 
     def test_parse_release_file(self):
 

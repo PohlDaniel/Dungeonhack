@@ -7,17 +7,18 @@ import sys
 import time
 import warnings
 import errno
-import struct
 
-from test import test_support
-from test.test_support import TESTFN, run_unittest, unlink, HOST
-from StringIO import StringIO
+from test import support
+from test.support import TESTFN, run_unittest, unlink
+from io import BytesIO
+from io import StringIO
 
 try:
     import threading
 except ImportError:
     threading = None
 
+HOST = support.HOST
 
 class dummysocket:
     def __init__(self):
@@ -75,8 +76,8 @@ def capture_server(evt, buf, serv):
             if r:
                 data = conn.recv(10)
                 # keep everything except for the newline terminator
-                buf.write(data.replace('\n', ''))
-                if '\n' in data:
+                buf.write(data.replace(b'\n', b''))
+                if b'\n' in data:
                     break
             n -= 1
             time.sleep(0.01)
@@ -295,7 +296,6 @@ class DispatcherTests(unittest.TestCase):
             d.handle_read()
             d.handle_write()
             d.handle_connect()
-            d.handle_accept()
         finally:
             sys.stdout = stdout
 
@@ -303,8 +303,7 @@ class DispatcherTests(unittest.TestCase):
         expected = ['warning: unhandled incoming priority event',
                     'warning: unhandled read event',
                     'warning: unhandled write event',
-                    'warning: unhandled connect event',
-                    'warning: unhandled accept event']
+                    'warning: unhandled connect event']
         self.assertEqual(lines, expected)
 
     def test_issue_8594(self):
@@ -313,8 +312,8 @@ class DispatcherTests(unittest.TestCase):
         d = asyncore.dispatcher(socket.socket())
         # make sure the error message no longer refers to the socket
         # object but the dispatcher instance instead
-        self.assertRaisesRegexp(AttributeError, 'dispatcher instance',
-                                getattr, d, 'foo')
+        self.assertRaisesRegex(AttributeError, 'dispatcher instance',
+                               getattr, d, 'foo')
         # cheap inheritance with the underlying socket is supposed
         # to still work but a DeprecationWarning is expected
         with warnings.catch_warnings(record=True) as w:
@@ -350,14 +349,14 @@ class DispatcherWithSendTests(unittest.TestCase):
         asyncore.close_all()
 
     @unittest.skipUnless(threading, 'Threading required for this test.')
-    @test_support.reap_threads
+    @support.reap_threads
     def test_send(self):
         evt = threading.Event()
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.settimeout(3)
-        port = test_support.bind_port(sock)
+        port = support.bind_port(sock)
 
-        cap = StringIO()
+        cap = BytesIO()
         args = (evt, cap, sock)
         t = threading.Thread(target=capture_server, args=args)
         t.start()
@@ -366,7 +365,7 @@ class DispatcherWithSendTests(unittest.TestCase):
             # refuses connections on slow machines without this wait)
             time.sleep(0.2)
 
-            data = "Suppose there isn't a 16-ton weight?"
+            data = b"Suppose there isn't a 16-ton weight?"
             d = dispatcherwithsend_noread()
             d.create_socket(socket.AF_INET, socket.SOCK_STREAM)
             d.connect((HOST, port))
@@ -376,7 +375,7 @@ class DispatcherWithSendTests(unittest.TestCase):
 
             d.send(data)
             d.send(data)
-            d.send('\n')
+            d.send(b'\n')
 
             n = 1000
             while d.out_buffer and n > 0:
@@ -397,9 +396,9 @@ class DispatcherWithSendTests_UsePoll(DispatcherWithSendTests):
                      'asyncore.file_wrapper required')
 class FileWrapperTest(unittest.TestCase):
     def setUp(self):
-        self.d = "It's not dead, it's sleeping!"
-        with file(TESTFN, 'w') as h:
-            h.write(self.d)
+        self.d = b"It's not dead, it's sleeping!"
+        with open(TESTFN, 'wb') as file:
+            file.write(self.d)
 
     def tearDown(self):
         unlink(TESTFN)
@@ -411,15 +410,14 @@ class FileWrapperTest(unittest.TestCase):
 
         self.assertNotEqual(w.fd, fd)
         self.assertNotEqual(w.fileno(), fd)
-        self.assertEqual(w.recv(13), "It's not dead")
-        self.assertEqual(w.read(6), ", it's")
+        self.assertEqual(w.recv(13), b"It's not dead")
+        self.assertEqual(w.read(6), b", it's")
         w.close()
         self.assertRaises(OSError, w.read, 1)
 
-
     def test_send(self):
-        d1 = "Come again?"
-        d2 = "I want to buy some cheese."
+        d1 = b"Come again?"
+        d2 = b"I want to buy some cheese."
         fd = os.open(TESTFN, os.O_WRONLY | os.O_APPEND)
         w = asyncore.file_wrapper(fd)
         os.close(fd)
@@ -427,7 +425,8 @@ class FileWrapperTest(unittest.TestCase):
         w.write(d1)
         w.send(d2)
         w.close()
-        self.assertEqual(file(TESTFN).read(), self.d + d1 + d2)
+        with open(TESTFN, 'rb') as file:
+            self.assertEqual(file.read(), self.d + d1 + d2)
 
     @unittest.skipUnless(hasattr(asyncore, 'file_dispatcher'),
                          'asyncore.file_dispatcher required')
@@ -442,19 +441,6 @@ class FileWrapperTest(unittest.TestCase):
         asyncore.loop(timeout=0.01, use_poll=True, count=2)
         self.assertEqual(b"".join(data), self.d)
 
-    def test_close_twice(self):
-        fd = os.open(TESTFN, os.O_RDONLY)
-        f = asyncore.file_wrapper(fd)
-        os.close(fd)
-
-        os.close(f.fd)  # file_wrapper dupped fd
-        with self.assertRaises(OSError):
-            f.close()
-
-        self.assertEqual(f.fd, -1)
-        # calling close twice should not fail
-        f.close()
-
 
 class BaseTestHandler(asyncore.dispatcher):
 
@@ -464,6 +450,9 @@ class BaseTestHandler(asyncore.dispatcher):
 
     def handle_accept(self):
         raise Exception("handle_accept not supposed to be called")
+
+    def handle_accepted(self):
+        raise Exception("handle_accepted not supposed to be called")
 
     def handle_connect(self):
         raise Exception("handle_connect not supposed to be called")
@@ -495,10 +484,8 @@ class TCPServer(asyncore.dispatcher):
     def address(self):
         return self.socket.getsockname()[:2]
 
-    def handle_accept(self):
-        pair = self.accept()
-        if pair is not None:
-            self.handler(pair[0])
+    def handle_accepted(self, sock, addr):
+        self.handler(sock)
 
     def handle_error(self):
         raise
@@ -561,6 +548,30 @@ class BaseTestAPI(unittest.TestCase):
         client = BaseClient(server.address)
         self.loop_waiting_for_flag(server)
 
+    def test_handle_accepted(self):
+        # make sure handle_accepted() is called when a client connects
+
+        class TestListener(BaseTestHandler):
+
+            def __init__(self):
+                BaseTestHandler.__init__(self)
+                self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
+                self.bind((HOST, 0))
+                self.listen(5)
+                self.address = self.socket.getsockname()[:2]
+
+            def handle_accept(self):
+                asyncore.dispatcher.handle_accept(self)
+
+            def handle_accepted(self, sock, addr):
+                sock.close()
+                self.flag = True
+
+        server = TestListener()
+        client = BaseClient(server.address)
+        self.loop_waiting_for_flag(server)
+
+
     def test_handle_read(self):
         # make sure handle_read is called on data received
 
@@ -571,7 +582,7 @@ class BaseTestAPI(unittest.TestCase):
         class TestHandler(BaseTestHandler):
             def __init__(self, conn):
                 BaseTestHandler.__init__(self, conn)
-                self.send('x' * 1024)
+                self.send(b'x' * 1024)
 
         server = TCPServer(TestHandler)
         client = TestClient(server.address)
@@ -619,9 +630,6 @@ class BaseTestAPI(unittest.TestCase):
         # Note: this might fail on some platforms as OOB data is
         # tenuously supported and rarely used.
 
-        if sys.platform == "darwin" and self.use_poll:
-            self.skipTest("poll may fail on macOS; see issue #28087")
-
         class TestClient(BaseClient):
             def handle_expt(self):
                 self.flag = True
@@ -629,7 +637,7 @@ class BaseTestAPI(unittest.TestCase):
         class TestHandler(BaseTestHandler):
             def __init__(self, conn):
                 BaseTestHandler.__init__(self, conn)
-                self.socket.send(chr(244), socket.MSG_OOB)
+                self.socket.send(bytes(chr(244), 'latin-1'), socket.MSG_OOB)
 
         server = TCPServer(TestHandler)
         client = TestClient(server.address)
@@ -687,7 +695,8 @@ class BaseTestAPI(unittest.TestCase):
         s = asyncore.dispatcher()
         s.create_socket(socket.AF_INET, socket.SOCK_STREAM)
         self.assertEqual(s.socket.family, socket.AF_INET)
-        self.assertEqual(s.socket.type, socket.SOCK_STREAM)
+        SOCK_NONBLOCK = getattr(socket, 'SOCK_NONBLOCK', 0)
+        self.assertEqual(s.socket.type, socket.SOCK_STREAM | SOCK_NONBLOCK)
 
     def test_bind(self):
         s1 = asyncore.dispatcher()
@@ -713,34 +722,13 @@ class BaseTestAPI(unittest.TestCase):
             s = asyncore.dispatcher(socket.socket())
             self.assertFalse(s.socket.getsockopt(socket.SOL_SOCKET,
                                                  socket.SO_REUSEADDR))
+            s.socket.close()
             s.create_socket(socket.AF_INET, socket.SOCK_STREAM)
             s.set_reuse_addr()
             self.assertTrue(s.socket.getsockopt(socket.SOL_SOCKET,
                                                  socket.SO_REUSEADDR))
         finally:
             sock.close()
-
-    @unittest.skipUnless(threading, 'Threading required for this test.')
-    @test_support.reap_threads
-    def test_quick_connect(self):
-        # see: http://bugs.python.org/issue10340
-        server = TCPServer()
-        t = threading.Thread(target=lambda: asyncore.loop(timeout=0.1, count=500))
-        t.start()
-        try:
-            for x in xrange(20):
-                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                s.settimeout(.2)
-                s.setsockopt(socket.SOL_SOCKET, socket.SO_LINGER,
-                             struct.pack('ii', 1, 0))
-                try:
-                    s.connect(server.address)
-                except socket.error:
-                    pass
-                finally:
-                    s.close()
-        finally:
-            t.join()
 
 
 class TestAPI_UseSelect(BaseTestAPI):

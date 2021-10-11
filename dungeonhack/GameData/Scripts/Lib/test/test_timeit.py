@@ -1,13 +1,13 @@
 import timeit
 import unittest
 import sys
-from StringIO import StringIO
+import io
 import time
 from textwrap import dedent
 
-from test.test_support import run_unittest
-from test.test_support import captured_stdout
-from test.test_support import captured_stderr
+from test.support import run_unittest
+from test.support import captured_stdout
+from test.support import captured_stderr
 
 # timeit's default number of iterations.
 DEFAULT_NUMBER = 1000000
@@ -73,17 +73,9 @@ class TestTimeit(unittest.TestCase):
 
     def test_timer_invalid_stmt(self):
         self.assertRaises(ValueError, timeit.Timer, stmt=None)
-        self.assertRaises(SyntaxError, timeit.Timer, stmt='return')
-        self.assertRaises(SyntaxError, timeit.Timer, stmt='yield')
-        self.assertRaises(SyntaxError, timeit.Timer, stmt='break')
-        self.assertRaises(SyntaxError, timeit.Timer, stmt='continue')
 
     def test_timer_invalid_setup(self):
         self.assertRaises(ValueError, timeit.Timer, setup=None)
-        self.assertRaises(SyntaxError, timeit.Timer, setup='return')
-        self.assertRaises(SyntaxError, timeit.Timer, setup='yield')
-        self.assertRaises(SyntaxError, timeit.Timer, setup='break')
-        self.assertRaises(SyntaxError, timeit.Timer, setup='continue')
 
     fake_setup = "import timeit; timeit._fake_timer.setup()"
     fake_stmt = "import timeit; timeit._fake_timer.inc()"
@@ -119,9 +111,6 @@ class TestTimeit(unittest.TestCase):
 
     def test_timeit_callable_stmt(self):
         self.timeit(self.fake_callable_stmt, self.fake_setup, number=3)
-
-    def test_timeit_callable_setup(self):
-        self.timeit(self.fake_stmt, self.fake_callable_setup, number=3)
 
     def test_timeit_callable_stmt_and_setup(self):
         self.timeit(self.fake_callable_stmt,
@@ -172,10 +161,6 @@ class TestTimeit(unittest.TestCase):
         self.repeat(self.fake_callable_stmt, self.fake_setup,
                 repeat=3, number=5)
 
-    def test_repeat_callable_setup(self):
-        self.repeat(self.fake_stmt, self.fake_callable_setup,
-                repeat=3, number=5)
-
     def test_repeat_callable_stmt_and_setup(self):
         self.repeat(self.fake_callable_stmt, self.fake_callable_setup,
                 repeat=3, number=5)
@@ -203,8 +188,8 @@ class TestTimeit(unittest.TestCase):
         self.assertTrue(exc_lines[-1].startswith(expected_exc_name))
 
     def test_print_exc(self):
-        s = StringIO()
-        t = timeit.Timer("1.0/0.0")
+        s = io.StringIO()
+        t = timeit.Timer("1/0")
         try:
             t.timeit()
         except:
@@ -265,10 +250,11 @@ class TestTimeit(unittest.TestCase):
         s = self.run_main(seconds_per_increment=60.0, switches=['-r-5'])
         self.assertEqual(s, "10 loops, best of 1: 60 sec per loop\n")
 
-    @unittest.skipIf(sys.flags.optimize >= 2, "need __doc__")
     def test_main_help(self):
         s = self.run_main(switches=['-h'])
-        self.assertEqual(s, timeit.__doc__)
+        # Note: It's not clear that the trailing space was intended as part of
+        # the help text, but since it's there, check for it.
+        self.assertEqual(s, timeit.__doc__ + ' ')
 
     def test_main_using_time(self):
         fake_timer = FakeTimer()
@@ -303,12 +289,12 @@ class TestTimeit(unittest.TestCase):
 
     def test_main_exception(self):
         with captured_stderr() as error_stringio:
-            s = self.run_main(switches=['1.0/0.0'])
+            s = self.run_main(switches=['1/0'])
         self.assert_exc_string(error_stringio.getvalue(), 'ZeroDivisionError')
 
     def test_main_exception_fixed_reps(self):
         with captured_stderr() as error_stringio:
-            s = self.run_main(switches=['-n1', '1.0/0.0'])
+            s = self.run_main(switches=['-n1', '1/0'])
         self.assert_exc_string(error_stringio.getvalue(), 'ZeroDivisionError')
 
 

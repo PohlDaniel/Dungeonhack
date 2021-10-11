@@ -1,5 +1,5 @@
 import difflib
-from test.test_support import run_unittest, findfile
+from test.support import run_unittest, findfile
 import unittest
 import doctest
 import sys
@@ -12,12 +12,14 @@ class TestWithAscii(unittest.TestCase):
         self.assertEqual(list(sm.get_opcodes()),
             [   ('insert', 0, 0, 0, 1),
                 ('equal', 0, 100, 1, 101)])
+        self.assertEqual(sm.bpopular, set())
         sm = difflib.SequenceMatcher(None, 'b' * 100, 'b' * 50 + 'a' + 'b' * 50)
         self.assertAlmostEqual(sm.ratio(), 0.995, places=3)
         self.assertEqual(list(sm.get_opcodes()),
             [   ('equal', 0, 50, 0, 50),
                 ('insert', 50, 50, 50, 51),
                 ('equal', 50, 100, 51, 101)])
+        self.assertEqual(sm.bpopular, set())
 
     def test_one_delete(self):
         sm = difflib.SequenceMatcher(None, 'a' * 40 + 'c' + 'b' * 40, 'a' * 40 + 'b' * 40)
@@ -26,6 +28,19 @@ class TestWithAscii(unittest.TestCase):
             [   ('equal', 0, 40, 0, 40),
                 ('delete', 40, 41, 40, 40),
                 ('equal', 41, 81, 40, 80)])
+
+    def test_bjunk(self):
+        sm = difflib.SequenceMatcher(isjunk=lambda x: x == ' ',
+                a='a' * 40 + 'b' * 40, b='a' * 44 + 'b' * 40)
+        self.assertEqual(sm.bjunk, set())
+
+        sm = difflib.SequenceMatcher(isjunk=lambda x: x == ' ',
+                a='a' * 40 + 'b' * 40, b='a' * 44 + 'b' * 40 + ' ' * 20)
+        self.assertEqual(sm.bjunk, {' '})
+
+        sm = difflib.SequenceMatcher(isjunk=lambda x: x in [' ', 'b'],
+                a='a' * 40 + 'b' * 40, b='a' * 44 + 'b' * 40 + ' ' * 20)
+        self.assertEqual(sm.bjunk, {' ', 'b'})
 
 
 class TestAutojunk(unittest.TestCase):
@@ -38,10 +53,12 @@ class TestAutojunk(unittest.TestCase):
 
         sm = difflib.SequenceMatcher(None, seq1, seq2)
         self.assertAlmostEqual(sm.ratio(), 0, places=3)
+        self.assertEqual(sm.bpopular, {'b'})
 
         # Now turn the heuristic off
         sm = difflib.SequenceMatcher(None, seq1, seq2, autojunk=False)
         self.assertAlmostEqual(sm.ratio(), 0.9975, places=3)
+        self.assertEqual(sm.bpopular, set())
 
 
 class TestSFbugs(unittest.TestCase):
@@ -55,18 +72,9 @@ class TestSFbugs(unittest.TestCase):
     def test_comparing_empty_lists(self):
         # Check fix for bug #979794
         group_gen = difflib.SequenceMatcher(None, [], []).get_grouped_opcodes()
-        self.assertRaises(StopIteration, group_gen.next)
+        self.assertRaises(StopIteration, next, group_gen)
         diff_gen = difflib.unified_diff([], [])
-        self.assertRaises(StopIteration, diff_gen.next)
-
-    def test_matching_blocks_cache(self):
-        # Issue #21635
-        s = difflib.SequenceMatcher(None, "abxcd", "abcd")
-        first = s.get_matching_blocks()
-        second = s.get_matching_blocks()
-        self.assertEqual(second[0].size, 2)
-        self.assertEqual(second[1].size, 2)
-        self.assertEqual(second[2].size, 0)
+        self.assertRaises(StopIteration, next, diff_gen)
 
     def test_added_tab_hint(self):
         # Check fix for bug #1488943
@@ -269,33 +277,13 @@ class TestOutputFormat(unittest.TestCase):
         self.assertEqual(fmt(3,6), '4,6')
         self.assertEqual(fmt(0,0), '0')
 
-class TestJunkAPIs(unittest.TestCase):
-    def test_is_line_junk_true(self):
-        for line in ['#', '  ', ' #', '# ', ' # ', '']:
-            self.assertTrue(difflib.IS_LINE_JUNK(line), repr(line))
-
-    def test_is_line_junk_false(self):
-        for line in ['##', ' ##', '## ', 'abc ', 'abc #', 'Mr. Moose is up!']:
-            self.assertFalse(difflib.IS_LINE_JUNK(line), repr(line))
-
-    def test_is_line_junk_REDOS(self):
-        evil_input = ('\t' * 1000000) + '##'
-        self.assertFalse(difflib.IS_LINE_JUNK(evil_input))
-
-    def test_is_character_junk_true(self):
-        for char in [' ', '\t']:
-            self.assertTrue(difflib.IS_CHARACTER_JUNK(char), repr(char))
-
-    def test_is_character_junk_false(self):
-        for char in ['a', '#', '\n', '\f', '\r', '\v']:
-            self.assertFalse(difflib.IS_CHARACTER_JUNK(char), repr(char))
 
 def test_main():
     difflib.HtmlDiff._default_prefix = 0
     Doctests = doctest.DocTestSuite(difflib)
     run_unittest(
         TestWithAscii, TestAutojunk, TestSFpatches, TestSFbugs,
-        TestOutputFormat, TestJunkAPIs)
+        TestOutputFormat, Doctests)
 
 if __name__ == '__main__':
     test_main()

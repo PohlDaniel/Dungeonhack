@@ -2,26 +2,57 @@
 # these are all functions _testcapi exports whose name begins with 'test_'.
 
 from __future__ import with_statement
-import string
+import os
+import random
+import subprocess
 import sys
 import time
-import random
 import unittest
-from test import test_support as support
+from test import support
 try:
-    import thread
     import threading
 except ImportError:
-    thread = None
     threading = None
-# Skip this test if the _testcapi module isn't available.
-_testcapi = support.import_module('_testcapi')
+import _testcapi
+
+
+def testfunction(self):
+    """some doc"""
+    return self
+
+class InstanceMethod:
+    id = _testcapi.instancemethod(id)
+    testfunction = _testcapi.instancemethod(testfunction)
 
 class CAPITest(unittest.TestCase):
 
-    def test_buildvalue_N(self):
-        _testcapi.test_buildvalue_N()
+    def test_instancemethod(self):
+        inst = InstanceMethod()
+        self.assertEqual(id(inst), inst.id())
+        self.assertTrue(inst.testfunction() is inst)
+        self.assertEqual(inst.testfunction.__doc__, testfunction.__doc__)
+        self.assertEqual(InstanceMethod.testfunction.__doc__, testfunction.__doc__)
 
+        InstanceMethod.testfunction.attribute = "test"
+        self.assertEqual(testfunction.attribute, "test")
+        self.assertRaises(AttributeError, setattr, inst.testfunction, "attribute", "test")
+
+    @unittest.skipUnless(threading, 'Threading required for this test.')
+    def test_no_FatalError_infinite_loop(self):
+        p = subprocess.Popen([sys.executable, "-c",
+                              'import _testcapi;'
+                              '_testcapi.crash_no_current_thread()'],
+                             stdout=subprocess.PIPE,
+                             stderr=subprocess.PIPE)
+        (out, err) = p.communicate()
+        self.assertEqual(out, b'')
+        # This used to cause an infinite loop.
+        self.assertEqual(err.rstrip(),
+                         b'Fatal Python error:'
+                         b' PyThreadState_Get: no current thread')
+
+    def test_memoryview_from_NULL_pointer(self):
+        self.assertRaises(ValueError, _testcapi.make_memoryview_from_NULL_pointer)
 
 @unittest.skipUnless(threading, 'Threading required for this test.')
 class TestPendingCalls(unittest.TestCase):
@@ -49,8 +80,8 @@ class TestPendingCalls(unittest.TestCase):
             #run our callbacks.  Note that callbacks are only run on the
             #main thread
             if False and support.verbose:
-                print "(%i)"%(len(l),),
-            for i in xrange(1000):
+                print("(%i)"%(len(l),),)
+            for i in range(1000):
                 a = i*i
             if context and not context.event.is_set():
                 continue
@@ -58,9 +89,10 @@ class TestPendingCalls(unittest.TestCase):
             self.assertTrue(count < 10000,
                 "timeout waiting for %i callbacks, got %i"%(n, len(l)))
         if False and support.verbose:
-            print "(%i)"%(len(l),)
+            print("(%i)"%(len(l),))
 
     def test_pendingcalls_threaded(self):
+
         #do every callback on a separate thread
         n = 32 #total callbacks
         threads = []
@@ -73,11 +105,15 @@ class TestPendingCalls(unittest.TestCase):
         context.lock = threading.Lock()
         context.event = threading.Event()
 
-        threads = [threading.Thread(target=self.pendingcalls_thread,
-                                    args=(context,))
-                   for i in range(context.nThreads)]
-        with support.start_threads(threads):
-            self.pendingcalls_wait(context.l, n, context)
+        for i in range(context.nThreads):
+            t = threading.Thread(target=self.pendingcalls_thread, args = (context,))
+            t.start()
+            threads.append(t)
+
+        self.pendingcalls_wait(context.l, n, context)
+
+        for t in threads:
+            t.join()
 
     def pendingcalls_thread(self, context):
         try:
@@ -87,7 +123,7 @@ class TestPendingCalls(unittest.TestCase):
                 context.nFinished += 1
                 nFinished = context.nFinished
                 if False and support.verbose:
-                    print "finished threads: ", nFinished
+                    print("finished threads: ", nFinished)
             if nFinished == context.nThreads:
                 context.event.set()
 
@@ -101,55 +137,80 @@ class TestPendingCalls(unittest.TestCase):
         self.pendingcalls_submit(l, n)
         self.pendingcalls_wait(l, n)
 
-
-class TestGetIndices(unittest.TestCase):
-
-    def test_get_indices(self):
-        self.assertEqual(_testcapi.get_indices(slice(10L, 20, 1), 100), (0, 10, 20, 1))
-        self.assertEqual(_testcapi.get_indices(slice(10.1, 20, 1), 100), None)
-        self.assertEqual(_testcapi.get_indices(slice(10, 20L, 1), 100), (0, 10, 20, 1))
-        self.assertEqual(_testcapi.get_indices(slice(10, 20.1, 1), 100), None)
-
-        self.assertEqual(_testcapi.get_indices(slice(10L, 20, 1L), 100), (0, 10, 20, 1))
-        self.assertEqual(_testcapi.get_indices(slice(10.1, 20, 1L), 100), None)
-        self.assertEqual(_testcapi.get_indices(slice(10, 20L, 1L), 100), (0, 10, 20, 1))
-        self.assertEqual(_testcapi.get_indices(slice(10, 20.1, 1L), 100), None)
+# Bug #6012
+class Test6012(unittest.TestCase):
+    def test(self):
+        self.assertEqual(_testcapi.argparsing("Hello", "World"), 1)
 
 
-@unittest.skipUnless(threading and thread, 'Threading required for this test.')
-class TestThreadState(unittest.TestCase):
+class EmbeddingTest(unittest.TestCase):
 
-    @support.reap_threads
-    def test_thread_state(self):
-        # some extra thread-state tests driven via _testcapi
-        def target():
-            idents = []
-
-            def callback():
-                idents.append(thread.get_ident())
-
-            _testcapi._test_thread_state(callback)
-            a = b = callback
-            time.sleep(1)
-            # Check our main thread is in the list exactly 3 times.
-            self.assertEqual(idents.count(thread.get_ident()), 3,
-                             "Couldn't find main thread correctly in the list")
-
-        target()
-        t = threading.Thread(target=target)
-        t.start()
-        t.join()
-
-
-class Test_testcapi(unittest.TestCase):
-    locals().update((name, getattr(_testcapi, name))
-                    for name in dir(_testcapi)
-                    if name.startswith('test_') and not name.endswith('_code'))
+    @unittest.skipIf(
+        sys.platform.startswith('win'),
+        "test doesn't work under Windows")
+    def test_subinterps(self):
+        # XXX only tested under Unix checkouts
+        basepath = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+        oldcwd = os.getcwd()
+        # This is needed otherwise we get a fatal error:
+        # "Py_Initialize: Unable to get the locale encoding
+        # LookupError: no codec search functions registered: can't find encoding"
+        os.chdir(basepath)
+        try:
+            exe = os.path.join(basepath, "Modules", "_testembed")
+            if not os.path.exists(exe):
+                self.skipTest("%r doesn't exist" % exe)
+            p = subprocess.Popen([exe],
+                                 stdout=subprocess.PIPE,
+                                 stderr=subprocess.PIPE)
+            (out, err) = p.communicate()
+            self.assertEqual(p.returncode, 0,
+                             "bad returncode %d, stderr is %r" %
+                             (p.returncode, err))
+            if support.verbose:
+                print()
+                print(out.decode('latin1'))
+                print(err.decode('latin1'))
+        finally:
+            os.chdir(oldcwd)
 
 
 def test_main():
-    support.run_unittest(CAPITest, TestPendingCalls,
-                         TestThreadState, TestGetIndices, Test_testcapi)
+    support.run_unittest(CAPITest, TestPendingCalls, Test6012, EmbeddingTest)
+
+    for name in dir(_testcapi):
+        if name.startswith('test_'):
+            test = getattr(_testcapi, name)
+            if support.verbose:
+                print("internal", name)
+            test()
+
+    # some extra thread-state tests driven via _testcapi
+    def TestThreadState():
+        if support.verbose:
+            print("auto-thread-state")
+
+        idents = []
+
+        def callback():
+            idents.append(_thread.get_ident())
+
+        _testcapi._test_thread_state(callback)
+        a = b = callback
+        time.sleep(1)
+        # Check our main thread is in the list exactly 3 times.
+        if idents.count(_thread.get_ident()) != 3:
+            raise support.TestFailed(
+                        "Couldn't find main thread correctly in the list")
+
+    if threading:
+        import _thread
+        import time
+        TestThreadState()
+        t = threading.Thread(target=TestThreadState)
+        t.start()
+        t.join()
+
 
 if __name__ == "__main__":
     test_main()

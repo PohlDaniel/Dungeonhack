@@ -1,27 +1,19 @@
-# -*- coding: utf-8 -*-
 """Tests for distutils.archive_util."""
 __revision__ = "$Id$"
 
 import unittest
 import os
-import sys
 import tarfile
 from os.path import splitdrive
 import warnings
 
+from distutils import archive_util
 from distutils.archive_util import (check_archive_formats, make_tarball,
                                     make_zipfile, make_archive,
                                     ARCHIVE_FORMATS)
 from distutils.spawn import find_executable, spawn
 from distutils.tests import support
-from test.test_support import check_warnings, run_unittest
-
-try:
-    import grp
-    import pwd
-    UID_GID_SUPPORT = True
-except ImportError:
-    UID_GID_SUPPORT = False
+from test.support import check_warnings, run_unittest, patch
 
 try:
     import zipfile
@@ -29,34 +21,19 @@ try:
 except ImportError:
     ZIP_SUPPORT = find_executable('zip')
 
-# some tests will fail if zlib is not available
 try:
     import zlib
+    ZLIB_SUPPORT = True
 except ImportError:
-    zlib = None
-
-def can_fs_encode(filename):
-    """
-    Return True if the filename can be saved in the file system.
-    """
-    if os.path.supports_unicode_filenames:
-        return True
-    try:
-        filename.encode(sys.getfilesystemencoding())
-    except UnicodeEncodeError:
-        return False
-    return True
+    ZLIB_SUPPORT = False
 
 
 class ArchiveUtilTestCase(support.TempdirManager,
                           support.LoggingSilencer,
                           unittest.TestCase):
 
-    @unittest.skipUnless(zlib, "requires zlib")
+    @unittest.skipUnless(ZLIB_SUPPORT, 'Need zlib support to run')
     def test_make_tarball(self):
-        self._make_tarball('archive')
-
-    def _make_tarball(self, target_name):
         # creating something to tar
         tmpdir = self.mkdtemp()
         self.write_file([tmpdir, 'file1'], 'xxx')
@@ -66,9 +43,9 @@ class ArchiveUtilTestCase(support.TempdirManager,
 
         tmpdir2 = self.mkdtemp()
         unittest.skipUnless(splitdrive(tmpdir)[0] == splitdrive(tmpdir2)[0],
-                            "source and target should be on same drive")
+                            "Source and target should be on same drive")
 
-        base_name = os.path.join(tmpdir2, target_name)
+        base_name = os.path.join(tmpdir2, 'archive')
 
         # working with relative paths to avoid tar warnings
         old_dir = os.getcwd()
@@ -83,7 +60,7 @@ class ArchiveUtilTestCase(support.TempdirManager,
         self.assertTrue(os.path.exists(tarball))
 
         # trying an uncompressed one
-        base_name = os.path.join(tmpdir2, target_name)
+        base_name = os.path.join(tmpdir2, 'archive')
         old_dir = os.getcwd()
         os.chdir(tmpdir)
         try:
@@ -98,7 +75,7 @@ class ArchiveUtilTestCase(support.TempdirManager,
         try:
             names = tar.getnames()
             names.sort()
-            return names
+            return tuple(names)
         finally:
             tar.close()
 
@@ -116,9 +93,9 @@ class ArchiveUtilTestCase(support.TempdirManager,
         base_name = os.path.join(tmpdir2, 'archive')
         return tmpdir, tmpdir2, base_name
 
-    @unittest.skipUnless(zlib, "Requires zlib")
-    @unittest.skipUnless(find_executable('tar') and find_executable('gzip'),
-                         'Need the tar command to run')
+    @unittest.skipUnless(find_executable('tar') and find_executable('gzip')
+                         and ZLIB_SUPPORT,
+                         'Need the tar, gzip and zlib command to run')
     def test_tarfile_vs_tar(self):
         tmpdir, tmpdir2, base_name =  self._create_files()
         old_dir = os.getcwd()
@@ -199,11 +176,11 @@ class ArchiveUtilTestCase(support.TempdirManager,
                              dry_run=True)
         finally:
             os.chdir(old_dir)
-        self.assertFalse(os.path.exists(tarball))
+        self.assertTrue(not os.path.exists(tarball))
         self.assertEqual(len(w.warnings), 1)
 
-    @unittest.skipUnless(zlib, "Requires zlib")
-    @unittest.skipUnless(ZIP_SUPPORT, 'Need zip support to run')
+    @unittest.skipUnless(ZIP_SUPPORT and ZLIB_SUPPORT,
+                         'Need zip and zlib support to run')
     def test_make_zipfile(self):
         # creating something to tar
         tmpdir = self.mkdtemp()
@@ -216,6 +193,29 @@ class ArchiveUtilTestCase(support.TempdirManager,
 
         # check if the compressed tarball was created
         tarball = base_name + '.zip'
+        self.assertTrue(os.path.exists(tarball))
+
+    @unittest.skipUnless(ZIP_SUPPORT, 'Need zip support to run')
+    def test_make_zipfile_no_zlib(self):
+        patch(self, archive_util.zipfile, 'zlib', None)  # force zlib ImportError
+
+        called = []
+        zipfile_class = zipfile.ZipFile
+        def fake_zipfile(*a, **kw):
+            if kw.get('compression', None) == zipfile.ZIP_STORED:
+                called.append((a, kw))
+            return zipfile_class(*a, **kw)
+
+        patch(self, archive_util.zipfile, 'ZipFile', fake_zipfile)
+
+        # create something to tar and compress
+        tmpdir, tmpdir2, base_name = self._create_files()
+        make_zipfile(base_name, tmpdir)
+
+        tarball = base_name + '.zip'
+        self.assertEqual(called,
+                         [((tarball, "w"), {'compression': zipfile.ZIP_STORED})])
+        self.assertTrue(os.path.exists(tarball))
 
     def test_check_archive_formats(self):
         self.assertEqual(check_archive_formats(['gztar', 'xxx', 'zip']),
@@ -226,59 +226,6 @@ class ArchiveUtilTestCase(support.TempdirManager,
         tmpdir = self.mkdtemp()
         base_name = os.path.join(tmpdir, 'archive')
         self.assertRaises(ValueError, make_archive, base_name, 'xxx')
-
-    @unittest.skipUnless(zlib, "Requires zlib")
-    def test_make_archive_owner_group(self):
-        # testing make_archive with owner and group, with various combinations
-        # this works even if there's not gid/uid support
-        if UID_GID_SUPPORT:
-            group = grp.getgrgid(0)[0]
-            owner = pwd.getpwuid(0)[0]
-        else:
-            group = owner = 'root'
-
-        base_dir, root_dir, base_name =  self._create_files()
-        base_name = os.path.join(self.mkdtemp() , 'archive')
-        res = make_archive(base_name, 'zip', root_dir, base_dir, owner=owner,
-                           group=group)
-        self.assertTrue(os.path.exists(res))
-
-        res = make_archive(base_name, 'zip', root_dir, base_dir)
-        self.assertTrue(os.path.exists(res))
-
-        res = make_archive(base_name, 'tar', root_dir, base_dir,
-                           owner=owner, group=group)
-        self.assertTrue(os.path.exists(res))
-
-        res = make_archive(base_name, 'tar', root_dir, base_dir,
-                           owner='kjhkjhkjg', group='oihohoh')
-        self.assertTrue(os.path.exists(res))
-
-    @unittest.skipUnless(zlib, "Requires zlib")
-    @unittest.skipUnless(UID_GID_SUPPORT, "Requires grp and pwd support")
-    def test_tarfile_root_owner(self):
-        tmpdir, tmpdir2, base_name =  self._create_files()
-        old_dir = os.getcwd()
-        os.chdir(tmpdir)
-        group = grp.getgrgid(0)[0]
-        owner = pwd.getpwuid(0)[0]
-        try:
-            archive_name = make_tarball(base_name, 'dist', compress=None,
-                                        owner=owner, group=group)
-        finally:
-            os.chdir(old_dir)
-
-        # check if the compressed tarball was created
-        self.assertTrue(os.path.exists(archive_name))
-
-        # now checks the rights
-        archive = tarfile.open(archive_name)
-        try:
-            for member in archive.getmembers():
-                self.assertEqual(member.uid, 0)
-                self.assertEqual(member.gid, 0)
-        finally:
-            archive.close()
 
     def test_make_archive_cwd(self):
         current_dir = os.getcwd()
@@ -293,33 +240,6 @@ class ArchiveUtilTestCase(support.TempdirManager,
             self.assertEqual(os.getcwd(), current_dir)
         finally:
             del ARCHIVE_FORMATS['xxx']
-
-    @unittest.skipUnless(zlib, "requires zlib")
-    def test_make_tarball_unicode(self):
-        """
-        Mirror test_make_tarball, except filename is unicode.
-        """
-        self._make_tarball(u'archive')
-
-    @unittest.skipUnless(zlib, "requires zlib")
-    @unittest.skipUnless(can_fs_encode(u'årchiv'),
-        'File system cannot handle this filename')
-    def test_make_tarball_unicode_latin1(self):
-        """
-        Mirror test_make_tarball, except filename is unicode and contains
-        latin characters.
-        """
-        self._make_tarball(u'årchiv') # note this isn't a real word
-
-    @unittest.skipUnless(zlib, "requires zlib")
-    @unittest.skipUnless(can_fs_encode(u'のアーカイブ'),
-        'File system cannot handle this filename')
-    def test_make_tarball_unicode_extended(self):
-        """
-        Mirror test_make_tarball, except filename is unicode and contains
-        characters outside the latin charset.
-        """
-        self._make_tarball(u'のアーカイブ') # japanese for archive
 
 def test_suite():
     return unittest.makeSuite(ArchiveUtilTestCase)

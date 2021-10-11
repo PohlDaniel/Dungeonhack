@@ -60,7 +60,7 @@ if sys.platform == 'win32':
 
         def __init__(self, size):
             self.size = size
-            self.name = 'pym-%d-%d' % (os.getpid(), Arena._counter.next())
+            self.name = 'pym-%d-%d' % (os.getpid(), next(Arena._counter))
             self.buffer = mmap.mmap(-1, self.size, tagname=self.name)
             assert win32.GetLastError() == 0, 'tagname already in use'
             self._state = (self.size, self.name)
@@ -213,7 +213,7 @@ class Heap(object):
 
     def malloc(self, size):
         # return a block of right size (possibly rounded up)
-        assert 0 <= size < sys.maxint
+        assert 0 <= size < sys.maxsize
         if os.getpid() != self._lastpid:
             self.__init__()                     # reinitialize after fork
         self._lock.acquire()
@@ -239,7 +239,7 @@ class BufferWrapper(object):
     _heap = Heap()
 
     def __init__(self, size):
-        assert 0 <= size < sys.maxint
+        assert 0 <= size < sys.maxsize
         block = BufferWrapper._heap.malloc(size)
         self._state = (block, size)
         Finalize(self, BufferWrapper._heap.free, args=(block,))

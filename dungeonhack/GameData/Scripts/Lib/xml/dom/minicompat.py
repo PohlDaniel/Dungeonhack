@@ -40,12 +40,7 @@ __all__ = ["NodeList", "EmptyNodeList", "StringTypes", "defproperty"]
 
 import xml.dom
 
-try:
-    unicode
-except NameError:
-    StringTypes = type(''),
-else:
-    StringTypes = type(''), type(unicode(''))
+StringTypes = (str,)
 
 
 class NodeList(list):
@@ -65,10 +60,10 @@ class NodeList(list):
     length = property(_get_length, _set_length,
                       doc="The number of nodes in the NodeList.")
 
-    # For backward compatibility
+    def __getstate__(self):
+        return list(self)
+
     def __setstate__(self, state):
-        if state is None:
-            state = []
         self[:] = state
 
 
@@ -100,7 +95,7 @@ class EmptyNodeList(tuple):
 
 
 def defproperty(klass, name, doc):
-    get = getattr(klass, ("_get_" + name)).im_func
+    get = getattr(klass, ("_get_" + name))
     def set(self, value, name=name):
         raise xml.dom.NoModificationAllowedErr(
             "attempt to modify read-only attribute " + repr(name))

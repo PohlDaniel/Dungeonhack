@@ -1,9 +1,8 @@
-from test.test_support import run_unittest, verbose
+from test.support import run_unittest, verbose
 import unittest
 import locale
 import sys
 import codecs
-
 
 enUS_locale = None
 
@@ -17,10 +16,10 @@ def get_enUS_locale():
             # haven't had time yet to verify if tests work on OSX 10.5
             # (10.4 is known to be bad)
             raise unittest.SkipTest("Locale support on MacOSX is minimal")
-    if sys.platform.startswith("win"):
+    elif sys.platform.startswith("win"):
         tlocs = ("En", "English")
     else:
-        tlocs = ("en_US.UTF-8", "en_US.US-ASCII", "en_US")
+        tlocs = ("en_US.UTF-8", "en_US.ISO8859-1", "en_US.US-ASCII", "en_US")
     oldlocale = locale.setlocale(locale.LC_NUMERIC)
     for tloc in tlocs:
         try:
@@ -44,7 +43,7 @@ class BaseLocalizedTest(unittest.TestCase):
         self.oldlocale = locale.setlocale(self.locale_type)
         locale.setlocale(self.locale_type, enUS_locale)
         if verbose:
-            print "testing with \"%s\"..." % enUS_locale,
+            print("testing with \"%s\"..." % enUS_locale, end=' ')
 
     def tearDown(self):
         locale.setlocale(self.locale_type, self.oldlocale)
@@ -60,7 +59,6 @@ class BaseCookedTest(unittest.TestCase):
 
     def tearDown(self):
         locale._override_localeconv = {}
-
 
 class CCookedTest(BaseCookedTest):
     # A cooked "C" locale
@@ -116,7 +114,7 @@ class FrFRCookedTest(BaseCookedTest):
     # and a non-ASCII currency symbol.
 
     cooked_values = {
-        'currency_symbol': '\xe2\x82\xac',
+        'currency_symbol': '\u20ac',
         'decimal_point': ',',
         'frac_digits': 2,
         'grouping': [3, 3, 0],
@@ -328,7 +326,7 @@ class TestFrFRNumberFormatting(FrFRCookedTest, BaseFormattingTest):
         self._test_format("%-10d", 4200, grouping=True, out='4 200'.ljust(10))
 
     def test_currency(self):
-        euro = u'\u20ac'.encode('utf-8')
+        euro = '\u20ac'
         self._test_currency(50000, "50000,00 " + euro)
         self._test_currency(50000, "50 000,00 " + euro, grouping=True)
         # XXX is the trailing space a bug?
@@ -336,111 +334,37 @@ class TestFrFRNumberFormatting(FrFRCookedTest, BaseFormattingTest):
             grouping=True, international=True)
 
 
-class TestStringMethods(BaseLocalizedTest):
-    locale_type = locale.LC_CTYPE
+class TestCollation(unittest.TestCase):
+    # Test string collation functions
 
-    if sys.platform != 'sunos5' and not sys.platform.startswith("win"):
-        # Test BSD Rune locale's bug for isctype functions.
+    def test_strcoll(self):
+        self.assertLess(locale.strcoll('a', 'b'), 0)
+        self.assertEqual(locale.strcoll('a', 'a'), 0)
+        self.assertGreater(locale.strcoll('b', 'a'), 0)
 
-        def test_isspace(self):
-            self.assertEqual('\x20'.isspace(), True)
-            self.assertEqual('\xa0'.isspace(), False)
-            self.assertEqual('\xa1'.isspace(), False)
-
-        def test_isalpha(self):
-            self.assertEqual('\xc0'.isalpha(), False)
-
-        def test_isalnum(self):
-            self.assertEqual('\xc0'.isalnum(), False)
-
-        def test_isupper(self):
-            self.assertEqual('\xc0'.isupper(), False)
-
-        def test_islower(self):
-            self.assertEqual('\xc0'.islower(), False)
-
-        def test_lower(self):
-            self.assertEqual('\xcc\x85'.lower(), '\xcc\x85')
-
-        def test_upper(self):
-            self.assertEqual('\xed\x95\xa0'.upper(), '\xed\x95\xa0')
-
-        def test_strip(self):
-            self.assertEqual('\xed\x95\xa0'.strip(), '\xed\x95\xa0')
-
-        def test_split(self):
-            self.assertEqual('\xec\xa0\xbc'.split(), ['\xec\xa0\xbc'])
+    def test_strxfrm(self):
+        self.assertLess(locale.strxfrm('a'), locale.strxfrm('b'))
 
 
-class NormalizeTest(unittest.TestCase):
-    def check(self, localename, expected):
-        self.assertEqual(locale.normalize(localename), expected, msg=localename)
+class TestEnUSCollation(BaseLocalizedTest, TestCollation):
+    # Test string collation functions with a real English locale
 
-    def test_locale_alias(self):
-        for localename, alias in locale.locale_alias.items():
-            self.check(localename, alias)
+    locale_type = locale.LC_ALL
 
-    def test_empty(self):
-        self.check('', '')
+    def setUp(self):
+        enc = codecs.lookup(locale.getpreferredencoding(False) or 'ascii').name
+        if enc not in ('utf-8', 'iso8859-1', 'cp1252'):
+            raise unittest.SkipTest('encoding not suitable')
+        if enc != 'iso8859-1' and (sys.platform == 'darwin' or
+                                   sys.platform.startswith('freebsd')):
+            raise unittest.SkipTest('wcscoll/wcsxfrm have known bugs')
+        BaseLocalizedTest.setUp(self)
 
-    def test_c(self):
-        self.check('c', 'C')
-        self.check('posix', 'C')
+    def test_strcoll_with_diacritic(self):
+        self.assertLess(locale.strcoll('à', 'b'), 0)
 
-    def test_english(self):
-        self.check('en', 'en_US.ISO8859-1')
-        self.check('EN', 'en_US.ISO8859-1')
-        self.check('en_US', 'en_US.ISO8859-1')
-        self.check('en_us', 'en_US.ISO8859-1')
-        self.check('en_GB', 'en_GB.ISO8859-1')
-        self.check('en_US.UTF-8', 'en_US.UTF-8')
-        self.check('en_US.utf8', 'en_US.UTF-8')
-        self.check('en_US:UTF-8', 'en_US.UTF-8')
-        self.check('en_US.ISO8859-1', 'en_US.ISO8859-1')
-        self.check('en_US.US-ASCII', 'en_US.ISO8859-1')
-        self.check('english', 'en_EN.ISO8859-1')
-
-    def test_hyphenated_encoding(self):
-        self.check('az_AZ.iso88599e', 'az_AZ.ISO8859-9E')
-        self.check('az_AZ.ISO8859-9E', 'az_AZ.ISO8859-9E')
-        self.check('tt_RU.koi8c', 'tt_RU.KOI8-C')
-        self.check('tt_RU.KOI8-C', 'tt_RU.KOI8-C')
-        self.check('lo_LA.cp1133', 'lo_LA.IBM-CP1133')
-        self.check('lo_LA.ibmcp1133', 'lo_LA.IBM-CP1133')
-        self.check('lo_LA.IBM-CP1133', 'lo_LA.IBM-CP1133')
-        self.check('uk_ua.microsoftcp1251', 'uk_UA.CP1251')
-        self.check('uk_ua.microsoft-cp1251', 'uk_UA.CP1251')
-        self.check('ka_ge.georgianacademy', 'ka_GE.GEORGIAN-ACADEMY')
-        self.check('ka_GE.GEORGIAN-ACADEMY', 'ka_GE.GEORGIAN-ACADEMY')
-        self.check('cs_CZ.iso88592', 'cs_CZ.ISO8859-2')
-        self.check('cs_CZ.ISO8859-2', 'cs_CZ.ISO8859-2')
-
-    def test_euro_modifier(self):
-        self.check('de_DE@euro', 'de_DE.ISO8859-15')
-        self.check('en_US.ISO8859-15@euro', 'en_US.ISO8859-15')
-
-    def test_latin_modifier(self):
-        self.check('be_BY.UTF-8@latin', 'be_BY.UTF-8@latin')
-        self.check('sr_RS.UTF-8@latin', 'sr_RS.UTF-8@latin')
-
-    def test_valencia_modifier(self):
-        self.check('ca_ES.UTF-8@valencia', 'ca_ES.UTF-8@valencia')
-        self.check('ca_ES@valencia', 'ca_ES.UTF-8@valencia')
-        self.check('ca@valencia', 'ca_ES.ISO8859-1@valencia')
-
-    def test_devanagari_modifier(self):
-        self.check('ks_IN.UTF-8@devanagari', 'ks_IN.UTF-8@devanagari')
-        self.check('ks_IN@devanagari', 'ks_IN.UTF-8@devanagari')
-        self.check('ks@devanagari', 'ks_IN.UTF-8@devanagari')
-        self.check('ks_IN.UTF-8', 'ks_IN.UTF-8')
-        self.check('ks_IN', 'ks_IN.UTF-8')
-        self.check('ks', 'ks_IN.UTF-8')
-        self.check('sd_IN.UTF-8@devanagari', 'sd_IN.UTF-8@devanagari')
-        self.check('sd_IN@devanagari', 'sd_IN.UTF-8@devanagari')
-        self.check('sd@devanagari', 'sd_IN.UTF-8@devanagari')
-        self.check('sd_IN.UTF-8', 'sd_IN.UTF-8')
-        self.check('sd_IN', 'sd_IN.UTF-8')
-        self.check('sd', 'sd_IN.UTF-8')
+    def test_strxfrm_with_diacritic(self):
+        self.assertLess(locale.strxfrm('à'), locale.strxfrm('b'))
 
 
 class TestMiscellaneous(unittest.TestCase):
@@ -451,10 +375,10 @@ class TestMiscellaneous(unittest.TestCase):
             # If encoding non-empty, make sure it is valid
             codecs.lookup(enc)
 
-    if hasattr(locale, "strcoll"):
-        def test_strcoll_3303(self):
-            # test crasher from bug #3303
-            self.assertRaises(TypeError, locale.strcoll, u"a", None)
+    def test_strcoll_3303(self):
+        # test crasher from bug #3303
+        self.assertRaises(TypeError, locale.strcoll, "a", None)
+        self.assertRaises(TypeError, locale.strcoll, b"a", None)
 
     def test_setlocale_category(self):
         locale.setlocale(locale.LC_ALL)
@@ -467,42 +391,6 @@ class TestMiscellaneous(unittest.TestCase):
         # crasher from bug #7419
         self.assertRaises(locale.Error, locale.setlocale, 12345)
 
-    def test_getsetlocale_issue1813(self):
-        # Issue #1813: setting and getting the locale under a Turkish locale
-        oldlocale = locale.getlocale()
-        self.addCleanup(locale.setlocale, locale.LC_CTYPE, oldlocale)
-        for loc in ('tr_TR', 'tr_TR.UTF-8', 'tr_TR.ISO8859-9'):
-            try:
-                locale.setlocale(locale.LC_CTYPE, loc)
-                break
-            except locale.Error:
-                continue
-        else:
-            # Unsupported locale on this system
-            self.skipTest('test needs Turkish locale')
-        loc = locale.getlocale()
-        try:
-            locale.setlocale(locale.LC_CTYPE, loc)
-        except Exception as e:
-            self.fail("Failed to set locale %r (default locale is %r): %r" %
-                      (loc, oldlocale, e))
-        self.assertEqual(loc, locale.getlocale())
-
-    def test_normalize_issue12752(self):
-        # Issue #1813 caused a regression where locale.normalize() would no
-        # longer accept unicode strings.
-        self.assertEqual(locale.normalize(u'en_US'), 'en_US.ISO8859-1')
-
-    def test_setlocale_unicode(self):
-        oldlocale = locale.getlocale()
-        self.addCleanup(locale.setlocale, locale.LC_CTYPE, oldlocale)
-
-        user_locale = locale.setlocale(locale.LC_CTYPE, '')
-        unicode_locale = user_locale.decode('utf-8')
-
-        user_locale2 = locale.setlocale(locale.LC_CTYPE, unicode_locale)
-        self.assertEqual(user_locale, user_locale2)
-
 
 def test_main():
     tests = [
@@ -512,15 +400,16 @@ def test_main():
         TestEnUSNumberFormatting,
         TestCNumberFormatting,
         TestFrFRNumberFormatting,
+        TestCollation
     ]
     # SkipTest can't be raised inside unittests, handle it manually instead
     try:
         get_enUS_locale()
     except unittest.SkipTest as e:
         if verbose:
-            print "Some tests will be disabled: %s" % e
+            print("Some tests will be disabled: %s" % e)
     else:
-        tests += [TestNumberFormatting, TestStringMethods]
+        tests += [TestNumberFormatting, TestEnUSCollation]
     run_unittest(*tests)
 
 if __name__ == '__main__':

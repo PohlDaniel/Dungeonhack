@@ -1,48 +1,50 @@
-# -*- coding: iso-8859-1 -*-
+#!/usr/bin/env python3
 
-from test import test_support
+from test import support
 import marshal
 import sys
 import unittest
 import os
 
-try:
-    import _testcapi
-except ImportError:
-    _testcapi = None
+class HelperMixin:
+    def helper(self, sample, *extra):
+        new = marshal.loads(marshal.dumps(sample, *extra))
+        self.assertEqual(sample, new)
+        try:
+            with open(support.TESTFN, "wb") as f:
+                marshal.dump(sample, f, *extra)
+            with open(support.TESTFN, "rb") as f:
+                new = marshal.load(f)
+            self.assertEqual(sample, new)
+        finally:
+            support.unlink(support.TESTFN)
 
-class IntTestCase(unittest.TestCase):
+class IntTestCase(unittest.TestCase, HelperMixin):
     def test_ints(self):
         # Test the full range of Python ints.
-        n = sys.maxint
+        n = sys.maxsize
         while n:
             for expected in (-n, n):
-                s = marshal.dumps(expected)
-                got = marshal.loads(s)
-                self.assertEqual(expected, got)
-                marshal.dump(expected, file(test_support.TESTFN, "wb"))
-                got = marshal.load(file(test_support.TESTFN, "rb"))
-                self.assertEqual(expected, got)
+                self.helper(expected)
             n = n >> 1
-        os.unlink(test_support.TESTFN)
 
     def test_int64(self):
         # Simulate int marshaling on a 64-bit box.  This is most interesting if
         # we're running the test on a 32-bit box, of course.
 
         def to_little_endian_string(value, nbytes):
-            bytes = []
+            b = bytearray()
             for i in range(nbytes):
-                bytes.append(chr(value & 0xff))
+                b.append(value & 0xff)
                 value >>= 8
-            return ''.join(bytes)
+            return b
 
-        maxint64 = (1L << 63) - 1
+        maxint64 = (1 << 63) - 1
         minint64 = -maxint64-1
 
         for base in maxint64, minint64, -maxint64, -(minint64 >> 1):
             while base:
-                s = 'I' + to_little_endian_string(base, 8)
+                s = b'I' + to_little_endian_string(base, 8)
                 got = marshal.loads(s)
                 self.assertEqual(base, got)
                 if base == -1:  # a fixed-point for shifting right 1
@@ -52,28 +54,16 @@ class IntTestCase(unittest.TestCase):
 
     def test_bool(self):
         for b in (True, False):
-            new = marshal.loads(marshal.dumps(b))
-            self.assertEqual(b, new)
-            self.assertEqual(type(b), type(new))
-            marshal.dump(b, file(test_support.TESTFN, "wb"))
-            new = marshal.load(file(test_support.TESTFN, "rb"))
-            self.assertEqual(b, new)
-            self.assertEqual(type(b), type(new))
+            self.helper(b)
 
-class FloatTestCase(unittest.TestCase):
+class FloatTestCase(unittest.TestCase, HelperMixin):
     def test_floats(self):
         # Test a few floats
         small = 1e-25
-        n = sys.maxint * 3.7e250
+        n = sys.maxsize * 3.7e250
         while n > small:
             for expected in (-n, n):
-                f = float(expected)
-                s = marshal.dumps(f)
-                got = marshal.loads(s)
-                self.assertEqual(f, got)
-                marshal.dump(f, file(test_support.TESTFN, "wb"))
-                got = marshal.load(file(test_support.TESTFN, "rb"))
-                self.assertEqual(f, got)
+                self.helper(float(expected))
             n /= 123.4567
 
         f = 0.0
@@ -85,63 +75,26 @@ class FloatTestCase(unittest.TestCase):
         got = marshal.loads(s)
         self.assertEqual(f, got)
 
-        n = sys.maxint * 3.7e-250
+        n = sys.maxsize * 3.7e-250
         while n < small:
             for expected in (-n, n):
                 f = float(expected)
-
-                s = marshal.dumps(f)
-                got = marshal.loads(s)
-                self.assertEqual(f, got)
-
-                s = marshal.dumps(f, 1)
-                got = marshal.loads(s)
-                self.assertEqual(f, got)
-
-                marshal.dump(f, file(test_support.TESTFN, "wb"))
-                got = marshal.load(file(test_support.TESTFN, "rb"))
-                self.assertEqual(f, got)
-
-                marshal.dump(f, file(test_support.TESTFN, "wb"), 1)
-                got = marshal.load(file(test_support.TESTFN, "rb"))
-                self.assertEqual(f, got)
+                self.helper(f)
+                self.helper(f, 1)
             n *= 123.4567
-        os.unlink(test_support.TESTFN)
 
-class StringTestCase(unittest.TestCase):
+class StringTestCase(unittest.TestCase, HelperMixin):
     def test_unicode(self):
-        for s in [u"", u"Andrè Previn", u"abc", u" "*10000]:
-            new = marshal.loads(marshal.dumps(s))
-            self.assertEqual(s, new)
-            self.assertEqual(type(s), type(new))
-            marshal.dump(s, file(test_support.TESTFN, "wb"))
-            new = marshal.load(file(test_support.TESTFN, "rb"))
-            self.assertEqual(s, new)
-            self.assertEqual(type(s), type(new))
-        os.unlink(test_support.TESTFN)
+        for s in ["", "Andr\xe8 Previn", "abc", " "*10000]:
+            self.helper(marshal.loads(marshal.dumps(s)))
 
     def test_string(self):
-        for s in ["", "Andrè Previn", "abc", " "*10000]:
-            new = marshal.loads(marshal.dumps(s))
-            self.assertEqual(s, new)
-            self.assertEqual(type(s), type(new))
-            marshal.dump(s, file(test_support.TESTFN, "wb"))
-            new = marshal.load(file(test_support.TESTFN, "rb"))
-            self.assertEqual(s, new)
-            self.assertEqual(type(s), type(new))
-        os.unlink(test_support.TESTFN)
+        for s in ["", "Andr\xe8 Previn", "abc", " "*10000]:
+            self.helper(s)
 
-    def test_buffer(self):
-        for s in ["", "Andrè Previn", "abc", " "*10000]:
-            with test_support.check_py3k_warnings(("buffer.. not supported",
-                                                     DeprecationWarning)):
-                b = buffer(s)
-            new = marshal.loads(marshal.dumps(b))
-            self.assertEqual(s, new)
-            marshal.dump(b, file(test_support.TESTFN, "wb"))
-            new = marshal.load(file(test_support.TESTFN, "rb"))
-            self.assertEqual(s, new)
-        os.unlink(test_support.TESTFN)
+    def test_bytes(self):
+        for s in [b"", b"Andr\xe8 Previn", b"abc", b" "*10000]:
+            self.helper(s)
 
 class ExceptionTestCase(unittest.TestCase):
     def test_exceptions(self):
@@ -150,57 +103,39 @@ class ExceptionTestCase(unittest.TestCase):
 
 class CodeTestCase(unittest.TestCase):
     def test_code(self):
-        co = ExceptionTestCase.test_exceptions.func_code
+        co = ExceptionTestCase.test_exceptions.__code__
         new = marshal.loads(marshal.dumps(co))
         self.assertEqual(co, new)
 
-class ContainerTestCase(unittest.TestCase):
+    def test_many_codeobjects(self):
+        # Issue2957: bad recursion count on code objects
+        count = 5000    # more than MAX_MARSHAL_STACK_DEPTH
+        codes = (ExceptionTestCase.test_exceptions.__code__,) * count
+        marshal.loads(marshal.dumps(codes))
+
+class ContainerTestCase(unittest.TestCase, HelperMixin):
     d = {'astring': 'foo@bar.baz.spam',
          'afloat': 7283.43,
          'anint': 2**20,
-         'ashortlong': 2L,
+         'ashortlong': 2,
          'alist': ['.zyx.41'],
          'atuple': ('.zyx.41',)*10,
          'aboolean': False,
-         'aunicode': u"Andrè Previn"
+         'aunicode': "Andr\xe8 Previn"
          }
+
     def test_dict(self):
-        new = marshal.loads(marshal.dumps(self.d))
-        self.assertEqual(self.d, new)
-        marshal.dump(self.d, file(test_support.TESTFN, "wb"))
-        new = marshal.load(file(test_support.TESTFN, "rb"))
-        self.assertEqual(self.d, new)
-        os.unlink(test_support.TESTFN)
+        self.helper(self.d)
 
     def test_list(self):
-        lst = self.d.items()
-        new = marshal.loads(marshal.dumps(lst))
-        self.assertEqual(lst, new)
-        marshal.dump(lst, file(test_support.TESTFN, "wb"))
-        new = marshal.load(file(test_support.TESTFN, "rb"))
-        self.assertEqual(lst, new)
-        os.unlink(test_support.TESTFN)
+        self.helper(list(self.d.items()))
 
     def test_tuple(self):
-        t = tuple(self.d.keys())
-        new = marshal.loads(marshal.dumps(t))
-        self.assertEqual(t, new)
-        marshal.dump(t, file(test_support.TESTFN, "wb"))
-        new = marshal.load(file(test_support.TESTFN, "rb"))
-        self.assertEqual(t, new)
-        os.unlink(test_support.TESTFN)
+        self.helper(tuple(self.d.keys()))
 
     def test_sets(self):
         for constructor in (set, frozenset):
-            t = constructor(self.d.keys())
-            new = marshal.loads(marshal.dumps(t))
-            self.assertEqual(t, new)
-            self.assertTrue(isinstance(new, constructor))
-            self.assertNotEqual(id(t), id(new))
-            marshal.dump(t, file(test_support.TESTFN, "wb"))
-            new = marshal.load(file(test_support.TESTFN, "rb"))
-            self.assertEqual(t, new)
-            os.unlink(test_support.TESTFN)
+            self.helper(constructor(self.d.keys()))
 
 class BugsTestCase(unittest.TestCase):
     def test_bug_5888452(self):
@@ -210,7 +145,7 @@ class BugsTestCase(unittest.TestCase):
     def test_patch_873224(self):
         self.assertRaises(Exception, marshal.loads, '0')
         self.assertRaises(Exception, marshal.loads, 'f')
-        self.assertRaises(Exception, marshal.loads, marshal.dumps(5L)[:-1])
+        self.assertRaises(Exception, marshal.loads, marshal.dumps(2**65)[:-1])
 
     def test_version_argument(self):
         # Python 2.4.0 crashes for any call to marshal.dumps(x, y)
@@ -227,29 +162,15 @@ class BugsTestCase(unittest.TestCase):
                 pass
 
     def test_loads_recursion(self):
-        def run_tests(N, check):
-            # (((...None...),),)
-            check(b'(\x01\x00\x00\x00' * N + b'N')
-            # [[[...None...]]]
-            check(b'[\x01\x00\x00\x00' * N + b'N')
-            # {None: {None: {None: ...None...}}}
-            check(b'{N' * N + b'N' + b'0' * N)
-            # frozenset([frozenset([frozenset([...None...])])])
-            check(b'>\x01\x00\x00\x00' * N + b'N')
-        # Check that the generated marshal data is valid and marshal.loads()
-        # works for moderately deep nesting
-        run_tests(100, marshal.loads)
-        # Very deeply nested structure shouldn't blow the stack
-        def check(s):
-            self.assertRaises(ValueError, marshal.loads, s)
-        run_tests(2**20, check)
+        s = 'c' + ('X' * 4*4) + '{' * 2**20
+        self.assertRaises(ValueError, marshal.loads, s)
 
     def test_recursion_limit(self):
         # Create a deeply nested structure.
         head = last = []
         # The max stack depth should match the value in Python/marshal.c.
         if os.name == 'nt' and hasattr(sys, 'gettotalrefcount'):
-            MAX_MARSHAL_STACK_DEPTH = 1000
+            MAX_MARSHAL_STACK_DEPTH = 1500
         else:
             MAX_MARSHAL_STACK_DEPTH = 2000
         for i in range(MAX_MARSHAL_STACK_DEPTH - 2):
@@ -272,8 +193,8 @@ class BugsTestCase(unittest.TestCase):
         #   >>> class Int(int): pass
         #   >>> type(loads(dumps(Int())))
         #   <type 'int'>
-        for typ in (int, long, float, complex, tuple, list, dict, set, frozenset):
-            # Note: str and unicode subclasses are not tested because they get handled
+        for typ in (int, float, complex, tuple, list, dict, set, frozenset):
+            # Note: str subclasses are not tested because they get handled
             # by marshal's routines for objects supporting the buffer API.
             subtyp = type('subtyp', (typ,), {})
             self.assertRaises(ValueError, marshal.dumps, subtyp())
@@ -287,127 +208,42 @@ class BugsTestCase(unittest.TestCase):
 
     def test_invalid_longs(self):
         # Issue #7019: marshal.loads shouldn't produce unnormalized PyLongs
-        invalid_string = 'l\x02\x00\x00\x00\x00\x00\x00\x00'
+        invalid_string = b'l\x02\x00\x00\x00\x00\x00\x00\x00'
         self.assertRaises(ValueError, marshal.loads, invalid_string)
 
-LARGE_SIZE = 2**31
-character_size = 4 if sys.maxunicode > 0xFFFF else 2
-pointer_size = 8 if sys.maxsize > 0xFFFFFFFF else 4
-
-@unittest.skipIf(LARGE_SIZE > sys.maxsize, "test cannot run on 32-bit systems")
-class LargeValuesTestCase(unittest.TestCase):
-    def check_unmarshallable(self, data):
-        f = open(test_support.TESTFN, 'wb')
-        self.addCleanup(test_support.unlink, test_support.TESTFN)
-        with f:
-            self.assertRaises(ValueError, marshal.dump, data, f)
-
-    @test_support.precisionbigmemtest(size=LARGE_SIZE, memuse=1, dry_run=False)
-    def test_string(self, size):
-        self.check_unmarshallable('x' * size)
-
-    @test_support.precisionbigmemtest(size=LARGE_SIZE,
-            memuse=character_size + 2, dry_run=False)
-    def test_unicode(self, size):
-        self.check_unmarshallable(u'x' * size)
-
-    @test_support.precisionbigmemtest(size=LARGE_SIZE,
-            memuse=pointer_size, dry_run=False)
-    def test_tuple(self, size):
-        self.check_unmarshallable((None,) * size)
-
-    @test_support.precisionbigmemtest(size=LARGE_SIZE,
-            memuse=pointer_size, dry_run=False)
-    def test_list(self, size):
-        self.check_unmarshallable([None] * size)
-
-    @test_support.precisionbigmemtest(size=LARGE_SIZE,
-            memuse=pointer_size*12 + sys.getsizeof(LARGE_SIZE-1),
-            dry_run=False)
-    def test_set(self, size):
-        self.check_unmarshallable(set(range(size)))
-
-    @test_support.precisionbigmemtest(size=LARGE_SIZE,
-            memuse=pointer_size*12 + sys.getsizeof(LARGE_SIZE-1),
-            dry_run=False)
-    def test_frozenset(self, size):
-        self.check_unmarshallable(frozenset(range(size)))
-
-    @test_support.precisionbigmemtest(size=LARGE_SIZE, memuse=1, dry_run=False)
-    def test_bytearray(self, size):
-        self.check_unmarshallable(bytearray(size))
-
-
-@test_support.cpython_only
-@unittest.skipUnless(_testcapi, 'requires _testcapi')
-class CAPI_TestCase(unittest.TestCase):
-
-    def test_write_long_to_file(self):
-        for v in range(marshal.version + 1):
-            _testcapi.pymarshal_write_long_to_file(0x12345678, test_support.TESTFN, v)
-            with open(test_support.TESTFN, 'rb') as f:
-                data = f.read()
-            test_support.unlink(test_support.TESTFN)
-            self.assertEqual(data, b'\x78\x56\x34\x12')
-
-    def test_write_object_to_file(self):
-        obj = ('\u20ac', b'abc', 123, 45.6, 7+8j, 'long line '*1000)
-        for v in range(marshal.version + 1):
-            _testcapi.pymarshal_write_object_to_file(obj, test_support.TESTFN, v)
-            with open(test_support.TESTFN, 'rb') as f:
-                data = f.read()
-            test_support.unlink(test_support.TESTFN)
-            self.assertEqual(marshal.loads(data), obj)
-
-    def test_read_short_from_file(self):
-        with open(test_support.TESTFN, 'wb') as f:
-            f.write(b'\x34\x12xxxx')
-        r, p = _testcapi.pymarshal_read_short_from_file(test_support.TESTFN)
-        test_support.unlink(test_support.TESTFN)
-        self.assertEqual(r, 0x1234)
-        self.assertEqual(p, 2)
-
-    def test_read_long_from_file(self):
-        with open(test_support.TESTFN, 'wb') as f:
-            f.write(b'\x78\x56\x34\x12xxxx')
-        r, p = _testcapi.pymarshal_read_long_from_file(test_support.TESTFN)
-        test_support.unlink(test_support.TESTFN)
-        self.assertEqual(r, 0x12345678)
-        self.assertEqual(p, 4)
-
-    def test_read_last_object_from_file(self):
-        obj = ('\u20ac', b'abc', 123, 45.6, 7+8j)
-        for v in range(marshal.version + 1):
-            data = marshal.dumps(obj, v)
-            with open(test_support.TESTFN, 'wb') as f:
-                f.write(data + b'xxxx')
-            r, p = _testcapi.pymarshal_read_last_object_from_file(test_support.TESTFN)
-            test_support.unlink(test_support.TESTFN)
-            self.assertEqual(r, obj)
-
-    def test_read_object_from_file(self):
-        obj = ('\u20ac', b'abc', 123, 45.6, 7+8j)
-        for v in range(marshal.version + 1):
-            data = marshal.dumps(obj, v)
-            with open(test_support.TESTFN, 'wb') as f:
-                f.write(data + b'xxxx')
-            r, p = _testcapi.pymarshal_read_object_from_file(test_support.TESTFN)
-            test_support.unlink(test_support.TESTFN)
-            self.assertEqual(r, obj)
-            self.assertEqual(p, len(data))
+    def test_multiple_dumps_and_loads(self):
+        # Issue 12291: marshal.load() should be callable multiple times
+        # with interleaved data written by non-marshal code
+        # Adapted from a patch by Engelbert Gruber.
+        data = (1, 'abc', b'def', 1.0, (2, 'a', ['b', b'c']))
+        for interleaved in (b'', b'0123'):
+            ilen = len(interleaved)
+            positions = []
+            try:
+                with open(support.TESTFN, 'wb') as f:
+                    for d in data:
+                        marshal.dump(d, f)
+                        if ilen:
+                            f.write(interleaved)
+                        positions.append(f.tell())
+                with open(support.TESTFN, 'rb') as f:
+                    for i, d in enumerate(data):
+                        self.assertEqual(d, marshal.load(f))
+                        if ilen:
+                            f.read(ilen)
+                        self.assertEqual(positions[i], f.tell())
+            finally:
+                support.unlink(support.TESTFN)
 
 
 def test_main():
-    test_support.run_unittest(IntTestCase,
+    support.run_unittest(IntTestCase,
                               FloatTestCase,
                               StringTestCase,
                               CodeTestCase,
                               ContainerTestCase,
                               ExceptionTestCase,
-                              BugsTestCase,
-                              LargeValuesTestCase,
-                              CAPI_TestCase,
-                             )
+                              BugsTestCase)
 
 if __name__ == "__main__":
     test_main()

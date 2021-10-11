@@ -1,94 +1,129 @@
 import sys
 import unittest
-import StringIO
+import io
 import atexit
-from imp import reload
-from test import test_support
+from test import support
 
+### helpers
+def h1():
+    print("h1")
 
-def exit():
-    raise SystemExit
+def h2():
+    print("h2")
 
+def h3():
+    print("h3")
+
+def h4(*args, **kwargs):
+    print("h4", args, kwargs)
+
+def raise1():
+    raise TypeError
+
+def raise2():
+    raise SystemError
 
 class TestCase(unittest.TestCase):
     def setUp(self):
         self.save_stdout = sys.stdout
         self.save_stderr = sys.stderr
-        self.stream = StringIO.StringIO()
-        sys.stdout = sys.stderr = self.subst_io = self.stream
-        self.save_handlers = atexit._exithandlers
-        atexit._exithandlers = []
+        self.stream = io.StringIO()
+        sys.stdout = sys.stderr = self.stream
+        atexit._clear()
 
     def tearDown(self):
         sys.stdout = self.save_stdout
         sys.stderr = self.save_stderr
-        atexit._exithandlers = self.save_handlers
+        atexit._clear()
 
     def test_args(self):
-        atexit.register(self.h1)
-        atexit.register(self.h4)
-        atexit.register(self.h4, 4, kw="abc")
+        # be sure args are handled properly
+        atexit.register(h1)
+        atexit.register(h4)
+        atexit.register(h4, 4, kw="abc")
         atexit._run_exitfuncs()
-        self.assertEqual(self.subst_io.getvalue(),
-                         "h4 (4,) {'kw': 'abc'}\nh4 () {}\nh1\n")
+
+        self.assertEqual(self.stream.getvalue(),
+                            "h4 (4,) {'kw': 'abc'}\nh4 () {}\nh1\n")
 
     def test_badargs(self):
         atexit.register(lambda: 1, 0, 0, (x for x in (1,2)), 0, 0)
         self.assertRaises(TypeError, atexit._run_exitfuncs)
 
     def test_order(self):
-        atexit.register(self.h1)
-        atexit.register(self.h2)
-        atexit.register(self.h3)
+        # be sure handlers are executed in reverse order
+        atexit.register(h1)
+        atexit.register(h2)
+        atexit.register(h3)
         atexit._run_exitfuncs()
-        self.assertEqual(self.subst_io.getvalue(), "h3\nh2\nh1\n")
 
-    def test_sys_override(self):
-        # be sure a preset sys.exitfunc is handled properly
-        exfunc = sys.exitfunc
-        sys.exitfunc = self.h1
-        reload(atexit)
-        try:
-            atexit.register(self.h2)
-            atexit._run_exitfuncs()
-        finally:
-            sys.exitfunc = exfunc
-        self.assertEqual(self.subst_io.getvalue(), "h2\nh1\n")
+        self.assertEqual(self.stream.getvalue(), "h3\nh2\nh1\n")
 
     def test_raise(self):
-        atexit.register(self.raise1)
-        atexit.register(self.raise2)
+        # be sure raises are handled properly
+        atexit.register(raise1)
+        atexit.register(raise2)
+
         self.assertRaises(TypeError, atexit._run_exitfuncs)
 
-    def test_exit(self):
-        # be sure a SystemExit is handled properly
-        atexit.register(exit)
+    def test_raise_unnormalized(self):
+        # Issue #10756: Make sure that an unnormalized exception is
+        # handled properly
+        atexit.register(lambda: 1 / 0)
 
-        self.assertRaises(SystemExit, atexit._run_exitfuncs)
-        self.assertEqual(self.stream.getvalue(), '')
+        self.assertRaises(ZeroDivisionError, atexit._run_exitfuncs)
+        self.assertIn("ZeroDivisionError", self.stream.getvalue())
 
-    ### helpers
-    def h1(self):
-        print "h1"
+    def test_stress(self):
+        a = [0]
+        def inc():
+            a[0] += 1
 
-    def h2(self):
-        print "h2"
+        for i in range(128):
+            atexit.register(inc)
+        atexit._run_exitfuncs()
 
-    def h3(self):
-        print "h3"
+        self.assertEqual(a[0], 128)
 
-    def h4(self, *args, **kwargs):
-        print "h4", args, kwargs
+    def test_clear(self):
+        a = [0]
+        def inc():
+            a[0] += 1
 
-    def raise1(self):
-        raise TypeError
+        atexit.register(inc)
+        atexit._clear()
+        atexit._run_exitfuncs()
 
-    def raise2(self):
-        raise SystemError
+        self.assertEqual(a[0], 0)
+
+    def test_unregister(self):
+        a = [0]
+        def inc():
+            a[0] += 1
+        def dec():
+            a[0] -= 1
+
+        for i in range(4):
+            atexit.register(inc)
+        atexit.register(dec)
+        atexit.unregister(inc)
+        atexit._run_exitfuncs()
+
+        self.assertEqual(a[0], -1)
+
+    def test_bound_methods(self):
+        l = []
+        atexit.register(l.append, 5)
+        atexit._run_exitfuncs()
+        self.assertEqual(l, [5])
+
+        atexit.unregister(l.append)
+        atexit._run_exitfuncs()
+        self.assertEqual(l, [5])
+
 
 def test_main():
-    test_support.run_unittest(TestCase)
-
+    support.run_unittest(TestCase)
 
 if __name__ == "__main__":
     test_main()

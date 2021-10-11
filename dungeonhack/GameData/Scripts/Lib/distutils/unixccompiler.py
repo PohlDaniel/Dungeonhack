@@ -16,7 +16,6 @@ the "typical" Unix-style command-line C compiler:
 __revision__ = "$Id$"
 
 import os, sys, re
-from types import StringType, NoneType
 
 from distutils import sysconfig
 from distutils.dep_util import newer
@@ -25,9 +24,6 @@ from distutils.ccompiler import \
 from distutils.errors import \
      DistutilsExecError, CompileError, LibError, LinkError
 from distutils import log
-
-if sys.platform == 'darwin':
-    import _osx_support
 
 # XXX Things not currently handled:
 #   * optimization/debug/warning flags; we just use whatever's in Python's
@@ -44,6 +40,68 @@ if sys.platform == 'darwin':
 #     should just happily stuff them into the preprocessor/compiler/linker
 #     options and carry on.
 
+def _darwin_compiler_fixup(compiler_so, cc_args):
+    """
+    This function will strip '-isysroot PATH' and '-arch ARCH' from the
+    compile flags if the user has specified one them in extra_compile_flags.
+
+    This is needed because '-arch ARCH' adds another architecture to the
+    build, without a way to remove an architecture. Furthermore GCC will
+    barf if multiple '-isysroot' arguments are present.
+    """
+    stripArch = stripSysroot = False
+
+    compiler_so = list(compiler_so)
+    kernel_version = os.uname()[2] # 8.4.3
+    major_version = int(kernel_version.split('.')[0])
+
+    if major_version < 8:
+        # OSX before 10.4.0, these don't support -arch and -isysroot at
+        # all.
+        stripArch = stripSysroot = True
+    else:
+        stripArch = '-arch' in cc_args
+        stripSysroot = '-isysroot' in cc_args
+
+    if stripArch or 'ARCHFLAGS' in os.environ:
+        while True:
+            try:
+                index = compiler_so.index('-arch')
+                # Strip this argument and the next one:
+                del compiler_so[index:index+2]
+            except ValueError:
+                break
+
+    if 'ARCHFLAGS' in os.environ and not stripArch:
+        # User specified different -arch flags in the environ,
+        # see also distutils.sysconfig
+        compiler_so = compiler_so + os.environ['ARCHFLAGS'].split()
+
+    if stripSysroot:
+        try:
+            index = compiler_so.index('-isysroot')
+            # Strip this argument and the next one:
+            del compiler_so[index:index+2]
+        except ValueError:
+            pass
+
+    # Check if the SDK that is used during compilation actually exists,
+    # the universal build requires the usage of a universal SDK and not all
+    # users have that installed by default.
+    sysroot = None
+    if '-isysroot' in cc_args:
+        idx = cc_args.index('-isysroot')
+        sysroot = cc_args[idx+1]
+    elif '-isysroot' in compiler_so:
+        idx = compiler_so.index('-isysroot')
+        sysroot = compiler_so[idx+1]
+
+    if sysroot and not os.path.isdir(sysroot):
+        log.warn("Compiling with an SDK that doesn't seem to exist: %s",
+                sysroot)
+        log.warn("Please check your Xcode installation")
+
+    return compiler_so
 
 class UnixCCompiler(CCompiler):
 
@@ -79,17 +137,14 @@ class UnixCCompiler(CCompiler):
     static_lib_extension = ".a"
     shared_lib_extension = ".so"
     dylib_lib_extension = ".dylib"
-    xcode_stub_lib_extension = ".tbd"
     static_lib_format = shared_lib_format = dylib_lib_format = "lib%s%s"
-    xcode_stub_lib_format = dylib_lib_format
     if sys.platform == "cygwin":
         exe_extension = ".exe"
 
-    def preprocess(self, source,
-                   output_file=None, macros=None, include_dirs=None,
-                   extra_preargs=None, extra_postargs=None):
-        ignore, macros, include_dirs = \
-            self._fix_compile_args(None, macros, include_dirs)
+    def preprocess(self, source, output_file=None, macros=None,
+                   include_dirs=None, extra_preargs=None, extra_postargs=None):
+        fixed_args = self._fix_compile_args(None, macros, include_dirs)
+        ignore, macros, include_dirs = fixed_args
         pp_opts = gen_preprocess_options(macros, include_dirs)
         pp_args = self.preprocessor + pp_opts
         if output_file:
@@ -109,19 +164,18 @@ class UnixCCompiler(CCompiler):
                 self.mkpath(os.path.dirname(output_file))
             try:
                 self.spawn(pp_args)
-            except DistutilsExecError, msg:
-                raise CompileError, msg
+            except DistutilsExecError as msg:
+                raise CompileError(msg)
 
     def _compile(self, obj, src, ext, cc_args, extra_postargs, pp_opts):
         compiler_so = self.compiler_so
         if sys.platform == 'darwin':
-            compiler_so = _osx_support.compiler_fixup(compiler_so,
-                                                    cc_args + extra_postargs)
+            compiler_so = _darwin_compiler_fixup(compiler_so, cc_args + extra_postargs)
         try:
             self.spawn(compiler_so + cc_args + [src, '-o', obj] +
                        extra_postargs)
-        except DistutilsExecError, msg:
-            raise CompileError, msg
+        except DistutilsExecError as msg:
+            raise CompileError(msg)
 
     def create_static_lib(self, objects, output_libname,
                           output_dir=None, debug=0, target_lang=None):
@@ -144,8 +198,8 @@ class UnixCCompiler(CCompiler):
             if self.ranlib:
                 try:
                     self.spawn(self.ranlib + [output_filename])
-                except DistutilsExecError, msg:
-                    raise LibError, msg
+                except DistutilsExecError as msg:
+                    raise LibError(msg)
         else:
             log.debug("skipping %s (up-to-date)", output_filename)
 
@@ -155,13 +209,14 @@ class UnixCCompiler(CCompiler):
              export_symbols=None, debug=0, extra_preargs=None,
              extra_postargs=None, build_temp=None, target_lang=None):
         objects, output_dir = self._fix_object_args(objects, output_dir)
-        libraries, library_dirs, runtime_library_dirs = \
-            self._fix_lib_args(libraries, library_dirs, runtime_library_dirs)
+        fixed_args = self._fix_lib_args(libraries, library_dirs,
+                                        runtime_library_dirs)
+        libraries, library_dirs, runtime_library_dirs = fixed_args
 
         lib_opts = gen_lib_options(self, library_dirs, runtime_library_dirs,
                                    libraries)
-        if type(output_dir) not in (StringType, NoneType):
-            raise TypeError, "'output_dir' must be a string or None"
+        if not isinstance(output_dir, (str, type(None))):
+            raise TypeError("'output_dir' must be a string or None")
         if output_dir is not None:
             output_filename = os.path.join(output_dir, output_filename)
 
@@ -190,16 +245,15 @@ class UnixCCompiler(CCompiler):
                     if os.path.basename(linker[0]) == "env":
                         i = 1
                         while '=' in linker[i]:
-                            i = i + 1
-
+                            i += 1
                     linker[i] = self.compiler_cxx[i]
 
                 if sys.platform == 'darwin':
-                    linker = _osx_support.compiler_fixup(linker, ld_args)
+                    linker = _darwin_compiler_fixup(linker, ld_args)
 
                 self.spawn(linker + ld_args)
-            except DistutilsExecError, msg:
-                raise LinkError, msg
+            except DistutilsExecError as msg:
+                raise LinkError(msg)
         else:
             log.debug("skipping %s (up-to-date)", output_filename)
 
@@ -220,8 +274,9 @@ class UnixCCompiler(CCompiler):
         # Linkers on different platforms need different options to
         # specify that directories need to be added to the list of
         # directories searched for dependencies when a dynamic library
-        # is sought.  GCC has to be told to pass the -R option through
-        # to the linker, whereas other compilers just know this.
+        # is sought.  GCC on GNU systems (Linux, FreeBSD, ...) has to
+        # be told to pass the -R option through to the linker, whereas
+        # other compilers and gcc on other systems just know this.
         # Other compilers may need something slightly different.  At
         # this time, there's no way to determine this information from
         # the configuration data stored in the Python installation, so
@@ -230,18 +285,29 @@ class UnixCCompiler(CCompiler):
         if sys.platform[:6] == "darwin":
             # MacOSX's linker doesn't understand the -R flag at all
             return "-L" + dir
-        elif sys.platform[:7] == "freebsd":
-            return "-Wl,-rpath=" + dir
         elif sys.platform[:5] == "hp-ux":
             if self._is_gcc(compiler):
                 return ["-Wl,+s", "-L" + dir]
             return ["+s", "-L" + dir]
         elif sys.platform[:7] == "irix646" or sys.platform[:6] == "osf1V5":
             return ["-rpath", dir]
-        elif self._is_gcc(compiler):
-            return "-Wl,-R" + dir
         else:
-            return "-R" + dir
+            if self._is_gcc(compiler):
+                # gcc on non-GNU systems does not need -Wl, but can
+                # use it anyway.  Since distutils has always passed in
+                # -Wl whenever gcc was used in the past it is probably
+                # safest to keep doing so.
+                if sysconfig.get_config_var("GNULD") == "yes":
+                    # GNU ld needs an extra option to get a RUNPATH
+                    # instead of just an RPATH.
+                    return "-Wl,--enable-new-dtags,-R" + dir
+                else:
+                    return "-Wl,-R" + dir
+            else:
+                # No idea how --enable-new-dtags would be passed on to
+                # ld if this system was using GNU ld.  Don't know if a
+                # system like this even exists.
+                return "-R" + dir
 
     def library_option(self, lib):
         return "-l" + lib
@@ -249,28 +315,12 @@ class UnixCCompiler(CCompiler):
     def find_library_file(self, dirs, lib, debug=0):
         shared_f = self.library_filename(lib, lib_type='shared')
         dylib_f = self.library_filename(lib, lib_type='dylib')
-        xcode_stub_f = self.library_filename(lib, lib_type='xcode_stub')
         static_f = self.library_filename(lib, lib_type='static')
 
         if sys.platform == 'darwin':
             # On OSX users can specify an alternate SDK using
             # '-isysroot', calculate the SDK root if it is specified
             # (and use it further on)
-            #
-            # Note that, as of Xcode 7, Apple SDKs may contain textual stub
-            # libraries with .tbd extensions rather than the normal .dylib
-            # shared libraries installed in /.  The Apple compiler tool
-            # chain handles this transparently but it can cause problems
-            # for programs that are being built with an SDK and searching
-            # for specific libraries.  Callers of find_library_file need to
-            # keep in mind that the base filename of the returned SDK library
-            # file might have a different extension from that of the library
-            # file installed on the running system, for example:
-            #   /Applications/Xcode.app/Contents/Developer/Platforms/
-            #       MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/
-            #       usr/lib/libedit.tbd
-            # vs
-            #   /usr/lib/libedit.dylib
             cflags = sysconfig.get_config_var('CFLAGS')
             m = re.search(r'-isysroot\s+(\S+)', cflags)
             if m is None:
@@ -284,7 +334,6 @@ class UnixCCompiler(CCompiler):
             shared = os.path.join(dir, shared_f)
             dylib = os.path.join(dir, dylib_f)
             static = os.path.join(dir, static_f)
-            xcode_stub = os.path.join(dir, xcode_stub_f)
 
             if sys.platform == 'darwin' and (
                 dir.startswith('/System/') or (
@@ -293,7 +342,6 @@ class UnixCCompiler(CCompiler):
                 shared = os.path.join(sysroot, dir[1:], shared_f)
                 dylib = os.path.join(sysroot, dir[1:], dylib_f)
                 static = os.path.join(sysroot, dir[1:], static_f)
-                xcode_stub = os.path.join(sysroot, dir[1:], xcode_stub_f)
 
             # We're second-guessing the linker here, with not much hard
             # data to go on: GCC seems to prefer the shared library, so I'm
@@ -301,8 +349,6 @@ class UnixCCompiler(CCompiler):
             # ignoring even GCC's "-static" option.  So sue me.
             if os.path.exists(dylib):
                 return dylib
-            elif os.path.exists(xcode_stub):
-                return xcode_stub
             elif os.path.exists(shared):
                 return shared
             elif os.path.exists(static):

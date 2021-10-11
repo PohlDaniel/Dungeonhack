@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 
 """Tool for measuring execution time of small code snippets.
 
@@ -78,7 +78,7 @@ else:
 # in Timer.__init__() depend on setup being indented 4 spaces and stmt
 # being indented 8 spaces.
 template = """
-def inner(_it, _timer%(init)s):
+def inner(_it, _timer):
     %(setup)s
     _t0 = _timer()
     for _i in _it:
@@ -122,33 +122,26 @@ class Timer:
         """Constructor.  See class doc string."""
         self.timer = timer
         ns = {}
-        if isinstance(stmt, basestring):
-            # Check that the code can be compiled outside a function
-            if isinstance(setup, basestring):
-                compile(setup, dummy_src_name, "exec")
-                compile(setup + '\n' + stmt, dummy_src_name, "exec")
-            else:
-                compile(stmt, dummy_src_name, "exec")
+        if isinstance(stmt, str):
             stmt = reindent(stmt, 8)
-            if isinstance(setup, basestring):
+            if isinstance(setup, str):
                 setup = reindent(setup, 4)
-                src = template % {'stmt': stmt, 'setup': setup, 'init': ''}
+                src = template % {'stmt': stmt, 'setup': setup}
             elif hasattr(setup, '__call__'):
-                src = template % {'stmt': stmt, 'setup': '_setup()',
-                                  'init': ', _setup=_setup'}
+                src = template % {'stmt': stmt, 'setup': '_setup()'}
                 ns['_setup'] = setup
             else:
                 raise ValueError("setup is neither a string nor callable")
             self.src = src # Save for traceback display
             code = compile(src, dummy_src_name, "exec")
-            exec code in globals(), ns
+            exec(code, globals(), ns)
             self.inner = ns["inner"]
         elif hasattr(stmt, '__call__'):
             self.src = None
-            if isinstance(setup, basestring):
+            if isinstance(setup, str):
                 _setup = setup
                 def setup():
-                    exec _setup in globals(), ns
+                    exec(_setup, globals(), ns)
             elif not hasattr(setup, '__call__'):
                 raise ValueError("setup is neither a string nor callable")
             self.inner = _template_func(setup, stmt)
@@ -198,11 +191,9 @@ class Timer:
             it = [None] * number
         gcold = gc.isenabled()
         gc.disable()
-        try:
-            timing = self.inner(it, self.timer)
-        finally:
-            if gcold:
-                gc.enable()
+        timing = self.inner(it, self.timer)
+        if gcold:
+            gc.enable()
         return timing
 
     def repeat(self, repeat=default_repeat, number=default_number):
@@ -241,7 +232,7 @@ def repeat(stmt="pass", setup="pass", timer=default_timer,
     """Convenience function to create Timer object and call repeat method."""
     return Timer(stmt, setup, timer).repeat(repeat, number)
 
-def main(args=None, _wrap_timer=None):
+def main(args=None, *, _wrap_timer=None):
     """Main program, used when run as a script.
 
     The optional 'args' argument specifies the command line to be parsed,
@@ -265,9 +256,9 @@ def main(args=None, _wrap_timer=None):
         opts, args = getopt.getopt(args, "n:s:r:tcvh",
                                    ["number=", "setup=", "repeat=",
                                     "time", "clock", "verbose", "help"])
-    except getopt.error, err:
-        print err
-        print "use -h/--help for command line help"
+    except getopt.error as err:
+        print(err)
+        print("use -h/--help for command line help")
         return 2
     timer = default_timer
     stmt = "\n".join(args) or "pass"
@@ -294,7 +285,7 @@ def main(args=None, _wrap_timer=None):
                 precision += 1
             verbose += 1
         if o in ("-h", "--help"):
-            print __doc__,
+            print(__doc__, end=' ')
             return 0
     setup = "\n".join(setup) or "pass"
     # Include the current directory, so that local imports work (sys.path
@@ -315,7 +306,7 @@ def main(args=None, _wrap_timer=None):
                 t.print_exc()
                 return 1
             if verbose:
-                print "%d loops -> %.*g secs" % (number, precision, x)
+                print("%d loops -> %.*g secs" % (number, precision, x))
             if x >= 0.2:
                 break
     try:
@@ -325,18 +316,18 @@ def main(args=None, _wrap_timer=None):
         return 1
     best = min(r)
     if verbose:
-        print "raw times:", " ".join(["%.*g" % (precision, x) for x in r])
-    print "%d loops," % number,
+        print("raw times:", " ".join(["%.*g" % (precision, x) for x in r]))
+    print("%d loops," % number, end=' ')
     usec = best * 1e6 / number
     if usec < 1000:
-        print "best of %d: %.*g usec per loop" % (repeat, precision, usec)
+        print("best of %d: %.*g usec per loop" % (repeat, precision, usec))
     else:
         msec = usec / 1000
         if msec < 1000:
-            print "best of %d: %.*g msec per loop" % (repeat, precision, msec)
+            print("best of %d: %.*g msec per loop" % (repeat, precision, msec))
         else:
             sec = msec / 1000
-            print "best of %d: %.*g sec per loop" % (repeat, precision, sec)
+            print("best of %d: %.*g sec per loop" % (repeat, precision, sec))
     return None
 
 if __name__ == "__main__":

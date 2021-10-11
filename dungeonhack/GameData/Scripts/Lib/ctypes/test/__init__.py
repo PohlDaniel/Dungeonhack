@@ -2,15 +2,7 @@ import os, sys, unittest, getopt, time
 
 use_resources = []
 
-import ctypes
-ctypes_symbols = dir(ctypes)
-
-def need_symbol(name):
-    return unittest.skipUnless(name in ctypes_symbols,
-                               '{!r} is required'.format(name))
-
-
-class ResourceDenied(unittest.SkipTest):
+class ResourceDenied(Exception):
     """Test skipped because it requested a disallowed resource.
 
     This is raised when a test calls requires() for a resource that
@@ -49,7 +41,7 @@ def find_package_modules(package, mask):
             hasattr(package.__loader__, '_files')):
         path = package.__name__.replace(".", os.path.sep)
         mask = os.path.join(path, mask)
-        for fnm in package.__loader__._files.iterkeys():
+        for fnm in package.__loader__._files.keys():
             if fnmatch.fnmatchcase(fnm, mask):
                 yield os.path.splitext(fnm)[0].replace(os.path.sep, ".")
     else:
@@ -66,14 +58,14 @@ def get_tests(package, mask, verbosity, exclude=()):
         if modname.split(".")[-1] in exclude:
             skipped.append(modname)
             if verbosity > 1:
-                print >> sys.stderr, "Skipped %s: excluded" % modname
+                print("Skipped %s: excluded" % modname, file=sys.stderr)
             continue
         try:
             mod = __import__(modname, globals(), locals(), ['*'])
-        except (ResourceDenied, unittest.SkipTest) as detail:
+        except ResourceDenied as detail:
             skipped.append(modname)
             if verbosity > 1:
-                print >> sys.stderr, "Skipped %s: %s" % (modname, detail)
+                print("Skipped %s: %s" % (modname, detail), file=sys.stderr)
             continue
         for name in dir(mod):
             if name.startswith("_"):
@@ -84,7 +76,7 @@ def get_tests(package, mask, verbosity, exclude=()):
     return skipped, tests
 
 def usage():
-    print __doc__
+    print(__doc__)
     return 1
 
 def test_with_refcounts(runner, verbosity, testcase):
@@ -116,9 +108,9 @@ def test_with_refcounts(runner, verbosity, testcase):
         cleanup()
         refcounts[i] = sys.gettotalrefcount() - rc
     if filter(None, refcounts):
-        print "%s leaks:\n\t" % testcase, refcounts
+        print("%s leaks:\n\t" % testcase, refcounts)
     elif verbosity:
-        print "%s: ok." % testcase
+        print("%s: ok." % testcase)
 
 class TestRunner(unittest.TextTestRunner):
     def run(self, test, skipped):
@@ -134,7 +126,7 @@ class TestRunner(unittest.TextTestRunner):
         self.stream.writeln(result.separator2)
         run = result.testsRun
         if _unavail: #skipped:
-            requested = _unavail.keys()
+            requested = list(_unavail.keys())
             requested.sort()
             self.stream.writeln("Ran %d test%s in %.3fs (%s module%s skipped)" %
                                 (run, run != 1 and "s" or "", timeTaken,
@@ -177,7 +169,7 @@ def main(*packages):
             try:
                 sys.gettotalrefcount
             except AttributeError:
-                print >> sys.stderr, "-r flag requires Python debug build"
+                print("-r flag requires Python debug build", file=sys.stderr)
                 return -1
             search_leaks = True
         elif flag == "-u":

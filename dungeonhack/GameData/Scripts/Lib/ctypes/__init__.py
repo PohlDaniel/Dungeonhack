@@ -47,18 +47,18 @@ STDAPICALLTYPE
 """
 
 def create_string_buffer(init, size=None):
-    """create_string_buffer(aString) -> character array
+    """create_string_buffer(aBytes) -> character array
     create_string_buffer(anInteger) -> character array
     create_string_buffer(aString, anInteger) -> character array
     """
-    if isinstance(init, (str, unicode)):
+    if isinstance(init, (str, bytes)):
         if size is None:
             size = len(init)+1
         buftype = c_char * size
         buf = buftype()
         buf.value = init
         return buf
-    elif isinstance(init, (int, long)):
+    elif isinstance(init, int):
         buftype = c_char * init
         buf = buftype()
         return buf
@@ -157,7 +157,7 @@ class py_object(_SimpleCData):
     _type_ = "O"
     def __repr__(self):
         try:
-            return super(py_object, self).__repr__()
+            return super().__repr__()
         except ValueError:
             return "%s(<NULL>)" % type(self).__name__
 _check_size(py_object, "P")
@@ -259,55 +259,33 @@ class c_bool(_SimpleCData):
 
 from _ctypes import POINTER, pointer, _pointer_type_cache
 
-def _reset_cache():
-    _pointer_type_cache.clear()
-    _c_functype_cache.clear()
-    if _os.name in ("nt", "ce"):
-        _win_functype_cache.clear()
-    # _SimpleCData.c_wchar_p_from_param
-    POINTER(c_wchar).from_param = c_wchar_p.from_param
-    # _SimpleCData.c_char_p_from_param
-    POINTER(c_char).from_param = c_char_p.from_param
-    _pointer_type_cache[None] = c_void_p
-    # XXX for whatever reasons, creating the first instance of a callback
-    # function is needed for the unittests on Win64 to succeed.  This MAY
-    # be a compiler bug, since the problem occurs only when _ctypes is
-    # compiled with the MS SDK compiler.  Or an uninitialized variable?
-    CFUNCTYPE(c_int)(lambda: None)
+class c_wchar_p(_SimpleCData):
+    _type_ = "Z"
 
-try:
-    from _ctypes import set_conversion_mode
-except ImportError:
-    pass
-else:
-    if _os.name in ("nt", "ce"):
-        set_conversion_mode("mbcs", "ignore")
-    else:
-        set_conversion_mode("ascii", "strict")
+class c_wchar(_SimpleCData):
+    _type_ = "u"
 
-    class c_wchar_p(_SimpleCData):
-        _type_ = "Z"
+POINTER(c_wchar).from_param = c_wchar_p.from_param #_SimpleCData.c_wchar_p_from_param
 
-    class c_wchar(_SimpleCData):
-        _type_ = "u"
+def create_unicode_buffer(init, size=None):
+    """create_unicode_buffer(aString) -> character array
+    create_unicode_buffer(anInteger) -> character array
+    create_unicode_buffer(aString, anInteger) -> character array
+    """
+    if isinstance(init, (str, bytes)):
+        if size is None:
+            size = len(init)+1
+        buftype = c_wchar * size
+        buf = buftype()
+        buf.value = init
+        return buf
+    elif isinstance(init, int):
+        buftype = c_wchar * init
+        buf = buftype()
+        return buf
+    raise TypeError(init)
 
-    def create_unicode_buffer(init, size=None):
-        """create_unicode_buffer(aString) -> character array
-        create_unicode_buffer(anInteger) -> character array
-        create_unicode_buffer(aString, anInteger) -> character array
-        """
-        if isinstance(init, (str, unicode)):
-            if size is None:
-                size = len(init)+1
-            buftype = c_wchar * size
-            buf = buftype()
-            buf.value = init
-            return buf
-        elif isinstance(init, (int, long)):
-            buftype = c_wchar * init
-            buf = buftype()
-            return buf
-        raise TypeError(init)
+POINTER(c_char).from_param = c_char_p.from_param #_SimpleCData.c_char_p_from_param
 
 # XXX Deprecated
 def SetPointerType(pointer, cls):
@@ -342,10 +320,6 @@ class CDLL(object):
     """
     _func_flags_ = _FUNCFLAG_CDECL
     _func_restype_ = c_int
-    # default values for repr
-    _name = '<uninitialized>'
-    _handle = 0
-    _FuncPtr = None
 
     def __init__(self, name, mode=DEFAULT_MODE, handle=None,
                  use_errno=False,
@@ -370,8 +344,8 @@ class CDLL(object):
     def __repr__(self):
         return "<%s '%s', handle %x at %x>" % \
                (self.__class__.__name__, self._name,
-                (self._handle & (_sys.maxint*2 + 1)),
-                id(self) & (_sys.maxint*2 + 1))
+                (self._handle & (_sys.maxsize*2 + 1)),
+                id(self) & (_sys.maxsize*2 + 1))
 
     def __getattr__(self, name):
         if name.startswith('__') and name.endswith('__'):
@@ -382,13 +356,13 @@ class CDLL(object):
 
     def __getitem__(self, name_or_ordinal):
         func = self._FuncPtr((name_or_ordinal, self))
-        if not isinstance(name_or_ordinal, (int, long)):
+        if not isinstance(name_or_ordinal, int):
             func.__name__ = name_or_ordinal
         return func
 
 class PyDLL(CDLL):
-    """This class represents the Python library itself.  It allows
-    accessing Python API functions.  The GIL is not released, and
+    """This class represents the Python library itself.  It allows to
+    access Python API functions.  The GIL is not released, and
     Python exceptions are handled correctly.
     """
     _func_flags_ = _FUNCFLAG_CDECL | _FUNCFLAG_PYTHONAPI
@@ -470,6 +444,8 @@ if _os.name in ("nt", "ce"):
         if descr is None:
             descr = FormatError(code).strip()
         return WindowsError(code, descr)
+
+_pointer_type_cache[None] = c_void_p
 
 if sizeof(c_uint) == sizeof(c_void_p):
     c_size_t = c_uint
@@ -553,4 +529,8 @@ for kind in [c_ushort, c_uint, c_ulong, c_ulonglong]:
     elif sizeof(kind) == 8: c_uint64 = kind
 del(kind)
 
-_reset_cache()
+# XXX for whatever reasons, creating the first instance of a callback
+# function is needed for the unittests on Win64 to succeed.  This MAY
+# be a compiler bug, since the problem occurs only when _ctypes is
+# compiled with the MS SDK compiler.  Or an uninitialized variable?
+CFUNCTYPE(c_int)(lambda: None)
