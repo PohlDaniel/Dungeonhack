@@ -1,6 +1,6 @@
 """This test case provides support for checking forking and wait behavior.
 
-To test different wait behavior, overrise the wait_impl method.
+To test different wait behavior, override the wait_impl method.
 
 We want fork1() semantics -- only the forking thread survives in the
 child after a fork().
@@ -12,7 +12,10 @@ While BeOS doesn't officially support fork and native threading in
 the same application, the present example should work just fine.  DC
 """
 
-import os, sys, time, thread, unittest
+import os, sys, time, unittest
+import test.support as support
+
+threading = support.import_module('threading')
 
 LONGSLEEP = 2
 SHORTSLEEP = 0.5
@@ -21,8 +24,19 @@ NUM_THREADS = 4
 class ForkWait(unittest.TestCase):
 
     def setUp(self):
+        self._threading_key = support.threading_setup()
         self.alive = {}
         self.stop = 0
+        self.threads = []
+
+    def tearDown(self):
+        # Stop threads
+        self.stop = 1
+        for thread in self.threads:
+            thread.join()
+        thread = None
+        del self.threads[:]
+        support.threading_cleanup(*self._threading_key)
 
     def f(self, id):
         while not self.stop:
@@ -41,18 +55,20 @@ class ForkWait(unittest.TestCase):
                 break
             time.sleep(2 * SHORTSLEEP)
 
-        self.assertEquals(spid, cpid)
-        self.assertEquals(status, 0, "cause = %d, exit = %d" % (status&0xff, status>>8))
+        self.assertEqual(spid, cpid)
+        self.assertEqual(status, 0, "cause = %d, exit = %d" % (status&0xff, status>>8))
 
     def test_wait(self):
         for i in range(NUM_THREADS):
-            thread.start_new(self.f, (i,))
+            thread = threading.Thread(target=self.f, args=(i,))
+            thread.start()
+            self.threads.append(thread)
 
         time.sleep(LONGSLEEP)
 
         a = self.alive.keys()
         a.sort()
-        self.assertEquals(a, range(NUM_THREADS))
+        self.assertEqual(a, range(NUM_THREADS))
 
         prefork_lives = self.alive.copy()
 
@@ -72,6 +88,3 @@ class ForkWait(unittest.TestCase):
         else:
             # Parent
             self.wait_impl(cpid)
-            # Tell threads to die
-            self.stop = 1
-            time.sleep(2*SHORTSLEEP) # Wait for threads to die

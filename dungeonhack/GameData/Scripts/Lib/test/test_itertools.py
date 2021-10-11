@@ -1,13 +1,19 @@
 import unittest
 from test import test_support
 from itertools import *
-from weakref import proxy
+import weakref
+from decimal import Decimal
+from fractions import Fraction
 import sys
 import operator
 import random
 import copy
 import pickle
 from functools import reduce
+try:
+    import threading
+except ImportError:
+    threading = None
 maxsize = test_support.MAX_Py_ssize_t
 minsize = -maxsize-1
 
@@ -109,6 +115,14 @@ class TestBasicOps(unittest.TestCase):
                 if sorted(indices) == list(indices):
                     yield tuple(pool[i] for i in indices)
 
+        def combinations3(iterable, r):
+            'Pure python version from cwr()'
+            pool = tuple(iterable)
+            n = len(pool)
+            for indices in combinations_with_replacement(range(n), r):
+                if len(set(indices)) == r:
+                    yield tuple(pool[i] for i in indices)
+
         for n in range(7):
             values = [5*x-12 for x in range(n)]
             for r in range(n+2):
@@ -120,15 +134,99 @@ class TestBasicOps(unittest.TestCase):
                     self.assertEqual(len(c), r)                         # r-length combinations
                     self.assertEqual(len(set(c)), r)                    # no duplicate elements
                     self.assertEqual(list(c), sorted(c))                # keep original ordering
-                    self.assert_(all(e in values for e in c))           # elements taken from input iterable
+                    self.assertTrue(all(e in values for e in c))           # elements taken from input iterable
                     self.assertEqual(list(c),
                                      [e for e in values if e in c])      # comb is a subsequence of the input iterable
                 self.assertEqual(result, list(combinations1(values, r))) # matches first pure python version
                 self.assertEqual(result, list(combinations2(values, r))) # matches second pure python version
+                self.assertEqual(result, list(combinations3(values, r))) # matches second pure python version
 
-        # Test implementation detail:  tuple re-use
+    @test_support.bigaddrspacetest
+    def test_combinations_overflow(self):
+        with self.assertRaises((OverflowError, MemoryError)):
+            combinations("AA", 2**29)
+
+    @test_support.impl_detail("tuple reuse is specific to CPython")
+    def test_combinations_tuple_reuse(self):
         self.assertEqual(len(set(map(id, combinations('abcde', 3)))), 1)
         self.assertNotEqual(len(set(map(id, list(combinations('abcde', 3))))), 1)
+
+    def test_combinations_with_replacement(self):
+        cwr = combinations_with_replacement
+        self.assertRaises(TypeError, cwr, 'abc')       # missing r argument
+        self.assertRaises(TypeError, cwr, 'abc', 2, 1) # too many arguments
+        self.assertRaises(TypeError, cwr, None)        # pool is not iterable
+        self.assertRaises(ValueError, cwr, 'abc', -2)  # r is negative
+        self.assertEqual(list(cwr('ABC', 2)),
+                         [('A','A'), ('A','B'), ('A','C'), ('B','B'), ('B','C'), ('C','C')])
+
+        def cwr1(iterable, r):
+            'Pure python version shown in the docs'
+            # number items returned:  (n+r-1)! / r! / (n-1)! when n>0
+            pool = tuple(iterable)
+            n = len(pool)
+            if not n and r:
+                return
+            indices = [0] * r
+            yield tuple(pool[i] for i in indices)
+            while 1:
+                for i in reversed(range(r)):
+                    if indices[i] != n - 1:
+                        break
+                else:
+                    return
+                indices[i:] = [indices[i] + 1] * (r - i)
+                yield tuple(pool[i] for i in indices)
+
+        def cwr2(iterable, r):
+            'Pure python version shown in the docs'
+            pool = tuple(iterable)
+            n = len(pool)
+            for indices in product(range(n), repeat=r):
+                if sorted(indices) == list(indices):
+                    yield tuple(pool[i] for i in indices)
+
+        def numcombs(n, r):
+            if not n:
+                return 0 if r else 1
+            return fact(n+r-1) // fact(r) // fact(n-1)
+
+        for n in range(7):
+            values = [5*x-12 for x in range(n)]
+            for r in range(n+2):
+                result = list(cwr(values, r))
+
+                self.assertEqual(len(result), numcombs(n, r))           # right number of combs
+                self.assertEqual(len(result), len(set(result)))         # no repeats
+                self.assertEqual(result, sorted(result))                # lexicographic order
+
+                regular_combs = list(combinations(values, r))           # compare to combs without replacement
+                if n == 0 or r <= 1:
+                    self.assertEqual(result, regular_combs)            # cases that should be identical
+                else:
+                    self.assertTrue(set(result) >= set(regular_combs))     # rest should be supersets of regular combs
+
+                for c in result:
+                    self.assertEqual(len(c), r)                         # r-length combinations
+                    noruns = [k for k,v in groupby(c)]                  # combo without consecutive repeats
+                    self.assertEqual(len(noruns), len(set(noruns)))     # no repeats other than consecutive
+                    self.assertEqual(list(c), sorted(c))                # keep original ordering
+                    self.assertTrue(all(e in values for e in c))           # elements taken from input iterable
+                    self.assertEqual(noruns,
+                                     [e for e in values if e in c])     # comb is a subsequence of the input iterable
+                self.assertEqual(result, list(cwr1(values, r)))         # matches first pure python version
+                self.assertEqual(result, list(cwr2(values, r)))         # matches second pure python version
+
+    @test_support.bigaddrspacetest
+    def test_combinations_with_replacement_overflow(self):
+        with self.assertRaises((OverflowError, MemoryError)):
+            combinations_with_replacement("AA", 2**30)
+
+    @test_support.impl_detail("tuple reuse is specific to CPython")
+    def test_combinations_with_replacement_tuple_reuse(self):
+        cwr = combinations_with_replacement
+        self.assertEqual(len(set(map(id, cwr('abcde', 3)))), 1)
+        self.assertNotEqual(len(set(map(id, list(cwr('abcde', 3))))), 1)
 
     def test_permutations(self):
         self.assertRaises(TypeError, permutations)              # too few arguments
@@ -183,16 +281,71 @@ class TestBasicOps(unittest.TestCase):
                 for p in result:
                     self.assertEqual(len(p), r)                         # r-length permutations
                     self.assertEqual(len(set(p)), r)                    # no duplicate elements
-                    self.assert_(all(e in values for e in p))           # elements taken from input iterable
+                    self.assertTrue(all(e in values for e in p))           # elements taken from input iterable
                 self.assertEqual(result, list(permutations1(values, r))) # matches first pure python version
                 self.assertEqual(result, list(permutations2(values, r))) # matches second pure python version
                 if r == n:
                     self.assertEqual(result, list(permutations(values, None))) # test r as None
                     self.assertEqual(result, list(permutations(values)))       # test default r
 
-        # Test implementation detail:  tuple re-use
+    @test_support.bigaddrspacetest
+    def test_permutations_overflow(self):
+        with self.assertRaises((OverflowError, MemoryError)):
+            permutations("A", 2**30)
+
+    @test_support.impl_detail("tuple reuse is specific to CPython")
+    def test_permutations_tuple_reuse(self):
         self.assertEqual(len(set(map(id, permutations('abcde', 3)))), 1)
         self.assertNotEqual(len(set(map(id, list(permutations('abcde', 3))))), 1)
+
+    def test_combinatorics(self):
+        # Test relationships between product(), permutations(),
+        # combinations() and combinations_with_replacement().
+
+        for n in range(6):
+            s = 'ABCDEFG'[:n]
+            for r in range(8):
+                prod = list(product(s, repeat=r))
+                cwr = list(combinations_with_replacement(s, r))
+                perm = list(permutations(s, r))
+                comb = list(combinations(s, r))
+
+                # Check size
+                self.assertEqual(len(prod), n**r)
+                self.assertEqual(len(cwr), (fact(n+r-1) // fact(r) // fact(n-1)) if n else (not r))
+                self.assertEqual(len(perm), 0 if r>n else fact(n) // fact(n-r))
+                self.assertEqual(len(comb), 0 if r>n else fact(n) // fact(r) // fact(n-r))
+
+                # Check lexicographic order without repeated tuples
+                self.assertEqual(prod, sorted(set(prod)))
+                self.assertEqual(cwr, sorted(set(cwr)))
+                self.assertEqual(perm, sorted(set(perm)))
+                self.assertEqual(comb, sorted(set(comb)))
+
+                # Check interrelationships
+                self.assertEqual(cwr, [t for t in prod if sorted(t)==list(t)]) # cwr: prods which are sorted
+                self.assertEqual(perm, [t for t in prod if len(set(t))==r])    # perm: prods with no dups
+                self.assertEqual(comb, [t for t in perm if sorted(t)==list(t)]) # comb: perms that are sorted
+                self.assertEqual(comb, [t for t in cwr if len(set(t))==r])      # comb: cwrs without dups
+                self.assertEqual(comb, filter(set(cwr).__contains__, perm))     # comb: perm that is a cwr
+                self.assertEqual(comb, filter(set(perm).__contains__, cwr))     # comb: cwr that is a perm
+                self.assertEqual(comb, sorted(set(cwr) & set(perm)))            # comb: both a cwr and a perm
+
+    def test_compress(self):
+        self.assertEqual(list(compress(data='ABCDEF', selectors=[1,0,1,0,1,1])), list('ACEF'))
+        self.assertEqual(list(compress('ABCDEF', [1,0,1,0,1,1])), list('ACEF'))
+        self.assertEqual(list(compress('ABCDEF', [0,0,0,0,0,0])), list(''))
+        self.assertEqual(list(compress('ABCDEF', [1,1,1,1,1,1])), list('ABCDEF'))
+        self.assertEqual(list(compress('ABCDEF', [1,0,1])), list('AC'))
+        self.assertEqual(list(compress('ABC', [0,1,1,1,1,1])), list('BC'))
+        n = 10000
+        data = chain.from_iterable(repeat(range(6), n))
+        selectors = chain.from_iterable(repeat((0, 1)))
+        self.assertEqual(list(compress(data, selectors)), [1,3,5] * n)
+        self.assertRaises(TypeError, compress, None, range(6))      # 1st arg not iterable
+        self.assertRaises(TypeError, compress, range(6), None)      # 2nd arg not iterable
+        self.assertRaises(TypeError, compress, range(6))            # too few args
+        self.assertRaises(TypeError, compress, range(6), None)      # too many args
 
     def test_count(self):
         self.assertEqual(zip('abc',count()), [('a', 0), ('b', 1), ('c', 2)])
@@ -200,10 +353,18 @@ class TestBasicOps(unittest.TestCase):
         self.assertEqual(take(2, zip('abc',count(3))), [('a', 3), ('b', 4)])
         self.assertEqual(take(2, zip('abc',count(-1))), [('a', -1), ('b', 0)])
         self.assertEqual(take(2, zip('abc',count(-3))), [('a', -3), ('b', -2)])
-        self.assertRaises(TypeError, count, 2, 3)
+        self.assertRaises(TypeError, count, 2, 3, 4)
         self.assertRaises(TypeError, count, 'a')
-        self.assertEqual(list(islice(count(maxsize-5), 10)), range(maxsize-5, maxsize+5))
-        self.assertEqual(list(islice(count(-maxsize-5), 10)), range(-maxsize-5, -maxsize+5))
+        self.assertEqual(take(10, count(maxsize-5)), range(maxsize-5, maxsize+5))
+        self.assertEqual(take(10, count(-maxsize-5)), range(-maxsize-5, -maxsize+5))
+        self.assertEqual(take(3, count(3.25)), [3.25, 4.25, 5.25])
+        self.assertEqual(take(3, count(3.25-4j)), [3.25-4j, 4.25-4j, 5.25-4j])
+        self.assertEqual(take(3, count(Decimal('1.1'))),
+                         [Decimal('1.1'), Decimal('2.1'), Decimal('3.1')])
+        self.assertEqual(take(3, count(Fraction(2, 3))),
+                         [Fraction(2, 3), Fraction(5, 3), Fraction(8, 3)])
+        BIGINT = 1<<1000
+        self.assertEqual(take(3, count(BIGINT)), [BIGINT, BIGINT+1, BIGINT+2])
         c = count(3)
         self.assertEqual(repr(c), 'count(3)')
         c.next()
@@ -211,7 +372,10 @@ class TestBasicOps(unittest.TestCase):
         c = count(-9)
         self.assertEqual(repr(c), 'count(-9)')
         c.next()
-        self.assertEqual(c.next(), -8)
+        self.assertEqual(next(c), -8)
+        self.assertEqual(repr(count(10.25)), 'count(10.25)')
+        self.assertEqual(repr(count(10.0)), 'count(10.0)')
+        self.assertEqual(type(next(count(10.0))), float)
         for i in (-sys.maxint-5, -sys.maxint+5 ,-10, -1, 0, 10, sys.maxint-5, sys.maxint+5):
             # Test repr (ignoring the L in longs)
             r1 = repr(count(i)).replace('L', '')
@@ -223,7 +387,63 @@ class TestBasicOps(unittest.TestCase):
             c = count(value)
             self.assertEqual(next(copy.copy(c)), value)
             self.assertEqual(next(copy.deepcopy(c)), value)
-            self.assertEqual(next(pickle.loads(pickle.dumps(c))), value)
+            for proto in range(pickle.HIGHEST_PROTOCOL + 1):
+                self.assertEqual(next(pickle.loads(pickle.dumps(c, proto))), value)
+
+    def test_count_with_stride(self):
+        self.assertEqual(zip('abc',count(2,3)), [('a', 2), ('b', 5), ('c', 8)])
+        self.assertEqual(zip('abc',count(start=2,step=3)),
+                         [('a', 2), ('b', 5), ('c', 8)])
+        self.assertEqual(zip('abc',count(step=-1)),
+                         [('a', 0), ('b', -1), ('c', -2)])
+        self.assertRaises(TypeError, count, 'a', 'b')
+        self.assertEqual(zip('abc',count(2,0)), [('a', 2), ('b', 2), ('c', 2)])
+        self.assertEqual(zip('abc',count(2,1)), [('a', 2), ('b', 3), ('c', 4)])
+        self.assertEqual(zip('abc',count(2,3)), [('a', 2), ('b', 5), ('c', 8)])
+        self.assertEqual(zip('abc',count(2,1L)), [('a', 2), ('b', 3), ('c', 4)])
+        self.assertEqual(zip('abc',count(2,3L)), [('a', 2), ('b', 5), ('c', 8)])
+        self.assertEqual(take(20, count(maxsize-15, 3)), take(20, range(maxsize-15, maxsize+100, 3)))
+        self.assertEqual(take(20, count(-maxsize-15, 3)), take(20, range(-maxsize-15,-maxsize+100, 3)))
+        self.assertEqual(take(3, count(10, maxsize+5)),
+                         range(10, 10+3*(maxsize+5), maxsize+5))
+        self.assertEqual(take(3, count(2, 1.25)), [2, 3.25, 4.5])
+        self.assertEqual(take(3, count(2, 3.25-4j)), [2, 5.25-4j, 8.5-8j])
+        self.assertEqual(take(3, count(Decimal('1.1'), Decimal('.1'))),
+                         [Decimal('1.1'), Decimal('1.2'), Decimal('1.3')])
+        self.assertEqual(take(3, count(Fraction(2,3), Fraction(1,7))),
+                         [Fraction(2,3), Fraction(17,21), Fraction(20,21)])
+        BIGINT = 1<<1000
+        self.assertEqual(take(3, count(step=BIGINT)), [0, BIGINT, 2*BIGINT])
+        self.assertEqual(repr(take(3, count(10, 2.5))), repr([10, 12.5, 15.0]))
+        c = count(3, 5)
+        self.assertEqual(repr(c), 'count(3, 5)')
+        c.next()
+        self.assertEqual(repr(c), 'count(8, 5)')
+        c = count(-9, 0)
+        self.assertEqual(repr(c), 'count(-9, 0)')
+        c.next()
+        self.assertEqual(repr(c), 'count(-9, 0)')
+        c = count(-9, -3)
+        self.assertEqual(repr(c), 'count(-9, -3)')
+        c.next()
+        self.assertEqual(repr(c), 'count(-12, -3)')
+        self.assertEqual(repr(c), 'count(-12, -3)')
+        self.assertEqual(repr(count(10.5, 1.25)), 'count(10.5, 1.25)')
+        self.assertEqual(repr(count(10.5, 1)), 'count(10.5)')           # suppress step=1 when it's an int
+        self.assertEqual(repr(count(10.5, 1.00)), 'count(10.5, 1.0)')   # do show float values lilke 1.0
+        self.assertEqual(repr(count(10, 1.00)), 'count(10, 1.0)')
+        c = count(10, 1.0)
+        self.assertEqual(type(next(c)), int)
+        self.assertEqual(type(next(c)), float)
+        for i in (-sys.maxint-5, -sys.maxint+5 ,-10, -1, 0, 10, sys.maxint-5, sys.maxint+5):
+            for j in  (-sys.maxint-5, -sys.maxint+5 ,-10, -1, 0, 1, 10, sys.maxint-5, sys.maxint+5):
+                # Test repr (ignoring the L in longs)
+                r1 = repr(count(i, j)).replace('L', '')
+                if j == 1:
+                    r2 = ('count(%r)' % i).replace('L', '')
+                else:
+                    r2 = ('count(%r, %r)' % (i, j)).replace('L', '')
+                self.assertEqual(r1, r2)
 
     def test_cycle(self):
         self.assertEqual(take(10, cycle('abc')), list('abcabcabca'))
@@ -353,11 +573,13 @@ class TestBasicOps(unittest.TestCase):
         self.assertEqual(list(izip()), zip())
         self.assertRaises(TypeError, izip, 3)
         self.assertRaises(TypeError, izip, range(3), 3)
-        # Check tuple re-use (implementation detail)
         self.assertEqual([tuple(list(pair)) for pair in izip('abc', 'def')],
                          zip('abc', 'def'))
         self.assertEqual([pair for pair in izip('abc', 'def')],
                          zip('abc', 'def'))
+
+    @test_support.impl_detail("tuple reuse is specific to CPython")
+    def test_izip_tuple_reuse(self):
         ids = map(id, izip('abc', 'def'))
         self.assertEqual(min(ids), max(ids))
         ids = map(id, list(izip('abc', 'def')))
@@ -402,11 +624,13 @@ class TestBasicOps(unittest.TestCase):
             else:
                 self.fail('Did not raise Type in:  ' + stmt)
 
-        # Check tuple re-use (implementation detail)
         self.assertEqual([tuple(list(pair)) for pair in izip_longest('abc', 'def')],
                          zip('abc', 'def'))
         self.assertEqual([pair for pair in izip_longest('abc', 'def')],
                          zip('abc', 'def'))
+
+    @test_support.impl_detail("tuple reuse is specific to CPython")
+    def test_izip_longest_tuple_reuse(self):
         ids = map(id, izip_longest('abc', 'def'))
         self.assertEqual(min(ids), max(ids))
         ids = map(id, list(izip_longest('abc', 'def')))
@@ -510,11 +734,21 @@ class TestBasicOps(unittest.TestCase):
             args = map(iter, args)
             self.assertEqual(len(list(product(*args))), expected_len)
 
-        # Test implementation detail:  tuple re-use
+    @test_support.bigaddrspacetest
+    def test_product_overflow(self):
+        with self.assertRaises((OverflowError, MemoryError)):
+            product(*(['ab']*2**5), repeat=2**25)
+
+    @test_support.impl_detail("tuple reuse is specific to CPython")
+    def test_product_tuple_reuse(self):
         self.assertEqual(len(set(map(id, product('abc', 'def')))), 1)
         self.assertNotEqual(len(set(map(id, list(product('abc', 'def'))))), 1)
 
     def test_repeat(self):
+        self.assertEqual(list(repeat(object='a', times=3)), ['a', 'a', 'a'])
+        self.assertEqual(list(repeat(object='a', times=0)), [])
+        self.assertEqual(list(repeat(object='a', times=-1)), [])
+        self.assertEqual(list(repeat(object='a', times=-2)), [])
         self.assertEqual(zip(xrange(3),repeat('a')),
                          [(0, 'a'), (1, 'a'), (2, 'a')])
         self.assertEqual(list(repeat('a', 3)), ['a', 'a', 'a'])
@@ -530,6 +764,12 @@ class TestBasicOps(unittest.TestCase):
         self.assertEqual(repr(r), 'repeat((1+0j), 5)')
         list(r)
         self.assertEqual(repr(r), 'repeat((1+0j), 0)')
+
+    def test_repeat_with_negative_times(self):
+        self.assertEqual(repr(repeat('a', -1)), "repeat('a', 0)")
+        self.assertEqual(repr(repeat('a', -2)), "repeat('a', 0)")
+        self.assertEqual(repr(repeat('a', times=-1)), "repeat('a', 0)")
+        self.assertEqual(repr(repeat('a', times=-2)), "repeat('a', 0)")
 
     def test_imap(self):
         self.assertEqual(list(imap(operator.pow, range(3), range(1,7))),
@@ -566,6 +806,7 @@ class TestBasicOps(unittest.TestCase):
                 (10, 20, 3),
                 (10, 3, 20),
                 (10, 20),
+                (10, 10),
                 (10, 3),
                 (20,)
                 ]:
@@ -590,6 +831,10 @@ class TestBasicOps(unittest.TestCase):
         self.assertEqual(list(islice(it, 3)), range(3))
         self.assertEqual(list(it), range(3, 10))
 
+        it = iter(range(10))
+        self.assertEqual(list(islice(it, 3, 3)), [])
+        self.assertEqual(list(it), range(3, 10))
+
         # Test invalid arguments
         self.assertRaises(TypeError, islice, xrange(10))
         self.assertRaises(TypeError, islice, xrange(10), 1, 2, 3, 4)
@@ -603,6 +848,21 @@ class TestBasicOps(unittest.TestCase):
         self.assertRaises(ValueError, islice, xrange(10), 'a', 1, 1)
         self.assertRaises(ValueError, islice, xrange(10), 1, 'a', 1)
         self.assertEqual(len(list(islice(count(), 1, 10, maxsize))), 1)
+
+        # Issue #10323:  Less islice in a predictable state
+        c = count()
+        self.assertEqual(list(islice(c, 1, 3, 50)), [1])
+        self.assertEqual(next(c), 3)
+
+        # Issue #21321: check source iterator is not referenced
+        # from islice() after the latter has been exhausted
+        it = (x for x in (1, 2))
+        wr = weakref.ref(it)
+        it = islice(it, 1)
+        self.assertIsNotNone(wr())
+        list(it) # exhaust the iterator
+        test_support.gc_collect()
+        self.assertIsNone(wr())
 
     def test_takewhile(self):
         data = [1, 3, 5, 20, 2, 4, 6, 8]
@@ -701,7 +961,7 @@ class TestBasicOps(unittest.TestCase):
         # tee pass-through to copyable iterator
         a, b = tee('abc')
         c, d = tee(a)
-        self.assert_(a is c)
+        self.assertTrue(a is c)
 
         # test tee_new
         t1, t2 = tee('abc')
@@ -709,14 +969,61 @@ class TestBasicOps(unittest.TestCase):
         self.assertRaises(TypeError, tnew)
         self.assertRaises(TypeError, tnew, 10)
         t3 = tnew(t1)
-        self.assert_(list(t1) == list(t2) == list(t3) == list('abc'))
+        self.assertTrue(list(t1) == list(t2) == list(t3) == list('abc'))
 
         # test that tee objects are weak referencable
         a, b = tee(xrange(10))
-        p = proxy(a)
+        p = weakref.proxy(a)
         self.assertEqual(getattr(p, '__class__'), type(b))
         del a
         self.assertRaises(ReferenceError, getattr, p, '__class__')
+
+    # Issue 13454: Crash when deleting backward iterator from tee()
+    def test_tee_del_backward(self):
+        forward, backward = tee(repeat(None, 20000000))
+        try:
+            any(forward)  # exhaust the iterator
+            del backward
+        except:
+            del forward, backward
+            raise
+
+    def test_tee_reenter(self):
+        class I:
+            first = True
+            def __iter__(self):
+                return self
+            def next(self):
+                first = self.first
+                self.first = False
+                if first:
+                    return next(b)
+
+        a, b = tee(I())
+        with self.assertRaisesRegexp(RuntimeError, "tee"):
+            next(a)
+
+    @unittest.skipUnless(threading, 'Threading required for this test.')
+    def test_tee_concurrent(self):
+        start = threading.Event()
+        finish = threading.Event()
+        class I:
+            def __iter__(self):
+                return self
+            def next(self):
+                start.set()
+                finish.wait()
+
+        a, b = tee(I())
+        thread = threading.Thread(target=next, args=[a])
+        thread.start()
+        try:
+            start.wait()
+            with self.assertRaisesRegexp(RuntimeError, "tee"):
+                next(b)
+        finally:
+            finish.set()
+            thread.join()
 
     def test_StopIteration(self):
         self.assertRaises(StopIteration, izip().next)
@@ -754,6 +1061,13 @@ class TestExamples(unittest.TestCase):
                          [('A','B'), ('A','C'), ('A','D'), ('B','C'), ('B','D'), ('C','D')])
         self.assertEqual(list(combinations(range(4), 3)),
                          [(0,1,2), (0,1,3), (0,2,3), (1,2,3)])
+
+    def test_combinations_with_replacement(self):
+        self.assertEqual(list(combinations_with_replacement('ABC', 2)),
+                         [('A','A'), ('A','B'), ('A','C'), ('B','B'), ('B','C'), ('C','C')])
+
+    def test_compress(self):
+        self.assertEqual(list(compress('ABCDEF', [1,0,1,0,1,1])), list('ACEF'))
 
     def test_count(self):
         self.assertEqual(list(islice(count(10), 5)), [10, 11, 12, 13, 14])
@@ -816,6 +1130,48 @@ class TestExamples(unittest.TestCase):
         self.assertEqual(list(takewhile(lambda x: x<5, [1,4,6,4,1])), [1,4])
 
 
+class TestPurePythonRoughEquivalents(unittest.TestCase):
+
+    @staticmethod
+    def islice(iterable, *args):
+        s = slice(*args)
+        start, stop, step = s.start or 0, s.stop or sys.maxint, s.step or 1
+        it = iter(xrange(start, stop, step))
+        try:
+            nexti = next(it)
+        except StopIteration:
+            # Consume *iterable* up to the *start* position.
+            for i, element in izip(xrange(start), iterable):
+                pass
+            return
+        try:
+            for i, element in enumerate(iterable):
+                if i == nexti:
+                    yield element
+                    nexti = next(it)
+        except StopIteration:
+            # Consume to *stop*.
+            for i, element in izip(xrange(i + 1, stop), iterable):
+                pass
+
+    def test_islice_recipe(self):
+        self.assertEqual(list(self.islice('ABCDEFG', 2)), list('AB'))
+        self.assertEqual(list(self.islice('ABCDEFG', 2, 4)), list('CD'))
+        self.assertEqual(list(self.islice('ABCDEFG', 2, None)), list('CDEFG'))
+        self.assertEqual(list(self.islice('ABCDEFG', 0, None, 2)), list('ACEG'))
+        # Test items consumed.
+        it = iter(xrange(10))
+        self.assertEqual(list(self.islice(it, 3)), range(3))
+        self.assertEqual(list(it), range(3, 10))
+        it = iter(xrange(10))
+        self.assertEqual(list(self.islice(it, 3, 3)), [])
+        self.assertEqual(list(it), range(3, 10))
+        # Test that slice finishes in predictable state.
+        c = count()
+        self.assertEqual(list(self.islice(c, 1, 3, 50)), [1])
+        self.assertEqual(next(c), 3)
+
+
 class TestGC(unittest.TestCase):
 
     def makecycle(self, iterator, container):
@@ -834,6 +1190,19 @@ class TestGC(unittest.TestCase):
     def test_combinations(self):
         a = []
         self.makecycle(combinations([1,2,a,3], 3), a)
+
+    def test_combinations_with_replacement(self):
+        a = []
+        self.makecycle(combinations_with_replacement([1,2,a,3], 3), a)
+
+    def test_compress(self):
+        a = []
+        self.makecycle(compress('ABCDEF', [1,0,1,0,1,0]), a)
+
+    def test_count(self):
+        a = []
+        Int = type('Int', (int,), dict(x=a))
+        self.makecycle(count(Int(0), Int(1)), a)
 
     def test_cycle(self):
         a = []
@@ -987,6 +1356,15 @@ class TestVariousIteratorArgs(unittest.TestCase):
             self.assertRaises(TypeError, list, chain(X(s)))
             self.assertRaises(TypeError, list, chain(N(s)))
             self.assertRaises(ZeroDivisionError, list, chain(E(s)))
+
+    def test_compress(self):
+        for s in ("123", "", range(1000), ('do', 1.2), xrange(2000,2200,5)):
+            n = len(s)
+            for g in (G, I, Ig, S, L, R):
+                self.assertEqual(list(compress(g(s), repeat(1))), list(g(s)))
+            self.assertRaises(TypeError, compress, X(s), repeat(1))
+            self.assertRaises(TypeError, list, compress(N(s), repeat(1)))
+            self.assertRaises(ZeroDivisionError, list, compress(E(s), repeat(1)))
 
     def test_product(self):
         for s in ("123", "", range(1000), ('do', 1.2), xrange(2000,2200,5)):
@@ -1175,11 +1553,44 @@ class RegressionTests(unittest.TestCase):
         self.assertRaises(AssertionError, list, cycle(gen1()))
         self.assertEqual(hist, [0,1])
 
+    def test_long_chain_of_empty_iterables(self):
+        # Make sure itertools.chain doesn't run into recursion limits when
+        # dealing with long chains of empty iterables. Even with a high
+        # number this would probably only fail in Py_DEBUG mode.
+        it = chain.from_iterable(() for unused in xrange(10000000))
+        with self.assertRaises(StopIteration):
+            next(it)
+
+    def test_issue30347_1(self):
+        def f(n):
+            if n == 5:
+                list(b)
+            return n != 6
+        for (k, b) in groupby(range(10), f):
+            list(b)  # shouldn't crash
+
+    def test_issue30347_2(self):
+        class K(object):
+            i = 0
+            def __init__(self, v):
+                pass
+            def __eq__(self, other):
+                K.i += 1
+                if K.i == 1:
+                    next(g, None)
+                return True
+            def __hash__(self):
+                return 1
+        g = next(groupby(range(10), K))[1]
+        for j in range(2):
+            next(g, None)  # shouldn't crash
+
+
 class SubclassWithKwargsTest(unittest.TestCase):
     def test_keywords_in_subclass(self):
         # count is not subclassable...
         for cls in (repeat, izip, ifilter, ifilterfalse, chain, imap,
-                    starmap, islice, takewhile, dropwhile, cycle):
+                    starmap, islice, takewhile, dropwhile, cycle, compress):
             class Subclass(cls):
                 def __init__(self, newarg=None, *args):
                     cls.__init__(self, *args)
@@ -1187,7 +1598,7 @@ class SubclassWithKwargsTest(unittest.TestCase):
                 Subclass(newarg=1)
             except TypeError, err:
                 # we expect type errors because of wrong argument count
-                self.failIf("does not take keyword arguments" in err.args[0])
+                self.assertNotIn("does not take keyword arguments", err.args[0])
 
 
 libreftest = """ Doctest for examples in the library reference: libitertools.tex
@@ -1254,9 +1665,25 @@ Samuele
 ...     "Return function(0), function(1), ..."
 ...     return imap(function, count(start))
 
+>>> import collections
+>>> def consume(iterator, n=None):
+...     "Advance the iterator n-steps ahead. If n is None, consume entirely."
+...     # Use functions that consume iterators at C speed.
+...     if n is None:
+...         # feed the entire iterator into a zero-length deque
+...         collections.deque(iterator, maxlen=0)
+...     else:
+...         # advance to the empty slice starting at position n
+...         next(islice(iterator, n, n), None)
+
 >>> def nth(iterable, n, default=None):
 ...     "Returns the nth item or a default value"
 ...     return next(islice(iterable, n, None), default)
+
+>>> def all_equal(iterable):
+...     "Returns True if all the elements are equal to each other"
+...     g = groupby(iterable)
+...     return next(g, True) and not next(g, False)
 
 >>> def quantify(iterable, pred=bool):
 ...     "Count how many times the predicate is true"
@@ -1267,7 +1694,7 @@ Samuele
 ...     return chain(iterable, repeat(None))
 
 >>> def ncycles(iterable, n):
-...     "Returns the seqeuence elements n times"
+...     "Returns the sequence elements n times"
 ...     return chain(*repeat(iterable, n))
 
 >>> def dotproduct(vec1, vec2):
@@ -1314,27 +1741,6 @@ Samuele
 ...     s = list(iterable)
 ...     return chain.from_iterable(combinations(s, r) for r in range(len(s)+1))
 
->>> def compress(data, selectors):
-...     "compress('ABCDEF', [1,0,1,0,1,1]) --> A C E F"
-...     return (d for d, s in izip(data, selectors) if s)
-
->>> def combinations_with_replacement(iterable, r):
-...     "combinations_with_replacement('ABC', 3) --> AA AB AC BB BC CC"
-...     pool = tuple(iterable)
-...     n = len(pool)
-...     if not n and r:
-...         return
-...     indices = [0] * r
-...     yield tuple(pool[i] for i in indices)
-...     while 1:
-...         for i in reversed(range(r)):
-...             if indices[i] != n - 1:
-...                 break
-...         else:
-...             return
-...         indices[i:] = [indices[i] + 1] * (r - i)
-...         yield tuple(pool[i] for i in indices)
-
 >>> def unique_everseen(iterable, key=None):
 ...     "List unique elements, preserving order. Remember all elements ever seen."
 ...     # unique_everseen('AAAABBBCCDAABBB') --> A B C D
@@ -1371,11 +1777,22 @@ perform as purported.
 >>> list(islice(tabulate(lambda x: 2*x), 4))
 [0, 2, 4, 6]
 
+>>> it = iter(xrange(10))
+>>> consume(it, 3)
+>>> next(it)
+3
+>>> consume(it)
+>>> next(it, 'Done')
+'Done'
+
 >>> nth('abcde', 3)
 'd'
 
 >>> nth('abcde', 9) is None
 True
+
+>>> [all_equal(s) for s in ('', 'A', 'AAAA', 'AAAB', 'AAABA')]
+[True, True, True, False, False]
 
 >>> quantify(xrange(99), lambda x: x%2==0)
 50
@@ -1418,30 +1835,10 @@ True
 >>> list(powerset([1,2,3]))
 [(), (1,), (2,), (3,), (1, 2), (1, 3), (2, 3), (1, 2, 3)]
 
->>> list(compress('abcdef', [1,0,1,0,1,1]))
-['a', 'c', 'e', 'f']
-
->>> list(combinations_with_replacement('abc', 2))
-[('a', 'a'), ('a', 'b'), ('a', 'c'), ('b', 'b'), ('b', 'c'), ('c', 'c')]
-
->>> list(combinations_with_replacement('01', 3))
-[('0', '0', '0'), ('0', '0', '1'), ('0', '1', '1'), ('1', '1', '1')]
-
->>> def combinations_with_replacement2(iterable, r):
-...     'Alternate version that filters from product()'
-...     pool = tuple(iterable)
-...     n = len(pool)
-...     for indices in product(range(n), repeat=r):
-...         if sorted(indices) == list(indices):
-...             yield tuple(pool[i] for i in indices)
-
->>> list(combinations_with_replacement('abc', 2)) == list(combinations_with_replacement2('abc', 2))
+>>> all(len(list(powerset(range(n)))) == 2**n for n in range(18))
 True
 
->>> list(combinations_with_replacement('01', 3)) == list(combinations_with_replacement2('01', 3))
-True
-
->>> list(combinations_with_replacement('2310', 6)) == list(combinations_with_replacement2('2310', 6))
+>>> list(powerset('abcde')) == sorted(sorted(set(powerset('abcde'))), key=len)
 True
 
 >>> list(unique_everseen('AAAABBBCCDAABBB'))
@@ -1463,7 +1860,8 @@ __test__ = {'libreftest' : libreftest}
 def test_main(verbose=None):
     test_classes = (TestBasicOps, TestVariousIteratorArgs, TestGC,
                     RegressionTests, LengthTransparency,
-                    SubclassWithKwargsTest, TestExamples)
+                    SubclassWithKwargsTest, TestExamples,
+                    TestPurePythonRoughEquivalents)
     test_support.run_unittest(*test_classes)
 
     # verify reference counting

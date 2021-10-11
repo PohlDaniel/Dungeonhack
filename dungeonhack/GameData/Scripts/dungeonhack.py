@@ -6,7 +6,7 @@
 # This file is compatible with both classic and new-style classes.
 
 from sys import version_info
-if version_info >= (2,7,0):
+if version_info >= (2,6,0):
     def swig_import_helper():
         from os.path import dirname
         import imp

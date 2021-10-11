@@ -1,3 +1,4 @@
+print("################")
 randNumber = random.randint(1,2)
 
 if randNumber == 1:

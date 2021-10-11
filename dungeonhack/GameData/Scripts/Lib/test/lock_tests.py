@@ -39,8 +39,12 @@ class Bunch(object):
                 self.finished.append(tid)
                 while not self._can_exit:
                     _wait()
-        for i in range(n):
-            start_new_thread(task, ())
+        try:
+            for i in range(n):
+                start_new_thread(task, ())
+        except:
+            self._can_exit = True
+            raise
 
     def wait_for_started(self):
         while len(self.started) < self.n:
@@ -257,10 +261,8 @@ class EventTests(BaseTestCase):
         results1 = []
         results2 = []
         def f():
-            evt.wait()
-            results1.append(evt.is_set())
-            evt.wait()
-            results2.append(evt.is_set())
+            results1.append(evt.wait())
+            results2.append(evt.wait())
         b = Bunch(f, N)
         b.wait_for_started()
         _wait()
@@ -284,11 +286,9 @@ class EventTests(BaseTestCase):
         results2 = []
         N = 5
         def f():
-            evt.wait(0.0)
-            results1.append(evt.is_set())
+            results1.append(evt.wait(0.0))
             t1 = time.time()
-            evt.wait(0.2)
-            r = evt.is_set()
+            r = evt.wait(0.2)
             t2 = time.time()
             results2.append((r, t2 - t1))
         Bunch(f, N).wait_for_finished()
@@ -304,6 +304,14 @@ class EventTests(BaseTestCase):
         self.assertEqual(results1, [True] * N)
         for r, dt in results2:
             self.assertTrue(r)
+
+    def test_reset_internal_locks(self):
+        evt = self.eventtype()
+        old_lock = evt._Event__cond._Condition__lock
+        evt._reset_internal_locks()
+        new_lock = evt._Event__cond._Condition__lock
+        self.assertIsNot(new_lock, old_lock)
+        self.assertIs(type(new_lock), type(old_lock))
 
 
 class ConditionTests(BaseTestCase):
@@ -339,22 +347,40 @@ class ConditionTests(BaseTestCase):
         self.assertRaises(RuntimeError, cond.notify)
 
     def _check_notify(self, cond):
+        # Note that this test is sensitive to timing.  If the worker threads
+        # don't execute in a timely fashion, the main thread may think they
+        # are further along then they are.  The main thread therefore issues
+        # _wait() statements to try to make sure that it doesn't race ahead
+        # of the workers.
+        # Secondly, this test assumes that condition variables are not subject
+        # to spurious wakeups.  The absence of spurious wakeups is an implementation
+        # detail of Condition Cariables in current CPython, but in general, not
+        # a guaranteed property of condition variables as a programming
+        # construct.  In particular, it is possible that this can no longer
+        # be conveniently guaranteed should their implementation ever change.
         N = 5
+        ready = []
         results1 = []
         results2 = []
         phase_num = 0
         def f():
             cond.acquire()
+            ready.append(phase_num)
             cond.wait()
             cond.release()
             results1.append(phase_num)
             cond.acquire()
+            ready.append(phase_num)
             cond.wait()
             cond.release()
             results2.append(phase_num)
         b = Bunch(f, N)
         b.wait_for_started()
-        _wait()
+        # first wait, to ensure all workers settle into cond.wait() before
+        # we continue. See issues #8799 and #30727.
+        while len(ready) < 5:
+            _wait()
+        ready = []
         self.assertEqual(results1, [])
         # Notify 3 threads at first
         cond.acquire()
@@ -366,6 +392,9 @@ class ConditionTests(BaseTestCase):
             _wait()
         self.assertEqual(results1, [1] * 3)
         self.assertEqual(results2, [])
+        # make sure all awaken workers settle into cond.wait()
+        while len(ready) < 3:
+            _wait()
         # Notify 5 threads: they might be in their first or second wait
         cond.acquire()
         cond.notify(5)
@@ -376,6 +405,9 @@ class ConditionTests(BaseTestCase):
             _wait()
         self.assertEqual(results1, [1] * 3 + [2] * 2)
         self.assertEqual(results2, [2] * 3)
+        # make sure all workers settle into cond.wait()
+        while len(ready) < 5:
+            _wait()
         # Notify all threads: they are all in their second wait
         cond.acquire()
         cond.notify_all()

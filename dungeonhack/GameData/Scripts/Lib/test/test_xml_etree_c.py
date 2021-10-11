@@ -1,224 +1,93 @@
 # xml.etree test for cElementTree
 
-import doctest
-import sys
-
 from test import test_support
+from test.test_support import precisionbigmemtest, _2G
+import unittest
 
-from xml.etree import cElementTree as ET
+cET = test_support.import_module('xml.etree.cElementTree')
 
-SAMPLE_XML = """
-<body>
-  <tag>text</tag>
-  <tag />
-  <section>
-    <tag>subtext</tag>
-  </section>
-</body>
-"""
 
-SAMPLE_XML_NS = """
-<body xmlns="http://effbot.org/ns">
-  <tag>text</tag>
-  <tag />
-  <section>
-    <tag>subtext</tag>
-  </section>
-</body>
-"""
+@unittest.skipUnless(cET, 'requires _elementtree')
+class MiscTests(unittest.TestCase):
+    # Issue #8651.
+    @precisionbigmemtest(size=_2G + 100, memuse=1)
+    def test_length_overflow(self, size):
+        if size < _2G + 100:
+            self.skipTest("not enough free memory, need at least 2 GB")
+        data = b'x' * size
+        parser = cET.XMLParser()
+        try:
+            self.assertRaises(OverflowError, parser.feed, data)
+        finally:
+            data = None
 
-def sanity():
-    """
-    Import sanity.
+    def test_del_attribute(self):
+        element = cET.Element('tag')
 
-    >>> from xml.etree import cElementTree
-    """
+        element.tag = 'TAG'
+        with self.assertRaises(AttributeError):
+            del element.tag
+        self.assertEqual(element.tag, 'TAG')
 
-def check_method(method):
-    if not hasattr(method, '__call__'):
-        print method, "not callable"
+        with self.assertRaises(AttributeError):
+            del element.text
+        self.assertIsNone(element.text)
+        element.text = 'TEXT'
+        with self.assertRaises(AttributeError):
+            del element.text
+        self.assertEqual(element.text, 'TEXT')
 
-def serialize(ET, elem, encoding=None):
-    import StringIO
-    file = StringIO.StringIO()
-    tree = ET.ElementTree(elem)
-    if encoding:
-        tree.write(file, encoding)
-    else:
-        tree.write(file)
-    return file.getvalue()
+        with self.assertRaises(AttributeError):
+            del element.tail
+        self.assertIsNone(element.tail)
+        element.tail = 'TAIL'
+        with self.assertRaises(AttributeError):
+            del element.tail
+        self.assertEqual(element.tail, 'TAIL')
 
-def summarize(elem):
-    return elem.tag
+        with self.assertRaises(AttributeError):
+            del element.attrib
+        self.assertEqual(element.attrib, {})
+        element.attrib = {'A': 'B', 'C': 'D'}
+        with self.assertRaises(AttributeError):
+            del element.attrib
+        self.assertEqual(element.attrib, {'A': 'B', 'C': 'D'})
 
-def summarize_list(seq):
-    return map(summarize, seq)
+    def test_bpo_31728(self):
+        # A crash shouldn't happen in case garbage collection triggers a call
+        # to clear() or a reading of text or tail, while a setter or clear()
+        # is already running.
+        elem = cET.Element('elem')
+        class X:
+            def __del__(self):
+                elem.text
+                elem.tail
+                elem.clear()
 
-def interface():
-    """
-    Test element tree interface.
+        elem.text = X()
+        elem.clear()  # shouldn't crash
 
-    >>> element = ET.Element("tag", key="value")
-    >>> tree = ET.ElementTree(element)
+        elem.tail = X()
+        elem.clear()  # shouldn't crash
 
-    Make sure all standard element methods exist.
+        elem.text = X()
+        elem.text = X()  # shouldn't crash
+        elem.clear()
 
-    >>> check_method(element.append)
-    >>> check_method(element.insert)
-    >>> check_method(element.remove)
-    >>> check_method(element.getchildren)
-    >>> check_method(element.find)
-    >>> check_method(element.findall)
-    >>> check_method(element.findtext)
-    >>> check_method(element.clear)
-    >>> check_method(element.get)
-    >>> check_method(element.set)
-    >>> check_method(element.keys)
-    >>> check_method(element.items)
-    >>> check_method(element.getiterator)
+        elem.tail = X()
+        elem.tail = X()  # shouldn't crash
+        elem.clear()
 
-    Basic method sanity checks.
-
-    >>> serialize(ET, element) # 1
-    '<tag key="value" />'
-    >>> subelement = ET.Element("subtag")
-    >>> element.append(subelement)
-    >>> serialize(ET, element) #  2
-    '<tag key="value"><subtag /></tag>'
-    >>> element.insert(0, subelement)
-    >>> serialize(ET, element) # 3
-    '<tag key="value"><subtag /><subtag /></tag>'
-    >>> element.remove(subelement)
-    >>> serialize(ET, element) # 4
-    '<tag key="value"><subtag /></tag>'
-    >>> element.remove(subelement)
-    >>> serialize(ET, element) # 5
-    '<tag key="value" />'
-    >>> element.remove(subelement)
-    Traceback (most recent call last):
-    ValueError: list.remove(x): x not in list
-    >>> serialize(ET, element) # 6
-    '<tag key="value" />'
-    """
-
-def find():
-    """
-    Test find methods (including xpath syntax).
-
-    >>> elem = ET.XML(SAMPLE_XML)
-    >>> elem.find("tag").tag
-    'tag'
-    >>> ET.ElementTree(elem).find("tag").tag
-    'tag'
-    >>> elem.find("section/tag").tag
-    'tag'
-    >>> ET.ElementTree(elem).find("section/tag").tag
-    'tag'
-    >>> elem.findtext("tag")
-    'text'
-    >>> elem.findtext("tog")
-    >>> elem.findtext("tog", "default")
-    'default'
-    >>> ET.ElementTree(elem).findtext("tag")
-    'text'
-    >>> elem.findtext("section/tag")
-    'subtext'
-    >>> ET.ElementTree(elem).findtext("section/tag")
-    'subtext'
-    >>> summarize_list(elem.findall("tag"))
-    ['tag', 'tag']
-    >>> summarize_list(elem.findall("*"))
-    ['tag', 'tag', 'section']
-    >>> summarize_list(elem.findall(".//tag"))
-    ['tag', 'tag', 'tag']
-    >>> summarize_list(elem.findall("section/tag"))
-    ['tag']
-    >>> summarize_list(elem.findall("section//tag"))
-    ['tag']
-    >>> summarize_list(elem.findall("section/*"))
-    ['tag']
-    >>> summarize_list(elem.findall("section//*"))
-    ['tag']
-    >>> summarize_list(elem.findall("section/.//*"))
-    ['tag']
-    >>> summarize_list(elem.findall("*/*"))
-    ['tag']
-    >>> summarize_list(elem.findall("*//*"))
-    ['tag']
-    >>> summarize_list(elem.findall("*/tag"))
-    ['tag']
-    >>> summarize_list(elem.findall("*/./tag"))
-    ['tag']
-    >>> summarize_list(elem.findall("./tag"))
-    ['tag', 'tag']
-    >>> summarize_list(elem.findall(".//tag"))
-    ['tag', 'tag', 'tag']
-    >>> summarize_list(elem.findall("././tag"))
-    ['tag', 'tag']
-    >>> summarize_list(ET.ElementTree(elem).findall("/tag"))
-    ['tag', 'tag']
-    >>> summarize_list(ET.ElementTree(elem).findall("./tag"))
-    ['tag', 'tag']
-    >>> elem = ET.XML(SAMPLE_XML_NS)
-    >>> summarize_list(elem.findall("tag"))
-    []
-    >>> summarize_list(elem.findall("{http://effbot.org/ns}tag"))
-    ['{http://effbot.org/ns}tag', '{http://effbot.org/ns}tag']
-    >>> summarize_list(elem.findall(".//{http://effbot.org/ns}tag"))
-    ['{http://effbot.org/ns}tag', '{http://effbot.org/ns}tag', '{http://effbot.org/ns}tag']
-    """
-
-def parseliteral():
-    r"""
-
-    >>> element = ET.XML("<html><body>text</body></html>")
-    >>> ET.ElementTree(element).write(sys.stdout)
-    <html><body>text</body></html>
-    >>> element = ET.fromstring("<html><body>text</body></html>")
-    >>> ET.ElementTree(element).write(sys.stdout)
-    <html><body>text</body></html>
-    >>> print ET.tostring(element)
-    <html><body>text</body></html>
-    >>> print ET.tostring(element, "ascii")
-    <?xml version='1.0' encoding='ascii'?>
-    <html><body>text</body></html>
-    >>> _, ids = ET.XMLID("<html><body>text</body></html>")
-    >>> len(ids)
-    0
-    >>> _, ids = ET.XMLID("<html><body id='body'>text</body></html>")
-    >>> len(ids)
-    1
-    >>> ids["body"].tag
-    'body'
-    """
-
-def check_encoding(encoding):
-    """
-    >>> check_encoding("ascii")
-    >>> check_encoding("us-ascii")
-    >>> check_encoding("iso-8859-1")
-    >>> check_encoding("iso-8859-15")
-    >>> check_encoding("cp437")
-    >>> check_encoding("mac-roman")
-    """
-    ET.XML(
-        "<?xml version='1.0' encoding='%s'?><xml />" % encoding
-        )
-
-def bug_1534630():
-    """
-    >>> bob = ET.TreeBuilder()
-    >>> e = bob.data("data")
-    >>> e = bob.start("tag", {})
-    >>> e = bob.end("tag")
-    >>> e = bob.close()
-    >>> serialize(ET, e)
-    '<tag />'
-    """
 
 def test_main():
-    from test import test_xml_etree_c
-    test_support.run_doctest(test_xml_etree_c, verbosity=True)
+    from test import test_xml_etree, test_xml_etree_c
+
+    # Run the tests specific to the C implementation
+    test_support.run_unittest(MiscTests)
+
+    # Run the same test suite as the Python module
+    test_xml_etree.test_main(module=cET)
+
 
 if __name__ == '__main__':
     test_main()

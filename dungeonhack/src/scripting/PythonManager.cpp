@@ -13,7 +13,7 @@
 #include "QuestManager.h"
 
 extern "C" {
-void init_dungeonhack(void); // FROM SWIG
+void init_dungeonhack(); // FROM SWIG
 };
 
 
@@ -60,6 +60,7 @@ PythonManager::PythonManager()
 {
     string dummy;
 
+	Py_SetPythonHome("GameData/Scripts");
     Py_Initialize();
     PyEval_InitThreads();
     PyEval_ReleaseLock();
@@ -187,10 +188,15 @@ bool PythonManager::loadScript(string filename, ScriptThread* thread)
     string fname;
     string contents;
 
-    fname = GameWorld::getSingletonPtr()->m_gameDataPath + "Scripts/" + filename;
+	/*fname = GameWorld::getSingletonPtr()->m_gameDataPath + "Scripts/" + filename;
     contents = "execfile(\"";
     contents.append(fname);
-    contents.append("\")\n");
+    contents.append("\")\n");*/
+
+	fname = GameWorld::getSingletonPtr()->m_gameDataPath + "Scripts/" + filename;
+	contents = "exec(open(\"";
+	contents.append(fname);
+	contents.append("\").read())\n");
 
     if (!thread)
     {
@@ -291,6 +297,7 @@ void PythonManager::callQuestFunction(string filename, string function, Quest * 
 
 void PythonManager::linkFunctions()
 {
+	
     init_dungeonhack();
     loadScript("internals.py", m_mainThread);
     loadScript("dungeonhack.py", m_mainThread);

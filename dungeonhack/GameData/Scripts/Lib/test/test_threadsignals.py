@@ -1,14 +1,14 @@
 """PyUnit testing that threads honor our signal semantics"""
 
 import unittest
-import thread
 import signal
 import os
 import sys
-from test.test_support import run_unittest, TestSkipped
+from test.test_support import run_unittest, import_module, reap_threads
+thread = import_module('thread')
 
 if sys.platform[:3] in ('win', 'os2') or sys.platform=='riscos':
-    raise TestSkipped, "Can't test signal on %s" % sys.platform
+    raise unittest.SkipTest, "Can't test signal on %s" % sys.platform
 
 process_pid = os.getpid()
 signalled_all=thread.allocate_lock()
@@ -39,6 +39,7 @@ class ThreadSignals(unittest.TestCase):
        wait for it to finish. Check that we got both signals
        and that they were run by the main thread.
     """
+    @reap_threads
     def test_signals(self):
         signalled_all.acquire()
         self.spawnSignallingThread()
@@ -51,9 +52,11 @@ class ThreadSignals(unittest.TestCase):
         # wait for it return.
         if signal_blackboard[signal.SIGUSR1]['tripped'] == 0 \
            or signal_blackboard[signal.SIGUSR2]['tripped'] == 0:
-            signal.alarm(1)
-            signal.pause()
-            signal.alarm(0)
+            try:
+                signal.alarm(1)
+                signal.pause()
+            finally:
+                signal.alarm(0)
 
         self.assertEqual( signal_blackboard[signal.SIGUSR1]['tripped'], 1)
         self.assertEqual( signal_blackboard[signal.SIGUSR1]['tripped_by'],

@@ -1,4 +1,4 @@
-
+print("################")
 player = getPlayer()
 
 def OnQuestStart():

@@ -1,4 +1,3 @@
-
 questName = "NecroQuest"
 
 if questExists(questName) == False:

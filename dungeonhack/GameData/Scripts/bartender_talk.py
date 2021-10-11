@@ -1,4 +1,3 @@
-
 def OnActivate():
   showYesNoMessage("Hello traveler! Are you looking for a room? It's only 10 gold to stay the night.")
   choice = getLastButtonPressed()

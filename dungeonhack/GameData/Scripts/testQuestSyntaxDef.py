@@ -1,3 +1,4 @@
+print("################")
 player = getPlayer()
 thisQuest = getQuest("testquest")
 
