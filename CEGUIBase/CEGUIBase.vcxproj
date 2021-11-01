@@ -1,0 +1,453 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="glew\glew.c" />
+    <ClCompile Include="glfw\enable.c" />
+    <ClCompile Include="glfw\fullscreen.c" />
+    <ClCompile Include="glfw\glext.c" />
+    <ClCompile Include="glfw\image.c" />
+    <ClCompile Include="glfw\init.c" />
+    <ClCompile Include="glfw\input.c" />
+    <ClCompile Include="glfw\joystick.c" />
+    <ClCompile Include="glfw\stream.c" />
+    <ClCompile Include="glfw\tga.c" />
+    <ClCompile Include="glfw\thread.c" />
+    <ClCompile Include="glfw\time.c" />
+    <ClCompile Include="glfw\win32_dllmain.c" />
+    <ClCompile Include="glfw\win32_enable.c" />
+    <ClCompile Include="glfw\win32_fullscreen.c" />
+    <ClCompile Include="glfw\win32_glext.c" />
+    <ClCompile Include="glfw\win32_init.c" />
+    <ClCompile Include="glfw\win32_joystick.c" />
+    <ClCompile Include="glfw\win32_thread.c" />
+    <ClCompile Include="glfw\win32_time.c" />
+    <ClCompile Include="glfw\win32_window.c" />
+    <ClCompile Include="glfw\window.c" />
+    <ClCompile Include="jpeg\jaricom.c" />
+    <ClCompile Include="jpeg\jcapimin.c" />
+    <ClCompile Include="jpeg\jcapistd.c" />
+    <ClCompile Include="jpeg\jcarith.c" />
+    <ClCompile Include="jpeg\jccoefct.c" />
+    <ClCompile Include="jpeg\jccolor.c" />
+    <ClCompile Include="jpeg\jcdctmgr.c" />
+    <ClCompile Include="jpeg\jchuff.c" />
+    <ClCompile Include="jpeg\jcinit.c" />
+    <ClCompile Include="jpeg\jcmainct.c" />
+    <ClCompile Include="jpeg\jcmarker.c" />
+    <ClCompile Include="jpeg\jcmaster.c" />
+    <ClCompile Include="jpeg\jcomapi.c" />
+    <ClCompile Include="jpeg\jcparam.c" />
+    <ClCompile Include="jpeg\jcprepct.c" />
+    <ClCompile Include="jpeg\jcsample.c" />
+    <ClCompile Include="jpeg\jctrans.c" />
+    <ClCompile Include="jpeg\jdapimin.c" />
+    <ClCompile Include="jpeg\jdapistd.c" />
+    <ClCompile Include="jpeg\jdarith.c" />
+    <ClCompile Include="jpeg\jdatadst.c" />
+    <ClCompile Include="jpeg\jdatasrc.c" />
+    <ClCompile Include="jpeg\jdcoefct.c" />
+    <ClCompile Include="jpeg\jdcolor.c" />
+    <ClCompile Include="jpeg\jddctmgr.c" />
+    <ClCompile Include="jpeg\jdhuff.c" />
+    <ClCompile Include="jpeg\jdinput.c" />
+    <ClCompile Include="jpeg\jdmainct.c" />
+    <ClCompile Include="jpeg\jdmarker.c" />
+    <ClCompile Include="jpeg\jdmaster.c" />
+    <ClCompile Include="jpeg\jdmerge.c" />
+    <ClCompile Include="jpeg\jdpostct.c" />
+    <ClCompile Include="jpeg\jdsample.c" />
+    <ClCompile Include="jpeg\jdtrans.c" />
+    <ClCompile Include="jpeg\jerror.c" />
+    <ClCompile Include="jpeg\jfdctflt.c" />
+    <ClCompile Include="jpeg\jfdctfst.c" />
+    <ClCompile Include="jpeg\jfdctint.c" />
+    <ClCompile Include="jpeg\jidctflt.c" />
+    <ClCompile Include="jpeg\jidctfst.c" />
+    <ClCompile Include="jpeg\jidctint.c" />
+    <ClCompile Include="jpeg\jmemmgr.c" />
+    <ClCompile Include="jpeg\jmemnobs.c" />
+    <ClCompile Include="jpeg\jquant1.c" />
+    <ClCompile Include="jpeg\jquant2.c" />
+    <ClCompile Include="jpeg\jutils.c" />
+    <ClCompile Include="libexpat\xmlparse.c" />
+    <ClCompile Include="libexpat\xmlrole.c" />
+    <ClCompile Include="libexpat\xmltok.c" />
+    <ClCompile Include="libexpat\xmltok_impl.c" />
+    <ClCompile Include="libexpat\xmltok_ns.c" />
+    <ClCompile Include="libpng\png.c" />
+    <ClCompile Include="libpng\pngerror.c" />
+    <ClCompile Include="libpng\pngget.c" />
+    <ClCompile Include="libpng\pngmem.c" />
+    <ClCompile Include="libpng\pngpread.c" />
+    <ClCompile Include="libpng\pngread.c" />
+    <ClCompile Include="libpng\pngrio.c" />
+    <ClCompile Include="libpng\pngrtran.c" />
+    <ClCompile Include="libpng\pngrutil.c" />
+    <ClCompile Include="libpng\pngset.c" />
+    <ClCompile Include="libpng\pngtrans.c" />
+    <ClCompile Include="libpng\pngwio.c" />
+    <ClCompile Include="libpng\pngwrite.c" />
+    <ClCompile Include="libpng\pngwtran.c" />
+    <ClCompile Include="libpng\pngwutil.c" />
+    <ClCompile Include="pcre\pcre_chartables.c" />
+    <ClCompile Include="pcre\pcre_compile.c" />
+    <ClCompile Include="pcre\pcre_config.c" />
+    <ClCompile Include="pcre\pcre_dfa_exec.c" />
+    <ClCompile Include="pcre\pcre_exec.c" />
+    <ClCompile Include="pcre\pcre_fullinfo.c" />
+    <ClCompile Include="pcre\pcre_get.c" />
+    <ClCompile Include="pcre\pcre_globals.c" />
+    <ClCompile Include="pcre\pcre_info.c" />
+    <ClCompile Include="pcre\pcre_maketables.c" />
+    <ClCompile Include="pcre\pcre_newline.c" />
+    <ClCompile Include="pcre\pcre_ord2utf8.c" />
+    <ClCompile Include="pcre\pcre_refcount.c" />
+    <ClCompile Include="pcre\pcre_study.c" />
+    <ClCompile Include="pcre\pcre_tables.c" />
+    <ClCompile Include="pcre\pcre_try_flipped.c" />
+    <ClCompile Include="pcre\pcre_ucd.c" />
+    <ClCompile Include="pcre\pcre_valid_utf8.c" />
+    <ClCompile Include="pcre\pcre_version.c" />
+    <ClCompile Include="pcre\pcre_xclass.c" />
+    <ClCompile Include="SILLY\src\loaders\SILLYJPGImageContext.cpp" />
+    <ClCompile Include="SILLY\src\loaders\SILLYJPGImageLoader.cpp" />
+    <ClCompile Include="SILLY\src\loaders\SILLYPNGImageContext.cpp" />
+    <ClCompile Include="SILLY\src\loaders\SILLYPNGImageLoader.cpp" />
+    <ClCompile Include="SILLY\src\loaders\SILLYTGAImageContext.cpp" />
+    <ClCompile Include="SILLY\src\loaders\SILLYTGAImageLoader.cpp" />
+    <ClCompile Include="SILLY\src\SILLYDataSource.cpp" />
+    <ClCompile Include="SILLY\src\SILLYFileDataSource.cpp" />
+    <ClCompile Include="SILLY\src\SILLYImage.cpp" />
+    <ClCompile Include="SILLY\src\SILLYImageContext.cpp" />
+    <ClCompile Include="SILLY\src\SILLYImageLoader.cpp" />
+    <ClCompile Include="SILLY\src\SILLYImageLoaderManager.cpp" />
+    <ClCompile Include="SILLY\src\SILLYMemoryDataSource.cpp" />
+    <ClCompile Include="src\CEGUIBase.cpp" />
+    <ClCompile Include="src\CEGUIBoundSlot.cpp" />
+    <ClCompile Include="src\CEGUIcolour.cpp" />
+    <ClCompile Include="src\CEGUIColourRect.cpp" />
+    <ClCompile Include="src\CEGUIConfig_xmlHandler.cpp" />
+    <ClCompile Include="src\CEGUICoordConverter.cpp" />
+    <ClCompile Include="src\CEGUIDataContainer.cpp" />
+    <ClCompile Include="src\CEGUIDefaultLogger.cpp" />
+    <ClCompile Include="src\CEGUIDefaultResourceProvider.cpp" />
+    <ClCompile Include="src\CEGUIDynamicModule.cpp" />
+    <ClCompile Include="src\CEGUIEvent.cpp" />
+    <ClCompile Include="src\CEGUIEventArgs.cpp" />
+    <ClCompile Include="src\CEGUIEventSet.cpp" />
+    <ClCompile Include="src\CEGUIEventSignal.cpp" />
+    <ClCompile Include="src\CEGUIEventSignalSet.cpp" />
+    <ClCompile Include="src\CEGUIExceptions.cpp" />
+    <ClCompile Include="src\CEGUIFactoryModule.cpp" />
+    <ClCompile Include="src\CEGUIFont.cpp" />
+    <ClCompile Include="src\CEGUIFontManager.cpp" />
+    <ClCompile Include="src\CEGUIFontProperties.cpp" />
+    <ClCompile Include="src\CEGUIFont_xmlHandler.cpp" />
+    <ClCompile Include="src\CEGUIFreeTypeFont.cpp" />
+    <ClCompile Include="src\CEGUIGlobalEventSet.cpp" />
+    <ClCompile Include="src\CEGUIGUILayout_xmlHandler.cpp" />
+    <ClCompile Include="src\CEGUIImage.cpp" />
+    <ClCompile Include="src\CEGUIImageCodec.cpp" />
+    <ClCompile Include="src\CEGUIImageset.cpp" />
+    <ClCompile Include="src\CEGUIImagesetManager.cpp" />
+    <ClCompile Include="src\CEGUIImageset_xmlHandler.cpp" />
+    <ClCompile Include="src\CEGUILogger.cpp" />
+    <ClCompile Include="src\CEGUIMouseCursor.cpp" />
+    <ClCompile Include="src\CEGUIPixmapFont.cpp" />
+    <ClCompile Include="src\CEGUIProperty.cpp" />
+    <ClCompile Include="src\CEGUIPropertyHelper.cpp" />
+    <ClCompile Include="src\CEGUIPropertySet.cpp" />
+    <ClCompile Include="src\CEGUIRect.cpp" />
+    <ClCompile Include="src\CEGUIRenderCache.cpp" />
+    <ClCompile Include="src\CEGUIRenderer.cpp" />
+    <ClCompile Include="src\CEGUIScheme.cpp" />
+    <ClCompile Include="src\CEGUISchemeManager.cpp" />
+    <ClCompile Include="src\CEGUIScheme_xmlHandler.cpp" />
+    <ClCompile Include="src\CEGUIScriptModule.cpp" />
+    <ClCompile Include="src\CEGUIScriptWindowHelper.cpp" />
+    <ClCompile Include="src\CEGUISize.cpp" />
+    <ClCompile Include="src\CEGUIString.cpp" />
+    <ClCompile Include="src\CEGUISubscriberSlot.cpp" />
+    <ClCompile Include="src\CEGUISystem.cpp" />
+    <ClCompile Include="src\CEGUITexture.cpp" />
+    <ClCompile Include="src\CEGUITextUtils.cpp" />
+    <ClCompile Include="src\CEGUIWindow.cpp" />
+    <ClCompile Include="src\CEGUIWindowFactory.cpp" />
+    <ClCompile Include="src\CEGUIWindowFactoryManager.cpp" />
+    <ClCompile Include="src\CEGUIWindowManager.cpp" />
+    <ClCompile Include="src\CEGUIWindowProperties.cpp" />
+    <ClCompile Include="src\CEGUIWindowRenderer.cpp" />
+    <ClCompile Include="src\CEGUIWindowRendererManager.cpp" />
+    <ClCompile Include="src\CEGUIXMLAttributes.cpp" />
+    <ClCompile Include="src\CEGUIXMLHandler.cpp" />
+    <ClCompile Include="src\CEGUIXMLParser.cpp" />
+    <ClCompile Include="src\CEGUIXMLSerializer.cpp" />
+    <ClCompile Include="src\elements\CEGUIBaseFactories.cpp" />
+    <ClCompile Include="src\elements\CEGUIButtonBase.cpp" />
+    <ClCompile Include="src\elements\CEGUICheckbox.cpp" />
+    <ClCompile Include="src\elements\CEGUICheckboxProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUIClippedContainer.cpp" />
+    <ClCompile Include="src\elements\CEGUICombobox.cpp" />
+    <ClCompile Include="src\elements\CEGUIComboboxProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUIComboDropList.cpp" />
+    <ClCompile Include="src\elements\CEGUIDragContainer.cpp" />
+    <ClCompile Include="src\elements\CEGUIDragContainerProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUIEditbox.cpp" />
+    <ClCompile Include="src\elements\CEGUIEditboxProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUIFrameWindow.cpp" />
+    <ClCompile Include="src\elements\CEGUIFrameWindowProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUIGroupBox.cpp" />
+    <ClCompile Include="src\elements\CEGUIGUISheet.cpp" />
+    <ClCompile Include="src\elements\CEGUIItemEntry.cpp" />
+    <ClCompile Include="src\elements\CEGUIItemEntryProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUIItemListBase.cpp" />
+    <ClCompile Include="src\elements\CEGUIItemListBaseProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUIItemListbox.cpp" />
+    <ClCompile Include="src\elements\CEGUIItemListboxProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUIListbox.cpp" />
+    <ClCompile Include="src\elements\CEGUIListboxItem.cpp" />
+    <ClCompile Include="src\elements\CEGUIListboxProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUIListboxTextItem.cpp" />
+    <ClCompile Include="src\elements\CEGUIListHeader.cpp" />
+    <ClCompile Include="src\elements\CEGUIListHeaderProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUIListHeaderSegment.cpp" />
+    <ClCompile Include="src\elements\CEGUIListHeaderSegmentProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUIMenubar.cpp" />
+    <ClCompile Include="src\elements\CEGUIMenuBase.cpp" />
+    <ClCompile Include="src\elements\CEGUIMenuBaseProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUIMenuItem.cpp" />
+    <ClCompile Include="src\elements\CEGUIMultiColumnList.cpp" />
+    <ClCompile Include="src\elements\CEGUIMultiColumnListProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUIMultiLineEditbox.cpp" />
+    <ClCompile Include="src\elements\CEGUIMultiLineEditboxProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUIPopupMenu.cpp" />
+    <ClCompile Include="src\elements\CEGUIPopupMenuProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUIProgressBar.cpp" />
+    <ClCompile Include="src\elements\CEGUIProgressBarProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUIPushButton.cpp" />
+    <ClCompile Include="src\elements\CEGUIRadioButton.cpp" />
+    <ClCompile Include="src\elements\CEGUIRadioButtonProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUIScrollablePane.cpp" />
+    <ClCompile Include="src\elements\CEGUIScrollablePaneProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUIScrollbar.cpp" />
+    <ClCompile Include="src\elements\CEGUIScrollbarProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUIScrolledContainer.cpp" />
+    <ClCompile Include="src\elements\CEGUIScrolledContainerProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUIScrolledItemListBase.cpp" />
+    <ClCompile Include="src\elements\CEGUIScrolledItemListBaseProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUISlider.cpp" />
+    <ClCompile Include="src\elements\CEGUISliderProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUISpinner.cpp" />
+    <ClCompile Include="src\elements\CEGUISpinnerProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUITabButton.cpp" />
+    <ClCompile Include="src\elements\CEGUITabControl.cpp" />
+    <ClCompile Include="src\elements\CEGUITabControlProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUIThumb.cpp" />
+    <ClCompile Include="src\elements\CEGUIThumbProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUITitlebar.cpp" />
+    <ClCompile Include="src\elements\CEGUITitlebarProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUITooltip.cpp" />
+    <ClCompile Include="src\elements\CEGUITooltipProperties.cpp" />
+    <ClCompile Include="src\elements\CEGUITree.cpp" />
+    <ClCompile Include="src\elements\CEGUITreeItem.cpp" />
+    <ClCompile Include="src\elements\CEGUITreeProperties.cpp" />
+    <ClCompile Include="src\falagard\CEGUIFalagard_xmlHandler.cpp" />
+    <ClCompile Include="src\falagard\CEGUIFalComponentBase.cpp" />
+    <ClCompile Include="src\falagard\CEGUIFalDimensions.cpp" />
+    <ClCompile Include="src\falagard\CEGUIFalFrameComponent.cpp" />
+    <ClCompile Include="src\falagard\CEGUIFalImageryComponent.cpp" />
+    <ClCompile Include="src\falagard\CEGUIFalImagerySection.cpp" />
+    <ClCompile Include="src\falagard\CEGUIFalLayerSpecification.cpp" />
+    <ClCompile Include="src\falagard\CEGUIFalNamedArea.cpp" />
+    <ClCompile Include="src\falagard\CEGUIFalPropertyDefinition.cpp" />
+    <ClCompile Include="src\falagard\CEGUIFalPropertyDefinitionBase.cpp" />
+    <ClCompile Include="src\falagard\CEGUIFalPropertyInitialiser.cpp" />
+    <ClCompile Include="src\falagard\CEGUIFalPropertyLinkDefinition.cpp" />
+    <ClCompile Include="src\falagard\CEGUIFalSectionSpecification.cpp" />
+    <ClCompile Include="src\falagard\CEGUIFalStateImagery.cpp" />
+    <ClCompile Include="src\falagard\CEGUIFalTextComponent.cpp" />
+    <ClCompile Include="src\falagard\CEGUIFalWidgetComponent.cpp" />
+    <ClCompile Include="src\falagard\CEGUIFalWidgetLookFeel.cpp" />
+    <ClCompile Include="src\falagard\CEGUIFalWidgetLookManager.cpp" />
+    <ClCompile Include="src\falagard\CEGUIFalXMLEnumHelper.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="glfw\internal.h" />
+    <ClInclude Include="glfw\platform.h" />
+    <ClInclude Include="jpeg\jdct.h" />
+    <ClInclude Include="jpeg\jinclude.h" />
+    <ClInclude Include="jpeg\jmemsys.h" />
+    <ClInclude Include="jpeg\jpegint.h" />
+    <ClInclude Include="jpeg\jversion.h" />
+    <ClInclude Include="libexpat\ascii.h" />
+    <ClInclude Include="libexpat\asciitab.h" />
+    <ClInclude Include="libexpat\expat.h" />
+    <ClInclude Include="libexpat\expat_external.h" />
+    <ClInclude Include="libexpat\iasciitab.h" />
+    <ClInclude Include="libexpat\internal.h" />
+    <ClInclude Include="libexpat\latin1tab.h" />
+    <ClInclude Include="libexpat\nametab.h" />
+    <ClInclude Include="libexpat\utf8tab.h" />
+    <ClInclude Include="libexpat\winconfig.h" />
+    <ClInclude Include="libexpat\xmlrole.h" />
+    <ClInclude Include="libexpat\xmltok.h" />
+    <ClInclude Include="libexpat\xmltok_impl.h" />
+    <ClInclude Include="libpng\pngpriv.h" />
+    <ClInclude Include="pcre\config.h" />
+    <ClInclude Include="pcre\pcre.h" />
+    <ClInclude Include="pcre\pcre_internal.h" />
+    <ClInclude Include="pcre\ucp.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{DA4EA8BC-FE01-4287-83BE-D7A06A27E397}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>CEGUIBase</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\OgreGUIRenderer\dependencies\lib\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;CEGUIBASE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;CEGUIBASE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;OGRE_GUIRENDERER_EXPORTS;_SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS;_CRT_SECURE_NO_DEPRECATE;CEGUIBASE_EXPORTS;PCRE_STATIC;HAVE_CONFIG_H;HAVE_WINDOWS_H;HAVE_ZLIB_H;SUPPORT_UTF8;HAVE_STDINT_H=0;HAVE_INTTYPES_H=0;SILLY_STATIC;SILLY_HAVE_JPG;SILLY_HAVE_PNG;_CRT_SECURE_NO_WARNINGS;FXDPF;FT2_BUILD_LIBRARY;COMPILED_FROM_DSP;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>SILLY\include;pcre;..\zlibstatic\include;..\freetype_2.4.4\include;include\CEGUI;include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>OpenGL32.lib;zlib.lib;freetype.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\OgreMain\dependencies\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <OutputFile>..\OgreGUIRenderer\dependencies\lib\CEGUIBase.dll</OutputFile>
+    </Link>
+    <PostBuildEvent>
+      <Command>move ..\OgreGUIRenderer\dependencies\lib\CEGUIBase.dll ..\dungeonhack</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;CEGUIBASE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{44275004-38a0-4919-92d4-04b245283f55}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
+    </Filter>
+    <Filter Include="Source Files\nvparse">
+      <UniqueIdentifier>{7f391f54-a1ad-4289-b2b0-e6a88dcc1d8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\atifs">
+      <UniqueIdentifier>{e2729349-be2e-459c-b94a-febb945bd038}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\glsl">
+      <UniqueIdentifier>{cfe845e9-264e-4880-b9be-eabbd7129f01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{fa549254-8738-458d-8ef8-c73ebfcbb6d2}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{a37065cd-6517-4b5a-8c79-838522730080}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\glew.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreGLATIFSInit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreGLContext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreGLDefaultHardwareBufferManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreGLEngineDll.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreGLFBOMultiRenderTarget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreGLFBORenderTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreGLFrameBufferObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreGLGpuNvparseProgram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreGLGpuProgram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreGLGpuProgramManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreGLHardwareBufferManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreGLHardwareIndexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreGLHardwareOcclusionQuery.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreGLHardwarePixelBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreGLHardwareVertexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreGLPBRenderTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreGLPixelFormat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreGLPlugin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreGLRenderSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreGLRenderTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreGLSupport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreGLTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreGLTextureManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreWin32GLSupport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreWin32RenderTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OgreWin32Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nvparse\_ps1.0_lexer.cpp">
+      <Filter>Source Files\nvparse</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nvparse\_ps1.0_parser.cpp">
+      <Filter>Source Files\nvparse</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nvparse\_rc1.0_lexer.cpp">
+      <Filter>Source Files\nvparse</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nvparse\_rc1.0_parser.cpp">
+      <Filter>Source Files\nvparse</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nvparse\_ts1.0_lexer.cpp">
+      <Filter>Source Files\nvparse</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nvparse\_ts1.0_parser.cpp">
+      <Filter>Source Files\nvparse</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nvparse\_vs1.0_lexer.cpp">
+      <Filter>Source Files\nvparse</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nvparse\_vs1.0_parser.cpp">
+      <Filter>Source Files\nvparse</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nvparse\avp1.0_impl.cpp">
+      <Filter>Source Files\nvparse</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nvparse\nvparse.cpp">
+      <Filter>Source Files\nvparse</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nvparse\nvparse_errors.cpp">
+      <Filter>Source Files\nvparse</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nvparse\ps1.0_program.cpp">
+      <Filter>Source Files\nvparse</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nvparse\rc1.0_combiners.cpp">
+      <Filter>Source Files\nvparse</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nvparse\rc1.0_final.cpp">
+      <Filter>Source Files\nvparse</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nvparse\rc1.0_general.cpp">
+      <Filter>Source Files\nvparse</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nvparse\ts1.0_inst.cpp">
+      <Filter>Source Files\nvparse</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nvparse\ts1.0_inst_list.cpp">
+      <Filter>Source Files\nvparse</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nvparse\vcp1.0_impl.cpp">
+      <Filter>Source Files\nvparse</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nvparse\vp1.0_impl.cpp">
+      <Filter>Source Files\nvparse</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nvparse\vs1.0_inst.cpp">
+      <Filter>Source Files\nvparse</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nvparse\vs1.0_inst_list.cpp">
+      <Filter>Source Files\nvparse</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nvparse\vsp1.0_impl.cpp">
+      <Filter>Source Files\nvparse</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLSL\src\OgreGLSLExtSupport.cpp">
+      <Filter>Source Files\glsl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLSL\src\OgreGLSLGpuProgram.cpp">
+      <Filter>Source Files\glsl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLSL\src\OgreGLSLLinkProgram.cpp">
+      <Filter>Source Files\glsl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLSL\src\OgreGLSLLinkProgramManager.cpp">
+      <Filter>Source Files\glsl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLSL\src\OgreGLSLProgram.cpp">
+      <Filter>Source Files\glsl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLSL\src\OgreGLSLProgramFactory.cpp">
+      <Filter>Source Files\glsl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\atifs\src\ATI_FS_GLGpuProgram.cpp">
+      <Filter>Source Files\atifs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\atifs\src\Compiler2Pass.cpp">
+      <Filter>Source Files\atifs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\atifs\src\ps_1_4.cpp">
+      <Filter>Source Files\atifs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\win32\OgreWin32Context.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\nvparse\_ps1.0_parser.h">
+      <Filter>Source Files\nvparse</Filter>
+    </ClInclude>
+    <ClInclude Include="src\nvparse\_rc1.0_parser.h">
+      <Filter>Source Files\nvparse</Filter>
+    </ClInclude>
+    <ClInclude Include="src\nvparse\_ts1.0_parser.h">
+      <Filter>Source Files\nvparse</Filter>
+    </ClInclude>
+    <ClInclude Include="src\nvparse\_vs1.0_parser.h">
+      <Filter>Source Files\nvparse</Filter>
+    </ClInclude>
+    <ClInclude Include="src\nvparse\macro.h">
+      <Filter>Source Files\nvparse</Filter>
+    </ClInclude>
+    <ClInclude Include="src\nvparse\nvparse.h">
+      <Filter>Source Files\nvparse</Filter>
+    </ClInclude>
+    <ClInclude Include="src\nvparse\nvparse_errors.h">
+      <Filter>Source Files\nvparse</Filter>
+    </ClInclude>
+    <ClInclude Include="src\nvparse\nvparse_externs.h">
+      <Filter>Source Files\nvparse</Filter>
+    </ClInclude>
+    <ClInclude Include="src\nvparse\ps1.0_program.h">
+      <Filter>Source Files\nvparse</Filter>
+    </ClInclude>
+    <ClInclude Include="src\nvparse\rc1.0_combiners.h">
+      <Filter>Source Files\nvparse</Filter>
+    </ClInclude>
+    <ClInclude Include="src\nvparse\rc1.0_final.h">
+      <Filter>Source Files\nvparse</Filter>
+    </ClInclude>
+    <ClInclude Include="src\nvparse\rc1.0_general.h">
+      <Filter>Source Files\nvparse</Filter>
+    </ClInclude>
+    <ClInclude Include="src\nvparse\rc1.0_register.h">
+      <Filter>Source Files\nvparse</Filter>
+    </ClInclude>
+    <ClInclude Include="src\nvparse\ts1.0_inst.h">
+      <Filter>Source Files\nvparse</Filter>
+    </ClInclude>
+    <ClInclude Include="src\nvparse\ts1.0_inst_list.h">
+      <Filter>Source Files\nvparse</Filter>
+    </ClInclude>
+    <ClInclude Include="src\nvparse\vs1.0_inst.h">
+      <Filter>Source Files\nvparse</Filter>
+    </ClInclude>
+    <ClInclude Include="src\nvparse\vs1.0_inst_list.h">
+      <Filter>Source Files\nvparse</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

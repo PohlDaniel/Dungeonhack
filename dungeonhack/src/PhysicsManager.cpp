@@ -136,15 +136,15 @@ btOverlappingPairCache& PhysicsManager::getOverlappingPairCache()
 */
 void PhysicsManager::checkCollisions()
 {
-    map<btCollisionObject*, CollisionInfo> newContacts;
+    map<const btCollisionObject*, CollisionInfo> newContacts;
 
     /* Browse all collision pairs */
     int numManifolds = m_dispatcher->getNumManifolds();
     for (int i=0; i<numManifolds; i++)
     {
         btPersistentManifold* contactManifold = m_dispatcher->getManifoldByIndexInternal(i);
-        btCollisionObject* obA = static_cast<btCollisionObject*>(contactManifold->getBody0()); // collider
-        btCollisionObject* obB = static_cast<btCollisionObject*>(contactManifold->getBody1()); // collidee
+        const btCollisionObject* obA = static_cast<btCollisionObject*>(contactManifold->getBody0()); // collider
+		const btCollisionObject* obB = static_cast<btCollisionObject*>(contactManifold->getBody1()); // collidee
 
         /* Check all contacts points */
         int numContacts = contactManifold->getNumContacts();
@@ -172,7 +172,7 @@ void PhysicsManager::checkCollisions()
     }
 
     /* Check for added contacts ... */
-    map<btCollisionObject*, CollisionInfo>::iterator it;
+    map<const btCollisionObject*, CollisionInfo>::iterator it;
     for (it = newContacts.begin(); it != newContacts.end(); it++)
     {
         if (m_contacts.find((*it).first) == m_contacts.end())

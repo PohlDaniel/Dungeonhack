@@ -32,6 +32,10 @@ CharacterController::CharacterController(const btVector3& initialPosition, btSca
     world->addCollisionObject(m_ghostObject, btBroadphaseProxy::StaticFilter
         | btBroadphaseProxy::DefaultFilter);
     world->addAction(this);
+
+	//setUp(btVector3(0.0f, 1.0f, 0.0f));
+	//setStepHeight(m_stepHeight);
+	//setGravity(btVector3(0, -10, 0));
 }
 
 CharacterController::~CharacterController()

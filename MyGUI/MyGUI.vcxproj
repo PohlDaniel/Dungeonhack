@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{0530EE73-F2C1-4B5B-82BA-EC982D3C4E5E}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>MyGUI</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\lib\OgreSDK\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;MYGUI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;MYGUI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;MYGUI_BUILD;_SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS;MYGUI_DONT_REPLACE_NULLPTR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\freetype_2.4.4\include;..\OIS\include;..\OgreMain\include;include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <OutputFile>..\lib\OgreSDK\MyGUI.dll</OutputFile>
+      <AdditionalLibraryDirectories>..\OgreMain\dependencies\lib;..\lib\OgreSDK;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OgreMain.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>move ..\lib\OgreSDK\MyGUI.dll ..\dungeonhack</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;MYGUI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\MyGUI_ActionController.cpp" />
+    <ClCompile Include="src\MyGUI_Any.cpp" />
+    <ClCompile Include="src\MyGUI_Button.cpp" />
+    <ClCompile Include="src\MyGUI_ButtonFactory.cpp" />
+    <ClCompile Include="src\MyGUI_Canvas.cpp" />
+    <ClCompile Include="src\MyGUI_CanvasFactory.cpp" />
+    <ClCompile Include="src\MyGUI_ClipboardManager.cpp" />
+    <ClCompile Include="src\MyGUI_Colour.cpp" />
+    <ClCompile Include="src\MyGUI_ComboBox.cpp" />
+    <ClCompile Include="src\MyGUI_ComboBoxFactory.cpp" />
+    <ClCompile Include="src\MyGUI_ControllerEdgeHide.cpp" />
+    <ClCompile Include="src\MyGUI_ControllerFadeAlpha.cpp" />
+    <ClCompile Include="src\MyGUI_ControllerManager.cpp" />
+    <ClCompile Include="src\MyGUI_ControllerPosition.cpp" />
+    <ClCompile Include="src\MyGUI_Convert.cpp" />
+    <ClCompile Include="src\MyGUI_DDContainer.cpp" />
+    <ClCompile Include="src\MyGUI_DDContainerFactory.cpp" />
+    <ClCompile Include="src\MyGUI_DocArray.cpp" />
+    <ClCompile Include="src\MyGUI_DocType.cpp" />
+    <ClCompile Include="src\MyGUI_DynLib.cpp" />
+    <ClCompile Include="src\MyGUI_DynLibManager.cpp" />
+    <ClCompile Include="src\MyGUI_Edit.cpp" />
+    <ClCompile Include="src\MyGUI_EditFactory.cpp" />
+    <ClCompile Include="src\MyGUI_EditText.cpp" />
+    <ClCompile Include="src\MyGUI_Font.cpp" />
+    <ClCompile Include="src\MyGUI_FontManager.cpp" />
+    <ClCompile Include="src\MyGUI_Gui.cpp" />
+    <ClCompile Include="src\MyGUI_Guid.cpp" />
+    <ClCompile Include="src\MyGUI_HScroll.cpp" />
+    <ClCompile Include="src\MyGUI_HScrollFactory.cpp" />
+    <ClCompile Include="src\MyGUI_InputManager.cpp" />
+    <ClCompile Include="src\MyGUI_ItemBox.cpp" />
+    <ClCompile Include="src\MyGUI_ItemBoxFactory.cpp" />
+    <ClCompile Include="src\MyGUI_IWidgetCreator.cpp" />
+    <ClCompile Include="src\MyGUI_LanguageManager.cpp" />
+    <ClCompile Include="src\MyGUI_LayerItemKeeper.cpp" />
+    <ClCompile Include="src\MyGUI_LayerKeeper.cpp" />
+    <ClCompile Include="src\MyGUI_LayerManager.cpp" />
+    <ClCompile Include="src\MyGUI_LayoutManager.cpp" />
+    <ClCompile Include="src\MyGUI_List.cpp" />
+    <ClCompile Include="src\MyGUI_ListFactory.cpp" />
+    <ClCompile Include="src\MyGUI_LogManager.cpp" />
+    <ClCompile Include="src\MyGUI_LogStream.cpp" />
+    <ClCompile Include="src\MyGUI_MainSkin.cpp" />
+    <ClCompile Include="src\MyGUI_MaskPickInfo.cpp" />
+    <ClCompile Include="src\MyGUI_MenuBar.cpp" />
+    <ClCompile Include="src\MyGUI_MenuBarFactory.cpp" />
+    <ClCompile Include="src\MyGUI_MenuCtrl.cpp" />
+    <ClCompile Include="src\MyGUI_MenuCtrlFactory.cpp" />
+    <ClCompile Include="src\MyGUI_MenuItem.cpp" />
+    <ClCompile Include="src\MyGUI_MenuItemFactory.cpp" />
+    <ClCompile Include="src\MyGUI_Message.cpp" />
+    <ClCompile Include="src\MyGUI_MessageFactory.cpp" />
+    <ClCompile Include="src\MyGUI_MultiList.cpp" />
+    <ClCompile Include="src\MyGUI_MultiListFactory.cpp" />
+    <ClCompile Include="src\MyGUI_PluginManager.cpp" />
+    <ClCompile Include="src\MyGUI_PointerManager.cpp" />
+    <ClCompile Include="src\MyGUI_PopupMenu.cpp" />
+    <ClCompile Include="src\MyGUI_PopupMenuFactory.cpp" />
+    <ClCompile Include="src\MyGUI_Precompiled.cpp" />
+    <ClCompile Include="src\MyGUI_Progress.cpp" />
+    <ClCompile Include="src\MyGUI_ProgressFactory.cpp" />
+    <ClCompile Include="src\MyGUI_RawRect.cpp" />
+    <ClCompile Include="src\MyGUI_RenderBox.cpp" />
+    <ClCompile Include="src\MyGUI_RenderBoxFactory.cpp" />
+    <ClCompile Include="src\MyGUI_RenderItem.cpp" />
+    <ClCompile Include="src\MyGUI_RenderOut.cpp" />
+    <ClCompile Include="src\MyGUI_ResourceImageSet.cpp" />
+    <ClCompile Include="src\MyGUI_ResourceManager.cpp" />
+    <ClCompile Include="src\MyGUI_ResourcePath.cpp" />
+    <ClCompile Include="src\MyGUI_ScrollView.cpp" />
+    <ClCompile Include="src\MyGUI_ScrollViewBase.cpp" />
+    <ClCompile Include="src\MyGUI_ScrollViewFactory.cpp" />
+    <ClCompile Include="src\MyGUI_SimpleText.cpp" />
+    <ClCompile Include="src\MyGUI_SkinManager.cpp" />
+    <ClCompile Include="src\MyGUI_StaticImage.cpp" />
+    <ClCompile Include="src\MyGUI_StaticImageFactory.cpp" />
+    <ClCompile Include="src\MyGUI_StaticText.cpp" />
+    <ClCompile Include="src\MyGUI_StaticTextFactory.cpp" />
+    <ClCompile Include="src\MyGUI_SubSkin.cpp" />
+    <ClCompile Include="src\MyGUI_SubWidgetManager.cpp" />
+    <ClCompile Include="src\MyGUI_Tab.cpp" />
+    <ClCompile Include="src\MyGUI_TabFactory.cpp" />
+    <ClCompile Include="src\MyGUI_TabItem.cpp" />
+    <ClCompile Include="src\MyGUI_TabItemFactory.cpp" />
+    <ClCompile Include="src\MyGUI_TextIterator.cpp" />
+    <ClCompile Include="src\MyGUI_TileRect.cpp" />
+    <ClCompile Include="src\MyGUI_VScroll.cpp" />
+    <ClCompile Include="src\MyGUI_VScrollFactory.cpp" />
+    <ClCompile Include="src\MyGUI_Widget.cpp" />
+    <ClCompile Include="src\MyGUI_WidgetFactory.cpp" />
+    <ClCompile Include="src\MyGUI_WidgetManager.cpp" />
+    <ClCompile Include="src\MyGUI_Window.cpp" />
+    <ClCompile Include="src\MyGUI_WindowFactory.cpp" />
+    <ClCompile Include="src\MyGUI_XmlDocument.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

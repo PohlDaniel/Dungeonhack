@@ -57,7 +57,7 @@ private:
 
     bool m_debugMode; // Debug wireframes drawn when enabled
 
-    std::map<btCollisionObject*, CollisionInfo> m_contacts; // List of current contacts
+    std::map<const btCollisionObject*, CollisionInfo> m_contacts; // List of current contacts
     std::map<Ogre::Entity*, btCollisionShape*> m_cachedShapes; // Cache of collision shapes
 
     void checkCollisions();

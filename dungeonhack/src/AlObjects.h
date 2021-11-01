@@ -42,12 +42,12 @@ public:
     static OpenALManager* getSingletonPtr(void)
     { return static_cast<OpenALManager*>(ms_Singleton); }
 
-protected:
+
     static void AlLog(const char *level, const string &str)
     {
         cout << "OpenAL " << level << ": " << str << endl;
     }
-
+protected:
     ALuint loadALSound(const string &name);
     void killSound(float distance, int priority);
 

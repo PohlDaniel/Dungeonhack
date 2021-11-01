@@ -50,7 +50,7 @@ void GamePlayer::Update(float MoveFactor)
     Vector3 force = Vector3::ZERO;
 
     m_charControl->setOrientation(quat); // Set our current turn angle
-
+	//m_velocity = BtOgre::Convert::toOgre(m_charControl->getLinearVelocity());
     // Update force vector based on view orientation
     if(m_noClip)
     {
@@ -60,9 +60,10 @@ void GamePlayer::Update(float MoveFactor)
     }
     else
     {
+		
         // Bullet "gravity" for CharacterController stepping seems to have no acceleration
         // component (intended for stepping down sloped terrain?), let's make our own
-        m_velocity.y -= 7.2f;
+        m_velocity.y -= 3.0f;
         if(m_velocity.y < 0 && m_charControl->onGround())
             m_velocity.y = 0;
         force = quat * m_velocity;
@@ -250,6 +251,7 @@ void GamePlayer::startJumpEvent()
 {
     m_isJumpPressed = true;
     float fatigueCost = 40.0f;
+	float jumpHeight = 50.0f;
 
     if(!m_charControl->onGround())
         return;
@@ -257,10 +259,12 @@ void GamePlayer::startJumpEvent()
     // Make sure we are not too tired to jump
     if(getFatigue() - fatigueCost > 0)
     {
-        if(isRunning)
-            m_velocity.y = 50 * m_SpeedMod;
+		if (isRunning)
+			//m_charControl->jump(btVector3(0, 5, 0));
+            m_velocity.y = jumpHeight * m_SpeedMod;
         else
-            m_velocity.y = 40 * m_SpeedMod;
+			//m_charControl->jump(btVector3(0, 5, 0));
+            m_velocity.y = jumpHeight * 0.8 * m_SpeedMod;
 
         // Reduce Fatigue. Jumping is hard in all that plate mail.
         setFatigue(getFatigue() - fatigueCost);

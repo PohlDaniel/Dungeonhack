@@ -1,0 +1,1558 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Toolkit">
+      <UniqueIdentifier>{4e58aef7-9161-4279-aa8a-fea6e7042f31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Conversion">
+      <UniqueIdentifier>{e936456f-5b13-4128-8268-ddc38149656d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DeprecationMgr">
+      <UniqueIdentifier>{56095529-ce1f-403a-9fc8-73f2edd3e628}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Metadata">
+      <UniqueIdentifier>{a256b0f1-f64f-4930-a032-c48d0ba632ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MultiPaging">
+      <UniqueIdentifier>{b5d851b8-8838-4546-98ac-4b11a46efdfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Plugins">
+      <UniqueIdentifier>{6fc95f05-12c7-45bd-9c30-849c995bbd29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Quantizer">
+      <UniqueIdentifier>{8710c7fb-4262-4a86-87be-8330221791c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LibJPEG">
+      <UniqueIdentifier>{491e6d92-0d0b-4799-b008-60c10a6ba165}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LibMNG">
+      <UniqueIdentifier>{9626d1ee-d34e-4326-8a35-fcb59f0e786e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LibOpenJPEG">
+      <UniqueIdentifier>{9f0d49a2-361b-422d-9dba-67f1b383cc55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LibPNG">
+      <UniqueIdentifier>{a96bcc8a-a3ef-42a6-956b-20c16ad0e73e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LibRaw">
+      <UniqueIdentifier>{e2973369-7584-4b15-bdeb-dba713d0aebf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LibTIFF">
+      <UniqueIdentifier>{66fbd51b-e2b6-4d06-b280-d107f966185c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpenEXR">
+      <UniqueIdentifier>{0d4ecd92-0a28-491c-949f-a14b3b34c967}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{c2645a66-c6a8-4c48-b7c9-25fab4dcfa30}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Toolkit\Background.cpp">
+      <Filter>Toolkit</Filter>
+    </ClCompile>
+    <ClCompile Include="Toolkit\BSplineRotate.cpp">
+      <Filter>Toolkit</Filter>
+    </ClCompile>
+    <ClCompile Include="Toolkit\Channels.cpp">
+      <Filter>Toolkit</Filter>
+    </ClCompile>
+    <ClCompile Include="Toolkit\ClassicRotate.cpp">
+      <Filter>Toolkit</Filter>
+    </ClCompile>
+    <ClCompile Include="Toolkit\Colors.cpp">
+      <Filter>Toolkit</Filter>
+    </ClCompile>
+    <ClCompile Include="Toolkit\CopyPaste.cpp">
+      <Filter>Toolkit</Filter>
+    </ClCompile>
+    <ClCompile Include="Toolkit\Display.cpp">
+      <Filter>Toolkit</Filter>
+    </ClCompile>
+    <ClCompile Include="Toolkit\Flip.cpp">
+      <Filter>Toolkit</Filter>
+    </ClCompile>
+    <ClCompile Include="Toolkit\JPEGTransform.cpp">
+      <Filter>Toolkit</Filter>
+    </ClCompile>
+    <ClCompile Include="Toolkit\MultigridPoissonSolver.cpp">
+      <Filter>Toolkit</Filter>
+    </ClCompile>
+    <ClCompile Include="Toolkit\Rescale.cpp">
+      <Filter>Toolkit</Filter>
+    </ClCompile>
+    <ClCompile Include="Toolkit\Resize.cpp">
+      <Filter>Toolkit</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Conversion\Conversion.cpp">
+      <Filter>Source Files\Conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Conversion\Conversion4.cpp">
+      <Filter>Source Files\Conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Conversion\Conversion8.cpp">
+      <Filter>Source Files\Conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Conversion\Conversion16_555.cpp">
+      <Filter>Source Files\Conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Conversion\Conversion16_565.cpp">
+      <Filter>Source Files\Conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Conversion\Conversion24.cpp">
+      <Filter>Source Files\Conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Conversion\Conversion32.cpp">
+      <Filter>Source Files\Conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Conversion\ConversionFloat.cpp">
+      <Filter>Source Files\Conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Conversion\ConversionRGBF.cpp">
+      <Filter>Source Files\Conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Conversion\ConversionType.cpp">
+      <Filter>Source Files\Conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Conversion\ConversionUINT16.cpp">
+      <Filter>Source Files\Conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Conversion\Halftoning.cpp">
+      <Filter>Source Files\Conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Conversion\tmoColorConvert.cpp">
+      <Filter>Source Files\Conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Conversion\tmoDrago03.cpp">
+      <Filter>Source Files\Conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Conversion\tmoFattal02.cpp">
+      <Filter>Source Files\Conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Conversion\tmoReinhard05.cpp">
+      <Filter>Source Files\Conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Conversion\ToneMapping.cpp">
+      <Filter>Source Files\Conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DeprecationMgr\Deprecated.cpp">
+      <Filter>Source Files\DeprecationMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DeprecationMgr\DeprecationMgr.cpp">
+      <Filter>Source Files\DeprecationMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Metadata\Exif.cpp">
+      <Filter>Source Files\Metadata</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Metadata\FIRational.cpp">
+      <Filter>Source Files\Metadata</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Metadata\FreeImageTag.cpp">
+      <Filter>Source Files\Metadata</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Metadata\IPTC.cpp">
+      <Filter>Source Files\Metadata</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Metadata\TagConversion.cpp">
+      <Filter>Source Files\Metadata</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Metadata\TagLib.cpp">
+      <Filter>Source Files\Metadata</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Metadata\XTIFF.cpp">
+      <Filter>Source Files\Metadata</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MultiPaging\CacheFile.cpp">
+      <Filter>Source Files\MultiPaging</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MultiPaging\MultiPage.cpp">
+      <Filter>Source Files\MultiPaging</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MultiPaging\ZLibInterface.cpp">
+      <Filter>Source Files\MultiPaging</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Quantizer\NNQuantizer.cpp">
+      <Filter>Source Files\Quantizer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Quantizer\WuQuantizer.cpp">
+      <Filter>Source Files\Quantizer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\J2KHelper.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\Plugin.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginBMP.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginCUT.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginDDS.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginEXR.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginG3.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginGIF.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginHDR.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginICO.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginIFF.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginJ2K.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginJP2.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginJPEG.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginKOALA.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginMNG.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginPCD.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginPCX.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginPFM.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginPICT.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginPNG.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginPNM.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginPSD.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginRAS.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginRAW.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginSGI.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginTARGA.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginTIFF.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginWBMP.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginXBM.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PluginXPM.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\PSDParser.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plugins\TIFFLogLuv.cpp">
+      <Filter>Source Files\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BitmapAccess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ColorLookup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FreeImage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FreeImageIO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GetType.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MemoryIO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PixelAccess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jaricom.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jcapimin.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jcapistd.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jcarith.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jccoefct.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jccolor.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jcdctmgr.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jchuff.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jcinit.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jcmainct.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jcmarker.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jcmaster.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jcomapi.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jcparam.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jcprepct.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jcsample.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jctrans.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jdapimin.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jdapistd.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jdarith.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jdatadst.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jdatasrc.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jdcoefct.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jdcolor.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jddctmgr.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jdhuff.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jdinput.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jdmainct.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jdmarker.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jdmaster.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jdmerge.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jdpostct.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jdsample.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jdtrans.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jerror.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jfdctflt.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jfdctfst.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jfdctint.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jidctflt.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jidctfst.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jidctint.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jmemmgr.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jmemnobs.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jquant1.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jquant2.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\jutils.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibJPEG\transupp.c">
+      <Filter>LibJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibMNG\libmng_callback_xs.c">
+      <Filter>LibMNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibMNG\libmng_chunk_descr.c">
+      <Filter>LibMNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibMNG\libmng_chunk_io.c">
+      <Filter>LibMNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibMNG\libmng_chunk_prc.c">
+      <Filter>LibMNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibMNG\libmng_chunk_xs.c">
+      <Filter>LibMNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibMNG\libmng_cms.c">
+      <Filter>LibMNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibMNG\libmng_display.c">
+      <Filter>LibMNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibMNG\libmng_dither.c">
+      <Filter>LibMNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibMNG\libmng_error.c">
+      <Filter>LibMNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibMNG\libmng_filter.c">
+      <Filter>LibMNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibMNG\libmng_hlapi.c">
+      <Filter>LibMNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibMNG\libmng_jpeg.c">
+      <Filter>LibMNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibMNG\libmng_object_prc.c">
+      <Filter>LibMNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibMNG\libmng_pixels.c">
+      <Filter>LibMNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibMNG\libmng_prop_xs.c">
+      <Filter>LibMNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibMNG\libmng_read.c">
+      <Filter>LibMNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibMNG\libmng_trace.c">
+      <Filter>LibMNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibMNG\libmng_write.c">
+      <Filter>LibMNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibMNG\libmng_zlib.c">
+      <Filter>LibMNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibOpenJPEG\bio.c">
+      <Filter>LibOpenJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibOpenJPEG\cio.c">
+      <Filter>LibOpenJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibOpenJPEG\dwt.c">
+      <Filter>LibOpenJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibOpenJPEG\event.c">
+      <Filter>LibOpenJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibOpenJPEG\image.c">
+      <Filter>LibOpenJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibOpenJPEG\j2k.c">
+      <Filter>LibOpenJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibOpenJPEG\j2k_lib.c">
+      <Filter>LibOpenJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibOpenJPEG\jp2.c">
+      <Filter>LibOpenJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibOpenJPEG\jpt.c">
+      <Filter>LibOpenJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibOpenJPEG\mct.c">
+      <Filter>LibOpenJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibOpenJPEG\mqc.c">
+      <Filter>LibOpenJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibOpenJPEG\openjpeg.c">
+      <Filter>LibOpenJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibOpenJPEG\pi.c">
+      <Filter>LibOpenJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibOpenJPEG\raw.c">
+      <Filter>LibOpenJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibOpenJPEG\t1.c">
+      <Filter>LibOpenJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibOpenJPEG\t2.c">
+      <Filter>LibOpenJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibOpenJPEG\tcd.c">
+      <Filter>LibOpenJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibOpenJPEG\tgt.c">
+      <Filter>LibOpenJPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibPNG\png.c">
+      <Filter>LibPNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibPNG\pngerror.c">
+      <Filter>LibPNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibPNG\pngget.c">
+      <Filter>LibPNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibPNG\pngmem.c">
+      <Filter>LibPNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibPNG\pngpread.c">
+      <Filter>LibPNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibPNG\pngread.c">
+      <Filter>LibPNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibPNG\pngrio.c">
+      <Filter>LibPNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibPNG\pngrtran.c">
+      <Filter>LibPNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibPNG\pngrutil.c">
+      <Filter>LibPNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibPNG\pngset.c">
+      <Filter>LibPNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibPNG\pngtrans.c">
+      <Filter>LibPNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibPNG\pngwio.c">
+      <Filter>LibPNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibPNG\pngwrite.c">
+      <Filter>LibPNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibPNG\pngwtran.c">
+      <Filter>LibPNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibPNG\pngwutil.c">
+      <Filter>LibPNG</Filter>
+    </ClCompile>
+    <ClCompile Include="LibRawLite\dcraw_common.cpp">
+      <Filter>LibRaw</Filter>
+    </ClCompile>
+    <ClCompile Include="LibRawLite\dcraw_fileio.cpp">
+      <Filter>LibRaw</Filter>
+    </ClCompile>
+    <ClCompile Include="LibRawLite\demosaic_packs.cpp">
+      <Filter>LibRaw</Filter>
+    </ClCompile>
+    <ClCompile Include="LibRawLite\libraw_c_api.cpp">
+      <Filter>LibRaw</Filter>
+    </ClCompile>
+    <ClCompile Include="LibRawLite\libraw_cxx.cpp">
+      <Filter>LibRaw</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_aux.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_close.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_codec.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_color.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_compress.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_dir.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_dirinfo.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_dirread.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_dirwrite.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_dumpmode.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_error.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_extension.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_fax3.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_fax3sm.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_flush.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_getimage.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_jpeg.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_luv.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_lzw.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_next.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_ojpeg.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_open.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_packbits.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_pixarlog.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_predict.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_print.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_read.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_strip.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_swab.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_thunder.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_tile.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_version.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_warning.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_write.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="LibTIFF\tif_zip.c">
+      <Filter>LibTIFF</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\half.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\IexBaseExc.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\IexThrowErrnoExc.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\IlmThread.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\IlmThreadMutex.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\IlmThreadPool.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\IlmThreadSemaphore.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImathBox.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImathColorAlgo.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImathFun.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImathMatrixAlgo.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImathRandom.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImathShear.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImathVec.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfAttribute.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfB44Compressor.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfBoxAttribute.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfChannelList.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfChannelListAttribute.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfChromaticities.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfChromaticitiesAttribute.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfCompressionAttribute.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfCompressor.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfConvert.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfCRgbaFile.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfDoubleAttribute.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfEnvmap.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfEnvmapAttribute.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfFloatAttribute.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfFrameBuffer.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfFramesPerSecond.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfHeader.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfHuf.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfInputFile.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfIntAttribute.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfIO.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfKeyCode.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfKeyCodeAttribute.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfLineOrderAttribute.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfLut.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfMatrixAttribute.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfMisc.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfOpaqueAttribute.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfOutputFile.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfPizCompressor.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfPreviewImage.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfPreviewImageAttribute.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfPxr24Compressor.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfRational.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfRationalAttribute.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfRgbaFile.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfRgbaYca.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfRleCompressor.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfScanLineInputFile.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfStandardAttributes.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfStdIO.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfStringAttribute.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfStringVectorAttribute.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfTestFile.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfThreading.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfTileDescriptionAttribute.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfTiledInputFile.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfTiledMisc.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfTiledOutputFile.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfTiledRgbaFile.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfTileOffsets.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfTimeCode.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfTimeCodeAttribute.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfVecAttribute.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfVersion.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfWav.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenEXR\ImfZipCompressor.cpp">
+      <Filter>OpenEXR</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Toolkit\Filters.h">
+      <Filter>Toolkit</Filter>
+    </ClInclude>
+    <ClInclude Include="Toolkit\Resize.h">
+      <Filter>Toolkit</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DeprecationMgr\DeprecationMgr.h">
+      <Filter>Source Files\DeprecationMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Metadata\FIRational.h">
+      <Filter>Source Files\Metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Metadata\FreeImageTag.h">
+      <Filter>Source Files\Metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Plugins\PSDParser.h">
+      <Filter>Source Files\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="LibJPEG\jconfig.h">
+      <Filter>LibJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibJPEG\jdct.h">
+      <Filter>LibJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibJPEG\jerror.h">
+      <Filter>LibJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibJPEG\jinclude.h">
+      <Filter>LibJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibJPEG\jmemsys.h">
+      <Filter>LibJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibJPEG\jmorecfg.h">
+      <Filter>LibJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibJPEG\jpegint.h">
+      <Filter>LibJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibJPEG\jpeglib.h">
+      <Filter>LibJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibJPEG\jversion.h">
+      <Filter>LibJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibJPEG\transupp.h">
+      <Filter>LibJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibMNG\libmng.h">
+      <Filter>LibMNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibMNG\libmng_chunk_descr.h">
+      <Filter>LibMNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibMNG\libmng_chunk_io.h">
+      <Filter>LibMNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibMNG\libmng_chunk_prc.h">
+      <Filter>LibMNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibMNG\libmng_chunks.h">
+      <Filter>LibMNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibMNG\libmng_cms.h">
+      <Filter>LibMNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibMNG\libmng_conf.h">
+      <Filter>LibMNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibMNG\libmng_data.h">
+      <Filter>LibMNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibMNG\libmng_display.h">
+      <Filter>LibMNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibMNG\libmng_dither.h">
+      <Filter>LibMNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibMNG\libmng_error.h">
+      <Filter>LibMNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibMNG\libmng_filter.h">
+      <Filter>LibMNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibMNG\libmng_jpeg.h">
+      <Filter>LibMNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibMNG\libmng_memory.h">
+      <Filter>LibMNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibMNG\libmng_object_prc.h">
+      <Filter>LibMNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibMNG\libmng_objects.h">
+      <Filter>LibMNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibMNG\libmng_pixels.h">
+      <Filter>LibMNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibMNG\libmng_read.h">
+      <Filter>LibMNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibMNG\libmng_trace.h">
+      <Filter>LibMNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibMNG\libmng_types.h">
+      <Filter>LibMNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibMNG\libmng_write.h">
+      <Filter>LibMNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibMNG\libmng_zlib.h">
+      <Filter>LibMNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibOpenJPEG\bio.h">
+      <Filter>LibOpenJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibOpenJPEG\cio.h">
+      <Filter>LibOpenJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibOpenJPEG\dwt.h">
+      <Filter>LibOpenJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibOpenJPEG\event.h">
+      <Filter>LibOpenJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibOpenJPEG\fix.h">
+      <Filter>LibOpenJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibOpenJPEG\image.h">
+      <Filter>LibOpenJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibOpenJPEG\int.h">
+      <Filter>LibOpenJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibOpenJPEG\j2k.h">
+      <Filter>LibOpenJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibOpenJPEG\j2k_lib.h">
+      <Filter>LibOpenJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibOpenJPEG\jp2.h">
+      <Filter>LibOpenJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibOpenJPEG\jpt.h">
+      <Filter>LibOpenJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibOpenJPEG\mct.h">
+      <Filter>LibOpenJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibOpenJPEG\mqc.h">
+      <Filter>LibOpenJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibOpenJPEG\openjpeg.h">
+      <Filter>LibOpenJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibOpenJPEG\opj_config.h">
+      <Filter>LibOpenJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibOpenJPEG\opj_includes.h">
+      <Filter>LibOpenJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibOpenJPEG\opj_malloc.h">
+      <Filter>LibOpenJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibOpenJPEG\pi.h">
+      <Filter>LibOpenJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibOpenJPEG\raw.h">
+      <Filter>LibOpenJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibOpenJPEG\t1.h">
+      <Filter>LibOpenJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibOpenJPEG\t1_luts.h">
+      <Filter>LibOpenJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibOpenJPEG\t2.h">
+      <Filter>LibOpenJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibOpenJPEG\tcd.h">
+      <Filter>LibOpenJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibOpenJPEG\tgt.h">
+      <Filter>LibOpenJPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibPNG\png.h">
+      <Filter>LibPNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibPNG\pngconf.h">
+      <Filter>LibPNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibPNG\pngpriv.h">
+      <Filter>LibPNG</Filter>
+    </ClInclude>
+    <ClInclude Include="LibRawLite\defines.h">
+      <Filter>LibRaw</Filter>
+    </ClInclude>
+    <ClInclude Include="LibRawLite\libraw.h">
+      <Filter>LibRaw</Filter>
+    </ClInclude>
+    <ClInclude Include="LibRawLite\libraw_alloc.h">
+      <Filter>LibRaw</Filter>
+    </ClInclude>
+    <ClInclude Include="LibRawLite\libraw_const.h">
+      <Filter>LibRaw</Filter>
+    </ClInclude>
+    <ClInclude Include="LibRawLite\libraw_datastream.h">
+      <Filter>LibRaw</Filter>
+    </ClInclude>
+    <ClInclude Include="LibRawLite\libraw_internal.h">
+      <Filter>LibRaw</Filter>
+    </ClInclude>
+    <ClInclude Include="LibRawLite\libraw_internal_funcs.h">
+      <Filter>LibRaw</Filter>
+    </ClInclude>
+    <ClInclude Include="LibRawLite\libraw_types.h">
+      <Filter>LibRaw</Filter>
+    </ClInclude>
+    <ClInclude Include="LibRawLite\libraw_version.h">
+      <Filter>LibRaw</Filter>
+    </ClInclude>
+    <ClInclude Include="LibRawLite\var_defines.h">
+      <Filter>LibRaw</Filter>
+    </ClInclude>
+    <ClInclude Include="LibTIFF\t4.h">
+      <Filter>LibTIFF</Filter>
+    </ClInclude>
+    <ClInclude Include="LibTIFF\tif_config.h">
+      <Filter>LibTIFF</Filter>
+    </ClInclude>
+    <ClInclude Include="LibTIFF\tif_dir.h">
+      <Filter>LibTIFF</Filter>
+    </ClInclude>
+    <ClInclude Include="LibTIFF\tif_fax3.h">
+      <Filter>LibTIFF</Filter>
+    </ClInclude>
+    <ClInclude Include="LibTIFF\tif_predict.h">
+      <Filter>LibTIFF</Filter>
+    </ClInclude>
+    <ClInclude Include="LibTIFF\tiff.h">
+      <Filter>LibTIFF</Filter>
+    </ClInclude>
+    <ClInclude Include="LibTIFF\tiffio.h">
+      <Filter>LibTIFF</Filter>
+    </ClInclude>
+    <ClInclude Include="LibTIFF\tiffiop.h">
+      <Filter>LibTIFF</Filter>
+    </ClInclude>
+    <ClInclude Include="LibTIFF\tiffvers.h">
+      <Filter>LibTIFF</Filter>
+    </ClInclude>
+    <ClInclude Include="LibTIFF\uvcode.h">
+      <Filter>LibTIFF</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\b44ExpLogTable.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\eLut.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\half.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\halfFunction.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\halfLimits.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\Iex.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\IexBaseExc.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\IexErrnoExc.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\IexMacros.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\IexMathExc.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\IexThrowErrnoExc.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\IlmBaseConfig.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\IlmThread.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\IlmThreadMutex.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\IlmThreadPool.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\IlmThreadSemaphore.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathBox.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathBoxAlgo.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathColor.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathColorAlgo.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathEuler.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathExc.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathFrame.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathFrustum.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathFun.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathGL.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathGLU.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathHalfLimits.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathInt64.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathInterval.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathLimits.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathLine.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathLineAlgo.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathMath.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathMatrix.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathMatrixAlgo.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathPlane.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathPlatform.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathQuat.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathRandom.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathRoots.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathShear.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathSphere.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathVec.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImathVecAlgo.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfAcesFile.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfArray.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfAttribute.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfAutoArray.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfB44Compressor.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfBoxAttribute.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfChannelList.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfChannelListAttribute.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfCheckedArithmetic.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfChromaticities.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfChromaticitiesAttribute.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfCompression.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfCompressionAttribute.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfCompressor.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfConvert.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfCRgbaFile.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfDoubleAttribute.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfEnvmap.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfEnvmapAttribute.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfFloatAttribute.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfFrameBuffer.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfFramesPerSecond.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfHeader.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfHuf.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfInputFile.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfInt64.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfIntAttribute.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfIO.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfKeyCode.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfKeyCodeAttribute.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfLineOrder.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfLineOrderAttribute.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfLut.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfMatrixAttribute.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfMisc.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfMultiView.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfName.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfOpaqueAttribute.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfOutputFile.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfPixelType.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfPizCompressor.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfPreviewImage.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfPreviewImageAttribute.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfPxr24Compressor.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfRational.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfRationalAttribute.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfRgba.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfRgbaFile.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfRgbaYca.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfRleCompressor.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfScanLineInputFile.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfStandardAttributes.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfStdIO.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfStringAttribute.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfStringVectorAttribute.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfTestFile.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfThreading.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfTileDescription.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfTileDescriptionAttribute.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfTiledInputFile.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfTiledMisc.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfTiledOutputFile.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfTiledRgbaFile.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfTileOffsets.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfTimeCode.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfTimeCodeAttribute.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfVecAttribute.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfVersion.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfWav.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfXdr.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\ImfZipCompressor.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\OpenEXRConfig.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenEXR\toFloat.h">
+      <Filter>OpenEXR</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FreeImage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ToneMapping.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

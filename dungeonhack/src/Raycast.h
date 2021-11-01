@@ -113,7 +113,7 @@ public:
 
     btAlignedObjectArray<btVector3>    m_hitsNormalWorld;
     btAlignedObjectArray<btVector3>    m_hitsPointWorld;
-    map<btCollisionObject*, int> m_hitsCollisionObject;
+    map<const btCollisionObject*, int> m_hitsCollisionObject;
 
     virtual btScalar addSingleResult(btCollisionWorld::LocalConvexResult& convexResult,
             bool normalInWorldSpace)

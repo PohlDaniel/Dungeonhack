@@ -121,12 +121,12 @@ void GameEmitterProjectile::onHit()
         btTransform(btQuaternion(), BtOgre::Convert::toBullet(end)),
         ray);
 
-    map<btCollisionObject*, int> checkObjects;
+    //map<const btCollisionObject*, int> checkObjects;
     if (ray.hasHit())
     {
         PlayState* ps = static_cast<PlayState*>(GameManager::getSingletonPtr()->getCurrentState());
 
-        map<btCollisionObject*, int>::iterator it = ray.m_hitsCollisionObject.begin();
+        map<const btCollisionObject*, int>::iterator it = ray.m_hitsCollisionObject.begin();
         for (; it != ray.m_hitsCollisionObject.end(); it++)
         {
             PhysicsEntity* entity = static_cast<PhysicsEntity*>((*it).first->getUserPointer());

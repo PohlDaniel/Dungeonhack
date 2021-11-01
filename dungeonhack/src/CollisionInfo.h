@@ -12,10 +12,10 @@ class CollisionInfo
 public:
     CollisionInfo() : obA(NULL) {}
 
-    CollisionInfo(btCollisionObject* o, const btVector3& a, const btVector3& b, const btVector3& n)
+    CollisionInfo(const btCollisionObject* o, const btVector3& a, const btVector3& b, const btVector3& n)
         : obA(o), ptA(a), ptB(b), normalOnB(n) {}
 
-    btCollisionObject* obA;
+    const btCollisionObject* obA;
     btVector3 ptA;
     btVector3 ptB;
     btVector3 normalOnB;

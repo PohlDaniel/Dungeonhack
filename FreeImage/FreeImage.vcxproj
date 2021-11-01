@@ -1,0 +1,643 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{02CBF20F-A794-404B-BDE8-9E37FB2ED681}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>FreeImage</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\OgreMain\dependencies\lib\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;OPJ_STATIC;_CRT_SECURE_NO_DEPRECATE;LIBRAW_NODLL;FREEIMAGE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>include;..\zlibstatic\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <OutputFile>..\OgreMain\dependencies\lib\FreeImage.dll</OutputFile>
+    </Link>
+    <Lib>
+      <OutputFile>..\OgreMain\dependencies\lib\FreeImage.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="LibJPEG\jaricom.c" />
+    <ClCompile Include="LibJPEG\jcapimin.c" />
+    <ClCompile Include="LibJPEG\jcapistd.c" />
+    <ClCompile Include="LibJPEG\jcarith.c" />
+    <ClCompile Include="LibJPEG\jccoefct.c" />
+    <ClCompile Include="LibJPEG\jccolor.c" />
+    <ClCompile Include="LibJPEG\jcdctmgr.c" />
+    <ClCompile Include="LibJPEG\jchuff.c" />
+    <ClCompile Include="LibJPEG\jcinit.c" />
+    <ClCompile Include="LibJPEG\jcmainct.c" />
+    <ClCompile Include="LibJPEG\jcmarker.c" />
+    <ClCompile Include="LibJPEG\jcmaster.c" />
+    <ClCompile Include="LibJPEG\jcomapi.c" />
+    <ClCompile Include="LibJPEG\jcparam.c" />
+    <ClCompile Include="LibJPEG\jcprepct.c" />
+    <ClCompile Include="LibJPEG\jcsample.c" />
+    <ClCompile Include="LibJPEG\jctrans.c" />
+    <ClCompile Include="LibJPEG\jdapimin.c" />
+    <ClCompile Include="LibJPEG\jdapistd.c" />
+    <ClCompile Include="LibJPEG\jdarith.c" />
+    <ClCompile Include="LibJPEG\jdatadst.c" />
+    <ClCompile Include="LibJPEG\jdatasrc.c" />
+    <ClCompile Include="LibJPEG\jdcoefct.c" />
+    <ClCompile Include="LibJPEG\jdcolor.c" />
+    <ClCompile Include="LibJPEG\jddctmgr.c" />
+    <ClCompile Include="LibJPEG\jdhuff.c" />
+    <ClCompile Include="LibJPEG\jdinput.c" />
+    <ClCompile Include="LibJPEG\jdmainct.c" />
+    <ClCompile Include="LibJPEG\jdmarker.c" />
+    <ClCompile Include="LibJPEG\jdmaster.c" />
+    <ClCompile Include="LibJPEG\jdmerge.c" />
+    <ClCompile Include="LibJPEG\jdpostct.c" />
+    <ClCompile Include="LibJPEG\jdsample.c" />
+    <ClCompile Include="LibJPEG\jdtrans.c" />
+    <ClCompile Include="LibJPEG\jerror.c" />
+    <ClCompile Include="LibJPEG\jfdctflt.c" />
+    <ClCompile Include="LibJPEG\jfdctfst.c" />
+    <ClCompile Include="LibJPEG\jfdctint.c" />
+    <ClCompile Include="LibJPEG\jidctflt.c" />
+    <ClCompile Include="LibJPEG\jidctfst.c" />
+    <ClCompile Include="LibJPEG\jidctint.c" />
+    <ClCompile Include="LibJPEG\jmemmgr.c" />
+    <ClCompile Include="LibJPEG\jmemnobs.c" />
+    <ClCompile Include="LibJPEG\jquant1.c" />
+    <ClCompile Include="LibJPEG\jquant2.c" />
+    <ClCompile Include="LibJPEG\jutils.c" />
+    <ClCompile Include="LibJPEG\transupp.c" />
+    <ClCompile Include="LibMNG\libmng_callback_xs.c" />
+    <ClCompile Include="LibMNG\libmng_chunk_descr.c" />
+    <ClCompile Include="LibMNG\libmng_chunk_io.c" />
+    <ClCompile Include="LibMNG\libmng_chunk_prc.c" />
+    <ClCompile Include="LibMNG\libmng_chunk_xs.c" />
+    <ClCompile Include="LibMNG\libmng_cms.c" />
+    <ClCompile Include="LibMNG\libmng_display.c" />
+    <ClCompile Include="LibMNG\libmng_dither.c" />
+    <ClCompile Include="LibMNG\libmng_error.c" />
+    <ClCompile Include="LibMNG\libmng_filter.c" />
+    <ClCompile Include="LibMNG\libmng_hlapi.c" />
+    <ClCompile Include="LibMNG\libmng_jpeg.c" />
+    <ClCompile Include="LibMNG\libmng_object_prc.c" />
+    <ClCompile Include="LibMNG\libmng_pixels.c" />
+    <ClCompile Include="LibMNG\libmng_prop_xs.c" />
+    <ClCompile Include="LibMNG\libmng_read.c" />
+    <ClCompile Include="LibMNG\libmng_trace.c" />
+    <ClCompile Include="LibMNG\libmng_write.c" />
+    <ClCompile Include="LibMNG\libmng_zlib.c" />
+    <ClCompile Include="LibOpenJPEG\bio.c" />
+    <ClCompile Include="LibOpenJPEG\cio.c" />
+    <ClCompile Include="LibOpenJPEG\dwt.c" />
+    <ClCompile Include="LibOpenJPEG\event.c" />
+    <ClCompile Include="LibOpenJPEG\image.c" />
+    <ClCompile Include="LibOpenJPEG\j2k.c" />
+    <ClCompile Include="LibOpenJPEG\j2k_lib.c" />
+    <ClCompile Include="LibOpenJPEG\jp2.c" />
+    <ClCompile Include="LibOpenJPEG\jpt.c" />
+    <ClCompile Include="LibOpenJPEG\mct.c" />
+    <ClCompile Include="LibOpenJPEG\mqc.c" />
+    <ClCompile Include="LibOpenJPEG\openjpeg.c" />
+    <ClCompile Include="LibOpenJPEG\pi.c" />
+    <ClCompile Include="LibOpenJPEG\raw.c" />
+    <ClCompile Include="LibOpenJPEG\t1.c" />
+    <ClCompile Include="LibOpenJPEG\t2.c" />
+    <ClCompile Include="LibOpenJPEG\tcd.c" />
+    <ClCompile Include="LibOpenJPEG\tgt.c" />
+    <ClCompile Include="LibPNG\png.c" />
+    <ClCompile Include="LibPNG\pngerror.c" />
+    <ClCompile Include="LibPNG\pngget.c" />
+    <ClCompile Include="LibPNG\pngmem.c" />
+    <ClCompile Include="LibPNG\pngpread.c" />
+    <ClCompile Include="LibPNG\pngread.c" />
+    <ClCompile Include="LibPNG\pngrio.c" />
+    <ClCompile Include="LibPNG\pngrtran.c" />
+    <ClCompile Include="LibPNG\pngrutil.c" />
+    <ClCompile Include="LibPNG\pngset.c" />
+    <ClCompile Include="LibPNG\pngtrans.c" />
+    <ClCompile Include="LibPNG\pngwio.c" />
+    <ClCompile Include="LibPNG\pngwrite.c" />
+    <ClCompile Include="LibPNG\pngwtran.c" />
+    <ClCompile Include="LibPNG\pngwutil.c" />
+    <ClCompile Include="LibRawLite\dcraw_common.cpp" />
+    <ClCompile Include="LibRawLite\dcraw_fileio.cpp" />
+    <ClCompile Include="LibRawLite\demosaic_packs.cpp" />
+    <ClCompile Include="LibRawLite\libraw_cxx.cpp" />
+    <ClCompile Include="LibRawLite\libraw_c_api.cpp" />
+    <ClCompile Include="LibTIFF\tif_aux.c" />
+    <ClCompile Include="LibTIFF\tif_close.c" />
+    <ClCompile Include="LibTIFF\tif_codec.c" />
+    <ClCompile Include="LibTIFF\tif_color.c" />
+    <ClCompile Include="LibTIFF\tif_compress.c" />
+    <ClCompile Include="LibTIFF\tif_dir.c" />
+    <ClCompile Include="LibTIFF\tif_dirinfo.c" />
+    <ClCompile Include="LibTIFF\tif_dirread.c" />
+    <ClCompile Include="LibTIFF\tif_dirwrite.c" />
+    <ClCompile Include="LibTIFF\tif_dumpmode.c" />
+    <ClCompile Include="LibTIFF\tif_error.c" />
+    <ClCompile Include="LibTIFF\tif_extension.c" />
+    <ClCompile Include="LibTIFF\tif_fax3.c" />
+    <ClCompile Include="LibTIFF\tif_fax3sm.c" />
+    <ClCompile Include="LibTIFF\tif_flush.c" />
+    <ClCompile Include="LibTIFF\tif_getimage.c" />
+    <ClCompile Include="LibTIFF\tif_jpeg.c" />
+    <ClCompile Include="LibTIFF\tif_luv.c" />
+    <ClCompile Include="LibTIFF\tif_lzw.c" />
+    <ClCompile Include="LibTIFF\tif_next.c" />
+    <ClCompile Include="LibTIFF\tif_ojpeg.c" />
+    <ClCompile Include="LibTIFF\tif_open.c" />
+    <ClCompile Include="LibTIFF\tif_packbits.c" />
+    <ClCompile Include="LibTIFF\tif_pixarlog.c" />
+    <ClCompile Include="LibTIFF\tif_predict.c" />
+    <ClCompile Include="LibTIFF\tif_print.c" />
+    <ClCompile Include="LibTIFF\tif_read.c" />
+    <ClCompile Include="LibTIFF\tif_strip.c" />
+    <ClCompile Include="LibTIFF\tif_swab.c" />
+    <ClCompile Include="LibTIFF\tif_thunder.c" />
+    <ClCompile Include="LibTIFF\tif_tile.c" />
+    <ClCompile Include="LibTIFF\tif_version.c" />
+    <ClCompile Include="LibTIFF\tif_warning.c" />
+    <ClCompile Include="LibTIFF\tif_write.c" />
+    <ClCompile Include="LibTIFF\tif_zip.c" />
+    <ClCompile Include="OpenEXR\half.cpp" />
+    <ClCompile Include="OpenEXR\IexBaseExc.cpp" />
+    <ClCompile Include="OpenEXR\IexThrowErrnoExc.cpp" />
+    <ClCompile Include="OpenEXR\IlmThread.cpp" />
+    <ClCompile Include="OpenEXR\IlmThreadMutex.cpp" />
+    <ClCompile Include="OpenEXR\IlmThreadPool.cpp" />
+    <ClCompile Include="OpenEXR\IlmThreadSemaphore.cpp" />
+    <ClCompile Include="OpenEXR\ImathBox.cpp" />
+    <ClCompile Include="OpenEXR\ImathColorAlgo.cpp" />
+    <ClCompile Include="OpenEXR\ImathFun.cpp" />
+    <ClCompile Include="OpenEXR\ImathMatrixAlgo.cpp" />
+    <ClCompile Include="OpenEXR\ImathRandom.cpp" />
+    <ClCompile Include="OpenEXR\ImathShear.cpp" />
+    <ClCompile Include="OpenEXR\ImathVec.cpp" />
+    <ClCompile Include="OpenEXR\ImfAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfB44Compressor.cpp" />
+    <ClCompile Include="OpenEXR\ImfBoxAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfChannelList.cpp" />
+    <ClCompile Include="OpenEXR\ImfChannelListAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfChromaticities.cpp" />
+    <ClCompile Include="OpenEXR\ImfChromaticitiesAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfCompressionAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfCompressor.cpp" />
+    <ClCompile Include="OpenEXR\ImfConvert.cpp" />
+    <ClCompile Include="OpenEXR\ImfCRgbaFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfDoubleAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfEnvmap.cpp" />
+    <ClCompile Include="OpenEXR\ImfEnvmapAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfFloatAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfFrameBuffer.cpp" />
+    <ClCompile Include="OpenEXR\ImfFramesPerSecond.cpp" />
+    <ClCompile Include="OpenEXR\ImfHeader.cpp" />
+    <ClCompile Include="OpenEXR\ImfHuf.cpp" />
+    <ClCompile Include="OpenEXR\ImfInputFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfIntAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfIO.cpp" />
+    <ClCompile Include="OpenEXR\ImfKeyCode.cpp" />
+    <ClCompile Include="OpenEXR\ImfKeyCodeAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfLineOrderAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfLut.cpp" />
+    <ClCompile Include="OpenEXR\ImfMatrixAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfMisc.cpp" />
+    <ClCompile Include="OpenEXR\ImfOpaqueAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfOutputFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfPizCompressor.cpp" />
+    <ClCompile Include="OpenEXR\ImfPreviewImage.cpp" />
+    <ClCompile Include="OpenEXR\ImfPreviewImageAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfPxr24Compressor.cpp" />
+    <ClCompile Include="OpenEXR\ImfRational.cpp" />
+    <ClCompile Include="OpenEXR\ImfRationalAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfRgbaFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfRgbaYca.cpp" />
+    <ClCompile Include="OpenEXR\ImfRleCompressor.cpp" />
+    <ClCompile Include="OpenEXR\ImfScanLineInputFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfStandardAttributes.cpp" />
+    <ClCompile Include="OpenEXR\ImfStdIO.cpp" />
+    <ClCompile Include="OpenEXR\ImfStringAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfStringVectorAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfTestFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfThreading.cpp" />
+    <ClCompile Include="OpenEXR\ImfTileDescriptionAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfTiledInputFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfTiledMisc.cpp" />
+    <ClCompile Include="OpenEXR\ImfTiledOutputFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfTiledRgbaFile.cpp" />
+    <ClCompile Include="OpenEXR\ImfTileOffsets.cpp" />
+    <ClCompile Include="OpenEXR\ImfTimeCode.cpp" />
+    <ClCompile Include="OpenEXR\ImfTimeCodeAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfVecAttribute.cpp" />
+    <ClCompile Include="OpenEXR\ImfVersion.cpp" />
+    <ClCompile Include="OpenEXR\ImfWav.cpp" />
+    <ClCompile Include="OpenEXR\ImfZipCompressor.cpp" />
+    <ClCompile Include="src\BitmapAccess.cpp" />
+    <ClCompile Include="src\ColorLookup.cpp" />
+    <ClCompile Include="src\Conversion\Conversion.cpp" />
+    <ClCompile Include="src\Conversion\Conversion16_555.cpp" />
+    <ClCompile Include="src\Conversion\Conversion16_565.cpp" />
+    <ClCompile Include="src\Conversion\Conversion24.cpp" />
+    <ClCompile Include="src\Conversion\Conversion32.cpp" />
+    <ClCompile Include="src\Conversion\Conversion4.cpp" />
+    <ClCompile Include="src\Conversion\Conversion8.cpp" />
+    <ClCompile Include="src\Conversion\ConversionFloat.cpp" />
+    <ClCompile Include="src\Conversion\ConversionRGBF.cpp" />
+    <ClCompile Include="src\Conversion\ConversionType.cpp" />
+    <ClCompile Include="src\Conversion\ConversionUINT16.cpp" />
+    <ClCompile Include="src\Conversion\Halftoning.cpp" />
+    <ClCompile Include="src\Conversion\tmoColorConvert.cpp" />
+    <ClCompile Include="src\Conversion\tmoDrago03.cpp" />
+    <ClCompile Include="src\Conversion\tmoFattal02.cpp" />
+    <ClCompile Include="src\Conversion\tmoReinhard05.cpp" />
+    <ClCompile Include="src\Conversion\ToneMapping.cpp" />
+    <ClCompile Include="src\DeprecationMgr\Deprecated.cpp" />
+    <ClCompile Include="src\DeprecationMgr\DeprecationMgr.cpp" />
+    <ClCompile Include="src\FreeImage.cpp" />
+    <ClCompile Include="src\FreeImageIO.cpp" />
+    <ClCompile Include="src\GetType.cpp" />
+    <ClCompile Include="src\MemoryIO.cpp" />
+    <ClCompile Include="src\Metadata\Exif.cpp" />
+    <ClCompile Include="src\Metadata\FIRational.cpp" />
+    <ClCompile Include="src\Metadata\FreeImageTag.cpp" />
+    <ClCompile Include="src\Metadata\IPTC.cpp" />
+    <ClCompile Include="src\Metadata\TagConversion.cpp" />
+    <ClCompile Include="src\Metadata\TagLib.cpp" />
+    <ClCompile Include="src\Metadata\XTIFF.cpp" />
+    <ClCompile Include="src\MultiPaging\CacheFile.cpp" />
+    <ClCompile Include="src\MultiPaging\MultiPage.cpp" />
+    <ClCompile Include="src\MultiPaging\ZLibInterface.cpp" />
+    <ClCompile Include="src\PixelAccess.cpp" />
+    <ClCompile Include="src\Plugins\J2KHelper.cpp" />
+    <ClCompile Include="src\Plugins\Plugin.cpp" />
+    <ClCompile Include="src\Plugins\PluginBMP.cpp" />
+    <ClCompile Include="src\Plugins\PluginCUT.cpp" />
+    <ClCompile Include="src\Plugins\PluginDDS.cpp" />
+    <ClCompile Include="src\Plugins\PluginEXR.cpp" />
+    <ClCompile Include="src\Plugins\PluginG3.cpp" />
+    <ClCompile Include="src\Plugins\PluginGIF.cpp" />
+    <ClCompile Include="src\Plugins\PluginHDR.cpp" />
+    <ClCompile Include="src\Plugins\PluginICO.cpp" />
+    <ClCompile Include="src\Plugins\PluginIFF.cpp" />
+    <ClCompile Include="src\Plugins\PluginJ2K.cpp" />
+    <ClCompile Include="src\Plugins\PluginJP2.cpp" />
+    <ClCompile Include="src\Plugins\PluginJPEG.cpp" />
+    <ClCompile Include="src\Plugins\PluginKOALA.cpp" />
+    <ClCompile Include="src\Plugins\PluginMNG.cpp" />
+    <ClCompile Include="src\Plugins\PluginPCD.cpp" />
+    <ClCompile Include="src\Plugins\PluginPCX.cpp" />
+    <ClCompile Include="src\Plugins\PluginPFM.cpp" />
+    <ClCompile Include="src\Plugins\PluginPICT.cpp" />
+    <ClCompile Include="src\Plugins\PluginPNG.cpp" />
+    <ClCompile Include="src\Plugins\PluginPNM.cpp" />
+    <ClCompile Include="src\Plugins\PluginPSD.cpp" />
+    <ClCompile Include="src\Plugins\PluginRAS.cpp" />
+    <ClCompile Include="src\Plugins\PluginRAW.cpp" />
+    <ClCompile Include="src\Plugins\PluginSGI.cpp" />
+    <ClCompile Include="src\Plugins\PluginTARGA.cpp" />
+    <ClCompile Include="src\Plugins\PluginTIFF.cpp" />
+    <ClCompile Include="src\Plugins\PluginWBMP.cpp" />
+    <ClCompile Include="src\Plugins\PluginXBM.cpp" />
+    <ClCompile Include="src\Plugins\PluginXPM.cpp" />
+    <ClCompile Include="src\Plugins\PSDParser.cpp" />
+    <ClCompile Include="src\Plugins\TIFFLogLuv.cpp" />
+    <ClCompile Include="src\Quantizer\NNQuantizer.cpp" />
+    <ClCompile Include="src\Quantizer\WuQuantizer.cpp" />
+    <ClCompile Include="Toolkit\Background.cpp" />
+    <ClCompile Include="Toolkit\BSplineRotate.cpp" />
+    <ClCompile Include="Toolkit\Channels.cpp" />
+    <ClCompile Include="Toolkit\ClassicRotate.cpp" />
+    <ClCompile Include="Toolkit\Colors.cpp" />
+    <ClCompile Include="Toolkit\CopyPaste.cpp" />
+    <ClCompile Include="Toolkit\Display.cpp" />
+    <ClCompile Include="Toolkit\Flip.cpp" />
+    <ClCompile Include="Toolkit\JPEGTransform.cpp" />
+    <ClCompile Include="Toolkit\MultigridPoissonSolver.cpp" />
+    <ClCompile Include="Toolkit\Rescale.cpp" />
+    <ClCompile Include="Toolkit\Resize.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\FreeImage.h" />
+    <ClInclude Include="include\ToneMapping.h" />
+    <ClInclude Include="include\Utilities.h" />
+    <ClInclude Include="LibJPEG\jconfig.h" />
+    <ClInclude Include="LibJPEG\jdct.h" />
+    <ClInclude Include="LibJPEG\jerror.h" />
+    <ClInclude Include="LibJPEG\jinclude.h" />
+    <ClInclude Include="LibJPEG\jmemsys.h" />
+    <ClInclude Include="LibJPEG\jmorecfg.h" />
+    <ClInclude Include="LibJPEG\jpegint.h" />
+    <ClInclude Include="LibJPEG\jpeglib.h" />
+    <ClInclude Include="LibJPEG\jversion.h" />
+    <ClInclude Include="LibJPEG\transupp.h" />
+    <ClInclude Include="LibMNG\libmng.h" />
+    <ClInclude Include="LibMNG\libmng_chunks.h" />
+    <ClInclude Include="LibMNG\libmng_chunk_descr.h" />
+    <ClInclude Include="LibMNG\libmng_chunk_io.h" />
+    <ClInclude Include="LibMNG\libmng_chunk_prc.h" />
+    <ClInclude Include="LibMNG\libmng_cms.h" />
+    <ClInclude Include="LibMNG\libmng_conf.h" />
+    <ClInclude Include="LibMNG\libmng_data.h" />
+    <ClInclude Include="LibMNG\libmng_display.h" />
+    <ClInclude Include="LibMNG\libmng_dither.h" />
+    <ClInclude Include="LibMNG\libmng_error.h" />
+    <ClInclude Include="LibMNG\libmng_filter.h" />
+    <ClInclude Include="LibMNG\libmng_jpeg.h" />
+    <ClInclude Include="LibMNG\libmng_memory.h" />
+    <ClInclude Include="LibMNG\libmng_objects.h" />
+    <ClInclude Include="LibMNG\libmng_object_prc.h" />
+    <ClInclude Include="LibMNG\libmng_pixels.h" />
+    <ClInclude Include="LibMNG\libmng_read.h" />
+    <ClInclude Include="LibMNG\libmng_trace.h" />
+    <ClInclude Include="LibMNG\libmng_types.h" />
+    <ClInclude Include="LibMNG\libmng_write.h" />
+    <ClInclude Include="LibMNG\libmng_zlib.h" />
+    <ClInclude Include="LibOpenJPEG\bio.h" />
+    <ClInclude Include="LibOpenJPEG\cio.h" />
+    <ClInclude Include="LibOpenJPEG\dwt.h" />
+    <ClInclude Include="LibOpenJPEG\event.h" />
+    <ClInclude Include="LibOpenJPEG\fix.h" />
+    <ClInclude Include="LibOpenJPEG\image.h" />
+    <ClInclude Include="LibOpenJPEG\int.h" />
+    <ClInclude Include="LibOpenJPEG\j2k.h" />
+    <ClInclude Include="LibOpenJPEG\j2k_lib.h" />
+    <ClInclude Include="LibOpenJPEG\jp2.h" />
+    <ClInclude Include="LibOpenJPEG\jpt.h" />
+    <ClInclude Include="LibOpenJPEG\mct.h" />
+    <ClInclude Include="LibOpenJPEG\mqc.h" />
+    <ClInclude Include="LibOpenJPEG\openjpeg.h" />
+    <ClInclude Include="LibOpenJPEG\opj_config.h" />
+    <ClInclude Include="LibOpenJPEG\opj_includes.h" />
+    <ClInclude Include="LibOpenJPEG\opj_malloc.h" />
+    <ClInclude Include="LibOpenJPEG\pi.h" />
+    <ClInclude Include="LibOpenJPEG\raw.h" />
+    <ClInclude Include="LibOpenJPEG\t1.h" />
+    <ClInclude Include="LibOpenJPEG\t1_luts.h" />
+    <ClInclude Include="LibOpenJPEG\t2.h" />
+    <ClInclude Include="LibOpenJPEG\tcd.h" />
+    <ClInclude Include="LibOpenJPEG\tgt.h" />
+    <ClInclude Include="LibPNG\png.h" />
+    <ClInclude Include="LibPNG\pngconf.h" />
+    <ClInclude Include="LibPNG\pngpriv.h" />
+    <ClInclude Include="LibRawLite\defines.h" />
+    <ClInclude Include="LibRawLite\libraw.h" />
+    <ClInclude Include="LibRawLite\libraw_alloc.h" />
+    <ClInclude Include="LibRawLite\libraw_const.h" />
+    <ClInclude Include="LibRawLite\libraw_datastream.h" />
+    <ClInclude Include="LibRawLite\libraw_internal.h" />
+    <ClInclude Include="LibRawLite\libraw_internal_funcs.h" />
+    <ClInclude Include="LibRawLite\libraw_types.h" />
+    <ClInclude Include="LibRawLite\libraw_version.h" />
+    <ClInclude Include="LibRawLite\var_defines.h" />
+    <ClInclude Include="LibTIFF\t4.h" />
+    <ClInclude Include="LibTIFF\tiff.h" />
+    <ClInclude Include="LibTIFF\tiffio.h" />
+    <ClInclude Include="LibTIFF\tiffiop.h" />
+    <ClInclude Include="LibTIFF\tiffvers.h" />
+    <ClInclude Include="LibTIFF\tif_config.h" />
+    <ClInclude Include="LibTIFF\tif_dir.h" />
+    <ClInclude Include="LibTIFF\tif_fax3.h" />
+    <ClInclude Include="LibTIFF\tif_predict.h" />
+    <ClInclude Include="LibTIFF\uvcode.h" />
+    <ClInclude Include="OpenEXR\b44ExpLogTable.h" />
+    <ClInclude Include="OpenEXR\eLut.h" />
+    <ClInclude Include="OpenEXR\half.h" />
+    <ClInclude Include="OpenEXR\halfFunction.h" />
+    <ClInclude Include="OpenEXR\halfLimits.h" />
+    <ClInclude Include="OpenEXR\Iex.h" />
+    <ClInclude Include="OpenEXR\IexBaseExc.h" />
+    <ClInclude Include="OpenEXR\IexErrnoExc.h" />
+    <ClInclude Include="OpenEXR\IexMacros.h" />
+    <ClInclude Include="OpenEXR\IexMathExc.h" />
+    <ClInclude Include="OpenEXR\IexThrowErrnoExc.h" />
+    <ClInclude Include="OpenEXR\IlmBaseConfig.h" />
+    <ClInclude Include="OpenEXR\IlmThread.h" />
+    <ClInclude Include="OpenEXR\IlmThreadMutex.h" />
+    <ClInclude Include="OpenEXR\IlmThreadPool.h" />
+    <ClInclude Include="OpenEXR\IlmThreadSemaphore.h" />
+    <ClInclude Include="OpenEXR\ImathBox.h" />
+    <ClInclude Include="OpenEXR\ImathBoxAlgo.h" />
+    <ClInclude Include="OpenEXR\ImathColor.h" />
+    <ClInclude Include="OpenEXR\ImathColorAlgo.h" />
+    <ClInclude Include="OpenEXR\ImathEuler.h" />
+    <ClInclude Include="OpenEXR\ImathExc.h" />
+    <ClInclude Include="OpenEXR\ImathFrame.h" />
+    <ClInclude Include="OpenEXR\ImathFrustum.h" />
+    <ClInclude Include="OpenEXR\ImathFun.h" />
+    <ClInclude Include="OpenEXR\ImathGL.h" />
+    <ClInclude Include="OpenEXR\ImathGLU.h" />
+    <ClInclude Include="OpenEXR\ImathHalfLimits.h" />
+    <ClInclude Include="OpenEXR\ImathInt64.h" />
+    <ClInclude Include="OpenEXR\ImathInterval.h" />
+    <ClInclude Include="OpenEXR\ImathLimits.h" />
+    <ClInclude Include="OpenEXR\ImathLine.h" />
+    <ClInclude Include="OpenEXR\ImathLineAlgo.h" />
+    <ClInclude Include="OpenEXR\ImathMath.h" />
+    <ClInclude Include="OpenEXR\ImathMatrix.h" />
+    <ClInclude Include="OpenEXR\ImathMatrixAlgo.h" />
+    <ClInclude Include="OpenEXR\ImathPlane.h" />
+    <ClInclude Include="OpenEXR\ImathPlatform.h" />
+    <ClInclude Include="OpenEXR\ImathQuat.h" />
+    <ClInclude Include="OpenEXR\ImathRandom.h" />
+    <ClInclude Include="OpenEXR\ImathRoots.h" />
+    <ClInclude Include="OpenEXR\ImathShear.h" />
+    <ClInclude Include="OpenEXR\ImathSphere.h" />
+    <ClInclude Include="OpenEXR\ImathVec.h" />
+    <ClInclude Include="OpenEXR\ImathVecAlgo.h" />
+    <ClInclude Include="OpenEXR\ImfAcesFile.h" />
+    <ClInclude Include="OpenEXR\ImfArray.h" />
+    <ClInclude Include="OpenEXR\ImfAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfAutoArray.h" />
+    <ClInclude Include="OpenEXR\ImfB44Compressor.h" />
+    <ClInclude Include="OpenEXR\ImfBoxAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfChannelList.h" />
+    <ClInclude Include="OpenEXR\ImfChannelListAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfCheckedArithmetic.h" />
+    <ClInclude Include="OpenEXR\ImfChromaticities.h" />
+    <ClInclude Include="OpenEXR\ImfChromaticitiesAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfCompression.h" />
+    <ClInclude Include="OpenEXR\ImfCompressionAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfCompressor.h" />
+    <ClInclude Include="OpenEXR\ImfConvert.h" />
+    <ClInclude Include="OpenEXR\ImfCRgbaFile.h" />
+    <ClInclude Include="OpenEXR\ImfDoubleAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfEnvmap.h" />
+    <ClInclude Include="OpenEXR\ImfEnvmapAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfFloatAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfFrameBuffer.h" />
+    <ClInclude Include="OpenEXR\ImfFramesPerSecond.h" />
+    <ClInclude Include="OpenEXR\ImfHeader.h" />
+    <ClInclude Include="OpenEXR\ImfHuf.h" />
+    <ClInclude Include="OpenEXR\ImfInputFile.h" />
+    <ClInclude Include="OpenEXR\ImfInt64.h" />
+    <ClInclude Include="OpenEXR\ImfIntAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfIO.h" />
+    <ClInclude Include="OpenEXR\ImfKeyCode.h" />
+    <ClInclude Include="OpenEXR\ImfKeyCodeAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfLineOrder.h" />
+    <ClInclude Include="OpenEXR\ImfLineOrderAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfLut.h" />
+    <ClInclude Include="OpenEXR\ImfMatrixAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfMisc.h" />
+    <ClInclude Include="OpenEXR\ImfMultiView.h" />
+    <ClInclude Include="OpenEXR\ImfName.h" />
+    <ClInclude Include="OpenEXR\ImfOpaqueAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfOutputFile.h" />
+    <ClInclude Include="OpenEXR\ImfPixelType.h" />
+    <ClInclude Include="OpenEXR\ImfPizCompressor.h" />
+    <ClInclude Include="OpenEXR\ImfPreviewImage.h" />
+    <ClInclude Include="OpenEXR\ImfPreviewImageAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfPxr24Compressor.h" />
+    <ClInclude Include="OpenEXR\ImfRational.h" />
+    <ClInclude Include="OpenEXR\ImfRationalAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfRgba.h" />
+    <ClInclude Include="OpenEXR\ImfRgbaFile.h" />
+    <ClInclude Include="OpenEXR\ImfRgbaYca.h" />
+    <ClInclude Include="OpenEXR\ImfRleCompressor.h" />
+    <ClInclude Include="OpenEXR\ImfScanLineInputFile.h" />
+    <ClInclude Include="OpenEXR\ImfStandardAttributes.h" />
+    <ClInclude Include="OpenEXR\ImfStdIO.h" />
+    <ClInclude Include="OpenEXR\ImfStringAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfStringVectorAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfTestFile.h" />
+    <ClInclude Include="OpenEXR\ImfThreading.h" />
+    <ClInclude Include="OpenEXR\ImfTileDescription.h" />
+    <ClInclude Include="OpenEXR\ImfTileDescriptionAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfTiledInputFile.h" />
+    <ClInclude Include="OpenEXR\ImfTiledMisc.h" />
+    <ClInclude Include="OpenEXR\ImfTiledOutputFile.h" />
+    <ClInclude Include="OpenEXR\ImfTiledRgbaFile.h" />
+    <ClInclude Include="OpenEXR\ImfTileOffsets.h" />
+    <ClInclude Include="OpenEXR\ImfTimeCode.h" />
+    <ClInclude Include="OpenEXR\ImfTimeCodeAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfVecAttribute.h" />
+    <ClInclude Include="OpenEXR\ImfVersion.h" />
+    <ClInclude Include="OpenEXR\ImfWav.h" />
+    <ClInclude Include="OpenEXR\ImfXdr.h" />
+    <ClInclude Include="OpenEXR\ImfZipCompressor.h" />
+    <ClInclude Include="OpenEXR\OpenEXRConfig.h" />
+    <ClInclude Include="OpenEXR\toFloat.h" />
+    <ClInclude Include="src\DeprecationMgr\DeprecationMgr.h" />
+    <ClInclude Include="src\Metadata\FIRational.h" />
+    <ClInclude Include="src\Metadata\FreeImageTag.h" />
+    <ClInclude Include="src\Plugins\PSDParser.h" />
+    <ClInclude Include="Toolkit\Filters.h" />
+    <ClInclude Include="Toolkit\Resize.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
