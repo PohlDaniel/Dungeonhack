@@ -116,14 +116,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS;OIS_1_2;ALURE_STATIC_LIBRARY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\include\OpenAL\include\AL;..\include\Python32_1;..\OgreMain\include;..\PagedGeometry\include;..\OIS\include;..\OIS\include\OIS;..\MyGUI\include;..\ALURE32\include;..\ALURE32\include\AL;src;src\btogre\include;src\xmlConfig;src\tinyXML;src\scripting;src\myguiWrapper;src\bullet274;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include\Python32_1;..\OpenAL32\include\AL;..\OgreMain\include;..\PagedGeometry\include;..\OIS\include;..\OIS\include\OIS;..\MyGUI\include;..\ALURE32\include;..\ALURE32\include\AL;src;src\btogre\include;src\xmlConfig;src\tinyXML;src\scripting;src\myguiWrapper;src\bullet274;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\lib\OpenAL\lib\WIN32;..\lib\Python32_1;..\lib\PagedGeometry;..\lib\OpenAL;..\lib\OgreSDK;..\lib\bullet;..\lib\alure;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\lib\Python32_1;..\lib\OpenAL;..\lib\PagedGeometry;..\lib\OgreSDK;..\lib\bullet;..\lib\alure;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>OgreMain.lib;OgreGUIRenderer.lib;MyGUI.lib;OIS.lib;OpenAL32.lib;PagedGeometry.lib;ALURE32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
